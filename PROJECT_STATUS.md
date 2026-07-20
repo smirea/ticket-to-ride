@@ -19,23 +19,23 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Bun API server and SvelteKit SPA scaffolded.
 - [x] Vite development proxy and production static serving configured.
 - [x] Shared environment parsing, theme tokens, TanStack Query, linting, formatting, and hooks configured.
-- [ ] No gameplay systems have been implemented.
+- [x] A deterministic single-player vertical slice is playable on the complete USA board.
 
-## Active milestone: Open and interact with a single-player game
+## Completed milestone: Open and interact with a single-player game
 
 Establish the real game architecture and produce the first usable vertical slice before completing every rule.
 
 - [x] Inspect the Steam home screen and single-player entry point.
-- [ ] Inspect Steam's single-player setup, opening ticket selection, board presentation, train-card draw, route claim, and turn-transition interactions.
-- [ ] Add shared serializable player, card, route, ticket, turn, and game-state types.
-- [ ] Add the USA city and route network as owned project data.
-- [ ] Add deterministic game creation and a typed semantic action boundary.
-- [ ] Build the reusable `GameScreen` and code-native SVG/CSS board.
-- [ ] Add `/debug/game` using the real shared state and `GameScreen`, with deterministic scenarios.
-- [ ] Add a Single Player entry point from `/`.
-- [ ] Support initial destination-ticket selection and at least one complete interactive turn.
-- [ ] Add a deterministic bot that performs a legal turn and returns control to the player.
-- [ ] Run tests, typecheck, lint, and a production build.
+- [x] Inspect Steam's single-player setup, opening ticket selection, board presentation, train-card draw, route claim, and turn-transition interactions.
+- [x] Add shared serializable player, card, route, ticket, turn, and game-state types.
+- [x] Add the USA city and route network as owned project data.
+- [x] Add deterministic game creation and a typed semantic action boundary.
+- [x] Build the reusable `GameScreen` and code-native SVG/CSS board.
+- [x] Add `/debug/game` using the real shared state and `GameScreen`, with deterministic scenarios.
+- [x] Add a Single Player entry point from `/`.
+- [x] Support initial destination-ticket selection and at least one complete interactive turn.
+- [x] Add a deterministic bot that performs a legal turn and returns control to the player.
+- [x] Run tests, typecheck, lint, and a production build.
 
 ### Acceptance criteria
 
@@ -54,7 +54,7 @@ Establish the real game architecture and produce the first usable vertical slice
 
 ## Roadmap
 
-### 2. Complete the local rules engine
+### 2. Complete the local rules engine (active)
 
 - [ ] Inspect the complete classic USA rules and edge cases in Steam.
 - [ ] Implement setup, deck construction, shuffling, dealing, and destination-ticket keep rules.
@@ -116,12 +116,14 @@ Establish the real game architecture and produce the first usable vertical slice
 
 # Bugs
 
-- The installed Steam game opens, but automated clicks do not advance past the home screen. Continue reference inspection manually or after resolving app input control.
+- None logged.
 
 # Notes
 
 - The server owns multiplayer state; clients send semantic actions and render authoritative snapshots.
 - Random outcomes or seeds must be stored in accepted state so replay remains deterministic.
 - `GameScreen` accepts plain game state, players, `viewerId`, and one `send(event)` callback.
+- Steam reference interaction is verified through single-player setup, opening ticket selection, face-up and blind card draws, route selection, and AI turn handoff. Route claims drag a matching card group onto the route; clicking a route and confirming is the accessible alternate flow.
+- The Unity client occasionally drops synthetic pointer-down events. Longer held input is reliable; Retina window captures must be converted from pixels to screen points before targeting board colliders.
 - Multiplayer work begins only after the local game is playable start-to-finish.
 - Other maps, reused commercial assets, authentication, matchmaking, and hostile-client security are out of scope.
