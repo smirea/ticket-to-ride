@@ -2,13 +2,13 @@
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import {
 		applyGameAction,
+		chooseBotAction,
 		createGame,
-		playBotTurns,
 		restoreGameState,
 		type GameAction,
 		type GameState,
 	} from '@repo/shared';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	type PageData = { name: string; bots: number; startFresh: boolean };
 	let { data }: { data: PageData } = $props();
@@ -18,6 +18,8 @@
 	let error = $state('');
 	let loaded = $state(false);
 	let saveStatus = $state('Loading save…');
+	let botMoving = $state(false);
+	let botTimer: ReturnType<typeof setTimeout> | undefined;
 
 	onMount(() => {
 		const saved = localStorage.getItem(savedGameKey);
@@ -30,7 +32,10 @@
 		}
 		loaded = true;
 		saveStatus = 'Saved locally';
+		scheduleBotAction();
 	});
+
+	onDestroy(() => clearTimeout(botTimer));
 
 	$effect(() => {
 		if (typeof localStorage === 'undefined' || !loaded) return;
@@ -46,12 +51,41 @@
 		}
 
 		error = '';
-		game = playBotTurns(result.state);
+		game = result.state;
+		scheduleBotAction();
 	}
 
 	function restart() {
+		clearTimeout(botTimer);
+		botMoving = false;
 		error = '';
 		game = createConfiguredGame(`single-player-${Date.now()}`);
+	}
+
+	function scheduleBotAction() {
+		clearTimeout(botTimer);
+		const player = game.players[game.currentPlayerIndex];
+		if (!player?.isBot || game.phase.type === 'game-over') {
+			botMoving = false;
+			return;
+		}
+
+		botMoving = true;
+		botTimer = setTimeout(() => {
+			const action = chooseBotAction(game);
+			if (!action) {
+				botMoving = false;
+				return;
+			}
+			const result = applyGameAction(game, action);
+			if (!result.ok) {
+				error = result.error;
+				botMoving = false;
+				return;
+			}
+			game = result.state;
+			scheduleBotAction();
+		}, 450);
 	}
 
 	function createConfiguredGame(seed: string) {
@@ -67,7 +101,7 @@
 	<nav aria-label="Game controls">
 		<a href="/">← Home</a>
 		{#if error}<p role="alert">{error}</p>{/if}
-		<span>{saveStatus}</span>
+		<span>{botMoving ? 'Rival thinking…' : saveStatus}</span>
 		<button type="button" onclick={restart}>New game</button>
 	</nav>
 	<GameScreen state={game} viewerId="player" {send} onrestart={restart} />
