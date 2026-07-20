@@ -86,23 +86,25 @@ Establish the real game architecture and produce the first usable vertical slice
 - [ ] Add the `/ -> /setup -> /lobby -> /room/[code]` route flow.
 - [ ] Reuse a consistent player/avatar presentation throughout the app.
 
-### 5. Add authoritative multiplayer rooms
+### 5. Add authoritative multiplayer rooms (backend complete; UI integration pending)
 
-- [ ] Add shared room state and typed RPC contracts.
-- [ ] Add create, join, leave, readiness, settings, and start actions.
-- [ ] Add SQLite-backed room and action persistence.
-- [ ] Make the Bun server validate actions with the shared rules engine.
-- [ ] Broadcast authoritative room snapshots through one per-room event stream.
+- [x] Add shared room state and typed request, response, and event contracts.
+- [x] Add create, join, leave, readiness, settings, and start actions.
+- [x] Add SQLite-backed room snapshots and accepted semantic action persistence.
+- [x] Make the Bun server validate actions with the shared rules engine.
+- [x] Broadcast authoritative room snapshots through one per-room SSE stream.
 - [ ] Add lobby and room screens using the real `GameScreen`.
-- [ ] Support refresh, reconnect, current-room recovery, and explicit abandon.
+- [x] Add current-room recovery, idempotent action retries, and explicit abandon semantics to the server.
+- [ ] Wire refresh and reconnect behavior into the UI room routes.
 - [ ] Add live-room debug save, load, and reset helpers.
 
 ### 6. Complete multiplayer gameplay
 
 - [ ] Verify secret information is hidden by the UI for the current viewer.
-- [ ] Verify turn ownership and invalid actions across multiple clients.
+- [x] Enforce turn ownership and reject invalid actions at the server boundary.
 - [ ] Support 2-5 players on the USA map.
-- [ ] Verify simultaneous joins, readiness changes, start consensus, disconnects, rejoins, spectators, and completed-room handling.
+- [x] Persist and stream completed or explicitly abandoned room snapshots.
+- [ ] Verify simultaneous joins, disconnects, rejoins, spectators, and completed rooms through the UI.
 - [ ] Test several same-browser clients with distinct `DEBUG_ID` values.
 - [ ] Prove a multiplayer game can be completed start-to-finish and survives refreshes.
 

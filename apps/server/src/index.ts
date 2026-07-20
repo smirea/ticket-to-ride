@@ -1,41 +1,25 @@
 import env from '@repo/shared/env';
+import { mkdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { createRequestHandler } from './app';
+import { RoomService } from './room-service';
+import { RoomStore } from './room-store';
+import { RoomStreams } from './room-streams';
 
 const uiBuildPath = new URL('../../ui/build/', import.meta.url);
+const databasePath = process.env.ROOM_DATABASE_PATH ?? resolve('.cache/ticket-to-ride.sqlite');
+if (databasePath !== ':memory:') mkdirSync(dirname(databasePath), { recursive: true });
+
+const store = new RoomStore(databasePath);
+const streams = new RoomStreams();
+const service = new RoomService(store, streams);
+const fetch = createRequestHandler({ service, uiBuildPath });
 
 const server = Bun.serve({
 	development: true,
 	idleTimeout: 120,
 	port: env.PORT,
-	routes: {
-		'/api/status': Response.json({ ok: true, now: new Date().toISOString() }),
-	},
-	async fetch(request) {
-		const url = new URL(request.url);
-
-		if (url.pathname.startsWith('/api/')) {
-			return Response.json({ ok: false, error: 'Not found' }, { status: 404 });
-		}
-
-		return staticFile(url.pathname);
-	},
+	fetch,
 });
-
-async function staticFile(pathname: string) {
-	const path = pathname === '/' ? '/index.html' : pathname;
-	const file = Bun.file(new URL(`.${path}`, uiBuildPath));
-
-	if (await file.exists()) {
-		return new Response(file);
-	}
-
-	const index = Bun.file(new URL('./index.html', uiBuildPath));
-	if (await index.exists()) {
-		return new Response(index);
-	}
-
-	return new Response('UI build not found. Run `bun run build` or use `bun run dev`.', {
-		status: 404,
-	});
-}
 
 console.log(`server listening on http://${server.hostname}:${server.port}`);
