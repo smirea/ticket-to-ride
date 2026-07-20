@@ -16,6 +16,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 
 ## Current
 
+- [x] Steam-reference UX parity pass completed: board-first HUD, side-docked gameplay decisions, map ticket previews, and motion polish.
 - [x] Bun API server and SvelteKit SPA scaffolded.
 - [x] Vite development proxy and production static serving configured.
 - [x] Shared environment parsing, theme tokens, TanStack Query, linting, formatting, and hooks configured.
@@ -23,6 +24,17 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Single player supports configurable rivals, automatic save/resume, restart, debug scenarios, and results.
 - [x] Bots deterministically pursue destination-ticket paths and complete full seeded games using only legal actions.
 - [x] Multiplayer supports private rooms, persistent browser identities, live lobby updates, authoritative turns, reconnect states, and explicit abandon.
+
+## Completed milestone: Steam-reference gameplay UX pass
+
+- [x] Capture and measure Steam's live in-match board and settings frames at the implementation viewport.
+- [x] Replace the page-like game dashboard with a full-viewport board and compact edge-mounted HUD.
+- [x] Keep the train market, decks, hand, player state, turn state, and destination tickets visible without pushing the board below the fold.
+- [x] Move destination choice, route payment, and final results into side drawers that preserve the map.
+- [x] Preview destination endpoints and their connection on the board from pointer, keyboard focus, and selection state.
+- [x] Add restrained drawer, turn, card, count, and route-claim animation with reduced-motion handling.
+- [x] Validate default turn, ticket selection, route claim, final results, and narrow-screen states through the real debug action path.
+- [x] Complete a same-viewport source/implementation comparison and record the result in `design-qa.md`.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -115,7 +127,7 @@ Establish the real game architecture and produce the first usable vertical slice
 
 ### 7. Reference parity and release polish
 
-- [ ] Audit every gameplay phase and interaction against the installed Steam game.
+- [ ] Audit every gameplay phase and interaction against the installed Steam game. In-match board and settings frames are captured; the board, ticket selection, claim payment, and results now follow the board-first interaction model.
 - [x] Finish responsive desktop and mobile layouts for setup, lobby, room, board, ticket selection, and results.
 - [x] Add keyboard route navigation, visible focus, semantic labels, live status, and reduced-motion behavior.
 - [ ] Complete contrast and screen-reader audits across every route.

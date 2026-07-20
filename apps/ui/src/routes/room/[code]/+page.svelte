@@ -246,7 +246,7 @@
 {#if room?.phase === 'playing' && game && identity}
 	<div class="live-room">
 		<header class="game-room-bar">
-			<a href={lobbyHref}>← Lobby</a>
+			<a href={lobbyHref}>Lobby</a>
 			<div class="room-title">
 				<span>Room</span>
 				<strong>{room.code}</strong>
@@ -952,21 +952,26 @@
 	}
 
 	.live-room {
-		min-height: 100vh;
+		height: 100svh;
+		overflow: hidden;
 		background: #07151b;
 	}
 
 	.game-room-bar {
-		position: relative;
-		z-index: 5;
+		position: fixed;
+		top: 0.65rem;
+		left: 0.65rem;
+		z-index: 30;
 		justify-content: space-between;
 		gap: 0.8rem;
-		min-height: 3.4rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		padding: 0.5rem 1rem;
-		background: #081116;
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 999px;
+		padding: 0.35rem 0.55rem;
+		background: rgba(8, 17, 22, 0.86);
+		box-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.24);
+		backdrop-filter: blur(12px);
 		color: #dce6e3;
-		font-size: 0.74rem;
+		font-size: 0.68rem;
 	}
 
 	.room-title {

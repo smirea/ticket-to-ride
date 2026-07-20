@@ -1,16 +1,17 @@
 <script lang="ts">
-	import type { City, GameState, Player, Route, RouteId } from '@repo/shared';
+	import type { City, DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { USA_CITIES, USA_ROUTES } from '@repo/shared';
 	import { tick } from 'svelte';
 
 	type Props = {
 		state: GameState;
 		selectedRouteId?: RouteId;
+		highlightedTicket?: DestinationTicket;
 		disabled?: boolean;
 		onselect: (route: Route) => void;
 	};
 
-	let { state: gameState, selectedRouteId, disabled = false, onselect }: Props = $props();
+	let { state: gameState, selectedRouteId, highlightedTicket, disabled = false, onselect }: Props = $props();
 
 	const cities = USA_CITIES as readonly City[];
 	const routes = USA_ROUTES as readonly Route[];
@@ -158,7 +159,11 @@
 		aria-describedby="board-description board-help"
 	>
 		<title id="board-title">Ticket to Ride USA board</title>
-		<desc id="board-description">A map of North American cities and the train routes connecting them.</desc>
+		<desc id="board-description">
+			A map of North American cities and the train routes connecting them.{highlightedTicket
+				? ` Previewing a destination from ${city(highlightedTicket.cityA).name} to ${city(highlightedTicket.cityB).name}.`
+				: ''}
+		</desc>
 
 		<defs>
 			<linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
@@ -168,6 +173,9 @@
 			</linearGradient>
 			<filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
 				<feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-opacity="0.24" />
+			</filter>
+			<filter id="route-glow" x="-40%" y="-80%" width="180%" height="260%">
+				<feGaussianBlur stdDeviation="5" />
 			</filter>
 			<pattern id="water-lines" width="36" height="20" patternUnits="userSpaceOnUse">
 				<path d="M0 10 Q9 4 18 10 T36 10" fill="none" stroke="#f6e8c4" stroke-opacity="0.18" stroke-width="2" />
@@ -187,6 +195,17 @@
 		<path d="M106 339 Q150 329 182 362" fill="none" stroke="#8ba3a0" stroke-width="8" opacity="0.45" />
 		<text x="500" y="108" class="map-title" text-anchor="middle">TICKET TO RIDE</text>
 		<text x="500" y="131" class="map-subtitle" text-anchor="middle">NORTH AMERICA</text>
+
+		{#key highlightedTicket?.id}
+			{#if highlightedTicket}
+				{@const ticketStart = city(highlightedTicket.cityA)}
+				{@const ticketEnd = city(highlightedTicket.cityB)}
+				<g class="ticket-preview-trace" aria-hidden="true">
+					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace-halo" />
+					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace" />
+				</g>
+			{/if}
+		{/key}
 
 		{#each routes as route (route.id)}
 			{@const routeOwner = owner(route)}
@@ -213,6 +232,13 @@
 					y2={geometry.end.y + geometry.normalY}
 					class="route-hitbox"
 				/>
+				<line
+					x1={geometry.start.x + geometry.normalX}
+					y1={geometry.start.y + geometry.normalY}
+					x2={geometry.end.x + geometry.normalX}
+					y2={geometry.end.y + geometry.normalY}
+					class="route-aura"
+				/>
 				{#each Array(route.length) as _, index}
 					{@const segment = segmentPosition(route, index)}
 					<rect
@@ -224,15 +250,22 @@
 						transform={`rotate(${segment.angle} ${segment.x} ${segment.y})`}
 						fill={routeOwner ? playerColors[routeOwner.color] : routeColors[route.color]}
 						class="route-segment"
+						style={`--segment-index: ${index}`}
 					/>
 				{/each}
 			</g>
 		{/each}
 
 		{#each cities as cityItem (cityItem.id)}
-			<g class="city" transform={`translate(${cityItem.x * 10} ${cityItem.y * 6.2})`}>
-				<circle r="7" />
-				<circle r="3" />
+			{@const isTicketEndpoint = highlightedTicket?.cityA === cityItem.id || highlightedTicket?.cityB === cityItem.id}
+			<g
+				class="city"
+				class:ticket-endpoint={isTicketEndpoint}
+				transform={`translate(${cityItem.x * 10} ${cityItem.y * 6.2})`}
+			>
+				{#if isTicketEndpoint}<circle class="ticket-endpoint-ring" r="15" />{/if}
+				<circle class="city-hub" r="7" />
+				<circle class="city-center" r="3" />
 				<text y="-11" text-anchor="middle">{cityItem.name}</text>
 			</g>
 		{/each}
@@ -280,6 +313,16 @@
 		stroke-width: 22;
 	}
 
+	.route-aura {
+		pointer-events: none;
+		stroke: #fff0a6;
+		stroke-linecap: round;
+		stroke-width: 14;
+		filter: url(#route-glow);
+		opacity: 0;
+		transition: opacity 160ms ease;
+	}
+
 	.available {
 		cursor: pointer;
 	}
@@ -288,6 +331,8 @@
 		stroke: rgba(42, 35, 24, 0.72);
 		stroke-width: 1.6;
 		filter: drop-shadow(0 1px 1px rgba(22, 18, 13, 0.28));
+		animation: segment-enter 240ms ease-out backwards;
+		animation-delay: calc(var(--segment-index) * 16ms);
 		transition:
 			filter 140ms ease,
 			stroke 140ms ease,
@@ -295,17 +340,33 @@
 	}
 
 	.available:hover .route-segment,
-	.available:focus-visible .route-segment,
-	.selected .route-segment {
+	.available:focus-visible .route-segment {
 		filter: drop-shadow(0 0 5px #fff3a5);
 		stroke: #fff7c8;
 		stroke-width: 3;
 	}
 
+	.available:hover .route-aura,
+	.available:focus-visible .route-aura {
+		opacity: 0.28;
+	}
+
+	.selected .route-aura {
+		opacity: 0.74;
+		animation: selected-aura 820ms ease-in-out infinite alternate;
+	}
+
+	.selected .route-segment {
+		filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 9px #ffd95f);
+		stroke: #fff9d9;
+		stroke-width: 3.4;
+	}
+
 	.claimed .route-segment {
 		stroke: rgba(255, 255, 255, 0.72);
 		stroke-width: 2;
-		animation: claim-route 280ms ease-out;
+		animation: claim-route 360ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+		animation-delay: calc(var(--segment-index) * 34ms);
 	}
 
 	.selected .route-segment {
@@ -320,13 +381,38 @@
 		text-align: center;
 	}
 
-	.city circle:first-child {
+	.ticket-preview-trace {
+		pointer-events: none;
+		animation: ticket-preview-enter 320ms ease-out both;
+	}
+
+	.ticket-trace-halo {
+		stroke: rgba(65, 39, 17, 0.38);
+		stroke-linecap: round;
+		stroke-width: 12;
+		filter: blur(3px);
+	}
+
+	.ticket-trace {
+		stroke: #fff0a6;
+		stroke-dasharray: 14 9;
+		stroke-linecap: round;
+		stroke-width: 3.5;
+		filter: drop-shadow(0 1px 2px rgba(60, 37, 16, 0.55));
+		animation: ticket-dash 1.25s linear infinite;
+	}
+
+	.city-hub {
 		fill: #4e3520;
 		stroke: #f1d99e;
 		stroke-width: 2;
 	}
 
-	.city circle:nth-child(2) {
+	.city {
+		pointer-events: none;
+	}
+
+	.city-center {
 		fill: #f6e8c1;
 	}
 
@@ -340,16 +426,64 @@
 		stroke-width: 4px;
 	}
 
+	.ticket-endpoint-ring {
+		fill: rgba(255, 228, 126, 0.2);
+		stroke: #fff0a6;
+		stroke-width: 3;
+		filter: drop-shadow(0 0 5px rgba(255, 226, 117, 0.88));
+		animation: ticket-endpoint-pulse 1s ease-in-out infinite alternate;
+	}
+
+	.ticket-endpoint text {
+		fill: #4a260d;
+		font-size: 13px;
+		stroke: #fff0bd;
+		stroke-width: 5px;
+	}
+
+	@keyframes segment-enter {
+		from {
+			opacity: 0.22;
+		}
+	}
+
 	@keyframes claim-route {
 		from {
-			opacity: 0.25;
-			stroke-width: 5;
+			opacity: 0.2;
+			filter: drop-shadow(0 0 8px #fff3a5);
+			stroke-width: 5.5;
 		}
 	}
 
 	@keyframes select-route {
 		to {
-			filter: drop-shadow(0 0 8px #fff3a5);
+			filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px #ffd95f);
+		}
+	}
+
+	@keyframes selected-aura {
+		to {
+			opacity: 0.96;
+			stroke-width: 18;
+		}
+	}
+
+	@keyframes ticket-preview-enter {
+		from {
+			opacity: 0;
+		}
+	}
+
+	@keyframes ticket-dash {
+		to {
+			stroke-dashoffset: -46;
+		}
+	}
+
+	@keyframes ticket-endpoint-pulse {
+		to {
+			fill: rgba(255, 228, 126, 0.42);
+			stroke-width: 4.5;
 		}
 	}
 

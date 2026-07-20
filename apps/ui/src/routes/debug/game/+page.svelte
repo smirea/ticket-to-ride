@@ -50,7 +50,7 @@
 
 <div class="debug-page">
 	<nav aria-label="Debug controls">
-		<a href="/">← Home</a>
+		<a href="/">Home</a>
 		<div class="controls">
 			<label>
 				Viewer
@@ -73,7 +73,8 @@
 
 <style>
 	.debug-page {
-		min-height: 100vh;
+		height: 100svh;
+		overflow: hidden;
 		background: #07151b;
 	}
 
@@ -85,13 +86,20 @@
 	}
 
 	nav {
+		position: fixed;
+		top: 0.45rem;
+		left: 0.45rem;
+		z-index: 40;
 		justify-content: space-between;
-		gap: 1rem;
-		border-bottom: 1px solid rgb(255 255 255 / 0.1);
-		padding: 0.55rem 1rem;
-		background: #081116;
+		gap: 0.55rem;
+		border: 1px solid rgb(255 255 255 / 0.16);
+		border-radius: 999px;
+		padding: 0.3rem 0.4rem;
+		background: rgb(8 17 22 / 0.86);
+		box-shadow: 0 0.65rem 1.6rem rgb(0 0 0 / 0.24);
+		backdrop-filter: blur(12px);
 		color: #dce6e3;
-		font-size: 0.76rem;
+		font-size: 0.68rem;
 		font-weight: 700;
 	}
 
@@ -101,6 +109,7 @@
 	}
 
 	nav a {
+		padding-inline: 0.35rem;
 		color: inherit;
 		text-decoration: none;
 	}
@@ -113,8 +122,8 @@
 	button,
 	select {
 		border: 1px solid rgb(255 255 255 / 0.2);
-		border-radius: 0.25rem;
-		padding: 0.35rem 0.55rem;
+		border-radius: 999px;
+		padding: 0.3rem 0.55rem;
 		background: #14232a;
 		color: inherit;
 		font: inherit;
@@ -123,12 +132,19 @@
 
 	@media (max-width: 720px) {
 		nav {
+			left: 0.45rem;
+			right: 0.45rem;
 			align-items: flex-start;
-			flex-direction: column;
+			border-radius: 0.8rem;
 		}
 
 		.controls {
 			flex-wrap: wrap;
+		}
+
+		nav > a,
+		nav label {
+			display: none;
 		}
 	}
 </style>

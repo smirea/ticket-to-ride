@@ -54,8 +54,9 @@
 
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId | undefined>();
+	let previewTicketId = $state<TicketId | undefined>();
 	let activeOfferKey = $state('');
-	let ticketDialog = $state<HTMLDivElement | undefined>();
+	let ticketDialog = $state<HTMLElement | undefined>();
 
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const viewer = $derived(gameState.players.find(player => player.id === viewerId));
@@ -66,6 +67,9 @@
 		gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId ? gameState.phase : undefined,
 	);
 	const offeredTickets = $derived(ticketSelection?.ticketIds.map(id => ticketById.get(id)).filter(isTicket) ?? []);
+	const highlightedTicket = $derived(
+		(previewTicketId ? ticketById.get(previewTicketId) : undefined) ?? offeredTickets[0],
+	);
 	const latestMove = $derived(gameState.log.at(-1));
 	const latestMoveIsBot = $derived(
 		gameState.players.some(player => player.isBot && latestMove?.startsWith(player.name)),
@@ -83,6 +87,7 @@
 		if (offer !== activeOfferKey) {
 			activeOfferKey = offer;
 			selectedTickets = [];
+			previewTicketId = ticketSelection?.ticketIds[0];
 			if (offer) void tick().then(() => ticketDialog?.focus());
 		}
 	});
@@ -116,6 +121,7 @@
 	}
 
 	function toggleTicket(id: TicketId) {
+		previewTicketId = id;
 		selectedTickets = selectedTickets.includes(id)
 			? selectedTickets.filter(ticketId => ticketId !== id)
 			: [...selectedTickets, id];
@@ -197,300 +203,233 @@
 	}
 </script>
 
-<main class="game-shell">
-	<header class="topbar">
-		<div class="brand">
-			<span class="brand-mark" aria-hidden="true">T</span>
-			<div>
-				<p>Ticket to Ride</p>
-				<span>USA · Turn {gameState.turnNumber}</span>
-			</div>
-		</div>
-		<div class:your-turn={isViewerTurn} class="turn-status" role="status">
-			<span class="turn-light" style:background={currentPlayer ? playerColor(currentPlayer) : undefined}></span>
-			<div>
-				<strong>{describeTurn()}</strong>
-				<span>{currentPlayer?.name ?? 'Waiting for players'}</span>
-			</div>
-		</div>
-		<div class="round-meta">
-			<span>Train deck</span>
-			<strong>{gameState.trainDeck.length}</strong>
+<main
+	class:drawer-open={Boolean(ticketSelection || selectedRoute || finalResults.length)}
+	class:debug-mode={debug}
+	class="game-shell"
+>
+	<section class="board-stage" aria-label="Game board">
+		<GameBoard
+			state={gameState}
+			{selectedRouteId}
+			{highlightedTicket}
+			disabled={!isViewerTurn || gameState.phase.type !== 'turn' || gameState.phase.drawsTaken > 0}
+			onselect={selectRoute}
+		/>
+	</section>
+
+	<header class="game-controls">
+		<span class="brand-mark" aria-hidden="true">T</span>
+		<div>
+			<strong>Ticket to Ride</strong>
+			<span>Turn {gameState.turnNumber}</span>
 		</div>
 	</header>
+
+	<aside class="players" aria-label="Players">
+		{#each gameState.players as player, index (player.id)}
+			<div
+				class:active={index === gameState.currentPlayerIndex}
+				class:viewer-player={player.id === viewerId}
+				class="player-row"
+				style:--player-color={playerColor(player)}
+				aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${trainCardCount(player)} train cards, ${player.tickets.length} destination tickets`}
+			>
+				<span class="player-token">{index + 1}</span>
+				<div class="player-name">
+					<strong>{player.name}</strong>
+					<span>{player.id === viewerId ? 'You' : player.isBot ? 'Bot' : 'Player'}</span>
+				</div>
+				<div class="player-stats">
+					<strong>{player.score}</strong>
+					<span>{player.trains} trains</span>
+				</div>
+			</div>
+		{/each}
+	</aside>
+
+	<aside class="market" aria-label="Train card market">
+		<button
+			type="button"
+			class="destination-deck"
+			disabled={!isViewerTurn ||
+				gameState.phase.type !== 'turn' ||
+				gameState.phase.drawsTaken > 0 ||
+				gameState.destinationDeck.length === 0}
+			onclick={() => send({ type: 'draw-destination-tickets' })}
+			aria-label={`Draw destination tickets. ${gameState.destinationDeck.length} remain.`}
+		>
+			<span class="ticket-stack" aria-hidden="true">TKT</span>
+			<small>{gameState.destinationDeck.length}</small>
+		</button>
+		<div class="face-up">
+			{#each gameState.faceUpTrainCards as card, index (`${index}-${card}`)}
+				<button
+					type="button"
+					class={`train-card ${card}`}
+					disabled={!canDrawCard(card)}
+					onclick={() => send({ type: 'draw-face-up', index })}
+					aria-label={`Draw ${cardLabels[card]} train card`}
+				>
+					<span class="rails" aria-hidden="true"></span>
+					<strong>{cardLabels[card]}</strong>
+				</button>
+			{/each}
+		</div>
+		<button
+			type="button"
+			class="deck"
+			disabled={!isViewerTurn || gameState.phase.type !== 'turn' || gameState.trainDeck.length === 0}
+			onclick={() => send({ type: 'draw-train-deck' })}
+			aria-label={`Draw a blind train card. ${gameState.trainDeck.length} remain.`}
+		>
+			<span class="deck-card" aria-hidden="true"></span>
+			<small>{gameState.trainDeck.length}</small>
+		</button>
+	</aside>
+
+	<div class:your-turn={isViewerTurn} class="turn-banner" role="status" aria-live="polite">
+		<span class="turn-light" style:background={currentPlayer ? playerColor(currentPlayer) : undefined}></span>
+		<strong>{describeTurn()}</strong>
+		<span>{currentPlayer?.name ?? 'Waiting for players'}</span>
+	</div>
 
 	<div class="game-feedback" aria-live="polite">
 		{#if gameState.finalRound && gameState.phase.type !== 'game-over'}
 			<div class="final-round-alert" role="status">
-				<span class="countdown">{gameState.finalRound.turnsRemaining}</span>
-				<div>
-					<strong>Final round</strong>
-					<span>
-						{finalRoundPlayer?.name ?? 'A player'} is down to two trains.
-						{gameState.finalRound.turnsRemaining === 1
-							? 'One turn remains.'
-							: `${gameState.finalRound.turnsRemaining} turns remain.`}
-					</span>
-				</div>
+				<strong>Final round · {gameState.finalRound.turnsRemaining}</strong>
+				<span>{finalRoundPlayer?.name ?? 'A player'} is down to two trains.</span>
 			</div>
-		{/if}
-		{#if latestMove}
+		{:else if latestMove}
 			<div class:bot-move={latestMoveIsBot} class="latest-move" role="status">
-				<span class="move-icon" aria-hidden="true">{latestMoveIsBot ? '◆' : '→'}</span>
-				<div>
-					<strong>{latestMoveIsBot ? 'Opponent moved' : 'Latest move'}</strong>
-					<span>{latestMove}</span>
-				</div>
+				<strong>{latestMoveIsBot ? 'Opponent' : 'Latest'}</strong>
+				<span>{latestMove}</span>
 			</div>
 		{/if}
 	</div>
 
-	<section class="table">
-		<aside class="players panel" aria-label="Players">
-			<p class="section-label">Players</p>
-			{#each gameState.players as player, index (player.id)}
-				<div
-					class:active={index === gameState.currentPlayerIndex}
-					class="player-row"
-					aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${trainCardCount(player)} train cards, ${player.tickets.length} destination tickets`}
-				>
-					<span class="player-token" style:background={playerColor(player)}>{index + 1}</span>
-					<div class="player-name">
-						<strong>{player.name}</strong>
-						<span>{player.id === viewerId ? 'You' : player.isBot ? 'Conductor bot' : 'Player'}</span>
-						<span class="player-resources">{trainCardCount(player)} cards · {player.tickets.length} tickets</span>
+	<div class="ticket-hand" aria-label="Your destination tickets">
+		{#each viewer?.tickets ?? [] as ticketId, index (ticketId)}
+			{@const ticket = ticketFor(ticketId)}
+			{#if ticket}
+				<article class="ticket" style:--ticket-index={index}>
+					<span>{ticket.points}</span>
+					<div>
+						<strong>{cityName(ticket.cityA)}</strong>
+						<small>{cityName(ticket.cityB)}</small>
 					</div>
-					<div class="player-stats">
-						<strong>{player.score}</strong>
-						<span>{player.trains} trains</span>
-					</div>
+				</article>
+			{/if}
+		{/each}
+	</div>
+
+	<footer class="hand-panel">
+		<div class="hand-cards" aria-label="Your train cards">
+			{#each cardOrder as card, index (`${card}-${viewer?.hand[card] ?? 0}`)}
+				<div class:empty={!viewer?.hand[card]} class={`hand-card ${card}`} style:--card-index={index}>
+					<span class="card-count">{viewer?.hand[card] ?? 0}</span>
+					<span class="mini-rails" aria-hidden="true"></span>
+					<strong>{cardLabels[card]}</strong>
 				</div>
 			{/each}
-
-			<div class="history">
-				<p class="section-label">Recent moves</p>
-				{#if recentLog.length}
-					{#each recentLog as entry}
-						<p>{entry}</p>
-					{/each}
-				{:else}
-					<p class="muted">The journey is just beginning.</p>
-				{/if}
-			</div>
-		</aside>
-
-		<div class="board-wrap">
-			<GameBoard
-				state={gameState}
-				{selectedRouteId}
-				disabled={!isViewerTurn || gameState.phase.type !== 'turn' || gameState.phase.drawsTaken > 0}
-				onselect={selectRoute}
-			/>
-
-			{#if selectedRoute}
-				<div class="claim-panel" role="region" aria-labelledby="claim-title" aria-live="polite">
-					<div>
-						<p class="section-label">Claim route</p>
-						<strong id="claim-title">{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</strong>
-						<span
-							>{selectedRoute.length} trains · {selectedRoute.color === 'gray'
-								? 'any single color'
-								: cardLabels[selectedRoute.color]}</span
-						>
-					</div>
-					<div class="claim-actions">
-						{#each availablePaymentColors(selectedRoute) as color}
-							<button
-								type="button"
-								class={`card-swatch ${color}`}
-								onclick={() => claimRoute(selectedRoute, color)}
-								aria-label={`Claim ${cityName(selectedRoute.cityA)} to ${cityName(selectedRoute.cityB)} using ${cardLabels[color]} cards. You have ${viewer?.hand[color] ?? 0} plus ${viewer?.hand.locomotive ?? 0} wild.`}
-							>
-								<span>{viewer?.hand[color] ?? 0} + {viewer?.hand.locomotive ?? 0} wild</span>
-								<strong>{cardLabels[color]}</strong>
-							</button>
-						{/each}
-						{#if !availablePaymentColors(selectedRoute).length}
-							<p class="claim-error">You need {selectedRoute.length} cards of one color, including wilds.</p>
-						{/if}
-						<button type="button" class="quiet" onclick={() => (selectedRouteId = undefined)}>Cancel</button>
-					</div>
-				</div>
-			{/if}
-		</div>
-
-		<aside class="market panel" aria-label="Train card market">
-			<div>
-				<p class="section-label">Train cards</p>
-				<h2>Market</h2>
-			</div>
-			<div class="face-up">
-				{#each gameState.faceUpTrainCards as card, index (`${index}-${card}`)}
-					<button
-						type="button"
-						class={`train-card ${card}`}
-						disabled={!canDrawCard(card)}
-						onclick={() => send({ type: 'draw-face-up', index })}
-						aria-label={`Draw ${cardLabels[card]} train card`}
-					>
-						<span class="rails" aria-hidden="true"></span>
-						<strong>{cardLabels[card]}</strong>
-					</button>
-				{/each}
-			</div>
-			<button
-				type="button"
-				class="deck"
-				disabled={!isViewerTurn || gameState.phase.type !== 'turn' || gameState.trainDeck.length === 0}
-				onclick={() => send({ type: 'draw-train-deck' })}
-			>
-				<span class="deck-card"></span>
-				<span>
-					<strong>Draw blind</strong>
-					<small>{gameState.trainDeck.length} cards</small>
-				</span>
-			</button>
-			<button
-				type="button"
-				class="destination-deck"
-				disabled={!isViewerTurn ||
-					gameState.phase.type !== 'turn' ||
-					gameState.phase.drawsTaken > 0 ||
-					gameState.destinationDeck.length === 0}
-				onclick={() => send({ type: 'draw-destination-tickets' })}
-			>
-				<span class="ticket-stack" aria-hidden="true">✦</span>
-				<span>
-					<strong>New destinations</strong>
-					<small>{gameState.destinationDeck.length} tickets</small>
-				</span>
-			</button>
-		</aside>
-	</section>
-
-	<footer class="hand-panel panel">
-		<div class="hand-heading">
-			<div>
-				<p class="section-label">Your hand</p>
-				<h2>{viewer?.name ?? 'Spectating'}</h2>
-			</div>
-			<div class="hand-summary">
-				<span
-					><strong>{viewer ? Object.values(viewer.hand).reduce((sum, count) => sum + count, 0) : 0}</strong> cards</span
-				>
-				<span><strong>{viewer?.tickets.length ?? 0}</strong> tickets</span>
-			</div>
-		</div>
-
-		<div class="hand-content">
-			<div class="hand-cards" aria-label="Your train cards">
-				{#each cardOrder as card (`${card}-${viewer?.hand[card] ?? 0}`)}
-					<div class:empty={!viewer?.hand[card]} class={`hand-card ${card}`}>
-						<span class="card-count">{viewer?.hand[card] ?? 0}</span>
-						<span class="mini-rails" aria-hidden="true"></span>
-						<strong>{cardLabels[card]}</strong>
-					</div>
-				{/each}
-			</div>
-
-			<div class="tickets" aria-label="Your destination tickets">
-				{#if viewer?.tickets.length}
-					{#each viewer.tickets as ticketId}
-						{@const ticket = ticketFor(ticketId)}
-						{#if ticket}
-							<article class="ticket">
-								<span>{ticket.points}</span>
-								<div>
-									<strong>{cityName(ticket.cityA)}</strong>
-									<small>to {cityName(ticket.cityB)}</small>
-								</div>
-							</article>
-						{/if}
-					{/each}
-				{:else}
-					<p class="muted">No kept destination tickets yet.</p>
-				{/if}
-			</div>
 		</div>
 	</footer>
 
-	{#if debug}
-		<details class="debug panel">
-			<summary>State inspector</summary>
-			<pre>{JSON.stringify(gameState, null, 2)}</pre>
-		</details>
-	{/if}
-</main>
-
-{#if ticketSelection}
-	<div class="modal-backdrop">
-		<div
-			class="ticket-modal"
+	{#if ticketSelection}
+		<aside
+			class="decision-drawer ticket-drawer"
 			role="dialog"
-			aria-modal="true"
 			aria-labelledby="ticket-title"
 			aria-describedby="ticket-instructions"
 			tabindex="-1"
 			bind:this={ticketDialog}
 		>
-			<div class="modal-heading">
+			<header class="drawer-heading">
 				<p class="section-label">
-					{ticketSelection.source === 'opening' ? 'Before the first departure' : 'Destination ticket draw'}
+					{ticketSelection.source === 'opening' ? 'Plan your journey' : 'New destinations'}
 				</p>
 				<h1 id="ticket-title">
-					{ticketSelection.source === 'opening' ? 'Choose your destinations' : 'Keep new destinations'}
+					{ticketSelection.source === 'opening' ? 'Choose your routes' : 'Keep destinations'}
 				</h1>
 				<p id="ticket-instructions">
-					Keep at least {ticketSelection.minimum}.
-					{ticketSelection.source === 'opening'
-						? 'Any ticket you leave behind returns to the deck.'
-						: 'Kept tickets stay secret until final scoring.'}
+					Keep at least {ticketSelection.minimum}. Point at a ticket to trace it on the map.
 				</p>
-			</div>
+			</header>
 			<div class="ticket-offers">
 				{#each offeredTickets as ticket}
 					<button
 						type="button"
+						class:previewed={highlightedTicket?.id === ticket.id}
 						class:selected={selectedTickets.includes(ticket.id)}
+						onmouseenter={() => (previewTicketId = ticket.id)}
+						onfocus={() => (previewTicketId = ticket.id)}
 						onclick={() => toggleTicket(ticket.id)}
 						aria-pressed={selectedTickets.includes(ticket.id)}
 						aria-label={`${cityName(ticket.cityA)} to ${cityName(ticket.cityB)}, ${ticket.points} points${selectedTickets.includes(ticket.id) ? ', selected' : ''}`}
 					>
-						{#if selectedTickets.includes(ticket.id)}
-							<span class="selected-state" aria-hidden="true">✓ Selected</span>
-						{/if}
-						<span class="ticket-map" aria-hidden="true">✦</span>
-						<strong>{cityName(ticket.cityA)}</strong>
-						<small>to</small>
-						<strong>{cityName(ticket.cityB)}</strong>
-						<span class="ticket-points">{ticket.points} points</span>
+						<span class="ticket-points">{ticket.points}</span>
+						<span class="ticket-route">
+							<strong>{cityName(ticket.cityA)}</strong>
+							<small>to {cityName(ticket.cityB)}</small>
+						</span>
+						<span class="selected-state" aria-hidden="true"
+							>{selectedTickets.includes(ticket.id) ? 'Kept' : 'Keep'}</span
+						>
 					</button>
 				{/each}
 			</div>
-			<div class="modal-footer">
-				<span>{selectedTickets.length} selected · minimum {ticketSelection.minimum}</span>
+			<footer class="drawer-footer">
+				<span>{selectedTickets.length} selected · {ticketSelection.minimum} required</span>
 				<button
 					type="button"
 					class="primary"
 					disabled={selectedTickets.length < ticketSelection.minimum}
 					onclick={keepTickets}
 				>
-					Keep selected tickets
+					Keep tickets
 				</button>
+			</footer>
+		</aside>
+	{:else if selectedRoute}
+		<aside class="decision-drawer claim-drawer" role="dialog" aria-labelledby="claim-title" aria-live="polite">
+			<header class="drawer-heading">
+				<p class="section-label">Claim route</p>
+				<h1 id="claim-title">{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</h1>
+				<p>
+					{selectedRoute.length} trains · {selectedRoute.color === 'gray'
+						? 'use any single color'
+						: cardLabels[selectedRoute.color]}
+				</p>
+			</header>
+			<div class="claim-actions">
+				{#each availablePaymentColors(selectedRoute) as color}
+					<button
+						type="button"
+						class={`card-swatch ${color}`}
+						onclick={() => claimRoute(selectedRoute, color)}
+						aria-label={`Claim ${cityName(selectedRoute.cityA)} to ${cityName(selectedRoute.cityB)} using ${cardLabels[color]} cards. You have ${viewer?.hand[color] ?? 0} plus ${viewer?.hand.locomotive ?? 0} wild.`}
+					>
+						<span class="mini-rails" aria-hidden="true"></span>
+						<strong>{cardLabels[color]}</strong>
+						<small>{viewer?.hand[color] ?? 0} cards + {viewer?.hand.locomotive ?? 0} wild</small>
+					</button>
+				{/each}
+				{#if !availablePaymentColors(selectedRoute).length}
+					<p class="claim-error">You need {selectedRoute.length} cards of one color, including wilds.</p>
+				{/if}
 			</div>
-		</div>
-	</div>
-{/if}
-
-{#if gameState.phase.type === 'game-over' && finalResults.length}
-	<div class="modal-backdrop results-backdrop">
-		<div class="results-modal" role="dialog" aria-modal="true" aria-labelledby="results-title">
-			<header class="results-heading">
+			<footer class="drawer-footer">
+				<span>Select a color to claim the highlighted track.</span>
+				<button type="button" class="quiet" onclick={() => (selectedRouteId = undefined)}>Cancel</button>
+			</footer>
+		</aside>
+	{:else if gameState.phase.type === 'game-over' && finalResults.length}
+		<aside class="decision-drawer results-drawer" role="dialog" aria-labelledby="results-title">
+			<header class="drawer-heading results-heading">
 				<p class="section-label">Journey complete</p>
 				<h1 id="results-title">{winnerHeading()}</h1>
-				<p>Routes are scored, destination tickets are revealed, and the longest continuous railway earns 10 points.</p>
+				<p>Final routes, destinations, and the longest railway are scored.</p>
 			</header>
-
 			<div class="standings" aria-label="Final standings">
 				{#each finalResults as result (result.playerId)}
 					{@const player = resultPlayer(result)}
@@ -503,64 +442,51 @@
 					>
 						<div class="result-summary">
 							<span class="rank">{result.rank}</span>
-							<span class="player-token result-token" style:background={player ? playerColor(player) : undefined}>
-								{result.rank === 1 ? '★' : result.rank}
-							</span>
+							<span class="player-token result-token" style:--player-color={player ? playerColor(player) : undefined}
+								>{result.rank}</span
+							>
 							<div class="result-name">
-								<strong>{player?.name ?? result.playerId}</strong>
-								<span>{result.playerId === viewerId ? 'You' : player?.isBot ? 'Conductor bot' : 'Player'}</span>
+								<strong>{player?.name ?? result.playerId}</strong><span
+									>{completed.length} completed · {failed.length} failed</span
+								>
 							</div>
-							<div class="score-total">
-								<strong>{result.finalScore}</strong>
-								<span>points</span>
-							</div>
+							<div class="score-total"><strong>{result.finalScore}</strong><span>points</span></div>
 						</div>
-
 						<div class="score-breakdown">
-							<div>
-								<span>Claimed routes</span>
-								<strong>+{result.routePoints}</strong>
-							</div>
-							<div class:negative={result.ticketPoints < 0}>
-								<span>Destinations</span>
-								<strong>{result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</strong>
-							</div>
-							<div class:bonus={result.longestRouteBonus > 0}>
-								<span>Longest path · {result.longestPath}</span>
-								<strong>{result.longestRouteBonus ? `+${result.longestRouteBonus}` : '—'}</strong>
-							</div>
+							<span>Routes <strong>+{result.routePoints}</strong></span>
+							<span>Tickets <strong>{result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</strong></span>
+							<span>Longest <strong>{result.longestRouteBonus ? `+${result.longestRouteBonus}` : '—'}</strong></span>
 						</div>
-
 						<details class="ticket-results">
-							<summary>{completed.length} completed · {failed.length} failed</summary>
-							<div class="ticket-result-list">
-								{#each completed as ticket}
-									<div class="ticket-result complete">
-										<span>✓ {cityName(ticket.cityA)} → {cityName(ticket.cityB)}</span>
-										<strong>+{ticket.points}</strong>
-									</div>
-								{/each}
-								{#each failed as ticket}
-									<div class="ticket-result failed">
-										<span>× {cityName(ticket.cityA)} → {cityName(ticket.cityB)}</span>
-										<strong>−{ticket.points}</strong>
-									</div>
-								{/each}
-							</div>
+							<summary>Ticket results</summary>
+							{#each completed as ticket}<div class="ticket-result complete">
+									<span>Complete · {cityName(ticket.cityA)} to {cityName(ticket.cityB)}</span><strong
+										>+{ticket.points}</strong
+									>
+								</div>{/each}
+							{#each failed as ticket}<div class="ticket-result failed">
+									<span>Failed · {cityName(ticket.cityA)} to {cityName(ticket.cityB)}</span><strong
+										>−{ticket.points}</strong
+									>
+								</div>{/each}
 						</details>
 					</article>
 				{/each}
 			</div>
-
-			<footer class="results-footer">
-				<span>{gameState.turnNumber} turns played · seed {gameState.seed}</span>
-				{#if onrestart}
-					<button type="button" class="primary" onclick={onrestart}>Play again</button>
-				{/if}
+			<footer class="drawer-footer">
+				<span>{gameState.turnNumber} turns · seed {gameState.seed}</span>
+				{#if onrestart}<button type="button" class="primary" onclick={onrestart}>Play again</button>{/if}
 			</footer>
-		</div>
-	</div>
-{/if}
+		</aside>
+	{/if}
+
+	{#if debug}
+		<details class="debug">
+			<summary>State inspector</summary>
+			<pre>{JSON.stringify(gameState, null, 2)}</pre>
+		</details>
+	{/if}
+</main>
 
 <style>
 	:global(html) {
@@ -573,6 +499,7 @@
 
 	:global(body) {
 		background: #15262a;
+		overflow: hidden;
 	}
 
 	.game-shell {
@@ -634,8 +561,6 @@
 		font-weight: 800;
 	}
 
-	.brand p,
-	.brand span,
 	.turn-status strong,
 	.turn-status span,
 	.round-meta span,
@@ -644,13 +569,6 @@
 		margin: 0;
 	}
 
-	.brand p {
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: 1.2rem;
-		font-weight: 800;
-	}
-
-	.brand span,
 	.turn-status span,
 	.round-meta span {
 		color: #9fb3b1;
@@ -729,13 +647,6 @@
 	.latest-move strong,
 	.final-round-alert strong {
 		font-size: 0.71rem;
-	}
-
-	.latest-move div > span,
-	.final-round-alert div > span {
-		margin-top: 0.1rem;
-		color: #a8bab7;
-		font-size: 0.68rem;
 	}
 
 	.move-icon,
@@ -845,12 +756,6 @@
 		font-size: 0.65rem;
 	}
 
-	.player-name .player-resources {
-		margin-top: 0.18rem;
-		color: #c2cfcc;
-		font-size: 0.62rem;
-	}
-
 	.player-stats {
 		text-align: right;
 	}
@@ -863,13 +768,6 @@
 		margin-top: 1.2rem;
 		border-top: 1px solid rgba(255, 255, 255, 0.1);
 		padding-top: 1rem;
-	}
-
-	.history p:not(.section-label) {
-		margin: 0.5rem 0;
-		color: #c7d2cf;
-		font-size: 0.72rem;
-		line-height: 1.45;
 	}
 
 	.board-wrap {
@@ -943,13 +841,6 @@
 		background: transparent;
 		color: #b8c5c3;
 		cursor: pointer;
-	}
-
-	.market h2,
-	.hand-heading h2 {
-		margin: 0;
-		font-family: Georgia, serif;
-		font-size: 1.15rem;
 	}
 
 	.face-up {
@@ -1267,22 +1158,6 @@
 		color: #f7f1df;
 	}
 
-	.modal-heading {
-		text-align: center;
-	}
-
-	.modal-heading h1 {
-		margin: 0;
-		font-family: Georgia, serif;
-		font-size: clamp(1.75rem, 5vw, 2.7rem);
-	}
-
-	.modal-heading > p:last-child {
-		margin: 0.7rem auto 0;
-		color: #a9bab7;
-		line-height: 1.5;
-	}
-
 	.ticket-offers {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -1494,17 +1369,6 @@
 		padding-left: 5.1rem;
 	}
 
-	.score-breakdown > div {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		border-radius: 0.5rem;
-		padding: 0.45rem 0.6rem;
-		background: rgba(255, 255, 255, 0.045);
-		font-size: 0.7rem;
-	}
-
 	.score-breakdown span {
 		color: #9fb0ad;
 	}
@@ -1512,19 +1376,6 @@
 	.score-breakdown strong {
 		color: #9ed8a8;
 		font-size: 0.8rem;
-	}
-
-	.score-breakdown .negative strong {
-		color: #ff9c91;
-	}
-
-	.score-breakdown .bonus {
-		border: 1px solid rgba(231, 189, 77, 0.3);
-		background: rgba(231, 189, 77, 0.1);
-	}
-
-	.score-breakdown .bonus strong {
-		color: #f3d374;
 	}
 
 	.ticket-results {
@@ -1654,11 +1505,6 @@
 			gap: 0.45rem;
 		}
 
-		.players > .section-label,
-		.history {
-			grid-column: 1 / -1;
-		}
-
 		.market {
 			grid-template-columns: 1fr;
 		}
@@ -1703,10 +1549,6 @@
 	}
 
 	@media (max-width: 600px) {
-		.brand p {
-			font-size: 1rem;
-		}
-
 		.players {
 			grid-template-columns: 1fr;
 		}
@@ -1750,6 +1592,959 @@
 			width: calc(100% - 1rem);
 			max-height: min(50vh, 20rem);
 			overflow-y: auto;
+		}
+	}
+
+	.game-shell {
+		position: relative;
+		isolation: isolate;
+		width: 100%;
+		height: 100svh;
+		min-height: 0;
+		overflow: hidden;
+		padding: 0;
+		background: #2f5d63;
+		color: #f7f1df;
+	}
+
+	.board-stage {
+		position: absolute;
+		z-index: 0;
+		inset: 0;
+		display: grid;
+		min-width: 0;
+		place-items: center;
+		background: #547d82;
+		transition:
+			right 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+			filter 240ms ease;
+	}
+
+	.drawer-open .board-stage {
+		right: clamp(20rem, 29vw, 23rem);
+		filter: saturate(0.88) brightness(0.88);
+	}
+
+	.board-stage :global(.board-frame) {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		place-items: center;
+	}
+
+	.board-stage :global(.board) {
+		width: 100%;
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	.board-stage :global(.board-help) {
+		position: absolute;
+		bottom: 3.35rem;
+		left: 50%;
+		z-index: 2;
+		margin: 0;
+		transform: translateX(-50%);
+		color: rgba(255, 249, 229, 0.82);
+		font-size: 0.62rem;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+		white-space: nowrap;
+	}
+
+	.game-controls {
+		position: absolute;
+		top: 0.55rem;
+		left: 50%;
+		z-index: 7;
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		transform: translateX(-50%);
+		border: 1px solid rgba(255, 244, 210, 0.4);
+		border-radius: 999px;
+		padding: 0.3rem 0.65rem 0.3rem 0.3rem;
+		background: rgba(13, 34, 38, 0.76);
+		box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.25);
+		backdrop-filter: blur(9px);
+	}
+
+	.debug-mode .game-controls {
+		display: none;
+	}
+
+	.game-controls .brand-mark {
+		width: 2rem;
+		height: 2rem;
+		border-width: 1px;
+		font-size: 1rem;
+	}
+
+	.game-controls strong,
+	.game-controls span {
+		display: block;
+	}
+
+	.game-controls strong {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 0.78rem;
+	}
+
+	.game-controls div > span {
+		color: #c4d4d0;
+		font-size: 0.55rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.players {
+		position: absolute;
+		top: 4.2rem;
+		bottom: 4.9rem;
+		left: 0.45rem;
+		z-index: 6;
+		display: flex;
+		width: clamp(7.75rem, 11.5vw, 9rem);
+		flex-direction: column;
+		gap: 0.42rem;
+		padding: 0;
+		pointer-events: none;
+	}
+
+	.players .player-row {
+		position: relative;
+		display: grid;
+		min-height: 4.4rem;
+		grid-template-columns: 1.7rem minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.4rem;
+		margin: 0;
+		border: 1px solid rgba(255, 255, 255, 0.45);
+		border-left: 0.35rem solid var(--player-color);
+		border-radius: 0 0.55rem 0.55rem 0;
+		padding: 0.45rem 0.45rem 0.45rem 0.35rem;
+		background: linear-gradient(100deg, color-mix(in srgb, var(--player-color) 68%, #172125), rgba(12, 24, 27, 0.88));
+		box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.26);
+		color: white;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+		transition:
+			transform 180ms ease,
+			filter 180ms ease;
+	}
+
+	.players .player-row.active {
+		transform: translateX(0.35rem);
+		border-color: #fff0b6;
+		filter: brightness(1.13);
+		box-shadow:
+			0 0 0 2px rgba(255, 231, 145, 0.28),
+			0 0.45rem 1.1rem rgba(0, 0, 0, 0.32);
+	}
+
+	.players .viewer-player {
+		order: 99;
+		margin-top: auto;
+	}
+
+	.players .player-token,
+	.result-token {
+		width: 1.7rem;
+		height: 1.7rem;
+		background: var(--player-color);
+		font-size: 0.68rem;
+	}
+
+	.players .player-name strong,
+	.players .player-name span,
+	.players .player-stats strong,
+	.players .player-stats span {
+		display: block;
+	}
+
+	.players .player-name strong {
+		overflow: hidden;
+		font-size: 0.7rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.players .player-name span,
+	.players .player-stats span {
+		color: rgba(255, 255, 255, 0.78);
+		font-size: 0.52rem;
+	}
+
+	.players .player-stats strong {
+		font-family: Georgia, serif;
+		font-size: 1rem;
+	}
+
+	.market {
+		position: absolute;
+		top: 0.45rem;
+		right: 0.45rem;
+		bottom: 0.45rem;
+		z-index: 7;
+		display: flex;
+		width: clamp(5.6rem, 8.8vw, 6.8rem);
+		flex-direction: column;
+		gap: 0.45rem;
+		padding: 0;
+		transition:
+			transform 220ms ease,
+			opacity 180ms ease;
+	}
+
+	.drawer-open .market {
+		transform: translateX(120%);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.market .destination-deck,
+	.market .deck {
+		position: relative;
+		display: grid;
+		width: 100%;
+		min-height: 4rem;
+		flex: 0 0 auto;
+		place-items: center;
+		gap: 0;
+		margin: 0;
+		border: 2px solid rgba(241, 215, 154, 0.82);
+		border-radius: 0.45rem;
+		padding: 0.35rem;
+		background: rgba(16, 34, 37, 0.9);
+		box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.3);
+		color: #fff4d8;
+		text-align: center;
+	}
+
+	.market .destination-deck {
+		min-height: 4.5rem;
+		background: linear-gradient(150deg, rgba(220, 196, 143, 0.98), rgba(150, 110, 62, 0.98));
+	}
+
+	.market .ticket-stack {
+		width: 3.2rem;
+		height: 2.35rem;
+		border-width: 1px;
+		box-shadow: 2px 2px 0 rgba(61, 42, 25, 0.75);
+		font-size: 0.6rem;
+		font-weight: 900;
+		letter-spacing: 0.08em;
+	}
+
+	.market button small {
+		position: absolute;
+		right: 0.25rem;
+		bottom: 0.18rem;
+		border-radius: 999px;
+		padding: 0.12rem 0.3rem;
+		background: rgba(4, 11, 13, 0.76);
+		color: white;
+		font-size: 0.56rem;
+		font-weight: 800;
+	}
+
+	.market .face-up {
+		display: grid;
+		min-height: 0;
+		flex: 1 1 auto;
+		grid-template-rows: repeat(5, minmax(0, 1fr));
+		gap: 0.42rem;
+		margin: 0;
+	}
+
+	.market .train-card {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		min-height: 3.8rem;
+		align-items: end;
+		border-width: 2px;
+		border-radius: 0.5rem;
+		padding: 0.38rem;
+		font-size: 0.56rem;
+		animation: card-deal 220ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+	}
+
+	.market .train-card:nth-child(2) {
+		animation-delay: 35ms;
+	}
+	.market .train-card:nth-child(3) {
+		animation-delay: 70ms;
+	}
+	.market .train-card:nth-child(4) {
+		animation-delay: 105ms;
+	}
+	.market .train-card:nth-child(5) {
+		animation-delay: 140ms;
+	}
+
+	.market .rails {
+		inset: 0.45rem 0.35rem 1.15rem;
+		border-width: 2px 7px;
+	}
+
+	.market .deck-card {
+		width: 2.6rem;
+		height: 3.35rem;
+	}
+
+	.turn-banner {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		z-index: 9;
+		display: flex;
+		width: min(52vw, 42rem);
+		min-height: 2.65rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.55rem;
+		transform: translateX(-50%);
+		border: 1px solid rgba(255, 255, 255, 0.62);
+		border-bottom: 0;
+		border-radius: 0.8rem 0.8rem 0 0;
+		padding: 0.45rem 1rem;
+		background: rgba(245, 241, 228, 0.9);
+		box-shadow: 0 -0.35rem 1.1rem rgba(0, 0, 0, 0.22);
+		color: #24373a;
+		animation: turn-banner-in 220ms ease-out;
+	}
+
+	.turn-banner.your-turn {
+		background: rgba(255, 250, 228, 0.95);
+		box-shadow: 0 -0.35rem 1.3rem rgba(241, 209, 112, 0.34);
+	}
+
+	.turn-banner .turn-light {
+		width: 0.68rem;
+		height: 0.68rem;
+	}
+
+	.turn-banner strong {
+		font-family: Georgia, serif;
+		font-size: clamp(0.8rem, 1.25vw, 1rem);
+	}
+
+	.turn-banner > span:last-child {
+		color: #5d6f70;
+		font-size: 0.62rem;
+		text-transform: uppercase;
+	}
+
+	.game-feedback {
+		position: absolute;
+		top: 3.45rem;
+		left: 50%;
+		z-index: 6;
+		display: block;
+		width: min(40vw, 25rem);
+		margin: 0;
+		transform: translateX(-50%);
+	}
+
+	.game-feedback .latest-move,
+	.game-feedback .final-round-alert {
+		display: grid;
+		min-width: 0;
+		grid-template-columns: auto 1fr;
+		align-items: baseline;
+		gap: 0.45rem;
+		border: 1px solid rgba(255, 255, 255, 0.24);
+		border-radius: 999px;
+		padding: 0.38rem 0.75rem;
+		background: rgba(7, 24, 28, 0.78);
+		box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.24);
+		backdrop-filter: blur(8px);
+		animation: toast-in 220ms ease-out;
+	}
+
+	.game-feedback strong {
+		font-size: 0.6rem;
+		text-transform: uppercase;
+	}
+
+	.game-feedback span {
+		overflow: hidden;
+		color: #d7e2df;
+		font-size: 0.62rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.ticket-hand {
+		position: absolute;
+		bottom: 0.8rem;
+		left: 0.45rem;
+		z-index: 8;
+		width: clamp(8rem, 13vw, 10rem);
+		height: 7.8rem;
+		pointer-events: none;
+	}
+
+	.ticket-hand .ticket {
+		position: absolute;
+		bottom: calc(var(--ticket-index) * 1.15rem);
+		left: 0;
+		width: 100%;
+		min-width: 0;
+		grid-template-columns: 1.7rem minmax(0, 1fr);
+		padding: 0.4rem;
+		box-shadow: 0 0.3rem 0.75rem rgba(0, 0, 0, 0.3);
+	}
+
+	.ticket-hand .ticket > span {
+		width: 1.6rem;
+		height: 1.6rem;
+		font-size: 0.76rem;
+	}
+
+	.ticket-hand .ticket strong,
+	.ticket-hand .ticket small {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.hand-panel {
+		position: absolute;
+		bottom: 2.45rem;
+		left: 50%;
+		z-index: 8;
+		width: min(33vw, 26rem);
+		height: 7.7rem;
+		margin: 0;
+		transform: translateX(-50%);
+		padding: 0;
+		background: transparent;
+		box-shadow: none;
+		pointer-events: none;
+	}
+
+	.hand-panel .hand-cards {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		align-items: end;
+		justify-content: center;
+		gap: 0;
+		overflow: visible;
+	}
+
+	.hand-panel .hand-card {
+		width: 4.8rem;
+		height: 6.7rem;
+		flex: 0 0 4.8rem;
+		margin-left: -1.15rem;
+		transform: translateY(calc(var(--card-index) * 0.05rem)) rotate(calc((var(--card-index) - 4) * 1.5deg));
+		transform-origin: 50% 110%;
+		box-shadow: 0 0.4rem 0.85rem rgba(0, 0, 0, 0.35);
+		animation: hand-deal 280ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+		animation-delay: calc(var(--card-index) * 28ms);
+	}
+
+	.hand-panel .hand-card:first-child {
+		margin-left: 0;
+	}
+
+	.hand-panel .hand-card.empty {
+		display: none;
+	}
+
+	.hand-panel .card-count {
+		top: 0.3rem;
+		right: 0.3rem;
+		width: 1.45rem;
+		height: 1.45rem;
+		background: #f7ead0;
+		box-shadow: 0 0.15rem 0.35rem rgba(0, 0, 0, 0.35);
+		color: #263438;
+		text-shadow: none;
+		animation: count-pop 180ms ease-out;
+	}
+
+	.decision-drawer {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 20;
+		display: flex;
+		width: clamp(20rem, 29vw, 23rem);
+		flex-direction: column;
+		overflow: hidden;
+		border-left: 1px solid rgba(237, 211, 150, 0.62);
+		padding: 1.25rem;
+		background: linear-gradient(180deg, rgba(38, 66, 70, 0.98), rgba(12, 29, 33, 0.99)), #14272a;
+		box-shadow: -1rem 0 2.4rem rgba(0, 0, 0, 0.4);
+		color: #f7f1df;
+		animation: drawer-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.drawer-heading {
+		flex: 0 0 auto;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+		padding-bottom: 1rem;
+	}
+
+	.drawer-heading h1 {
+		margin: 0;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+		font-weight: 500;
+		line-height: 1.02;
+	}
+
+	.drawer-heading > p:last-child {
+		margin: 0.65rem 0 0;
+		color: #b2c4c0;
+		font-size: 0.76rem;
+		line-height: 1.5;
+	}
+
+	.decision-drawer .ticket-offers {
+		display: grid;
+		min-height: 0;
+		flex: 1 1 auto;
+		grid-template-columns: 1fr;
+		align-content: start;
+		gap: 0.7rem;
+		overflow-y: auto;
+		margin: 1rem -0.15rem;
+		padding: 0.15rem;
+	}
+
+	.decision-drawer .ticket-offers button {
+		display: grid;
+		width: 100%;
+		min-height: 5.5rem;
+		grid-template-columns: 2.8rem minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.7rem;
+		border: 2px solid #8b7145;
+		border-radius: 0.65rem;
+		padding: 0.75rem;
+		background:
+			linear-gradient(rgba(238, 217, 171, 0.91), rgba(205, 175, 117, 0.93)),
+			repeating-linear-gradient(25deg, #ddd 0 1px, transparent 1px 12px);
+		box-shadow: inset 0 0 0 1px #ead29d;
+		color: #39281a;
+		text-align: left;
+		transition:
+			transform 150ms ease,
+			box-shadow 150ms ease,
+			border-color 150ms ease;
+	}
+
+	.decision-drawer .ticket-offers button:hover,
+	.decision-drawer .ticket-offers button.previewed {
+		transform: translateX(-0.25rem);
+		border-color: #f3d87b;
+		box-shadow:
+			inset 0 0 0 1px #9d3a30,
+			0 0 0 2px rgba(243, 216, 123, 0.5);
+	}
+
+	.decision-drawer .ticket-offers button.selected {
+		border-color: #fff0a1;
+		background:
+			linear-gradient(rgba(248, 227, 174, 0.96), rgba(218, 187, 124, 0.97)),
+			repeating-linear-gradient(25deg, #ddd 0 1px, transparent 1px 12px);
+		box-shadow:
+			inset 0 0 0 2px #9d3a30,
+			0 0 0 2px #f4da7c;
+	}
+
+	.decision-drawer .ticket-points {
+		display: grid;
+		width: 2.7rem;
+		height: 2.7rem;
+		place-items: center;
+		margin: 0;
+		border-radius: 50%;
+		background: #963a31;
+		color: #fff4d5;
+		font-family: Georgia, serif;
+		font-size: 1rem;
+		font-weight: 900;
+	}
+
+	.ticket-route strong,
+	.ticket-route small {
+		display: block;
+	}
+
+	.ticket-route strong {
+		font-family: Georgia, serif;
+		font-size: 1rem;
+	}
+
+	.ticket-route small {
+		margin-top: 0.2rem;
+		color: #72562f;
+		font-size: 0.72rem;
+	}
+
+	.decision-drawer .selected-state {
+		position: static;
+		border-radius: 999px;
+		padding: 0.25rem 0.42rem;
+		background: rgba(70, 49, 27, 0.14);
+		color: #6d3a2d;
+		font-size: 0.58rem;
+	}
+
+	.drawer-footer {
+		display: flex;
+		flex: 0 0 auto;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.13);
+		padding-top: 1rem;
+		color: #aebfbc;
+		font-size: 0.68rem;
+	}
+
+	.claim-actions {
+		display: grid;
+		min-height: 0;
+		flex: 1 1 auto;
+		align-content: start;
+		gap: 0.65rem;
+		overflow-y: auto;
+		margin-block: 1rem;
+	}
+
+	.claim-actions .card-swatch {
+		position: relative;
+		display: grid;
+		width: 100%;
+		min-height: 5.5rem;
+		grid-template-columns: 4rem minmax(0, 1fr);
+		align-items: center;
+		gap: 0.8rem;
+		border-radius: 0.7rem;
+		padding: 0.65rem;
+	}
+
+	.claim-actions .card-swatch .mini-rails {
+		position: relative;
+		inset: auto;
+		width: 4rem;
+		height: 3rem;
+		grid-row: 1 / 3;
+	}
+
+	.claim-actions .card-swatch strong,
+	.claim-actions .card-swatch small {
+		display: block;
+	}
+
+	.claim-actions .card-swatch small {
+		color: inherit;
+		font-size: 0.65rem;
+		opacity: 0.86;
+	}
+
+	.results-drawer {
+		overflow-y: auto;
+	}
+
+	.results-drawer .standings {
+		margin-block: 1rem;
+	}
+
+	.results-drawer .result-card {
+		padding: 0.65rem;
+	}
+
+	.results-drawer .result-summary {
+		grid-template-columns: 1.2rem 1.8rem minmax(0, 1fr) auto;
+		gap: 0.45rem;
+	}
+
+	.results-drawer .score-breakdown {
+		display: flex;
+		gap: 0.35rem;
+		margin-top: 0.55rem;
+		padding-left: 0;
+	}
+
+	.results-drawer .score-breakdown > span {
+		flex: 1;
+		border-radius: 0.35rem;
+		padding: 0.35rem;
+		background: rgba(255, 255, 255, 0.05);
+		font-size: 0.58rem;
+	}
+
+	.results-drawer .ticket-results {
+		margin-left: 0;
+	}
+
+	.debug {
+		position: absolute;
+		right: 7.8rem;
+		bottom: 0.55rem;
+		z-index: 12;
+		width: auto;
+		margin: 0;
+		border-radius: 0.45rem;
+		padding: 0.35rem 0.5rem;
+		background: rgba(6, 17, 21, 0.82);
+		font-size: 0.62rem;
+	}
+
+	.debug pre {
+		width: min(38rem, 70vw);
+		max-height: 50vh;
+	}
+
+	@keyframes drawer-in {
+		from {
+			transform: translateX(100%);
+			opacity: 0.5;
+		}
+	}
+
+	@keyframes toast-in {
+		from {
+			transform: translateY(-0.45rem);
+			opacity: 0;
+		}
+	}
+
+	@keyframes turn-banner-in {
+		from {
+			transform: translate(-50%, 0.7rem);
+			opacity: 0;
+		}
+	}
+
+	@keyframes card-deal {
+		from {
+			transform: translateX(0.7rem) rotate(2deg);
+			opacity: 0;
+		}
+	}
+
+	@keyframes hand-deal {
+		from {
+			transform: translateY(1.5rem) rotate(0);
+			opacity: 0;
+		}
+	}
+
+	@keyframes count-pop {
+		from {
+			transform: scale(0.65);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.drawer-open .board-stage {
+			right: 0;
+			bottom: min(42svh, 26rem);
+		}
+
+		.game-controls {
+			top: 0.4rem;
+		}
+
+		.players {
+			top: 3.35rem;
+			right: 0.35rem;
+			bottom: auto;
+			left: 0.35rem;
+			width: auto;
+			height: auto;
+			flex-direction: row;
+			overflow-x: auto;
+		}
+
+		.players .player-row {
+			width: 7.4rem;
+			min-height: 3.4rem;
+			flex: 0 0 7.4rem;
+			grid-template-columns: 1.35rem minmax(0, 1fr) auto;
+			border-left-width: 0.25rem;
+		}
+
+		.players .viewer-player {
+			order: 0;
+			margin-top: 0;
+		}
+
+		.players .player-token {
+			width: 1.35rem;
+			height: 1.35rem;
+		}
+
+		.market {
+			top: auto;
+			right: 0.35rem;
+			bottom: 2.9rem;
+			left: 0.35rem;
+			display: grid;
+			width: auto;
+			height: 4.1rem;
+			grid-template-columns: 3.6rem minmax(0, 1fr) 3.6rem;
+		}
+
+		.market .destination-deck,
+		.market .deck {
+			min-height: 0;
+			height: 4.1rem;
+		}
+
+		.market .ticket-stack,
+		.market .deck-card {
+			width: 2rem;
+			height: 2.7rem;
+		}
+
+		.market .face-up {
+			display: grid;
+			grid-template-columns: repeat(5, minmax(3.25rem, 1fr));
+			grid-template-rows: 1fr;
+		}
+
+		.market .train-card {
+			min-height: 0;
+			height: 4.1rem;
+		}
+
+		.hand-panel {
+			bottom: 6.55rem;
+			width: min(80vw, 22rem);
+			height: 5.8rem;
+		}
+
+		.hand-panel .hand-card {
+			width: 4rem;
+			height: 5.2rem;
+			flex-basis: 4rem;
+		}
+
+		.ticket-hand {
+			display: none;
+		}
+
+		.turn-banner {
+			width: 100%;
+			border-radius: 0;
+		}
+
+		.game-feedback {
+			top: 7.2rem;
+			width: min(86vw, 25rem);
+		}
+
+		.decision-drawer {
+			top: auto;
+			left: 0;
+			width: 100%;
+			height: min(42svh, 26rem);
+			border-top: 1px solid rgba(237, 211, 150, 0.62);
+			border-left: 0;
+			padding: 0.9rem;
+			animation-name: sheet-in;
+		}
+
+		.drawer-heading {
+			padding-bottom: 0.55rem;
+		}
+
+		.drawer-heading h1 {
+			font-size: 1.4rem;
+		}
+
+		.decision-drawer .ticket-offers {
+			grid-template-columns: repeat(3, minmax(11rem, 1fr));
+			overflow-x: auto;
+			overflow-y: hidden;
+			margin-block: 0.6rem;
+		}
+
+		.decision-drawer .ticket-offers button {
+			min-height: 4.6rem;
+		}
+
+		.drawer-footer {
+			padding-top: 0.55rem;
+		}
+
+		.drawer-open .market,
+		.drawer-open .hand-panel,
+		.drawer-open .ticket-hand,
+		.drawer-open .turn-banner,
+		.drawer-open .game-feedback {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.game-controls div,
+		.board-stage :global(.board-help) {
+			display: none;
+		}
+
+		.game-controls {
+			left: 0.4rem;
+			transform: none;
+			padding-right: 0.3rem;
+		}
+
+		.players {
+			top: 2.9rem;
+		}
+
+		.players .player-name span,
+		.players .player-stats span {
+			display: none;
+		}
+
+		.players .player-row {
+			width: 5.7rem;
+			min-height: 2.8rem;
+			flex-basis: 5.7rem;
+		}
+
+		.game-feedback {
+			display: none;
+		}
+
+		.hand-panel {
+			bottom: 6.65rem;
+		}
+
+		.turn-banner > span:last-child {
+			display: none;
+		}
+
+		.decision-drawer .ticket-offers {
+			grid-template-columns: repeat(3, 10rem);
+		}
+
+		.decision-drawer .ticket-offers button {
+			grid-template-columns: 2.3rem minmax(0, 1fr);
+		}
+
+		.decision-drawer .selected-state {
+			display: none;
+		}
+	}
+
+	@keyframes sheet-in {
+		from {
+			transform: translateY(100%);
+			opacity: 0.5;
 		}
 	}
 

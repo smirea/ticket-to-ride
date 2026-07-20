@@ -98,8 +98,8 @@
 </svelte:head>
 
 <div class="game-page">
-	<nav aria-label="Game controls">
-		<a href="/">← Home</a>
+	<nav class="game-controls" aria-label="Game controls">
+		<a href="/">Home</a>
 		{#if error}<p role="alert">{error}</p>{/if}
 		<span>{botMoving ? 'Rival thinking…' : saveStatus}</span>
 		<button type="button" onclick={restart}>New game</button>
@@ -109,45 +109,70 @@
 
 <style>
 	.game-page {
-		min-height: 100vh;
+		height: 100svh;
+		overflow: hidden;
 		background: #07151b;
 	}
 
-	nav {
+	.game-controls {
+		position: fixed;
+		top: 0.65rem;
+		left: 0.65rem;
+		z-index: 30;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		border-bottom: 1px solid rgb(255 255 255 / 0.1);
-		padding: 0.55rem 1rem;
-		background: #081116;
+		gap: 0.55rem;
+		border: 1px solid rgb(247 231 193 / 0.28);
+		border-radius: 999px;
+		padding: 0.35rem;
+		background: rgb(6 17 21 / 0.84);
+		box-shadow: 0 0.65rem 1.6rem rgb(0 0 0 / 0.24);
+		backdrop-filter: blur(12px);
 		color: #dce6e3;
-		font-size: 0.78rem;
+		font-size: 0.7rem;
 		font-weight: 700;
 	}
 
-	nav a {
+	.game-controls a,
+	.game-controls button {
+		border: 1px solid rgb(255 255 255 / 0.14);
+		border-radius: 999px;
+		padding: 0.42rem 0.7rem;
+		background: rgb(255 255 255 / 0.06);
 		color: #dce6e3;
 		text-decoration: none;
 	}
 
-	nav p {
+	.game-controls p {
 		margin: 0;
+		max-width: 24rem;
+		padding-inline: 0.45rem;
 		color: #ffb5a8;
 	}
 
-	nav span {
-		margin-left: auto;
+	.game-controls span {
+		padding-inline: 0.4rem;
 		color: #7f9692;
 		font-weight: 500;
 	}
 
-	nav button {
-		border: 1px solid rgb(255 255 255 / 0.2);
-		border-radius: 0.25rem;
-		padding: 0.35rem 0.65rem;
-		background: transparent;
-		color: inherit;
+	.game-controls button {
 		cursor: pointer;
+	}
+
+	.game-controls a:hover,
+	.game-controls button:hover {
+		background: rgb(255 255 255 / 0.12);
+	}
+
+	@media (max-width: 700px) {
+		.game-controls {
+			right: 0.65rem;
+			justify-content: space-between;
+		}
+
+		.game-controls span {
+			display: none;
+		}
 	}
 </style>
