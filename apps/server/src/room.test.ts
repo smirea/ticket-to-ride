@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, test } from 'bun:test';
-import { CLIENT_ID_HEADER, type RoomState } from '@repo/shared';
+import { existsSync, unlinkSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { CLIENT_ID_HEADER, chooseBotAction, type RoomState } from '@repo/shared';
 import { createRequestHandler } from './app';
 import { RoomService } from './room-service';
 import { RoomStore } from './room-store';
@@ -11,13 +14,17 @@ interface TestContext {
 }
 
 const stores: RoomStore[] = [];
+const databaseFiles: string[] = [];
 
 afterEach(() => {
 	for (const store of stores.splice(0)) store.close();
+	for (const filename of databaseFiles.splice(0)) {
+		if (existsSync(filename)) unlinkSync(filename);
+	}
 });
 
-function setup(): TestContext {
-	const store = new RoomStore(':memory:');
+function setup(filename = ':memory:'): TestContext {
+	const store = new RoomStore(filename);
 	stores.push(store);
 	const service = new RoomService(store, new RoomStreams(), {
 		createCode: () => 'ABC234',
@@ -35,6 +42,12 @@ function setup(): TestContext {
 			return handler(new Request(`http://test.local${path}`, init));
 		},
 	};
+}
+
+function closeStore(store: RoomStore): void {
+	store.close();
+	const index = stores.indexOf(store);
+	if (index >= 0) stores.splice(index, 1);
 }
 
 async function responseRoom(response: Response): Promise<RoomState> {
@@ -151,6 +164,74 @@ describe('authoritative game actions', () => {
 		});
 		expect(invalid.status).toBe(422);
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
+	});
+
+	test('plays and restores a complete deterministic two-player game', async () => {
+		const databasePath = join(tmpdir(), `ticket-to-ride-${crypto.randomUUID()}.sqlite`);
+		databaseFiles.push(databasePath);
+		const context = setup(databasePath);
+		let room = await startTwoPlayerRoom(context);
+		let acceptedCount = 0;
+
+		while (room.phase === 'playing' && acceptedCount < 10_000) {
+			if (!room.game) throw new Error('Expected an active game.');
+			const currentPlayer = room.game.players[room.game.currentPlayerIndex]!;
+			const otherPlayer = room.game.players.find(player => player.id !== currentPlayer.id)!;
+			const planningState = structuredClone(room.game);
+			planningState.players[planningState.currentPlayerIndex]!.isBot = true;
+			const action = chooseBotAction(planningState);
+			if (!action) throw new Error(`No legal action for ${currentPlayer.id}.`);
+			const actionId = `game-${acceptedCount}`;
+			const revisionBefore = room.revision;
+
+			const wrongTurn = await context.request('POST', `/api/rooms/${room.code}/actions`, otherPlayer.id, {
+				actionId: `wrong-${acceptedCount}`,
+				action,
+			});
+			expect(wrongTurn.status).toBe(409);
+			expect(context.store.getRoom(room.code)?.revision).toBe(revisionBefore);
+
+			const accepted = await context.request('POST', `/api/rooms/${room.code}/actions`, currentPlayer.id, {
+				actionId,
+				action,
+			});
+			expect(accepted.status).toBe(200);
+			room = await responseRoom(accepted);
+			expect(room.revision).toBe(revisionBefore + 1);
+
+			const duplicate = await context.request('POST', `/api/rooms/${room.code}/actions`, currentPlayer.id, {
+				actionId,
+				action,
+			});
+			expect(duplicate.status).toBe(200);
+			expect((await responseRoom(duplicate)).revision).toBe(room.revision);
+			acceptedCount += 1;
+		}
+
+		expect(acceptedCount).toBeLessThan(10_000);
+		if (!room.game) throw new Error('Expected a finished game.');
+		expect(room.phase).toBe('finished');
+		expect(room.finishedReason).toBe('game-over');
+		expect(room.game.phase.type).toBe('game-over');
+		expect(room.game.finalResults).toHaveLength(2);
+		const acceptedActions = context.store.listAcceptedActions(room.code);
+		expect(acceptedActions).toHaveLength(acceptedCount);
+		expect(acceptedActions.slice(0, 2).map(item => item.action.type)).toEqual(['keep-tickets', 'keep-tickets']);
+		expect(acceptedActions.some(item => item.action.type === 'draw-train-deck')).toBe(true);
+		expect(acceptedActions.some(item => item.action.type === 'claim-route')).toBe(true);
+		expect(acceptedActions.map(item => item.action)).toEqual(room.game.history);
+		expect(acceptedActions.at(-1)?.resultingRevision).toBe(room.revision);
+
+		const expectedRoom = structuredClone(room);
+		const expectedActions = structuredClone(acceptedActions);
+		closeStore(context.store);
+		const reopenedStore = new RoomStore(databasePath);
+		stores.push(reopenedStore);
+		const reopenedService = new RoomService(reopenedStore, new RoomStreams());
+
+		expect(reopenedService.getRoom('alice', room.code)).toEqual(expectedRoom);
+		expect(reopenedService.getCurrentRoom('bob')).toEqual(expectedRoom);
+		expect(reopenedStore.listAcceptedActions(room.code)).toEqual(expectedActions);
 	});
 });
 
