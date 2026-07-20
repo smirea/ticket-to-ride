@@ -1,10 +1,17 @@
 <script lang="ts">
+	import { getCurrentRoom, preserveDebugId, roomPageUrl } from '$lib/multiplayer-client';
 	import { onMount } from 'svelte';
 
 	let hasSavedGame = $state(false);
+	let currentRoomCode = $state('');
 
-	onMount(() => {
+	onMount(async () => {
 		hasSavedGame = Boolean(localStorage.getItem('ticket-to-ride:single-player:v1'));
+		try {
+			currentRoomCode = (await getCurrentRoom())?.code ?? '';
+		} catch {
+			currentRoomCode = '';
+		}
 	});
 </script>
 
@@ -20,8 +27,8 @@
 	<div class="rail rail-two" aria-hidden="true"></div>
 
 	<nav aria-label="Main navigation">
-		<a class="brand" href="/">Railbound</a>
-		<a class="small-link" href="/debug/game">Debug game</a>
+		<a class="brand" href={preserveDebugId('/')}>Railbound</a>
+		<a class="small-link" href={preserveDebugId('/debug/game')}>Debug game</a>
 	</nav>
 
 	<section class="hero">
@@ -31,9 +38,11 @@
 			Collect train cards, complete destination tickets, and race a determined rival across the classic USA map.
 		</p>
 		<div class="actions">
-			<a class="primary" href="/setup">Start single player <span aria-hidden="true">→</span></a>
-			{#if hasSavedGame}<a class="continue" href="/game">Continue game</a>{/if}
-			<span>Local game · 1 rival · deterministic</span>
+			<a class="primary" href={preserveDebugId('/setup')}>Start single player <span aria-hidden="true">→</span></a>
+			<a class="multiplayer" href={currentRoomCode ? roomPageUrl(currentRoomCode) : preserveDebugId('/lobby')}>
+				{currentRoomCode ? `Resume room ${currentRoomCode}` : 'Play multiplayer'}
+			</a>
+			{#if hasSavedGame}<a class="continue" href={preserveDebugId('/game')}>Continue solo</a>{/if}
 		</div>
 	</section>
 
@@ -172,6 +181,22 @@
 		padding: 0.45rem 0;
 		color: #e7dfcf;
 		font-weight: 700;
+	}
+
+	.multiplayer {
+		border: 1px solid rgb(255 255 255 / 0.22);
+		border-radius: 0.25rem;
+		padding: 0.95rem 1.1rem;
+		color: #f2ead8;
+		font-weight: 800;
+		transition:
+			border-color 160ms ease,
+			background 160ms ease;
+	}
+
+	.multiplayer:hover {
+		border-color: rgb(231 165 72 / 0.65);
+		background: rgb(231 165 72 / 0.09);
 	}
 
 	footer {

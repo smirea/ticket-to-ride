@@ -22,6 +22,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] The complete deterministic USA rules engine can play seeded games through final scoring.
 - [x] Single player supports configurable rivals, automatic save/resume, restart, debug scenarios, and results.
 - [x] Bots deterministically pursue destination-ticket paths and complete full seeded games using only legal actions.
+- [x] Multiplayer supports private rooms, persistent browser identities, live lobby updates, authoritative turns, reconnect states, and explicit abandon.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -79,34 +80,34 @@ Establish the real game architecture and produce the first usable vertical slice
 - [ ] Finish board navigation, route selection, card payment, animations, and responsive layout.
 - [ ] Verify a human can complete multiple full games without debug controls.
 
-### 4. Add player identity and app navigation
+### 4. Add player identity and app navigation (complete)
 
-- [ ] Add the shared player profile model and setup screen.
-- [ ] Add namespaced typed local storage.
-- [ ] Preserve `DEBUG_ID` through navigation and support multiple identities in one browser.
-- [ ] Add the `/ -> /setup -> /lobby -> /room/[code]` route flow.
-- [ ] Reuse a consistent player/avatar presentation throughout the app.
+- [x] Add the shared player profile model and setup screens.
+- [x] Add namespaced typed local storage.
+- [x] Preserve `DEBUG_ID` through navigation and support multiple identities in one browser.
+- [x] Add `/ -> /setup` for single player and `/ -> /lobby -> /room/[code]` for multiplayer.
+- [x] Reuse a consistent player color and identity presentation throughout the app.
 
-### 5. Add authoritative multiplayer rooms (backend complete; UI integration pending)
+### 5. Add authoritative multiplayer rooms (complete except debug tooling)
 
 - [x] Add shared room state and typed request, response, and event contracts.
 - [x] Add create, join, leave, readiness, settings, and start actions.
 - [x] Add SQLite-backed room snapshots and accepted semantic action persistence.
 - [x] Make the Bun server validate actions with the shared rules engine.
 - [x] Broadcast authoritative room snapshots through one per-room SSE stream.
-- [ ] Add lobby and room screens using the real `GameScreen`.
+- [x] Add lobby and room screens using the real `GameScreen`.
 - [x] Add current-room recovery, idempotent action retries, and explicit abandon semantics to the server.
-- [ ] Wire refresh and reconnect behavior into the UI room routes.
+- [x] Wire refresh and reconnect behavior into the UI room routes.
 - [ ] Add live-room debug save, load, and reset helpers.
 
 ### 6. Complete multiplayer gameplay
 
-- [ ] Verify secret information is hidden by the UI for the current viewer.
+- [x] Verify secret information is hidden by the UI for the current viewer.
 - [x] Enforce turn ownership and reject invalid actions at the server boundary.
-- [ ] Support 2-5 players on the USA map.
+- [x] Support 2-5 players on the USA map.
 - [x] Persist and stream completed or explicitly abandoned room snapshots.
 - [ ] Verify simultaneous joins, disconnects, rejoins, spectators, and completed rooms through the UI.
-- [ ] Test several same-browser clients with distinct `DEBUG_ID` values.
+- [x] Test several same-browser clients with distinct `DEBUG_ID` values.
 - [ ] Prove a multiplayer game can be completed start-to-finish and survives refreshes.
 
 ### 7. Reference parity and release polish
@@ -114,7 +115,7 @@ Establish the real game architecture and produce the first usable vertical slice
 - [ ] Audit every gameplay phase and interaction against the installed Steam game.
 - [ ] Finish responsive desktop and mobile layouts.
 - [ ] Finish keyboard, focus, contrast, motion, and screen-reader behavior.
-- [ ] Add useful loading, waiting, reconnecting, empty, and error states.
+- [x] Add useful loading, waiting, reconnecting, empty, and error states.
 - [ ] Verify rules, scoring, bot turns, replay, room recovery, and production serving.
 - [ ] Run the complete test, typecheck, lint, format, and production-build suite.
 
