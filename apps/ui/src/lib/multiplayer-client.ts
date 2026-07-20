@@ -194,8 +194,7 @@ function createClientId(): string {
 }
 
 function readStore(): StoredClient | null {
-	if (memoryStore) return memoryStore;
-	if (typeof localStorage === 'undefined') return null;
+	if (typeof localStorage === 'undefined') return memoryStore;
 	try {
 		const value: unknown = JSON.parse(localStorage.getItem(CLIENT_STORAGE_KEY) ?? 'null');
 		if (
@@ -203,17 +202,22 @@ function readStore(): StoredClient | null {
 			value === null ||
 			!('clientId' in value) ||
 			typeof value.clientId !== 'string' ||
-			!CLIENT_ID_PATTERN.test(value.clientId) ||
-			!('profiles' in value) ||
-			typeof value.profiles !== 'object' ||
-			value.profiles === null
+			!CLIENT_ID_PATTERN.test(value.clientId)
 		) {
-			return null;
+			return memoryStore;
 		}
-		memoryStore = value as StoredClient;
+		const profiles: Record<string, RoomPlayerProfile> = {};
+		if ('profiles' in value && typeof value.profiles === 'object' && value.profiles !== null) {
+			for (const [clientId, profile] of Object.entries(value.profiles)) {
+				if (CLIENT_ID_PATTERN.test(clientId) && isPlayerProfile(profile)) {
+					profiles[clientId] = { name: profile.name.trim(), color: profile.color };
+				}
+			}
+		}
+		memoryStore = { clientId: value.clientId, profiles };
 		return memoryStore;
 	} catch {
-		return null;
+		return memoryStore;
 	}
 }
 
@@ -225,4 +229,17 @@ function writeStore(value: StoredClient): void {
 	} catch {
 		return;
 	}
+}
+
+function isPlayerProfile(value: unknown): value is RoomPlayerProfile {
+	return (
+		typeof value === 'object' &&
+		value !== null &&
+		'name' in value &&
+		typeof value.name === 'string' &&
+		value.name.trim().length > 0 &&
+		'color' in value &&
+		typeof value.color === 'string' &&
+		PLAYER_COLORS.includes(value.color as RoomPlayerProfile['color'])
+	);
 }

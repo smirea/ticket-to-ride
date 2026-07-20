@@ -11,6 +11,7 @@
 		normalizeRoomCode,
 		preserveDebugId,
 		roomEventsUrl,
+		savePlayerProfile,
 		setRoomReady,
 		startRoom,
 		submitRoomAction,
@@ -21,7 +22,8 @@
 
 	type ConnectionStatus = 'connecting' | 'live' | 'retrying' | 'offline' | 'closed';
 	type PendingCommand = 'ready' | 'settings' | 'start' | 'leave' | 'abandon' | 'action' | null;
-	type ClientIdentity = { clientId: string; name: string; color: RoomPlayer['color'] };
+	type ClientIdentity = { clientId: string };
+	const reconnectingNotice = 'Reconnecting to the room…';
 
 	const roomCode = normalizeRoomCode(page.params.code);
 
@@ -48,13 +50,7 @@
 	onMount(() => {
 		disposed = false;
 		lobbyHref = preserveDebugId('/lobby');
-		const profile = loadPlayerProfile();
-		identity = profile ? { clientId: getClientId(), ...profile } : null;
-		if (!identity) {
-			connection = 'closed';
-			error = 'Your multiplayer identity is missing. Return to the lobby and rejoin the room.';
-			return;
-		}
+		identity = { clientId: getClientId() };
 
 		const handleOnline = () => {
 			if (connection === 'offline' || connection === 'retrying') reconnect();
@@ -94,6 +90,7 @@
 			if (eventSource !== source) return;
 			connection = 'live';
 			error = '';
+			if (notice === reconnectingNotice) notice = '';
 		};
 		source.onerror = () => {
 			if (eventSource !== source || connection === 'closed') return;
@@ -105,6 +102,7 @@
 			applySnapshot(event.room);
 			connection = 'live';
 			error = '';
+			if (notice === reconnectingNotice) notice = '';
 		});
 		source.addEventListener('closed', rawEvent => {
 			const event = parseRoomEvent(rawEvent);
@@ -128,6 +126,11 @@
 		if (room && nextRoom.revision < room.revision) return;
 		room = nextRoom;
 		lastSnapshotAt = new Date();
+		const roomProfile = identity ? nextRoom.players.find(player => player.id === identity?.clientId) : undefined;
+		const savedProfile = loadPlayerProfile();
+		if (roomProfile && (savedProfile?.name !== roomProfile.name || savedProfile.color !== roomProfile.color)) {
+			savePlayerProfile({ name: roomProfile.name, color: roomProfile.color });
+		}
 		if (pending !== 'settings') {
 			settingsMaxPlayers = nextRoom.settings.maxPlayers;
 			settingsSeed = nextRoom.settings.seed;
@@ -137,7 +140,7 @@
 	function reconnect() {
 		if (!identity) return;
 		error = '';
-		notice = 'Reconnecting to the room…';
+		notice = reconnectingNotice;
 		eventSource?.close();
 		void initializeRoom();
 	}
@@ -248,7 +251,13 @@
 				<span>Room</span>
 				<strong>{room.code}</strong>
 			</div>
-			<div class="connection" class:live={connection === 'live'} class:warning={connection !== 'live'}>
+			<div
+				class="connection"
+				class:live={connection === 'live'}
+				class:warning={connection !== 'live'}
+				role="status"
+				aria-live="polite"
+			>
 				<i></i>
 				<span>{connectionLabel()}</span>
 				<small>revision {room.revision}</small>
@@ -269,7 +278,13 @@
 	<main class="room-page">
 		<nav>
 			<a href={lobbyHref}>← Lobby</a>
-			<div class="connection" class:live={connection === 'live'} class:warning={connection !== 'live'}>
+			<div
+				class="connection"
+				class:live={connection === 'live'}
+				class:warning={connection !== 'live'}
+				role="status"
+				aria-live="polite"
+			>
 				<i></i>
 				<span>{connectionLabel()}</span>
 				{#if room}<small>revision {room.revision}</small>{/if}
@@ -436,7 +451,7 @@
 				<h1>{room.finishedReason === 'abandoned' ? 'The journey was abandoned.' : 'The final whistle has blown.'}</h1>
 				<span>
 					{room.finishedReason === 'abandoned'
-						? 'A player abandoned the active game. The last authoritative board remains available.'
+						? 'A player abandoned the active game. The room is closed and no further moves can be submitted.'
 						: 'Final standings are shown on the game board.'}
 				</span>
 				{#if room.finishedReason === 'game-over' && room.game && identity}
