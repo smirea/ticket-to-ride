@@ -1,4 +1,5 @@
 # Goal: Implement the ticket to ride boardgame
+
 - Use the installed Ticket to Ride steam game as a reference. For every feature first inspect how the steam game implements it and replicate it. Use the steam game for gameplay and interaction reference
 - Update this PROJECT_STATUS.md document periodically to track in progress ans and pending items.
 - Commit periodically as you complete full systems or discrete systems
