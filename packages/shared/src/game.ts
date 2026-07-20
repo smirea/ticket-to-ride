@@ -749,6 +749,133 @@ function paymentColorForRoute(player: Player, routeItem: Route): TrainColor | un
 		.sort((left, right) => player.hand[right] - player.hand[left] || left.localeCompare(right))[0];
 }
 
+interface BotTicketPlan {
+	ticketId: TicketId;
+	routes: Route[];
+	remainingCost: number;
+}
+
+function shortestTicketPath(state: GameState, player: Player, ticketId: TicketId): BotTicketPlan | undefined {
+	const ticket = getTicket(ticketId);
+	if (!ticket) return undefined;
+	const unvisited = new Set(USA_CITIES.map(city => city.id));
+	const distances = new Map<CityId, number>([[ticket.cityA, 0]]);
+	const paths = new Map<CityId, Route[]>([[ticket.cityA, []]]);
+
+	while (unvisited.size > 0) {
+		const cityId = [...unvisited]
+			.filter(candidate => distances.has(candidate))
+			.sort((left, right) => {
+				const distance = distances.get(left)! - distances.get(right)!;
+				if (distance !== 0) return distance;
+				const path = pathKey(paths.get(left) ?? []).localeCompare(pathKey(paths.get(right) ?? []));
+				return path || left.localeCompare(right);
+			})[0];
+		if (!cityId) break;
+		unvisited.delete(cityId);
+		if (cityId === ticket.cityB) break;
+
+		for (const routeItem of USA_ROUTES) {
+			const neighbor =
+				routeItem.cityA === cityId ? routeItem.cityB : routeItem.cityB === cityId ? routeItem.cityA : null;
+			if (!neighbor || !unvisited.has(neighbor)) continue;
+			const owner = state.claimedRoutes[routeItem.id];
+			if (owner && owner !== player.id) continue;
+			if (!owner && (routeItem.length > player.trains || hasParallelConflict(state, routeItem, player))) continue;
+			const nextDistance = distances.get(cityId)! + (owner === player.id ? 0 : routeItem.length);
+			const nextPath = [...(paths.get(cityId) ?? []), routeItem];
+			const knownDistance = distances.get(neighbor);
+			const knownPath = paths.get(neighbor);
+			if (
+				knownDistance === undefined ||
+				nextDistance < knownDistance ||
+				(nextDistance === knownDistance && pathKey(nextPath) < pathKey(knownPath ?? []))
+			) {
+				distances.set(neighbor, nextDistance);
+				paths.set(neighbor, nextPath);
+			}
+		}
+	}
+
+	const remainingCost = distances.get(ticket.cityB);
+	const routes = paths.get(ticket.cityB);
+	if (remainingCost === undefined || remainingCost > player.trains || !routes) return undefined;
+	return { ticketId, routes, remainingCost };
+}
+
+function pathKey(routes: Route[]): string {
+	return routes.map(routeItem => routeItem.id).join('|');
+}
+
+function botTicketPlans(state: GameState, player: Player): BotTicketPlan[] {
+	return player.tickets
+		.filter(ticketId => !isTicketComplete(state, player.id, ticketId))
+		.map(ticketId => shortestTicketPath(state, player, ticketId))
+		.filter((plan): plan is BotTicketPlan => plan !== undefined)
+		.sort((left, right) => {
+			const cost = left.remainingCost - right.remainingCost;
+			if (cost !== 0) return cost;
+			const points = (getTicket(right.ticketId)?.points ?? 0) - (getTicket(left.ticketId)?.points ?? 0);
+			return points || left.ticketId.localeCompare(right.ticketId);
+		});
+}
+
+function availableBotRoutes(state: GameState, player: Player): Route[] {
+	return USA_ROUTES.filter(
+		routeItem =>
+			!state.claimedRoutes[routeItem.id] &&
+			player.trains >= routeItem.length &&
+			!hasParallelConflict(state, routeItem, player),
+	);
+}
+
+function claimableBotAction(state: GameState, player: Player, routes: Route[]): GameAction | undefined {
+	const choice = routes
+		.map(routeItem => ({ routeItem, paymentColor: paymentColorForRoute(player, routeItem) }))
+		.filter(
+			(candidate): candidate is { routeItem: Route; paymentColor: TrainColor } =>
+				candidate.paymentColor !== undefined &&
+				canClaimRoute(state, player.id, candidate.routeItem.id, candidate.paymentColor).ok,
+		)
+		.sort(
+			(left, right) =>
+				right.routeItem.length - left.routeItem.length || left.routeItem.id.localeCompare(right.routeItem.id),
+		)[0];
+	return choice ? { type: 'claim-route', routeId: choice.routeItem.id, paymentColor: choice.paymentColor } : undefined;
+}
+
+function usefulRouteColor(state: GameState, player: Player, routeItem: Route): TrainColor {
+	if (routeItem.color !== 'gray') return routeItem.color;
+	const faceUpCounts = Object.fromEntries(TRAIN_COLORS.map(color => [color, 0])) as Record<TrainColor, number>;
+	for (const card of state.faceUpTrainCards) {
+		if (card !== 'locomotive') faceUpCounts[card] += 1;
+	}
+	return [...TRAIN_COLORS].sort(
+		(left, right) =>
+			player.hand[right] + faceUpCounts[right] - (player.hand[left] + faceUpCounts[left]) || left.localeCompare(right),
+	)[0]!;
+}
+
+function usefulFaceUpIndex(state: GameState, player: Player, routes: Route[]): number {
+	if (state.phase.type !== 'turn') return -1;
+	if (state.phase.drawsTaken === 0) {
+		const locomotive = state.faceUpTrainCards.indexOf('locomotive');
+		if (locomotive >= 0) return locomotive;
+	}
+	const colorScores = new Map<TrainColor, number>();
+	for (const routeItem of routes) {
+		const color = usefulRouteColor(state, player, routeItem);
+		const missing = Math.max(1, routeItem.length - player.hand[color] - player.hand.locomotive);
+		colorScores.set(color, (colorScores.get(color) ?? 0) + missing);
+	}
+	return (
+		state.faceUpTrainCards
+			.map((card, index) => ({ card, index, score: card === 'locomotive' ? 0 : (colorScores.get(card) ?? 0) }))
+			.filter(candidate => candidate.score > 0)
+			.sort((left, right) => right.score - left.score || left.index - right.index)[0]?.index ?? -1
+	);
+}
+
 export function chooseBotAction(state: GameState): GameAction | undefined {
 	const player = currentPlayer(state);
 	if (!player.isBot) return undefined;
@@ -761,43 +888,23 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 	}
 	if (state.phase.type !== 'turn') return undefined;
 
+	const availableRoutes = availableBotRoutes(state, player);
+	const ticketPlan = botTicketPlans(state, player)[0];
+	const ticketRoutes = ticketPlan?.routes.filter(routeItem => !state.claimedRoutes[routeItem.id]) ?? [];
+	const strategicRoutes = ticketRoutes.length > 0 ? ticketRoutes : availableRoutes;
+
 	if (state.phase.drawsTaken === 0) {
-		const routeChoice = USA_ROUTES.filter(routeItem => !state.claimedRoutes[routeItem.id])
-			.map(routeItem => ({ routeItem, paymentColor: paymentColorForRoute(player, routeItem) }))
-			.filter(
-				(choice): choice is { routeItem: Route; paymentColor: TrainColor } =>
-					choice.paymentColor !== undefined &&
-					canClaimRoute(state, player.id, choice.routeItem.id, choice.paymentColor).ok,
-			)
-			.sort(
-				(left, right) =>
-					right.routeItem.length - left.routeItem.length || left.routeItem.id.localeCompare(right.routeItem.id),
-			)[0];
-		if (routeChoice) {
-			return {
-				type: 'claim-route',
-				routeId: routeChoice.routeItem.id,
-				paymentColor: routeChoice.paymentColor,
-			};
-		}
+		const routeAction = claimableBotAction(state, player, strategicRoutes);
+		if (routeAction) return routeAction;
 	}
 
-	const availableRoutes = USA_ROUTES.filter(
-		routeItem =>
-			!state.claimedRoutes[routeItem.id] &&
-			player.trains >= routeItem.length &&
-			!hasParallelConflict(state, routeItem, player),
-	);
-	const targetColors = availableRoutes
-		.flatMap(routeItem => (routeItem.color === 'gray' ? [...TRAIN_COLORS] : [routeItem.color]))
-		.sort((left, right) => player.hand[right] - player.hand[left] || left.localeCompare(right));
-	const preferredFaceUpIndex = state.faceUpTrainCards.findIndex(
-		card =>
-			(card === 'locomotive' && state.phase.type === 'turn' && state.phase.drawsTaken === 0) ||
-			(card !== 'locomotive' && targetColors.includes(card)),
-	);
+	const preferredFaceUpIndex = usefulFaceUpIndex(state, player, strategicRoutes);
 	if (preferredFaceUpIndex >= 0) return { type: 'draw-face-up', index: preferredFaceUpIndex };
 	if (state.trainDeck.length > 0 || state.trainDiscard.length > 0) return { type: 'draw-train-deck' };
+	if (state.phase.drawsTaken === 0) {
+		const fallbackRoute = claimableBotAction(state, player, availableRoutes);
+		if (fallbackRoute) return fallbackRoute;
+	}
 	const fallbackFaceUpIndex = state.faceUpTrainCards.findIndex(card => card !== 'locomotive');
 	if (fallbackFaceUpIndex >= 0) return { type: 'draw-face-up', index: fallbackFaceUpIndex };
 	if (state.phase.drawsTaken === 0 && state.destinationDeck.length > 0) {

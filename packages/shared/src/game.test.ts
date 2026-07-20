@@ -8,6 +8,7 @@ import {
 	applyGameAction,
 	calculateLongestPath,
 	canClaimRoute,
+	chooseBotAction,
 	createDebugClaimScenario,
 	createDebugFinalRoundScenario,
 	createGame,
@@ -301,6 +302,53 @@ describe('route payment', () => {
 	});
 });
 
+describe('bot strategy', () => {
+	test('claims a shortest-path route for an incomplete destination instead of a longer unrelated route', () => {
+		const state = createGame({
+			seed: 'bot-route-plan',
+			players: [
+				{ id: 'bot-a', name: 'Ada', color: 'red', isBot: true },
+				{ id: 'bot-b', name: 'Bea', color: 'blue', isBot: true },
+			],
+		});
+		state.phase = { type: 'turn', drawsTaken: 0 };
+		state.currentPlayerIndex = 0;
+		state.players[0]!.tickets = ['denver-el-paso'];
+		for (const card of TRAIN_CARDS) state.players[0]!.hand[card] = 0;
+		state.players[0]!.hand.red = 2;
+		state.players[0]!.hand.yellow = 6;
+
+		const action = chooseBotAction(state);
+		expect(action).toMatchObject({ type: 'claim-route', routeId: 'denver-santa-fe-gray' });
+		if (!action) return;
+		expect(applyGameAction(state, action).ok).toBe(true);
+	});
+
+	test('takes a face-up color needed by the shortest remaining ticket path', () => {
+		const state = createGame({
+			seed: 'bot-card-plan',
+			players: [
+				{ id: 'bot-a', name: 'Ada', color: 'red', isBot: true },
+				{ id: 'bot-b', name: 'Bea', color: 'blue', isBot: true },
+			],
+		});
+		state.phase = { type: 'turn', drawsTaken: 0 };
+		state.currentPlayerIndex = 0;
+		state.players[0]!.tickets = ['seattle-los-angeles'];
+		for (const card of TRAIN_CARDS) state.players[0]!.hand[card] = 0;
+		state.claimedRoutes = {
+			'seattle-portland-gray-a': 'bot-a',
+			'san-francisco-los-angeles-purple-b': 'bot-a',
+		};
+		state.faceUpTrainCards = ['blue', 'green', 'orange', 'yellow', 'red'];
+
+		const action = chooseBotAction(state);
+		expect(action).toEqual({ type: 'draw-face-up', index: 1 });
+		if (!action) return;
+		expect(applyGameAction(state, action).ok).toBe(true);
+	});
+});
+
 describe('final round and scoring', () => {
 	test('gives every player, including the trigger, exactly one last turn', () => {
 		const state = createDebugClaimScenario();
@@ -429,6 +477,7 @@ describe('persistence and full simulation', () => {
 		const second = simulate();
 		expect(first.phase.type).toBe('game-over');
 		expect(first.finalResults).toHaveLength(4);
+		expect(first.finalResults?.every(result => result.completedTickets > 0)).toBe(true);
 		expect(first.finalRound?.turnsRemaining).toBe(0);
 		expect(first.history.length).toBeLessThan(10_000);
 		expect(first).toEqual(second);

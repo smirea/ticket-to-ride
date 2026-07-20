@@ -21,6 +21,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Shared environment parsing, theme tokens, TanStack Query, linting, formatting, and hooks configured.
 - [x] The complete deterministic USA rules engine can play seeded games through final scoring.
 - [x] Single player supports configurable rivals, automatic save/resume, restart, debug scenarios, and results.
+- [x] Bots deterministically pursue destination-ticket paths and complete full seeded games using only legal actions.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -71,7 +72,7 @@ Establish the real game architecture and produce the first usable vertical slice
 ### 3. Complete the single-player product (active)
 
 - [ ] Inspect Steam bot pacing, feedback, difficulty, and game-over presentation.
-- [ ] Replace the vertical-slice bot with a coherent deterministic strategy that only uses legal actions.
+- [x] Replace the vertical-slice bot with a coherent deterministic strategy that only uses legal actions.
 - [x] Support the intended USA player-count range and configurable local opponents.
 - [x] Add restart, turn history, bot-action feedback, and local save/resume.
 - [x] Add debug scenarios for setup, each turn action, final round, longest route, ties, and final scoring.
