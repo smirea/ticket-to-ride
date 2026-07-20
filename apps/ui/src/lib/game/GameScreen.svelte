@@ -12,6 +12,7 @@
 		TrainColor,
 	} from '@repo/shared';
 	import { isTicketComplete, USA_CITIES, USA_ROUTES, USA_TICKETS } from '@repo/shared';
+	import { tick } from 'svelte';
 	import GameBoard from './GameBoard.svelte';
 
 	type Props = {
@@ -54,6 +55,7 @@
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId | undefined>();
 	let activeOfferKey = $state('');
+	let ticketDialog = $state<HTMLDivElement | undefined>();
 
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const viewer = $derived(gameState.players.find(player => player.id === viewerId));
@@ -81,6 +83,19 @@
 		if (offer !== activeOfferKey) {
 			activeOfferKey = offer;
 			selectedTickets = [];
+			if (offer) void tick().then(() => ticketDialog?.focus());
+		}
+	});
+
+	$effect(() => {
+		if (
+			selectedRouteId &&
+			(!isViewerTurn ||
+				gameState.phase.type !== 'turn' ||
+				gameState.phase.drawsTaken > 0 ||
+				gameState.claimedRoutes[selectedRouteId])
+		) {
+			selectedRouteId = undefined;
 		}
 	});
 
@@ -90,6 +105,10 @@
 
 	function playerColor(player: Player): string {
 		return `var(--player-${player.color})`;
+	}
+
+	function trainCardCount(player: Player): number {
+		return Object.values(player.hand).reduce((sum, count) => sum + count, 0);
 	}
 
 	function cityName(id: DestinationTicket['cityA']): string {
@@ -230,11 +249,16 @@
 		<aside class="players panel" aria-label="Players">
 			<p class="section-label">Players</p>
 			{#each gameState.players as player, index (player.id)}
-				<div class:active={index === gameState.currentPlayerIndex} class="player-row">
+				<div
+					class:active={index === gameState.currentPlayerIndex}
+					class="player-row"
+					aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${trainCardCount(player)} train cards, ${player.tickets.length} destination tickets`}
+				>
 					<span class="player-token" style:background={playerColor(player)}>{index + 1}</span>
 					<div class="player-name">
 						<strong>{player.name}</strong>
 						<span>{player.id === viewerId ? 'You' : player.isBot ? 'Conductor bot' : 'Player'}</span>
+						<span class="player-resources">{trainCardCount(player)} cards · {player.tickets.length} tickets</span>
 					</div>
 					<div class="player-stats">
 						<strong>{player.score}</strong>
@@ -264,10 +288,10 @@
 			/>
 
 			{#if selectedRoute}
-				<div class="claim-panel">
+				<div class="claim-panel" role="region" aria-labelledby="claim-title" aria-live="polite">
 					<div>
 						<p class="section-label">Claim route</p>
-						<strong>{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</strong>
+						<strong id="claim-title">{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</strong>
 						<span
 							>{selectedRoute.length} trains · {selectedRoute.color === 'gray'
 								? 'any single color'
@@ -276,7 +300,12 @@
 					</div>
 					<div class="claim-actions">
 						{#each availablePaymentColors(selectedRoute) as color}
-							<button type="button" class={`card-swatch ${color}`} onclick={() => claimRoute(selectedRoute, color)}>
+							<button
+								type="button"
+								class={`card-swatch ${color}`}
+								onclick={() => claimRoute(selectedRoute, color)}
+								aria-label={`Claim ${cityName(selectedRoute.cityA)} to ${cityName(selectedRoute.cityB)} using ${cardLabels[color]} cards. You have ${viewer?.hand[color] ?? 0} plus ${viewer?.hand.locomotive ?? 0} wild.`}
+							>
 								<span>{viewer?.hand[color] ?? 0} + {viewer?.hand.locomotive ?? 0} wild</span>
 								<strong>{cardLabels[color]}</strong>
 							</button>
@@ -296,7 +325,7 @@
 				<h2>Market</h2>
 			</div>
 			<div class="face-up">
-				{#each gameState.faceUpTrainCards as card, index}
+				{#each gameState.faceUpTrainCards as card, index (`${index}-${card}`)}
 					<button
 						type="button"
 						class={`train-card ${card}`}
@@ -355,7 +384,7 @@
 
 		<div class="hand-content">
 			<div class="hand-cards" aria-label="Your train cards">
-				{#each cardOrder as card}
+				{#each cardOrder as card (`${card}-${viewer?.hand[card] ?? 0}`)}
 					<div class:empty={!viewer?.hand[card]} class={`hand-card ${card}`}>
 						<span class="card-count">{viewer?.hand[card] ?? 0}</span>
 						<span class="mini-rails" aria-hidden="true"></span>
@@ -395,7 +424,15 @@
 
 {#if ticketSelection}
 	<div class="modal-backdrop">
-		<div class="ticket-modal" role="dialog" aria-modal="true" aria-labelledby="ticket-title">
+		<div
+			class="ticket-modal"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="ticket-title"
+			aria-describedby="ticket-instructions"
+			tabindex="-1"
+			bind:this={ticketDialog}
+		>
 			<div class="modal-heading">
 				<p class="section-label">
 					{ticketSelection.source === 'opening' ? 'Before the first departure' : 'Destination ticket draw'}
@@ -403,7 +440,7 @@
 				<h1 id="ticket-title">
 					{ticketSelection.source === 'opening' ? 'Choose your destinations' : 'Keep new destinations'}
 				</h1>
-				<p>
+				<p id="ticket-instructions">
 					Keep at least {ticketSelection.minimum}.
 					{ticketSelection.source === 'opening'
 						? 'Any ticket you leave behind returns to the deck.'
@@ -417,7 +454,11 @@
 						class:selected={selectedTickets.includes(ticket.id)}
 						onclick={() => toggleTicket(ticket.id)}
 						aria-pressed={selectedTickets.includes(ticket.id)}
+						aria-label={`${cityName(ticket.cityA)} to ${cityName(ticket.cityB)}, ${ticket.points} points${selectedTickets.includes(ticket.id) ? ', selected' : ''}`}
 					>
+						{#if selectedTickets.includes(ticket.id)}
+							<span class="selected-state" aria-hidden="true">✓ Selected</span>
+						{/if}
 						<span class="ticket-map" aria-hidden="true">✦</span>
 						<strong>{cityName(ticket.cityA)}</strong>
 						<small>to</small>
@@ -804,6 +845,12 @@
 		font-size: 0.65rem;
 	}
 
+	.player-name .player-resources {
+		margin-top: 0.18rem;
+		color: #c2cfcc;
+		font-size: 0.62rem;
+	}
+
 	.player-stats {
 		text-align: right;
 	}
@@ -845,6 +892,7 @@
 		padding: 0.8rem 1rem;
 		background: rgba(21, 31, 31, 0.96);
 		box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.36);
+		animation: panel-arrive 180ms ease-out;
 	}
 
 	.claim-panel strong,
@@ -930,6 +978,7 @@
 		transition:
 			transform 120ms ease,
 			filter 120ms ease;
+		animation: card-arrive 180ms ease-out;
 	}
 
 	.train-card:not(:disabled):hover {
@@ -1073,6 +1122,7 @@
 		color: white;
 		font-size: 0.62rem;
 		text-shadow: 0 1px 2px black;
+		animation: card-arrive 180ms ease-out;
 	}
 
 	.hand-card.empty {
@@ -1257,6 +1307,10 @@
 		box-shadow: inset 0 0 0 2px #ead29d;
 		color: #39281a;
 		cursor: pointer;
+		transition:
+			transform 150ms ease,
+			box-shadow 150ms ease,
+			border-color 150ms ease;
 	}
 
 	.ticket-offers button.selected {
@@ -1293,6 +1347,19 @@
 		background: #963a31;
 		color: #fff4d5;
 		font-size: 0.75rem;
+		font-weight: 800;
+	}
+
+	.selected-state {
+		position: absolute;
+		top: 0.65rem;
+		left: 0.65rem;
+		z-index: 1;
+		border-radius: 999px;
+		padding: 0.25rem 0.5rem;
+		background: #963a31;
+		color: #fff4d5;
+		font-size: 0.65rem;
 		font-weight: 800;
 	}
 
@@ -1511,6 +1578,20 @@
 		font-size: 0.7rem;
 	}
 
+	@keyframes panel-arrive {
+		from {
+			opacity: 0;
+			transform: translate(-50%, 0.5rem);
+		}
+	}
+
+	@keyframes card-arrive {
+		from {
+			opacity: 0.35;
+			transform: translateY(-0.35rem);
+		}
+	}
+
 	@media (max-width: 1180px) {
 		.table {
 			grid-template-columns: 13rem minmax(0, 1fr);
@@ -1662,6 +1743,26 @@
 		.claim-actions {
 			flex-wrap: wrap;
 			justify-content: flex-start;
+		}
+
+		.claim-panel {
+			bottom: 0.5rem;
+			width: calc(100% - 1rem);
+			max-height: min(50vh, 20rem);
+			overflow-y: auto;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.game-shell *,
+		.game-shell *::before,
+		.game-shell *::after,
+		.modal-backdrop *,
+		.modal-backdrop *::before,
+		.modal-backdrop *::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
 		}
 	}
 </style>

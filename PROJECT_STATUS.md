@@ -70,14 +70,16 @@ Establish the real game architecture and produce the first usable vertical slice
 - [x] Add meaningful deterministic tests for rule boundaries, scoring, and replay.
 - [x] Prove a complete seeded game can be played start-to-finish and rendered in `/debug/game`.
 
-### 3. Complete the single-player product (active)
+### 3. Complete the single-player product (playable; extended human QA pending)
 
-- [ ] Inspect Steam bot pacing, feedback, difficulty, and game-over presentation.
+- [x] Inspect Steam bot pacing, turn feedback, public player counts, board controls, and game-speed setting.
+- [ ] Inspect Steam difficulty choices and game-over presentation.
 - [x] Replace the vertical-slice bot with a coherent deterministic strategy that only uses legal actions.
 - [x] Support the intended USA player-count range and configurable local opponents.
 - [x] Add restart, turn history, bot-action feedback, and local save/resume.
 - [x] Add debug scenarios for setup, each turn action, final round, longest route, ties, and final scoring.
-- [ ] Finish board navigation, route selection, card payment, animations, and responsive layout.
+- [x] Finish keyboard board navigation, route selection, card payment, transitions, and responsive layout.
+- [x] Pace bot actions so each legal move and turn transition remains visible.
 - [ ] Verify a human can complete multiple full games without debug controls.
 
 ### 4. Add player identity and app navigation (complete)
@@ -106,18 +108,20 @@ Establish the real game architecture and produce the first usable vertical slice
 - [x] Enforce turn ownership and reject invalid actions at the server boundary.
 - [x] Support 2-5 players on the USA map.
 - [x] Persist and stream completed or explicitly abandoned room snapshots.
-- [ ] Verify simultaneous joins, disconnects, rejoins, spectators, and completed rooms through the UI.
+- [x] Verify joins, readiness, start consensus, refresh/rejoin recovery, and private opening-ticket rendering through two browser clients.
+- [ ] Add a spectator flow and simultaneous-join stress test.
 - [x] Test several same-browser clients with distinct `DEBUG_ID` values.
-- [ ] Prove a multiplayer game can be completed start-to-finish and survives refreshes.
+- [x] Prove a multiplayer game completes start-to-finish and recovers its exact final snapshot and action log after a server/store restart.
 
 ### 7. Reference parity and release polish
 
 - [ ] Audit every gameplay phase and interaction against the installed Steam game.
-- [ ] Finish responsive desktop and mobile layouts.
-- [ ] Finish keyboard, focus, contrast, motion, and screen-reader behavior.
+- [x] Finish responsive desktop and mobile layouts for setup, lobby, room, board, ticket selection, and results.
+- [x] Add keyboard route navigation, visible focus, semantic labels, live status, and reduced-motion behavior.
+- [ ] Complete contrast and screen-reader audits across every route.
 - [x] Add useful loading, waiting, reconnecting, empty, and error states.
-- [ ] Verify rules, scoring, bot turns, replay, room recovery, and production serving.
-- [ ] Run the complete test, typecheck, lint, format, and production-build suite.
+- [x] Verify rules, scoring, bot turns, replay, room recovery, and production serving.
+- [x] Run the complete test, typecheck, lint, format, and production-build suite.
 
 # Bugs
 
@@ -129,6 +133,8 @@ Establish the real game architecture and produce the first usable vertical slice
 - Random outcomes or seeds must be stored in accepted state so replay remains deterministic.
 - `GameScreen` accepts plain game state, players, `viewerId`, and one `send(event)` callback.
 - Steam reference interaction is verified through single-player setup, opening ticket selection, face-up and blind card draws, route selection, and AI turn handoff. Route claims drag a matching card group onto the route; clicking a route and confirming is the accessible alternate flow.
+- Steam exposes public card, ticket, train, and score counts in each player row, announces the human turn over the board, and offers an adjustable game-speed setting. Local bots now reveal their actions with short paced transitions.
 - The Unity client occasionally drops synthetic pointer-down events. Longer held input is reliable; Retina window captures must be converted from pixels to screen points before targeting board colliders.
+- Multiplayer browser QA uses distinct `DEBUG_ID` values. Two clients have proven create/join, revisioned SSE updates, readiness, start, refresh recovery, identity isolation, and secret opening-ticket rendering; the server test completes the same authoritative path through final recovery.
 - Multiplayer work begins only after the local game is playable start-to-finish.
 - Other maps, reused commercial assets, authentication, matchmaking, and hostile-client security are out of scope.
