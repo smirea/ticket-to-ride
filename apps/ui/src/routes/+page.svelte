@@ -1,3 +1,13 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+
+	let hasSavedGame = $state(false);
+
+	onMount(() => {
+		hasSavedGame = Boolean(localStorage.getItem('ticket-to-ride:single-player:v1'));
+	});
+</script>
+
 <svelte:head>
 	<title>Railbound — Ticket to Ride</title>
 	<meta name="description" content="Build a railway across North America in a local Ticket to Ride game." />
@@ -21,7 +31,8 @@
 			Collect train cards, complete destination tickets, and race a determined rival across the classic USA map.
 		</p>
 		<div class="actions">
-			<a class="primary" href="/game">Start single player <span aria-hidden="true">→</span></a>
+			<a class="primary" href="/setup">Start single player <span aria-hidden="true">→</span></a>
+			{#if hasSavedGame}<a class="continue" href="/game">Continue game</a>{/if}
 			<span>Local game · 1 rival · deterministic</span>
 		</div>
 	</section>
@@ -154,6 +165,13 @@
 	.primary:hover {
 		transform: translateY(-2px);
 		background: #df563e;
+	}
+
+	.continue {
+		border-bottom: 1px solid rgb(255 255 255 / 0.35);
+		padding: 0.45rem 0;
+		color: #e7dfcf;
+		font-weight: 700;
 	}
 
 	footer {

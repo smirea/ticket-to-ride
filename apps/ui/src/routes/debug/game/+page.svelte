@@ -1,6 +1,15 @@
 <script lang="ts">
 	import GameScreen from '$lib/game/GameScreen.svelte';
-	import { applyGameAction, createDebugClaimScenario, createGame, type GameAction, type GameState } from '@repo/shared';
+	import {
+		applyGameAction,
+		createDebugClaimScenario,
+		createDebugFinalRoundScenario,
+		createDebugFinalScenario,
+		createDebugTicketScenario,
+		createGame,
+		type GameAction,
+		type GameState,
+	} from '@repo/shared';
 
 	let game = $state<GameState>(createDebugClaimScenario());
 	let viewerId = $state('player');
@@ -27,6 +36,12 @@
 		viewerId = 'player';
 		error = '';
 	}
+
+	function loadScenario(next: GameState) {
+		game = next;
+		viewerId = 'player';
+		error = '';
+	}
 </script>
 
 <svelte:head>
@@ -46,11 +61,14 @@
 				</select>
 			</label>
 			<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
+			<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
+			<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
+			<button type="button" onclick={() => loadScenario(createDebugFinalScenario())}>Results</button>
 			<button type="button" onclick={resetSetupScenario}>Setup scenario</button>
 		</div>
 		{#if error}<p role="alert">{error}</p>{/if}
 	</nav>
-	<GameScreen state={game} {viewerId} {send} debug />
+	<GameScreen state={game} {viewerId} {send} onrestart={resetSetupScenario} debug />
 </div>
 
 <style>

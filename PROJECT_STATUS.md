@@ -19,7 +19,8 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Bun API server and SvelteKit SPA scaffolded.
 - [x] Vite development proxy and production static serving configured.
 - [x] Shared environment parsing, theme tokens, TanStack Query, linting, formatting, and hooks configured.
-- [x] A deterministic single-player vertical slice is playable on the complete USA board.
+- [x] The complete deterministic USA rules engine can play seeded games through final scoring.
+- [x] Single player supports configurable rivals, automatic save/resume, restart, debug scenarios, and results.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -54,26 +55,26 @@ Establish the real game architecture and produce the first usable vertical slice
 
 ## Roadmap
 
-### 2. Complete the local rules engine (active)
+### 2. Complete the local rules engine (implementation complete; reference audit pending)
 
 - [ ] Inspect the complete classic USA rules and edge cases in Steam.
-- [ ] Implement setup, deck construction, shuffling, dealing, and destination-ticket keep rules.
-- [ ] Implement blind and face-up train-card draws, locomotive restrictions, market refresh, discard reshuffling, and exhausted-deck behavior.
-- [ ] Implement colored and gray route claims, card payment selection, train-piece limits, and route scoring.
-- [ ] Implement double-route restrictions for smaller games and ownership restrictions.
-- [ ] Implement destination-ticket draws and minimum keep rules.
-- [ ] Implement final-round triggering and turn order.
-- [ ] Implement completed and incomplete destination scoring, longest continuous route, ties, and final ranking.
-- [ ] Add meaningful deterministic tests for rule boundaries, scoring, and replay.
-- [ ] Prove a complete game can be played start-to-finish in `/debug/game`.
+- [x] Implement setup, deck construction, shuffling, dealing, and destination-ticket keep rules.
+- [x] Implement blind and face-up train-card draws, locomotive restrictions, market refresh, discard reshuffling, and exhausted-deck behavior.
+- [x] Implement colored and gray route claims, card payment selection, train-piece limits, and route scoring.
+- [x] Implement double-route restrictions for smaller games and ownership restrictions.
+- [x] Implement destination-ticket draws and minimum keep rules.
+- [x] Implement final-round triggering and turn order.
+- [x] Implement completed and incomplete destination scoring, longest continuous route, ties, and final ranking.
+- [x] Add meaningful deterministic tests for rule boundaries, scoring, and replay.
+- [x] Prove a complete seeded game can be played start-to-finish and rendered in `/debug/game`.
 
-### 3. Complete the single-player product
+### 3. Complete the single-player product (active)
 
 - [ ] Inspect Steam bot pacing, feedback, difficulty, and game-over presentation.
 - [ ] Replace the vertical-slice bot with a coherent deterministic strategy that only uses legal actions.
-- [ ] Support the intended USA player-count range and configurable local opponents.
-- [ ] Add pause, restart, turn history, bot-action feedback, and local save/resume.
-- [ ] Add debug scenarios for setup, each turn action, deck edge cases, final round, longest route, ties, and final scoring.
+- [x] Support the intended USA player-count range and configurable local opponents.
+- [x] Add restart, turn history, bot-action feedback, and local save/resume.
+- [x] Add debug scenarios for setup, each turn action, final round, longest route, ties, and final scoring.
 - [ ] Finish board navigation, route selection, card payment, animations, and responsive layout.
 - [ ] Verify a human can complete multiple full games without debug controls.
 

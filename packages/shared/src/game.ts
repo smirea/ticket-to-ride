@@ -53,12 +53,29 @@ export type GamePhase =
 			playerId: PlayerId;
 			ticketIds: TicketId[];
 			minimum: number;
+			source: 'opening' | 'turn';
 	  }
 	| { type: 'turn'; drawsTaken: 0 | 1 }
 	| { type: 'game-over'; winnerIds: PlayerId[] };
 
+export interface FinalRound {
+	triggeredBy: PlayerId;
+	turnsRemaining: number;
+}
+
+export interface FinalPlayerResult {
+	playerId: PlayerId;
+	routePoints: number;
+	ticketPoints: number;
+	completedTickets: number;
+	longestPath: number;
+	longestRouteBonus: number;
+	finalScore: number;
+	rank: number;
+}
+
 export interface GameState {
-	version: 1;
+	version: 2;
 	seed: string;
 	rngState: number;
 	phase: GamePhase;
@@ -70,12 +87,17 @@ export interface GameState {
 	faceUpTrainCards: TrainCard[];
 	destinationDeck: TicketId[];
 	destinationDiscard: TicketId[];
+	openingTicketOffers: Record<PlayerId, TicketId[]>;
 	claimedRoutes: Record<RouteId, PlayerId>;
 	log: string[];
+	finalRound: FinalRound | null;
+	finalResults: FinalPlayerResult[] | null;
+	history: GameAction[];
 }
 
 export type GameAction =
 	| { type: 'keep-tickets'; ticketIds: TicketId[] }
+	| { type: 'draw-destination-tickets' }
 	| { type: 'draw-face-up'; index: number }
 	| { type: 'draw-train-deck' }
 	| { type: 'claim-route'; routeId: RouteId; paymentColor: TrainColor };
@@ -86,6 +108,7 @@ export interface CreateGameOptions {
 	seed?: string | number;
 	humanName?: string;
 	botCount?: number;
+	players?: Array<Pick<Player, 'id' | 'name' | 'color' | 'isBot'>>;
 }
 
 export const USA_CITIES: City[] = [
@@ -353,9 +376,19 @@ function cloneState(state: GameState): GameState {
 		faceUpTrainCards: [...state.faceUpTrainCards],
 		destinationDeck: [...state.destinationDeck],
 		destinationDiscard: [...state.destinationDiscard],
+		openingTicketOffers: Object.fromEntries(
+			Object.entries(state.openingTicketOffers).map(([playerId, ticketIds]) => [playerId, [...ticketIds]]),
+		),
 		claimedRoutes: { ...state.claimedRoutes },
 		log: [...state.log],
+		finalRound: state.finalRound ? { ...state.finalRound } : null,
+		finalResults: state.finalResults?.map(result => ({ ...result })) ?? null,
+		history: state.history.map(cloneAction),
 	};
+}
+
+function cloneAction(action: GameAction): GameAction {
+	return action.type === 'keep-tickets' ? { ...action, ticketIds: [...action.ticketIds] } : { ...action };
 }
 
 function createTrainDeck(): TrainCard[] {
@@ -385,11 +418,15 @@ function refillFaceUp(state: GameState): void {
 		state.faceUpTrainCards.push(card);
 	}
 
+	const availableNonLocomotives = () =>
+		[...state.faceUpTrainCards, ...state.trainDeck, ...state.trainDiscard].filter(card => card !== 'locomotive').length;
 	let redraws = 0;
 	while (
 		state.faceUpTrainCards.filter(card => card === 'locomotive').length >= 3 &&
-		state.trainDeck.length + state.trainDiscard.length >= 5 &&
-		redraws < 8
+		state.faceUpTrainCards.length === 5 &&
+		state.trainDeck.length + state.trainDiscard.length + state.faceUpTrainCards.length >= 5 &&
+		availableNonLocomotives() >= 3 &&
+		redraws < 1000
 	) {
 		state.trainDiscard.push(...state.faceUpTrainCards);
 		state.faceUpTrainCards = [];
@@ -400,6 +437,14 @@ function refillFaceUp(state: GameState): void {
 		}
 		redraws += 1;
 	}
+}
+
+function canTakeAnotherTrainCard(state: GameState): boolean {
+	return (
+		state.trainDeck.length > 0 ||
+		state.trainDiscard.length > 0 ||
+		state.faceUpTrainCards.some(card => card !== 'locomotive')
+	);
 }
 
 function drawDestinationIds(deck: TicketId[], count: number): TicketId[] {
@@ -415,8 +460,18 @@ function drawDestinationIds(deck: TicketId[], count: number): TicketId[] {
 export function createGame(options: CreateGameOptions = {}): GameState {
 	const seed = String(options.seed ?? 'ticket-to-ride');
 	const botCount = options.botCount ?? 3;
-	if (!Number.isInteger(botCount) || botCount < 1 || botCount > 4) {
+	if (!options.players && (!Number.isInteger(botCount) || botCount < 1 || botCount > 4)) {
 		throw new Error('botCount must be an integer from 1 to 4');
+	}
+	if (options.players && (options.players.length < 2 || options.players.length > 5)) {
+		throw new Error('players must contain 2 to 5 players');
+	}
+	if (
+		options.players &&
+		(new Set(options.players.map(player => player.id)).size !== options.players.length ||
+			new Set(options.players.map(player => player.color)).size !== options.players.length)
+	) {
+		throw new Error('Player IDs and colors must be unique.');
 	}
 
 	let rngState = initialRngState(seed);
@@ -429,11 +484,16 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 	);
 
 	const names = ['You', 'Maya', 'Jasper', 'Nora', 'Theo'];
-	const players: Player[] = Array.from({ length: botCount + 1 }, (_, index) => ({
-		id: index === 0 ? 'player' : `bot-${index}`,
-		name: index === 0 ? (options.humanName ?? names[0]!) : names[index]!,
-		color: PLAYER_COLORS[index]!,
-		isBot: index !== 0,
+	const playerSetups =
+		options.players ??
+		Array.from({ length: botCount + 1 }, (_, index) => ({
+			id: index === 0 ? 'player' : `bot-${index}`,
+			name: index === 0 ? (options.humanName ?? names[0]!) : names[index]!,
+			color: PLAYER_COLORS[index]!,
+			isBot: index !== 0,
+		}));
+	const players: Player[] = playerSetups.map(player => ({
+		...player,
 		score: 0,
 		trains: 45,
 		hand: emptyHand(),
@@ -447,23 +507,21 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 		}
 	}
 
-	const humanTickets = drawDestinationIds(destinationDeck, 3);
-	const destinationDiscard: TicketId[] = [];
-	for (const player of players.slice(1)) {
-		const offered = drawDestinationIds(destinationDeck, 3);
-		player.tickets.push(...offered.slice(0, 2));
-		destinationDiscard.push(...offered.slice(2));
-	}
+	const openingTicketOffers = Object.fromEntries(
+		players.map(player => [player.id, drawDestinationIds(destinationDeck, 3)]),
+	);
+	const firstOffer = openingTicketOffers[players[0]!.id] ?? [];
 
 	const state: GameState = {
-		version: 1,
+		version: 2,
 		seed,
 		rngState,
 		phase: {
 			type: 'ticket-selection',
 			playerId: players[0]!.id,
-			ticketIds: humanTickets,
-			minimum: Math.min(2, humanTickets.length),
+			ticketIds: firstOffer,
+			minimum: Math.min(2, firstOffer.length),
+			source: 'opening',
 		},
 		players,
 		currentPlayerIndex: 0,
@@ -472,9 +530,13 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 		trainDiscard: [],
 		faceUpTrainCards: [],
 		destinationDeck,
-		destinationDiscard,
+		destinationDiscard: [],
+		openingTicketOffers,
 		claimedRoutes: {},
 		log: [`Game started with ${players.length} players.`],
+		finalRound: null,
+		finalResults: null,
+		history: [],
 	};
 	refillFaceUp(state);
 	return state;
@@ -484,11 +546,31 @@ function fail(state: GameState, error: string): ActionResult {
 	return { ok: false, state, error };
 }
 
+function succeed(state: GameState, action: GameAction): ActionResult {
+	state.history.push(cloneAction(action));
+	return { ok: true, state };
+}
+
 function currentPlayer(state: GameState): Player {
 	return state.players[state.currentPlayerIndex]!;
 }
 
 function endTurn(state: GameState): void {
+	const player = currentPlayer(state);
+	if (state.finalRound) {
+		state.finalRound.turnsRemaining -= 1;
+		if (state.finalRound.turnsRemaining === 0) {
+			state.turnNumber += 1;
+			finalizeGame(state);
+			return;
+		}
+	} else if (player.trains <= 2) {
+		state.finalRound = {
+			triggeredBy: player.id,
+			turnsRemaining: state.players.length,
+		};
+		state.log.push(`${player.name} triggered the final round.`);
+	}
 	state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
 	state.turnNumber += 1;
 	state.phase = { type: 'turn', drawsTaken: 0 };
@@ -554,18 +636,56 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 		const nextPlayer = currentPlayer(next);
 		nextPlayer.tickets.push(...uniqueTicketIds);
 		const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
-		next.destinationDiscard.push(...returned);
-		next.phase = { type: 'turn', drawsTaken: 0 };
+		next.destinationDeck.unshift(...returned);
 		next.log.push(`${nextPlayer.name} kept ${uniqueTicketIds.length} destination tickets.`);
-		return { ok: true, state: next };
+		if (selection.source === 'turn') {
+			endTurn(next);
+		} else {
+			delete next.openingTicketOffers[nextPlayer.id];
+			const nextOpeningIndex = next.players.findIndex(
+				(candidate, index) => index > next.currentPlayerIndex && next.openingTicketOffers[candidate.id],
+			);
+			if (nextOpeningIndex >= 0) {
+				next.currentPlayerIndex = nextOpeningIndex;
+				const ticketIds = next.openingTicketOffers[next.players[nextOpeningIndex]!.id]!;
+				next.phase = {
+					type: 'ticket-selection',
+					playerId: next.players[nextOpeningIndex]!.id,
+					ticketIds,
+					minimum: Math.min(2, ticketIds.length),
+					source: 'opening',
+				};
+			} else {
+				next.currentPlayerIndex = 0;
+				next.phase = { type: 'turn', drawsTaken: 0 };
+			}
+		}
+		return succeed(next, action);
 	}
 
 	if (state.phase.type !== 'turn') return fail(state, 'Finish selecting tickets first.');
+	const turn = state.phase;
+
+	if (action.type === 'draw-destination-tickets') {
+		if (turn.drawsTaken !== 0) return fail(state, 'Destination tickets must be the only action this turn.');
+		if (state.destinationDeck.length === 0) return fail(state, 'There are no destination tickets left.');
+		const next = cloneState(state);
+		const offered = drawDestinationIds(next.destinationDeck, 3);
+		next.phase = {
+			type: 'ticket-selection',
+			playerId: player.id,
+			ticketIds: offered,
+			minimum: 1,
+			source: 'turn',
+		};
+		next.log.push(`${player.name} drew ${offered.length} destination tickets.`);
+		return succeed(next, action);
+	}
 
 	if (action.type === 'draw-face-up') {
 		const card = state.faceUpTrainCards[action.index];
 		if (!card) return fail(state, 'Choose an available face-up card.');
-		if (card === 'locomotive' && state.phase.drawsTaken === 1) {
+		if (card === 'locomotive' && turn.drawsTaken === 1) {
 			return fail(state, 'A face-up locomotive can only be the first and only draw.');
 		}
 		const next = cloneState(state);
@@ -575,9 +695,9 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 		nextPlayer.hand[drawn] += 1;
 		refillFaceUp(next);
 		next.log.push(`${nextPlayer.name} drew a face-up ${drawn} card.`);
-		if (drawn === 'locomotive' || state.phase.drawsTaken === 1) endTurn(next);
+		if (drawn === 'locomotive' || turn.drawsTaken === 1 || !canTakeAnotherTrainCard(next)) endTurn(next);
 		else next.phase = { type: 'turn', drawsTaken: 1 };
-		return { ok: true, state: next };
+		return succeed(next, action);
 	}
 
 	if (action.type === 'draw-train-deck') {
@@ -590,12 +710,12 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 		if (!card) return fail(state, 'There are no train cards left to draw.');
 		nextPlayer.hand[card] += 1;
 		next.log.push(`${nextPlayer.name} drew from the train deck.`);
-		if (state.phase.drawsTaken === 1) endTurn(next);
+		if (turn.drawsTaken === 1 || !canTakeAnotherTrainCard(next)) endTurn(next);
 		else next.phase = { type: 'turn', drawsTaken: 1 };
-		return { ok: true, state: next };
+		return succeed(next, action);
 	}
 
-	if (state.phase.drawsTaken !== 0) return fail(state, 'A route cannot be claimed after drawing.');
+	if (turn.drawsTaken !== 0) return fail(state, 'A route cannot be claimed after drawing.');
 	const validation = canClaimRoute(state, player.id, action.routeId, action.paymentColor);
 	if (!validation.ok) return fail(state, validation.error);
 	const routeToClaim = getRoute(action.routeId)!;
@@ -614,7 +734,7 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 	const cityB = USA_CITIES.find(city => city.id === routeToClaim.cityB)?.name ?? routeToClaim.cityB;
 	next.log.push(`${nextPlayer.name} claimed ${cityA}–${cityB}.`);
 	endTurn(next);
-	return { ok: true, state: next };
+	return succeed(next, action);
 }
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
@@ -630,9 +750,16 @@ function paymentColorForRoute(player: Player, routeItem: Route): TrainColor | un
 }
 
 export function chooseBotAction(state: GameState): GameAction | undefined {
-	if (state.phase.type !== 'turn') return undefined;
 	const player = currentPlayer(state);
 	if (!player.isBot) return undefined;
+	if (state.phase.type === 'ticket-selection') {
+		if (state.phase.playerId !== player.id) return undefined;
+		const ticketIds = [...state.phase.ticketIds]
+			.sort((left, right) => (getTicket(right)?.points ?? 0) - (getTicket(left)?.points ?? 0))
+			.slice(0, state.phase.minimum);
+		return { type: 'keep-tickets', ticketIds };
+	}
+	if (state.phase.type !== 'turn') return undefined;
 
 	if (state.phase.drawsTaken === 0) {
 		const routeChoice = USA_ROUTES.filter(routeItem => !state.claimedRoutes[routeItem.id])
@@ -655,18 +782,34 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 		}
 	}
 
+	const availableRoutes = USA_ROUTES.filter(
+		routeItem =>
+			!state.claimedRoutes[routeItem.id] &&
+			player.trains >= routeItem.length &&
+			!hasParallelConflict(state, routeItem, player),
+	);
+	const targetColors = availableRoutes
+		.flatMap(routeItem => (routeItem.color === 'gray' ? [...TRAIN_COLORS] : [routeItem.color]))
+		.sort((left, right) => player.hand[right] - player.hand[left] || left.localeCompare(right));
 	const preferredFaceUpIndex = state.faceUpTrainCards.findIndex(
-		card => card !== 'locomotive' || (state.phase.type === 'turn' && state.phase.drawsTaken === 0),
+		card =>
+			(card === 'locomotive' && state.phase.type === 'turn' && state.phase.drawsTaken === 0) ||
+			(card !== 'locomotive' && targetColors.includes(card)),
 	);
 	if (preferredFaceUpIndex >= 0) return { type: 'draw-face-up', index: preferredFaceUpIndex };
 	if (state.trainDeck.length > 0 || state.trainDiscard.length > 0) return { type: 'draw-train-deck' };
+	const fallbackFaceUpIndex = state.faceUpTrainCards.findIndex(card => card !== 'locomotive');
+	if (fallbackFaceUpIndex >= 0) return { type: 'draw-face-up', index: fallbackFaceUpIndex };
+	if (state.phase.drawsTaken === 0 && state.destinationDeck.length > 0) {
+		return { type: 'draw-destination-tickets' };
+	}
 	return undefined;
 }
 
 export function playBotTurns(state: GameState, maxActions = 100): GameState {
 	let next = state;
 	for (let actions = 0; actions < maxActions; actions += 1) {
-		if (next.phase.type !== 'turn' || !currentPlayer(next).isBot) return next;
+		if (next.phase.type === 'game-over' || !currentPlayer(next).isBot) return next;
 		const action = chooseBotAction(next);
 		if (!action) return next;
 		const result = applyGameAction(next, action);
@@ -685,6 +828,7 @@ export function createDebugClaimScenario(): GameState {
 		});
 		if (result.ok) state = result.state;
 	}
+	state = playBotTurns(state);
 	const debugState = cloneState(state);
 	debugState.players[0]!.hand = emptyHand();
 	debugState.players[0]!.hand.purple = 3;
@@ -692,6 +836,29 @@ export function createDebugClaimScenario(): GameState {
 	debugState.currentPlayerIndex = 0;
 	debugState.log.push('Debug scenario: claim San Francisco–Los Angeles with three purple cards.');
 	return debugState;
+}
+
+export function createDebugTicketScenario(): GameState {
+	const state = createDebugClaimScenario();
+	const result = applyGameAction(state, { type: 'draw-destination-tickets' });
+	return result.ok ? result.state : state;
+}
+
+export function createDebugFinalRoundScenario(): GameState {
+	const state = createDebugClaimScenario();
+	state.finalRound = { triggeredBy: state.players[1]!.id, turnsRemaining: 1 };
+	state.log.push('Debug scenario: the next completed turn ends the game.');
+	return state;
+}
+
+export function createDebugFinalScenario(): GameState {
+	const state = createDebugFinalRoundScenario();
+	const result = applyGameAction(state, {
+		type: 'claim-route',
+		routeId: DEBUG_ROUTE_ID,
+		paymentColor: 'purple',
+	});
+	return result.ok ? result.state : state;
 }
 
 export function isTicketComplete(state: GameState, playerId: PlayerId, ticketId: TicketId): boolean {
@@ -715,4 +882,135 @@ export function isTicketComplete(state: GameState, playerId: PlayerId, ticketId:
 		}
 	}
 	return false;
+}
+
+export function calculateLongestPath(state: GameState, playerId: PlayerId): number {
+	const edges = USA_ROUTES.filter(routeItem => state.claimedRoutes[routeItem.id] === playerId);
+	if (edges.length === 0) return 0;
+	const adjacency = new Map<CityId, number[]>();
+	for (const [index, edge] of edges.entries()) {
+		adjacency.set(edge.cityA, [...(adjacency.get(edge.cityA) ?? []), index]);
+		adjacency.set(edge.cityB, [...(adjacency.get(edge.cityB) ?? []), index]);
+	}
+	const memo = new Map<string, number>();
+	const visit = (cityId: CityId, used: bigint): number => {
+		const key = `${cityId}:${used.toString(36)}`;
+		const cached = memo.get(key);
+		if (cached !== undefined) return cached;
+		let longest = 0;
+		for (const edgeIndex of adjacency.get(cityId) ?? []) {
+			const bit = 1n << BigInt(edgeIndex);
+			if ((used & bit) !== 0n) continue;
+			const edge = edges[edgeIndex]!;
+			const nextCity = edge.cityA === cityId ? edge.cityB : edge.cityA;
+			longest = Math.max(longest, edge.length + visit(nextCity, used | bit));
+		}
+		memo.set(key, longest);
+		return longest;
+	};
+	return Math.max(...[...adjacency.keys()].map(cityId => visit(cityId, 0n)));
+}
+
+function finalizeGame(state: GameState): void {
+	const longestPaths = new Map(state.players.map(player => [player.id, calculateLongestPath(state, player.id)]));
+	const longestPath = Math.max(...longestPaths.values());
+	const results = state.players.map(player => {
+		let ticketPoints = 0;
+		let completedTickets = 0;
+		for (const ticketId of player.tickets) {
+			const destination = getTicket(ticketId);
+			if (!destination) continue;
+			if (isTicketComplete(state, player.id, ticketId)) {
+				ticketPoints += destination.points;
+				completedTickets += 1;
+			} else {
+				ticketPoints -= destination.points;
+			}
+		}
+		const playerLongestPath = longestPaths.get(player.id) ?? 0;
+		const longestRouteBonus = longestPath > 0 && playerLongestPath === longestPath ? 10 : 0;
+		const routePoints = player.score;
+		const finalScore = routePoints + ticketPoints + longestRouteBonus;
+		player.score = finalScore;
+		return {
+			playerId: player.id,
+			routePoints,
+			ticketPoints,
+			completedTickets,
+			longestPath: playerLongestPath,
+			longestRouteBonus,
+			finalScore,
+			rank: 0,
+		};
+	});
+	const compare = (left: FinalPlayerResult, right: FinalPlayerResult) =>
+		right.finalScore - left.finalScore ||
+		right.completedTickets - left.completedTickets ||
+		right.longestRouteBonus - left.longestRouteBonus;
+	results.sort(compare);
+	for (const [index, result] of results.entries()) {
+		const previous = results[index - 1];
+		result.rank = previous && compare(previous, result) === 0 ? previous.rank : index + 1;
+	}
+	state.finalResults = results;
+	const winnerIds = results.filter(result => result.rank === 1).map(result => result.playerId);
+	state.phase = { type: 'game-over', winnerIds };
+	const winners = winnerIds
+		.map(playerId => state.players.find(player => player.id === playerId)?.name ?? playerId)
+		.join(' and ');
+	state.log.push(`Game over. ${winners} ${winnerIds.length === 1 ? 'wins' : 'tie for the win'}.`);
+}
+
+export function serializeGame(state: GameState): string {
+	return JSON.stringify(state);
+}
+
+export function restoreGameState(value: unknown): GameState {
+	if (
+		typeof value !== 'object' ||
+		value === null ||
+		!('version' in value) ||
+		(value.version !== 1 && value.version !== 2) ||
+		!('players' in value) ||
+		!Array.isArray(value.players) ||
+		!('phase' in value) ||
+		typeof value.phase !== 'object' ||
+		value.phase === null ||
+		!('type' in value.phase)
+	) {
+		throw new Error('Invalid game state.');
+	}
+	const restored = structuredClone(value) as Record<string, unknown>;
+	const phase = restored.phase as Record<string, unknown>;
+	if (phase.type === 'ticket-selection' && phase.source !== 'opening' && phase.source !== 'turn') {
+		phase.source = 'opening';
+	}
+	const openingTicketOffers =
+		typeof restored.openingTicketOffers === 'object' && restored.openingTicketOffers !== null
+			? (restored.openingTicketOffers as Record<PlayerId, TicketId[]>)
+			: phase.type === 'ticket-selection' && phase.source === 'opening'
+				? { [String(phase.playerId)]: [...((phase.ticketIds as TicketId[] | undefined) ?? [])] }
+				: {};
+	return {
+		...(restored as unknown as GameState),
+		version: 2,
+		openingTicketOffers,
+		finalRound: (restored.finalRound as FinalRound | null | undefined) ?? null,
+		finalResults: (restored.finalResults as FinalPlayerResult[] | null | undefined) ?? null,
+		history: Array.isArray(restored.history) ? (restored.history as GameAction[]) : [],
+	};
+}
+
+export function deserializeGame(serialized: string): GameState {
+	return restoreGameState(JSON.parse(serialized));
+}
+
+export function replayGame(options: CreateGameOptions, actions: GameAction[]): ActionResult {
+	let state = createGame(options);
+	for (const [index, action] of actions.entries()) {
+		const result = applyGameAction(state, action);
+		if (!result.ok) return fail(result.state, `Action ${index + 1}: ${result.error}`);
+		state = result.state;
+	}
+	return { ok: true, state };
 }

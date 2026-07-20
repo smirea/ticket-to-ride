@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type {
 		DestinationTicket,
+		FinalPlayerResult,
 		GameAction,
 		GameState,
 		Player,
@@ -10,17 +11,18 @@
 		TrainCard,
 		TrainColor,
 	} from '@repo/shared';
-	import { USA_CITIES, USA_ROUTES, USA_TICKETS } from '@repo/shared';
+	import { isTicketComplete, USA_CITIES, USA_ROUTES, USA_TICKETS } from '@repo/shared';
 	import GameBoard from './GameBoard.svelte';
 
 	type Props = {
 		state: GameState;
 		viewerId: string;
 		send: (action: GameAction) => void;
+		onrestart?: () => void;
 		debug?: boolean;
 	};
 
-	let { state: gameState, viewerId, send, debug = false }: Props = $props();
+	let { state: gameState, viewerId, send, onrestart, debug = false }: Props = $props();
 
 	const cardOrder: readonly TrainCard[] = [
 		'red',
@@ -62,6 +64,17 @@
 		gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId ? gameState.phase : undefined,
 	);
 	const offeredTickets = $derived(ticketSelection?.ticketIds.map(id => ticketById.get(id)).filter(isTicket) ?? []);
+	const latestMove = $derived(gameState.log.at(-1));
+	const latestMoveIsBot = $derived(
+		gameState.players.some(player => player.isBot && latestMove?.startsWith(player.name)),
+	);
+	const finalRoundPlayer = $derived(
+		gameState.finalRound
+			? gameState.players.find(player => player.id === gameState.finalRound?.triggeredBy)
+			: undefined,
+	);
+	const finalResults = $derived(gameState.finalResults ?? []);
+	const viewerWon = $derived(gameState.phase.type === 'game-over' && gameState.phase.winnerIds.includes(viewerId));
 
 	$effect(() => {
 		const offer = ticketSelection?.ticketIds.join('|') ?? '';
@@ -92,6 +105,39 @@
 	function keepTickets() {
 		if (!ticketSelection || selectedTickets.length < ticketSelection.minimum) return;
 		send({ type: 'keep-tickets', ticketIds: selectedTickets });
+	}
+
+	function resultPlayer(result: FinalPlayerResult): Player | undefined {
+		return gameState.players.find(player => player.id === result.playerId);
+	}
+
+	function completedTickets(result: FinalPlayerResult): DestinationTicket[] {
+		const player = resultPlayer(result);
+		return (
+			player?.tickets
+				.filter(id => isTicketComplete(gameState, result.playerId, id))
+				.map(id => ticketById.get(id))
+				.filter(isTicket) ?? []
+		);
+	}
+
+	function failedTickets(result: FinalPlayerResult): DestinationTicket[] {
+		const player = resultPlayer(result);
+		return (
+			player?.tickets
+				.filter(id => !isTicketComplete(gameState, result.playerId, id))
+				.map(id => ticketById.get(id))
+				.filter(isTicket) ?? []
+		);
+	}
+
+	function winnerHeading(): string {
+		if (gameState.phase.type !== 'game-over') return '';
+		if (viewerWon) return gameState.phase.winnerIds.length > 1 ? 'You tied for first!' : 'You won!';
+		const winnerNames = gameState.phase.winnerIds
+			.map(id => gameState.players.find(player => player.id === id)?.name)
+			.filter(Boolean);
+		return `${winnerNames.join(' & ') || 'The winner'} ${winnerNames.length > 1 ? 'win' : 'wins'}!`;
 	}
 
 	function selectRoute(route: Route) {
@@ -153,6 +199,32 @@
 			<strong>{gameState.trainDeck.length}</strong>
 		</div>
 	</header>
+
+	<div class="game-feedback" aria-live="polite">
+		{#if gameState.finalRound && gameState.phase.type !== 'game-over'}
+			<div class="final-round-alert" role="status">
+				<span class="countdown">{gameState.finalRound.turnsRemaining}</span>
+				<div>
+					<strong>Final round</strong>
+					<span>
+						{finalRoundPlayer?.name ?? 'A player'} is down to two trains.
+						{gameState.finalRound.turnsRemaining === 1
+							? 'One turn remains.'
+							: `${gameState.finalRound.turnsRemaining} turns remain.`}
+					</span>
+				</div>
+			</div>
+		{/if}
+		{#if latestMove}
+			<div class:bot-move={latestMoveIsBot} class="latest-move" role="status">
+				<span class="move-icon" aria-hidden="true">{latestMoveIsBot ? '◆' : '→'}</span>
+				<div>
+					<strong>{latestMoveIsBot ? 'Opponent moved' : 'Latest move'}</strong>
+					<span>{latestMove}</span>
+				</div>
+			</div>
+		{/if}
+	</div>
 
 	<section class="table">
 		<aside class="players panel" aria-label="Players">
@@ -249,6 +321,21 @@
 					<small>{gameState.trainDeck.length} cards</small>
 				</span>
 			</button>
+			<button
+				type="button"
+				class="destination-deck"
+				disabled={!isViewerTurn ||
+					gameState.phase.type !== 'turn' ||
+					gameState.phase.drawsTaken > 0 ||
+					gameState.destinationDeck.length === 0}
+				onclick={() => send({ type: 'draw-destination-tickets' })}
+			>
+				<span class="ticket-stack" aria-hidden="true">✦</span>
+				<span>
+					<strong>New destinations</strong>
+					<small>{gameState.destinationDeck.length} tickets</small>
+				</span>
+			</button>
 		</aside>
 	</section>
 
@@ -310,9 +397,18 @@
 	<div class="modal-backdrop">
 		<div class="ticket-modal" role="dialog" aria-modal="true" aria-labelledby="ticket-title">
 			<div class="modal-heading">
-				<p class="section-label">Before the first departure</p>
-				<h1 id="ticket-title">Choose your destinations</h1>
-				<p>Keep at least {ticketSelection.minimum}. Any ticket you leave behind returns to the deck.</p>
+				<p class="section-label">
+					{ticketSelection.source === 'opening' ? 'Before the first departure' : 'Destination ticket draw'}
+				</p>
+				<h1 id="ticket-title">
+					{ticketSelection.source === 'opening' ? 'Choose your destinations' : 'Keep new destinations'}
+				</h1>
+				<p>
+					Keep at least {ticketSelection.minimum}.
+					{ticketSelection.source === 'opening'
+						? 'Any ticket you leave behind returns to the deck.'
+						: 'Kept tickets stay secret until final scoring.'}
+				</p>
 			</div>
 			<div class="ticket-offers">
 				{#each offeredTickets as ticket}
@@ -345,6 +441,86 @@
 	</div>
 {/if}
 
+{#if gameState.phase.type === 'game-over' && finalResults.length}
+	<div class="modal-backdrop results-backdrop">
+		<div class="results-modal" role="dialog" aria-modal="true" aria-labelledby="results-title">
+			<header class="results-heading">
+				<p class="section-label">Journey complete</p>
+				<h1 id="results-title">{winnerHeading()}</h1>
+				<p>Routes are scored, destination tickets are revealed, and the longest continuous railway earns 10 points.</p>
+			</header>
+
+			<div class="standings" aria-label="Final standings">
+				{#each finalResults as result (result.playerId)}
+					{@const player = resultPlayer(result)}
+					{@const completed = completedTickets(result)}
+					{@const failed = failedTickets(result)}
+					<article
+						class:winner={result.rank === 1}
+						class:viewer-result={result.playerId === viewerId}
+						class="result-card"
+					>
+						<div class="result-summary">
+							<span class="rank">{result.rank}</span>
+							<span class="player-token result-token" style:background={player ? playerColor(player) : undefined}>
+								{result.rank === 1 ? '★' : result.rank}
+							</span>
+							<div class="result-name">
+								<strong>{player?.name ?? result.playerId}</strong>
+								<span>{result.playerId === viewerId ? 'You' : player?.isBot ? 'Conductor bot' : 'Player'}</span>
+							</div>
+							<div class="score-total">
+								<strong>{result.finalScore}</strong>
+								<span>points</span>
+							</div>
+						</div>
+
+						<div class="score-breakdown">
+							<div>
+								<span>Claimed routes</span>
+								<strong>+{result.routePoints}</strong>
+							</div>
+							<div class:negative={result.ticketPoints < 0}>
+								<span>Destinations</span>
+								<strong>{result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</strong>
+							</div>
+							<div class:bonus={result.longestRouteBonus > 0}>
+								<span>Longest path · {result.longestPath}</span>
+								<strong>{result.longestRouteBonus ? `+${result.longestRouteBonus}` : '—'}</strong>
+							</div>
+						</div>
+
+						<details class="ticket-results">
+							<summary>{completed.length} completed · {failed.length} failed</summary>
+							<div class="ticket-result-list">
+								{#each completed as ticket}
+									<div class="ticket-result complete">
+										<span>✓ {cityName(ticket.cityA)} → {cityName(ticket.cityB)}</span>
+										<strong>+{ticket.points}</strong>
+									</div>
+								{/each}
+								{#each failed as ticket}
+									<div class="ticket-result failed">
+										<span>× {cityName(ticket.cityA)} → {cityName(ticket.cityB)}</span>
+										<strong>−{ticket.points}</strong>
+									</div>
+								{/each}
+							</div>
+						</details>
+					</article>
+				{/each}
+			</div>
+
+			<footer class="results-footer">
+				<span>{gameState.turnNumber} turns played · seed {gameState.seed}</span>
+				{#if onrestart}
+					<button type="button" class="primary" onclick={onrestart}>Play again</button>
+				{/if}
+			</footer>
+		</div>
+	</div>
+{/if}
+
 <style>
 	:global(html) {
 		--player-red: #d84f49;
@@ -368,6 +544,7 @@
 	}
 
 	.topbar,
+	.game-feedback,
 	.table,
 	.hand-panel,
 	.debug {
@@ -389,6 +566,7 @@
 	.turn-status,
 	.player-row,
 	.deck,
+	.destination-deck,
 	.hand-heading,
 	.hand-summary,
 	.modal-footer {
@@ -469,6 +647,79 @@
 
 	.round-meta strong {
 		font-size: 1.2rem;
+	}
+
+	.game-feedback {
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+		gap: 0.65rem;
+		margin-top: -0.45rem;
+		margin-bottom: 1rem;
+	}
+
+	.latest-move,
+	.final-round-alert {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 0.75rem;
+		padding: 0.55rem 0.8rem;
+		background: rgba(10, 21, 24, 0.7);
+	}
+
+	.latest-move {
+		min-width: min(100%, 22rem);
+	}
+
+	.latest-move.bot-move {
+		border-color: rgba(115, 164, 209, 0.42);
+		background: rgba(31, 54, 69, 0.74);
+	}
+
+	.latest-move strong,
+	.latest-move span,
+	.final-round-alert strong,
+	.final-round-alert span {
+		display: block;
+	}
+
+	.latest-move strong,
+	.final-round-alert strong {
+		font-size: 0.71rem;
+	}
+
+	.latest-move div > span,
+	.final-round-alert div > span {
+		margin-top: 0.1rem;
+		color: #a8bab7;
+		font-size: 0.68rem;
+	}
+
+	.move-icon,
+	.countdown {
+		display: grid;
+		width: 1.75rem;
+		height: 1.75rem;
+		flex: 0 0 auto;
+		place-items: center;
+		border-radius: 50%;
+		background: #385c67;
+		color: #d9ece8;
+		font-size: 0.7rem;
+		font-weight: 900;
+	}
+
+	.final-round-alert {
+		border-color: rgba(235, 177, 75, 0.55);
+		background: rgba(76, 50, 23, 0.82);
+	}
+
+	.countdown {
+		background: #b94a36;
+		color: #fff1cc;
+		font-size: 0.82rem;
 	}
 
 	.table {
@@ -735,6 +986,43 @@
 	}
 
 	.deck small {
+		margin-top: 0.2rem;
+		color: #98aaa8;
+	}
+
+	.destination-deck {
+		width: 100%;
+		gap: 0.7rem;
+		margin-top: 0.55rem;
+		border: 1px solid rgba(220, 195, 139, 0.28);
+		border-radius: 0.7rem;
+		padding: 0.6rem;
+		background: rgba(217, 183, 113, 0.08);
+		color: #f7f1df;
+		cursor: pointer;
+		text-align: left;
+	}
+
+	.ticket-stack {
+		display: grid;
+		width: 2.35rem;
+		height: 3.2rem;
+		flex: 0 0 auto;
+		place-items: center;
+		border: 2px solid #d4ba7e;
+		border-radius: 0.3rem;
+		background: linear-gradient(135deg, #e2cc99, #b79255);
+		box-shadow: 3px 3px 0 #5f4931;
+		color: #794435;
+		font-size: 1.2rem;
+	}
+
+	.destination-deck strong,
+	.destination-deck small {
+		display: block;
+	}
+
+	.destination-deck small {
 		margin-top: 0.2rem;
 		color: #98aaa8;
 	}
@@ -1028,6 +1316,201 @@
 		font-weight: 800;
 	}
 
+	.results-backdrop {
+		overflow-y: auto;
+		place-items: start center;
+	}
+
+	.results-modal {
+		width: min(100%, 68rem);
+		margin-block: auto;
+		border: 1px solid rgba(233, 211, 157, 0.52);
+		border-radius: 1.3rem;
+		padding: clamp(1rem, 3vw, 2rem);
+		background: radial-gradient(circle at 50% 0, rgba(190, 132, 60, 0.2), transparent 24rem), #142629;
+		box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.55);
+		color: #f7f1df;
+	}
+
+	.results-heading {
+		max-width: 42rem;
+		margin: 0 auto 1.5rem;
+		text-align: center;
+	}
+
+	.results-heading h1 {
+		margin: 0;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: clamp(2.2rem, 6vw, 4.1rem);
+		font-weight: 500;
+		line-height: 1;
+	}
+
+	.results-heading > p:last-child {
+		margin: 0.85rem auto 0;
+		color: #adbfbc;
+		font-size: 0.9rem;
+		line-height: 1.55;
+	}
+
+	.standings {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.result-card {
+		border: 1px solid rgba(255, 255, 255, 0.11);
+		border-radius: 0.9rem;
+		padding: 0.8rem 1rem;
+		background: rgba(4, 14, 17, 0.46);
+	}
+
+	.result-card.winner {
+		border-color: rgba(236, 200, 105, 0.65);
+		background: rgba(86, 62, 24, 0.35);
+		box-shadow: 0 0 1.3rem rgba(236, 200, 105, 0.1);
+	}
+
+	.result-card.viewer-result {
+		box-shadow: inset 3px 0 #e2b64e;
+	}
+
+	.result-summary {
+		display: grid;
+		grid-template-columns: 1.5rem 2.15rem minmax(8rem, 1fr) auto;
+		align-items: center;
+		gap: 0.65rem;
+	}
+
+	.rank {
+		color: #8fa3a0;
+		font-family: Georgia, serif;
+		font-size: 1rem;
+		font-weight: 800;
+		text-align: center;
+	}
+
+	.result-token {
+		width: 2.15rem;
+		height: 2.15rem;
+	}
+
+	.result-name strong,
+	.result-name span,
+	.score-total strong,
+	.score-total span {
+		display: block;
+	}
+
+	.result-name span,
+	.score-total span {
+		color: #94a7a4;
+		font-size: 0.65rem;
+	}
+
+	.score-total {
+		min-width: 4.3rem;
+		text-align: right;
+	}
+
+	.score-total strong {
+		font-family: Georgia, serif;
+		font-size: 1.65rem;
+		line-height: 1;
+	}
+
+	.score-breakdown {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5rem;
+		margin-top: 0.7rem;
+		padding-left: 5.1rem;
+	}
+
+	.score-breakdown > div {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		border-radius: 0.5rem;
+		padding: 0.45rem 0.6rem;
+		background: rgba(255, 255, 255, 0.045);
+		font-size: 0.7rem;
+	}
+
+	.score-breakdown span {
+		color: #9fb0ad;
+	}
+
+	.score-breakdown strong {
+		color: #9ed8a8;
+		font-size: 0.8rem;
+	}
+
+	.score-breakdown .negative strong {
+		color: #ff9c91;
+	}
+
+	.score-breakdown .bonus {
+		border: 1px solid rgba(231, 189, 77, 0.3);
+		background: rgba(231, 189, 77, 0.1);
+	}
+
+	.score-breakdown .bonus strong {
+		color: #f3d374;
+	}
+
+	.ticket-results {
+		margin: 0.65rem 0 0 5.1rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		padding-top: 0.55rem;
+	}
+
+	.ticket-results summary {
+		color: #a9bbb8;
+		cursor: pointer;
+		font-size: 0.7rem;
+		font-weight: 700;
+	}
+
+	.ticket-result-list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.35rem;
+		margin-top: 0.5rem;
+	}
+
+	.ticket-result {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		border-radius: 0.4rem;
+		padding: 0.4rem 0.55rem;
+		background: rgba(255, 255, 255, 0.04);
+		font-size: 0.67rem;
+	}
+
+	.ticket-result.complete strong {
+		color: #9ed8a8;
+	}
+
+	.ticket-result.failed strong {
+		color: #ff9c91;
+	}
+
+	.results-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 1.25rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
+		padding-top: 1rem;
+		color: #94a7a4;
+		font-size: 0.7rem;
+	}
+
 	@media (max-width: 1180px) {
 		.table {
 			grid-template-columns: 13rem minmax(0, 1fr);
@@ -1036,9 +1519,13 @@
 		.market {
 			grid-column: 1 / -1;
 			display: grid;
-			grid-template-columns: auto 1fr 10rem;
+			grid-template-columns: auto 1fr 10rem 11rem;
 			align-items: center;
 			gap: 1rem;
+		}
+
+		.destination-deck {
+			margin-top: 0;
 		}
 
 		.face-up {
@@ -1050,6 +1537,11 @@
 	@media (max-width: 860px) {
 		.game-shell {
 			padding: 0.7rem;
+		}
+
+		.game-feedback {
+			align-items: stretch;
+			flex-direction: column;
 		}
 
 		.topbar {
@@ -1090,6 +1582,10 @@
 			grid-template-columns: 1fr;
 		}
 
+		.destination-deck {
+			margin-top: 0.55rem;
+		}
+
 		.face-up {
 			grid-template-columns: repeat(5, minmax(5.5rem, 1fr));
 			overflow-x: auto;
@@ -1111,6 +1607,18 @@
 			flex-direction: column;
 			align-items: stretch;
 		}
+
+		.results-modal {
+			margin-block: 0;
+		}
+
+		.score-breakdown {
+			padding-left: 0;
+		}
+
+		.ticket-results {
+			margin-left: 0;
+		}
 	}
 
 	@media (max-width: 600px) {
@@ -1130,6 +1638,20 @@
 
 		.ticket-offers button {
 			min-height: 8rem;
+		}
+
+		.result-summary {
+			grid-template-columns: 1.2rem 2rem minmax(0, 1fr) auto;
+		}
+
+		.score-breakdown,
+		.ticket-result-list {
+			grid-template-columns: 1fr;
+		}
+
+		.results-footer {
+			align-items: stretch;
+			flex-direction: column;
 		}
 
 		.modal-footer {

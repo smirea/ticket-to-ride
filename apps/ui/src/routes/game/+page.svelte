@@ -1,9 +1,42 @@
 <script lang="ts">
 	import GameScreen from '$lib/game/GameScreen.svelte';
-	import { applyGameAction, createGame, playBotTurns, type GameAction, type GameState } from '@repo/shared';
+	import {
+		applyGameAction,
+		createGame,
+		playBotTurns,
+		restoreGameState,
+		type GameAction,
+		type GameState,
+	} from '@repo/shared';
+	import { onMount } from 'svelte';
 
-	let game = $state<GameState>(createGame({ seed: 'single-player-usa', humanName: 'You', botCount: 1 }));
+	type PageData = { name: string; bots: number; startFresh: boolean };
+	let { data }: { data: PageData } = $props();
+
+	const savedGameKey = 'ticket-to-ride:single-player:v1';
+	let game = $state<GameState>(createConfiguredGame('single-player-usa'));
 	let error = $state('');
+	let loaded = $state(false);
+	let saveStatus = $state('Loading save…');
+
+	onMount(() => {
+		const saved = localStorage.getItem(savedGameKey);
+		if (saved && !data.startFresh) {
+			try {
+				game = restoreGameState(JSON.parse(saved));
+			} catch {
+				localStorage.removeItem(savedGameKey);
+			}
+		}
+		loaded = true;
+		saveStatus = 'Saved locally';
+	});
+
+	$effect(() => {
+		if (typeof localStorage === 'undefined' || !loaded) return;
+		localStorage.setItem(savedGameKey, JSON.stringify(game));
+		saveStatus = 'Saved locally';
+	});
 
 	function send(action: GameAction) {
 		const result = applyGameAction(game, action);
@@ -18,7 +51,11 @@
 
 	function restart() {
 		error = '';
-		game = createGame({ seed: `single-player-${Date.now()}`, humanName: 'You', botCount: 1 });
+		game = createConfiguredGame(`single-player-${Date.now()}`);
+	}
+
+	function createConfiguredGame(seed: string) {
+		return createGame({ seed, humanName: data.name, botCount: data.bots });
 	}
 </script>
 
@@ -30,9 +67,10 @@
 	<nav aria-label="Game controls">
 		<a href="/">← Home</a>
 		{#if error}<p role="alert">{error}</p>{/if}
+		<span>{saveStatus}</span>
 		<button type="button" onclick={restart}>New game</button>
 	</nav>
-	<GameScreen state={game} viewerId="player" {send} />
+	<GameScreen state={game} viewerId="player" {send} onrestart={restart} />
 </div>
 
 <style>
@@ -62,6 +100,12 @@
 	nav p {
 		margin: 0;
 		color: #ffb5a8;
+	}
+
+	nav span {
+		margin-left: auto;
+		color: #7f9692;
+		font-weight: 500;
 	}
 
 	nav button {
