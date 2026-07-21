@@ -16,6 +16,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 
 ## Current
 
+- [x] Canonical rules and XState engine pass completed: the official rules are documented, XState owns the phase/event lifecycle, audited discrepancies are corrected, and multiplayer snapshots preserve secret information.
 - [x] Pixel-precision Steam frame and original whimsical-1800s art pass completed, including real four-player interaction, responsive board-preserving decisions, repeated source comparisons, and full verification.
 - [x] Steam-reference UX parity pass completed: board-first HUD, side-docked gameplay decisions, map ticket previews, and motion polish.
 - [x] Bun API server and SvelteKit SPA scaffolded.
@@ -48,6 +49,16 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Add card-deal, hand-fan, route-claim, drawer, counter, hover, and turn-transition motion with reduced-motion handling.
 - [x] Complete repeated same-state, same-viewport source/local comparisons and record the final QA result.
 - [x] Run the complete test, typecheck, lint, format, and production-build suite.
+
+## Completed milestone: Canonical rules and XState engine
+
+- [x] Locate and visually verify the official English classic USA rulebook.
+- [x] Convert the complete gameplay specification to `rules/default.md`.
+- [x] Audit setup, turns, draws, claims, double routes, final round, scoring, and tie breakers against the rulebook.
+- [x] Make XState v5 the authoritative state-transition layer while preserving serializable snapshots, deterministic replay, and the existing semantic action API.
+- [x] Add focused rule tests for component conservation, starting-player order, state transitions, exhausted Train Car piles, both blind-Locomotive positions, all-Locomotive payments, every route score, double-route player-count behavior, final-round boundaries, and tie breakers.
+- [x] Redact multiplayer snapshots per viewer so hands, tickets, offers, deck order, and deterministic shuffle state remain secret until final scoring.
+- [x] Run full simulation, server recovery, test, typecheck, lint, and production-build verification.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -82,9 +93,9 @@ Establish the real game architecture and produce the first usable vertical slice
 
 ## Roadmap
 
-### 2. Complete the local rules engine (implementation complete; reference audit pending)
+### 2. Complete the local rules engine (complete)
 
-- [ ] Inspect the complete classic USA rules and edge cases in Steam.
+- [x] Inspect the complete classic USA rules and edge cases in the official English rulebook and Steam reference.
 - [x] Implement setup, deck construction, shuffling, dealing, and destination-ticket keep rules.
 - [x] Implement blind and face-up train-card draws, locomotive restrictions, market refresh, discard reshuffling, and exhausted-deck behavior.
 - [x] Implement colored and gray route claims, card payment selection, train-piece limits, and route scoring.
@@ -155,6 +166,8 @@ Establish the real game architecture and produce the first usable vertical slice
 # Notes
 
 - The server owns multiplayer state; clients send semantic actions and render authoritative snapshots.
+- XState v5 owns the opening selection, turn-action, second-draw, destination-selection, and game-over lifecycle; persisted `GameState.phase` hydrates the machine without storing framework metadata.
+- Multiplayer responses and SSE streams use viewer-specific projections: only the owner receives hand, ticket, and offer identities, while final scoring reveals all Destination Tickets.
 - Random outcomes or seeds must be stored in accepted state so replay remains deterministic.
 - `GameScreen` accepts plain game state, players, `viewerId`, and one `send(event)` callback.
 - Steam reference interaction is verified through single-player setup, opening ticket selection, face-up and blind card draws, route selection, and AI turn handoff. Route claims drag a matching card group onto the route; clicking a route and confirming is the accessible alternate flow.

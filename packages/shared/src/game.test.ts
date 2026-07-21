@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import {
 	DEBUG_ROUTE_ID,
+	PLAYER_COLORS,
 	TRAIN_CARDS,
 	USA_CITIES,
 	USA_ROUTES,
@@ -13,6 +14,7 @@ import {
 	createDebugFinalRoundScenario,
 	createGame,
 	deserializeGame,
+	getGameMachineState,
 	playBotTurns,
 	replayGame,
 	restoreGameState,
@@ -46,6 +48,42 @@ describe('classic USA setup', () => {
 		expect(first.phase.type).toBe('ticket-selection');
 	});
 
+	test('conserves the exact component supply for every supported player count', () => {
+		for (let botCount = 1; botCount <= 4; botCount += 1) {
+			const state = createGame({ seed: `supply-${botCount}`, botCount });
+			expect(state.players).toHaveLength(botCount + 1);
+			expect(state.players.every(player => player.trains === 45 && player.score === 0)).toBe(true);
+
+			const trainCards = [
+				...state.trainDeck,
+				...state.trainDiscard,
+				...state.faceUpTrainCards,
+				...state.players.flatMap(player => TRAIN_CARDS.flatMap(card => Array(player.hand[card]).fill(card))),
+			];
+			expect(trainCards).toHaveLength(110);
+			for (const card of TRAIN_CARDS) {
+				expect(trainCards.filter(candidate => candidate === card)).toHaveLength(card === 'locomotive' ? 14 : 12);
+			}
+			const offeredTickets = Object.values(state.openingTicketOffers).flat();
+			expect(state.destinationDeck.length + offeredTickets.length).toBe(30);
+		}
+	});
+
+	test('starts with the selected traveler and preserves clockwise seating order', () => {
+		const state = createGame({
+			seed: 'starting-traveler',
+			startingPlayerId: 'b',
+			players: [
+				{ id: 'a', name: 'Ada', color: 'red', isBot: false },
+				{ id: 'b', name: 'Bea', color: 'blue', isBot: false },
+				{ id: 'c', name: 'Cy', color: 'green', isBot: false },
+			],
+		});
+		expect(state.players.map(player => player.id)).toEqual(['b', 'c', 'a']);
+		expect(state.currentPlayerIndex).toBe(0);
+		expect(state.phase).toMatchObject({ type: 'ticket-selection', playerId: 'b' });
+	});
+
 	test('keeps at least two of the opening tickets without mutating invalid state', () => {
 		const state = createGame({ seed: 'tickets', botCount: 1 });
 		if (state.phase.type !== 'ticket-selection') throw new Error('Expected ticket selection.');
@@ -72,6 +110,37 @@ describe('classic USA setup', () => {
 });
 
 describe('turn rules', () => {
+	test('uses XState nodes as the authoritative turn lifecycle', () => {
+		let state = createGame({ seed: 'machine-lifecycle', botCount: 1 });
+		expect(getGameMachineState(state)).toBe('openingTicketSelection');
+		state = finishTicketSelection(state);
+		expect(getGameMachineState(state)).toBe('turnReady');
+
+		const firstDraw = applyGameAction(state, { type: 'draw-train-deck' });
+		if (!firstDraw.ok) throw new Error(firstDraw.error);
+		expect(getGameMachineState(firstDraw.state)).toBe('turnSecondDraw');
+		const rejected = applyGameAction(firstDraw.state, {
+			type: 'claim-route',
+			routeId: DEBUG_ROUTE_ID,
+			paymentColor: 'purple',
+		});
+		expect(rejected.ok).toBe(false);
+		expect(rejected.state).toBe(firstDraw.state);
+
+		const tickets = applyGameAction(state, { type: 'draw-destination-tickets' });
+		if (!tickets.ok) throw new Error(tickets.error);
+		expect(getGameMachineState(tickets.state)).toBe('destinationTicketSelection');
+
+		const finalState = createDebugFinalRoundScenario();
+		finalState.faceUpTrainCards[0] = 'locomotive';
+		const finished = applyGameAction(finalState, { type: 'draw-face-up', index: 0 });
+		if (!finished.ok) throw new Error(finished.error);
+		expect(getGameMachineState(finished.state)).toBe('gameOver');
+		const afterGame = applyGameAction(finished.state, { type: 'draw-train-deck' });
+		expect(afterGame.ok).toBe(false);
+		expect(afterGame.state).toBe(finished.state);
+	});
+
 	test('drawing two train cards advances to the next player', () => {
 		const state = finishTicketSelection(createGame({ seed: 'draw', botCount: 1 }));
 		const beforeCards = Object.values(state.players[0]!.hand).reduce((a, b) => a + b);
@@ -249,6 +318,32 @@ describe('train card edge cases', () => {
 		expect(secondBlind.ok).toBe(true);
 		if (!secondBlind.ok) return;
 		expect(secondBlind.state.currentPlayerIndex).toBe(1);
+
+		const secondWildState = finishTicketSelection(createGame({ seed: 'second-blind-wild', botCount: 1 }));
+		secondWildState.trainDeck = ['locomotive', 'red'];
+		secondWildState.trainDiscard = [];
+		const ordinaryFirst = applyGameAction(secondWildState, { type: 'draw-train-deck' });
+		if (!ordinaryFirst.ok) throw new Error(ordinaryFirst.error);
+		expect(ordinaryFirst.state.players[0]!.hand.red).toBe(secondWildState.players[0]!.hand.red + 1);
+		const wildSecond = applyGameAction(ordinaryFirst.state, { type: 'draw-train-deck' });
+		if (!wildSecond.ok) throw new Error(wildSecond.error);
+		expect(wildSecond.state.players[0]!.hand.locomotive).toBe(secondWildState.players[0]!.hand.locomotive + 1);
+		expect(wildSecond.state.currentPlayerIndex).toBe(1);
+	});
+
+	test('disables the entire Train Car action when both piles are empty', () => {
+		const state = finishTicketSelection(createGame({ seed: 'no-train-draw', botCount: 1 }));
+		state.trainDeck = [];
+		state.trainDiscard = [];
+		state.faceUpTrainCards = ['red', 'blue', 'green', 'yellow', 'white'];
+
+		const faceUp = applyGameAction(state, { type: 'draw-face-up', index: 0 });
+		const blind = applyGameAction(state, { type: 'draw-train-deck' });
+		expect(faceUp.ok).toBe(false);
+		expect(blind.ok).toBe(false);
+		expect(faceUp.state).toBe(state);
+		expect(blind.state).toBe(state);
+		expect(applyGameAction(state, { type: 'draw-destination-tickets' }).ok).toBe(true);
 	});
 
 	test('ends the turn after one draw when no legal second train card exists', () => {
@@ -291,6 +386,56 @@ describe('route payment', () => {
 		if (!grayClaim.ok) return;
 		expect(grayClaim.state.players[0]!.hand.red).toBe(0);
 		expect(grayClaim.state.players[0]!.hand.locomotive).toBe(0);
+	});
+
+	test('allows an all-locomotive payment and scores every route length', () => {
+		const routes = [
+			['vancouver-seattle-gray-a', 'red', 1, 1],
+			['las-vegas-los-angeles-gray', 'red', 2, 2],
+			[DEBUG_ROUTE_ID, 'purple', 3, 4],
+			['calgary-helena-gray', 'red', 4, 7],
+			['portland-san-francisco-green-a', 'green', 5, 10],
+			['seattle-helena-yellow', 'yellow', 6, 15],
+		] as const;
+		for (const [routeId, paymentColor, length, points] of routes) {
+			const state = createDebugClaimScenario();
+			for (const card of TRAIN_CARDS) state.players[0]!.hand[card] = 0;
+			state.players[0]!.hand.locomotive = length;
+			const result = applyGameAction(state, { type: 'claim-route', routeId, paymentColor });
+			expect(result.ok).toBe(true);
+			if (!result.ok) continue;
+			expect(result.state.players[0]!.score).toBe(points);
+			expect(result.state.players[0]!.hand.locomotive).toBe(0);
+		}
+	});
+
+	test('closes double routes for three players but allows different owners with four', () => {
+		const players = (count: number) =>
+			Array.from({ length: count }, (_, index) => ({
+				id: `p${index}`,
+				name: `Player ${index}`,
+				color: PLAYER_COLORS[index]!,
+				isBot: false,
+			}));
+		for (const count of [3, 4]) {
+			const state = createGame({ seed: `parallel-${count}`, players: players(count) });
+			state.phase = { type: 'turn', drawsTaken: 0 };
+			state.currentPlayerIndex = 0;
+			state.players[0]!.hand.purple = 3;
+			const first = applyGameAction(state, {
+				type: 'claim-route',
+				routeId: DEBUG_ROUTE_ID,
+				paymentColor: 'purple',
+			});
+			if (!first.ok) throw new Error(first.error);
+			first.state.players[1]!.hand.yellow = 3;
+			const second = applyGameAction(first.state, {
+				type: 'claim-route',
+				routeId: 'san-francisco-los-angeles-yellow-a',
+				paymentColor: 'yellow',
+			});
+			expect(second.ok).toBe(count === 4);
+		}
 	});
 
 	test('does not combine two ordinary colors on a gray route', () => {
@@ -350,6 +495,21 @@ describe('bot strategy', () => {
 });
 
 describe('final round and scoring', () => {
+	test('triggers the final round only when 0, 1, or 2 trains remain', () => {
+		for (const trainsRemaining of [0, 1, 2, 3]) {
+			const state = createDebugClaimScenario();
+			state.players[0]!.trains = trainsRemaining + 3;
+			const result = applyGameAction(state, {
+				type: 'claim-route',
+				routeId: DEBUG_ROUTE_ID,
+				paymentColor: 'purple',
+			});
+			if (!result.ok) throw new Error(result.error);
+			expect(result.state.players[0]!.trains).toBe(trainsRemaining);
+			expect(result.state.finalRound !== null).toBe(trainsRemaining <= 2);
+		}
+	});
+
 	test('gives every player, including the trigger, exactly one last turn', () => {
 		const state = createDebugClaimScenario();
 		state.players[0]!.trains = 5;
@@ -433,6 +593,41 @@ describe('final round and scoring', () => {
 			['bot-1', 10, 1],
 		]);
 		expect(result.state.phase).toEqual({ type: 'game-over', winnerIds: ['player', 'bot-1'] });
+	});
+
+	test('applies completed-ticket and longest-path tie breakers in order', () => {
+		const completedTicketState = createDebugFinalRoundScenario();
+		completedTicketState.claimedRoutes = {
+			'denver-santa-fe-gray': 'player',
+			'santa-fe-el-paso-gray': 'player',
+			'winnipeg-helena-blue': 'bot-1',
+		};
+		completedTicketState.players[0]!.tickets = ['denver-el-paso'];
+		completedTicketState.players[0]!.score = 0;
+		completedTicketState.players[1]!.tickets = [];
+		completedTicketState.players[1]!.score = 4;
+		completedTicketState.faceUpTrainCards[0] = 'locomotive';
+		const completedTicketResult = applyGameAction(completedTicketState, { type: 'draw-face-up', index: 0 });
+		if (!completedTicketResult.ok) throw new Error(completedTicketResult.error);
+		expect(completedTicketResult.state.finalResults?.map(result => [result.playerId, result.finalScore])).toEqual([
+			['player', 14],
+			['bot-1', 14],
+		]);
+		expect(completedTicketResult.state.phase).toEqual({ type: 'game-over', winnerIds: ['player'] });
+
+		const longestPathState = createDebugFinalRoundScenario();
+		longestPathState.claimedRoutes = { 'vancouver-seattle-gray-a': 'player' };
+		for (const player of longestPathState.players) player.tickets = [];
+		longestPathState.players[0]!.score = 0;
+		longestPathState.players[1]!.score = 10;
+		longestPathState.faceUpTrainCards[0] = 'locomotive';
+		const longestPathResult = applyGameAction(longestPathState, { type: 'draw-face-up', index: 0 });
+		if (!longestPathResult.ok) throw new Error(longestPathResult.error);
+		expect(longestPathResult.state.finalResults?.map(result => [result.playerId, result.finalScore])).toEqual([
+			['player', 10],
+			['bot-1', 10],
+		]);
+		expect(longestPathResult.state.phase).toEqual({ type: 'game-over', winnerIds: ['player'] });
 	});
 });
 

@@ -6,6 +6,7 @@ import type {
 	UpdateRoomSettingsRequest,
 } from '@repo/shared';
 import { CLIENT_ID_HEADER } from '@repo/shared';
+import { projectRoomForViewer } from './room-projection';
 import { RoomError, RoomService } from './room-service';
 
 export interface AppOptions {
@@ -22,12 +23,15 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 			}
 
 			if (request.method === 'GET' && url.pathname === '/api/rooms/current') {
-				return json({ ok: true, room: service.getCurrentRoom(clientId(request, url)) });
+				const identity = clientId(request, url);
+				const room = service.getCurrentRoom(identity);
+				return json({ ok: true, room: room ? projectRoomForViewer(room, identity) : null });
 			}
 
 			if (request.method === 'POST' && url.pathname === '/api/rooms') {
+				const identity = clientId(request, url);
 				const body = (await readJsonObject(request)) as unknown as CreateRoomRequest;
-				return json({ ok: true, room: service.createRoom(clientId(request, url), body) }, 201);
+				return json({ ok: true, room: projectRoomForViewer(service.createRoom(identity, body), identity) }, 201);
 			}
 
 			const match = url.pathname.match(
@@ -39,11 +43,11 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 				const identity = clientId(request, url);
 
 				if (request.method === 'GET' && !command) {
-					return json({ ok: true, room: service.getRoom(identity, code) });
+					return json({ ok: true, room: projectRoomForViewer(service.getRoom(identity, code), identity) });
 				}
 				if (request.method === 'GET' && command === 'events') {
 					const room = service.getRoom(identity, code);
-					return new Response(service.streams.create(room, request.signal), {
+					return new Response(service.streams.create(room, identity, request.signal), {
 						headers: {
 							'Cache-Control': 'no-cache, no-transform',
 							Connection: 'keep-alive',
@@ -53,29 +57,30 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 				}
 				if (request.method === 'POST' && command === 'join') {
 					const body = (await readJsonObject(request)) as unknown as JoinRoomRequest;
-					return json({ ok: true, room: service.joinRoom(identity, code, body) });
+					return json({ ok: true, room: projectRoomForViewer(service.joinRoom(identity, code, body), identity) });
 				}
 				if (request.method === 'POST' && command === 'leave') {
-					return json({ ok: true, room: service.leaveRoom(identity, code) });
+					const room = service.leaveRoom(identity, code);
+					return json({ ok: true, room: room ? projectRoomForViewer(room, identity) : null });
 				}
 				if (request.method === 'POST' && command === 'abandon') {
-					return json({ ok: true, room: service.abandonRoom(identity, code) });
+					return json({ ok: true, room: projectRoomForViewer(service.abandonRoom(identity, code), identity) });
 				}
 				if (request.method === 'POST' && command === 'ready') {
 					const body = (await readJsonObject(request)) as unknown as SetReadyRequest;
-					return json({ ok: true, room: service.setReady(identity, code, body) });
+					return json({ ok: true, room: projectRoomForViewer(service.setReady(identity, code, body), identity) });
 				}
 				if (request.method === 'POST' && command === 'settings') {
 					const body = (await readJsonObject(request)) as unknown as UpdateRoomSettingsRequest;
-					return json({ ok: true, room: service.updateSettings(identity, code, body) });
+					return json({ ok: true, room: projectRoomForViewer(service.updateSettings(identity, code, body), identity) });
 				}
 				if (request.method === 'POST' && command === 'start') {
-					return json({ ok: true, room: service.startRoom(identity, code) });
+					return json({ ok: true, room: projectRoomForViewer(service.startRoom(identity, code), identity) });
 				}
 				if (request.method === 'POST' && command === 'actions') {
 					const body = (await readJsonObject(request)) as unknown as SubmitGameActionRequest;
 					const room = service.submitGameAction(identity, code, body);
-					return json({ ok: true, room, acceptedActionId: body.actionId });
+					return json({ ok: true, room: projectRoomForViewer(room, identity), acceptedActionId: body.actionId });
 				}
 			}
 

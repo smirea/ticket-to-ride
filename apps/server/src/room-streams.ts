@@ -1,8 +1,10 @@
 import type { RoomEvent, RoomState } from '@repo/shared';
+import { projectRoomForViewer } from './room-projection';
 
 interface Subscriber {
 	controller: ReadableStreamDefaultController<Uint8Array>;
 	close: () => void;
+	viewerId: string;
 }
 
 const encoder = new TextEncoder();
@@ -10,7 +12,7 @@ const encoder = new TextEncoder();
 export class RoomStreams {
 	private readonly subscribers = new Map<string, Set<Subscriber>>();
 
-	create(room: RoomState, signal: AbortSignal): ReadableStream<Uint8Array> {
+	create(room: RoomState, viewerId: string, signal: AbortSignal): ReadableStream<Uint8Array> {
 		let subscriber: Subscriber | undefined;
 		return new ReadableStream({
 			start: controller => {
@@ -19,14 +21,14 @@ export class RoomStreams {
 					this.remove(room.code, subscriber);
 					subscriber = undefined;
 				};
-				subscriber = { controller, close };
+				subscriber = { controller, close, viewerId };
 				let roomSubscribers = this.subscribers.get(room.code);
 				if (!roomSubscribers) {
 					roomSubscribers = new Set();
 					this.subscribers.set(room.code, roomSubscribers);
 				}
 				roomSubscribers.add(subscriber);
-				controller.enqueue(encodeEvent({ type: 'snapshot', room }));
+				controller.enqueue(encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, viewerId) }));
 				signal.addEventListener('abort', close, { once: true });
 			},
 			cancel: () => subscriber?.close(),
@@ -34,7 +36,17 @@ export class RoomStreams {
 	}
 
 	publish(room: RoomState): void {
-		this.send(room.code, { type: 'snapshot', room });
+		const subscribers = this.subscribers.get(room.code);
+		if (!subscribers) return;
+		for (const subscriber of subscribers) {
+			try {
+				subscriber.controller.enqueue(
+					encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, subscriber.viewerId) }),
+				);
+			} catch {
+				this.remove(room.code, subscriber);
+			}
+		}
 	}
 
 	close(code: string, revision: number): void {
@@ -48,19 +60,6 @@ export class RoomStreams {
 			} catch {}
 		}
 		this.subscribers.delete(code);
-	}
-
-	private send(code: string, event: RoomEvent): void {
-		const subscribers = this.subscribers.get(code);
-		if (!subscribers) return;
-		const payload = encodeEvent(event);
-		for (const subscriber of subscribers) {
-			try {
-				subscriber.controller.enqueue(payload);
-			} catch {
-				this.remove(code, subscriber);
-			}
-		}
 	}
 
 	private remove(code: string, subscriber: Subscriber): void {

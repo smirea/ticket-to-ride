@@ -222,6 +222,7 @@
 
 	function canDrawCard(card: TrainCard): boolean {
 		if (!isViewerTurn || gameState.phase.type !== 'turn') return false;
+		if (gameState.trainDeck.length === 0 && gameState.trainDiscard.length === 0) return false;
 		return !(gameState.phase.drawsTaken === 1 && card === 'locomotive');
 	}
 
@@ -402,7 +403,9 @@
 		<button
 			type="button"
 			class="deck"
-			disabled={!isViewerTurn || gameState.phase.type !== 'turn' || gameState.trainDeck.length === 0}
+			disabled={!isViewerTurn ||
+				gameState.phase.type !== 'turn' ||
+				(gameState.trainDeck.length === 0 && gameState.trainDiscard.length === 0)}
 			onclick={() => send({ type: 'draw-train-deck' })}
 			aria-label={`Draw a blind train card. ${gameState.trainDeck.length} remain.`}
 		>

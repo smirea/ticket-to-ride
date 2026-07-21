@@ -1,3 +1,5 @@
+import { assign, setup, transition } from 'xstate';
+
 export const TRAIN_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white'] as const;
 
 export const TRAIN_CARDS = [...TRAIN_COLORS, 'locomotive'] as const;
@@ -109,6 +111,7 @@ export interface CreateGameOptions {
 	humanName?: string;
 	botCount?: number;
 	players?: Array<Pick<Player, 'id' | 'name' | 'color' | 'isBot'>>;
+	startingPlayerId?: PlayerId;
 }
 
 export const USA_CITIES: City[] = [
@@ -440,11 +443,7 @@ function refillFaceUp(state: GameState): void {
 }
 
 function canTakeAnotherTrainCard(state: GameState): boolean {
-	return (
-		state.trainDeck.length > 0 ||
-		state.trainDiscard.length > 0 ||
-		state.faceUpTrainCards.some(card => card !== 'locomotive')
-	);
+	return state.trainDeck.length > 0 || state.trainDiscard.length > 0;
 }
 
 function drawDestinationIds(deck: TicketId[], count: number): TicketId[] {
@@ -484,7 +483,7 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 	);
 
 	const names = ['You', 'Maya', 'Jasper', 'Nora', 'Theo'];
-	const playerSetups =
+	const configuredPlayers =
 		options.players ??
 		Array.from({ length: botCount + 1 }, (_, index) => ({
 			id: index === 0 ? 'player' : `bot-${index}`,
@@ -492,6 +491,14 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 			color: PLAYER_COLORS[index]!,
 			isBot: index !== 0,
 		}));
+	const startingPlayerIndex = options.startingPlayerId
+		? configuredPlayers.findIndex(player => player.id === options.startingPlayerId)
+		: 0;
+	if (startingPlayerIndex < 0) throw new Error('startingPlayerId must identify a configured player.');
+	const playerSetups = [
+		...configuredPlayers.slice(startingPlayerIndex),
+		...configuredPlayers.slice(0, startingPlayerIndex),
+	];
 	const players: Player[] = playerSetups.map(player => ({
 		...player,
 		score: 0,
@@ -617,7 +624,7 @@ export function getClaimableRoutes(state: GameState, playerId: PlayerId): Route[
 	);
 }
 
-export function applyGameAction(state: GameState, action: GameAction): ActionResult {
+function reduceGameAction(state: GameState, action: GameAction): ActionResult {
 	if (state.phase.type === 'game-over') return fail(state, 'The game is over.');
 	const player = currentPlayer(state);
 
@@ -683,6 +690,9 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 	}
 
 	if (action.type === 'draw-face-up') {
+		if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
+			return fail(state, 'There are no train cards left to draw.');
+		}
 		const card = state.faceUpTrainCards[action.index];
 		if (!card) return fail(state, 'Choose an available face-up card.');
 		if (card === 'locomotive' && turn.drawsTaken === 1) {
@@ -735,6 +745,116 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 	next.log.push(`${nextPlayer.name} claimed ${cityA}–${cityB}.`);
 	endTurn(next);
 	return succeed(next, action);
+}
+
+export type GameMachineState =
+	| 'openingTicketSelection'
+	| 'turnReady'
+	| 'turnSecondDraw'
+	| 'destinationTicketSelection'
+	| 'gameOver';
+
+interface GameMachineContext {
+	game: GameState;
+	lastResult: ActionResult | null;
+}
+
+const gameMachineSetup = setup({
+	types: {
+		context: {} as GameMachineContext,
+		input: {} as { game: GameState },
+		events: {} as GameAction,
+	},
+	guards: {
+		isGameOver: ({ context }) => context.game.phase.type === 'game-over',
+		isOpeningTicketSelection: ({ context }) =>
+			context.game.phase.type === 'ticket-selection' && context.game.phase.source === 'opening',
+		isDestinationTicketSelection: ({ context }) =>
+			context.game.phase.type === 'ticket-selection' && context.game.phase.source === 'turn',
+		isSecondDraw: ({ context }) => context.game.phase.type === 'turn' && context.game.phase.drawsTaken === 1,
+	},
+	actions: {
+		applyRuleAction: assign(({ context, event }) => {
+			const lastResult = reduceGameAction(context.game, event);
+			return { game: lastResult.state, lastResult };
+		}),
+	},
+});
+
+export const gameMachine = gameMachineSetup.createMachine({
+	id: 'ticket-to-ride',
+	context: ({ input }) => ({ game: input.game, lastResult: null }),
+	initial: 'routeState',
+	states: {
+		routeState: {
+			always: [
+				{ guard: 'isGameOver', target: 'gameOver' },
+				{ guard: 'isOpeningTicketSelection', target: 'openingTicketSelection' },
+				{ guard: 'isDestinationTicketSelection', target: 'destinationTicketSelection' },
+				{ guard: 'isSecondDraw', target: 'turnSecondDraw' },
+				{ target: 'turnReady' },
+			],
+		},
+		openingTicketSelection: {
+			on: {
+				'keep-tickets': { target: 'routeState', actions: 'applyRuleAction' },
+			},
+		},
+		turnReady: {
+			on: {
+				'draw-destination-tickets': { target: 'routeState', actions: 'applyRuleAction' },
+				'draw-face-up': { target: 'routeState', actions: 'applyRuleAction' },
+				'draw-train-deck': { target: 'routeState', actions: 'applyRuleAction' },
+				'claim-route': { target: 'routeState', actions: 'applyRuleAction' },
+			},
+		},
+		turnSecondDraw: {
+			on: {
+				'draw-face-up': { target: 'routeState', actions: 'applyRuleAction' },
+				'draw-train-deck': { target: 'routeState', actions: 'applyRuleAction' },
+			},
+		},
+		destinationTicketSelection: {
+			on: {
+				'keep-tickets': { target: 'routeState', actions: 'applyRuleAction' },
+			},
+		},
+		gameOver: {},
+	},
+});
+
+function disallowedActionError(machineState: GameMachineState, action: GameAction): string {
+	if (machineState === 'gameOver') return 'The game is over.';
+	if (machineState === 'openingTicketSelection' || machineState === 'destinationTicketSelection') {
+		return action.type === 'keep-tickets'
+			? 'That ticket selection is not available.'
+			: 'Finish selecting tickets first.';
+	}
+	if (action.type === 'keep-tickets') return 'No tickets are being selected.';
+	if (machineState === 'turnSecondDraw') {
+		return action.type === 'claim-route'
+			? 'A route cannot be claimed after drawing.'
+			: 'Destination tickets must be the only action this turn.';
+	}
+	return 'That action is not available now.';
+}
+
+export function getGameMachineState(state: GameState): GameMachineState {
+	if (state.phase.type === 'game-over') return 'gameOver';
+	if (state.phase.type === 'ticket-selection') {
+		return state.phase.source === 'opening' ? 'openingTicketSelection' : 'destinationTicketSelection';
+	}
+	return state.phase.drawsTaken === 1 ? 'turnSecondDraw' : 'turnReady';
+}
+
+export function applyGameAction(state: GameState, action: GameAction): ActionResult {
+	const machineState = getGameMachineState(state);
+	const snapshot = gameMachine.resolveState({
+		value: machineState,
+		context: { game: state, lastResult: null },
+	});
+	const [nextSnapshot] = transition(gameMachine, snapshot, action);
+	return nextSnapshot.context.lastResult ?? fail(state, disallowedActionError(machineState, action));
 }
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
