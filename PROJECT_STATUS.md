@@ -16,6 +16,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 
 ## Current
 
+- [ ] End-to-end UI playthrough follow-up: a real 73-turn solo game reached final scoring; fix unavailable double-route interaction, destructive refresh on the initial `?new=1` URL, and the hand/turn-banner overlap observed during play.
 - [x] Canonical rules and XState engine pass completed: the official rules are documented, XState owns the phase/event lifecycle, audited discrepancies are corrected, and multiplayer snapshots preserve secret information.
 - [x] Pixel-precision Steam frame and original whimsical-1800s art pass completed, including real four-player interaction, responsive board-preserving decisions, repeated source comparisons, and full verification.
 - [x] Steam-reference UX parity pass completed: board-first HUD, side-docked gameplay decisions, map ticket previews, and motion polish.
@@ -59,6 +60,16 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Add focused rule tests for component conservation, starting-player order, state transitions, exhausted Train Car piles, both blind-Locomotive positions, all-Locomotive payments, every route score, double-route player-count behavior, final-round boundaries, and tie breakers.
 - [x] Redact multiplayer snapshots per viewer so hands, tickets, offers, deck order, and deterministic shuffle state remain secret until final scoring.
 - [x] Run full simulation, server recovery, test, typecheck, lint, and production-build verification.
+
+## Active milestone: End-to-end UI playthrough follow-up
+
+- [x] Start a fresh two-player solo game through the visible setup UI and choose opening Destination Tickets.
+- [x] Exercise settings and fast bot pacing, face-up and blind Train Car draws, a midgame Destination Ticket draw, route selection/payment, automatic bot turns, the turn journal, final-round countdown, and final results.
+- [x] Complete a real game through the UI in 73 turns; final scoring produced Maya 126 and You 4 after route, ticket, and longest-path scoring.
+- [x] Verify `/game` resumes the exact saved turn, hand, trains, and score without console errors.
+- [ ] Stop unavailable halves of double routes from appearing open in 2-3 player games; overlapping hitboxes currently select the claimed sibling, open the wrong payment drawer, or submit a guaranteed rejection.
+- [ ] Replace or clear the initial `/game?new=1&...` URL after creating the game; reloading that URL currently discards the in-progress or completed game and starts over.
+- [ ] Move the turn instruction clear of the hand fan; the primary banner is partially obscured during opening selection, normal turns, and results.
 
 ## Completed milestone: Open and interact with a single-player game
 
@@ -161,7 +172,9 @@ Establish the real game architecture and produce the first usable vertical slice
 
 # Bugs
 
-- None logged.
+- In 2-3 player games, the unused half of a claimed double route is still announced and styled as open. Its 22px hitbox overlaps the sibling route at a 10px offset, causing pointer selection to hit the wrong half or fail to open the intended claim drawer.
+- Reloading the setup-created `/game?new=1&name=...&bots=...` URL treats every load as a new-game request and replaces the saved game. Navigating to `/game` restores correctly.
+- The centered turn banner sits beneath the hand fan, hiding part of the current instruction and final-state label.
 
 # Notes
 
