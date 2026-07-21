@@ -245,31 +245,46 @@
 
 {#if room?.phase === 'playing' && game && identity}
 	<div class="live-room">
-		<header class="game-room-bar">
-			<a href={lobbyHref}>Lobby</a>
-			<div class="room-title">
-				<span>Room</span>
-				<strong>{room.code}</strong>
+		<details class="game-room-menu">
+			<summary aria-label={`Room ${room.code} controls — ${connectionLabel()}`}>
+				<i class:live={connection === 'live'} class:warning={connection !== 'live'}></i>
+				<span aria-hidden="true">•••</span>
+			</summary>
+			<div class="game-room-popover">
+				<div class="room-title">
+					<span>Room</span>
+					<strong>{room.code}</strong>
+				</div>
+				<div
+					class="connection"
+					class:live={connection === 'live'}
+					class:warning={connection !== 'live'}
+					role="status"
+					aria-live="polite"
+				>
+					<i></i>
+					<span>{connectionLabel()}</span>
+					<small>revision {room.revision}</small>
+				</div>
+				<div class="game-room-actions">
+					<a href={lobbyHref}>Lobby</a>
+					{#if connection !== 'live'}
+						<button type="button" class="small-button" onclick={reconnect}>Reconnect</button>
+					{/if}
+					<button type="button" class="danger-link" disabled={Boolean(pending)} onclick={abandonGame}>
+						Abandon game
+					</button>
+				</div>
 			</div>
-			<div
-				class="connection"
-				class:live={connection === 'live'}
-				class:warning={connection !== 'live'}
-				role="status"
-				aria-live="polite"
-			>
-				<i></i>
-				<span>{connectionLabel()}</span>
-				<small>revision {room.revision}</small>
-			</div>
-			{#if connection !== 'live'}
-				<button type="button" class="small-button" onclick={reconnect}>Reconnect</button>
-			{/if}
-			<button type="button" class="danger-link" disabled={Boolean(pending)} onclick={abandonGame}>Abandon game</button>
-		</header>
-		{#if error || notice || pending === 'action'}
+		</details>
+		{#if error || pending === 'action' || connection !== 'live'}
 			<div class:error={Boolean(error)} class="game-message" role="status" aria-live="polite">
-				{error || notice}
+				{error ||
+					(pending === 'action'
+						? notice || 'Submitting move…'
+						: connection === 'closed'
+							? notice || 'This room has closed.'
+							: `${connectionLabel()}…`)}
 			</div>
 		{/if}
 		<GameScreen state={game} viewerId={identity.clientId} {send} />
@@ -498,7 +513,6 @@
 	}
 
 	nav,
-	.game-room-bar,
 	.connection,
 	.room-heading,
 	.panel-heading,
@@ -957,19 +971,72 @@
 		background: #07151b;
 	}
 
-	.game-room-bar {
+	.game-room-menu {
 		position: fixed;
-		top: 0.65rem;
-		left: 0.65rem;
+		top: 0.75rem;
+		left: 50%;
 		z-index: 30;
-		justify-content: space-between;
-		gap: 0.8rem;
+		transform: translateX(-50%);
+	}
+
+	.game-room-menu summary {
+		display: flex;
+		width: 2.25rem;
+		height: 2.25rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
 		border: 1px solid rgba(255, 255, 255, 0.16);
-		border-radius: 999px;
-		padding: 0.35rem 0.55rem;
+		border-radius: 50%;
 		background: rgba(8, 17, 22, 0.86);
 		box-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.24);
 		backdrop-filter: blur(12px);
+		color: #dce6e3;
+		font-size: 0.58rem;
+		letter-spacing: 0.08em;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.game-room-menu summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.game-room-menu summary > i {
+		position: absolute;
+		top: 0.1rem;
+		right: 0.1rem;
+		width: 0.5rem;
+		height: 0.5rem;
+		border: 1px solid rgba(255, 255, 255, 0.58);
+		border-radius: 50%;
+		background: #d69b45;
+		box-shadow: 0 0 0.55rem rgba(214, 155, 69, 0.65);
+	}
+
+	.game-room-menu summary > i.live {
+		background: #57b884;
+		box-shadow: 0 0 0.55rem rgba(87, 184, 132, 0.68);
+	}
+
+	.game-room-menu summary > i.warning {
+		animation: pulse 1.3s ease-in-out infinite;
+	}
+
+	.game-room-popover {
+		position: absolute;
+		top: calc(100% + 0.45rem);
+		left: 50%;
+		display: grid;
+		width: 16.5rem;
+		gap: 0.75rem;
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 0.7rem;
+		padding: 0.8rem;
+		transform: translateX(-50%);
+		background: rgba(8, 17, 22, 0.94);
+		box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.35);
+		backdrop-filter: blur(14px);
 		color: #dce6e3;
 		font-size: 0.68rem;
 	}
@@ -978,7 +1045,6 @@
 		display: flex;
 		align-items: baseline;
 		gap: 0.45rem;
-		margin-right: auto;
 	}
 
 	.room-title span {
@@ -988,6 +1054,18 @@
 
 	.room-title strong {
 		letter-spacing: 0.08em;
+	}
+
+	.game-room-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		padding-top: 0.7rem;
+	}
+
+	.game-room-actions a {
+		margin-right: auto;
 	}
 
 	.game-message {
@@ -1017,16 +1095,6 @@
 
 		.lobby-grid {
 			grid-template-columns: 1fr;
-		}
-
-		.game-room-bar {
-			align-items: flex-start;
-			flex-wrap: wrap;
-		}
-
-		.room-title {
-			order: -1;
-			width: 100%;
 		}
 	}
 

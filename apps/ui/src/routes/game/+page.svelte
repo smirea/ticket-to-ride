@@ -17,8 +17,7 @@
 	let game = $state<GameState>(createConfiguredGame('single-player-usa'));
 	let error = $state('');
 	let loaded = $state(false);
-	let saveStatus = $state('Loading save…');
-	let botMoving = $state(false);
+	let botSpeed = $state(1);
 	let botTimer: ReturnType<typeof setTimeout> | undefined;
 
 	onMount(() => {
@@ -31,7 +30,6 @@
 			}
 		}
 		loaded = true;
-		saveStatus = 'Saved locally';
 		scheduleBotAction();
 	});
 
@@ -40,7 +38,6 @@
 	$effect(() => {
 		if (typeof localStorage === 'undefined' || !loaded) return;
 		localStorage.setItem(savedGameKey, JSON.stringify(game));
-		saveStatus = 'Saved locally';
 	});
 
 	function send(action: GameAction) {
@@ -57,7 +54,6 @@
 
 	function restart() {
 		clearTimeout(botTimer);
-		botMoving = false;
 		error = '';
 		game = createConfiguredGame(`single-player-${Date.now()}`);
 	}
@@ -66,26 +62,22 @@
 		clearTimeout(botTimer);
 		const player = game.players[game.currentPlayerIndex];
 		if (!player?.isBot || game.phase.type === 'game-over') {
-			botMoving = false;
 			return;
 		}
 
-		botMoving = true;
 		botTimer = setTimeout(() => {
 			const action = chooseBotAction(game);
 			if (!action) {
-				botMoving = false;
 				return;
 			}
 			const result = applyGameAction(game, action);
 			if (!result.ok) {
 				error = result.error;
-				botMoving = false;
 				return;
 			}
 			game = result.state;
 			scheduleBotAction();
-		}, 450);
+		}, [900, 450, 160][botSpeed]);
 	}
 
 	function createConfiguredGame(seed: string) {
@@ -98,13 +90,14 @@
 </svelte:head>
 
 <div class="game-page">
-	<nav class="game-controls" aria-label="Game controls">
-		<a href="/">Home</a>
-		{#if error}<p role="alert">{error}</p>{/if}
-		<span>{botMoving ? 'Rival thinking…' : saveStatus}</span>
-		<button type="button" onclick={restart}>New game</button>
-	</nav>
-	<GameScreen state={game} viewerId="player" {send} onrestart={restart} />
+	<GameScreen
+		state={game}
+		viewerId="player"
+		{send}
+		onrestart={restart}
+		ongamespeedchange={speed => (botSpeed = speed)}
+	/>
+	{#if error}<p class="game-message error" role="alert">{error}</p>{/if}
 </div>
 
 <style>
@@ -114,65 +107,27 @@
 		background: #07151b;
 	}
 
-	.game-controls {
+	.game-message {
 		position: fixed;
-		top: 0.65rem;
-		left: 0.65rem;
+		top: 0.6rem;
+		left: 50%;
 		z-index: 30;
-		display: flex;
-		align-items: center;
-		gap: 0.55rem;
+		margin: 0;
+		transform: translateX(-50%);
 		border: 1px solid rgb(247 231 193 / 0.28);
 		border-radius: 999px;
-		padding: 0.35rem;
+		padding: 0.35rem 0.7rem;
 		background: rgb(6 17 21 / 0.84);
 		box-shadow: 0 0.65rem 1.6rem rgb(0 0 0 / 0.24);
 		backdrop-filter: blur(12px);
-		color: #dce6e3;
-		font-size: 0.7rem;
+		color: #d7e6e1;
+		font-size: 0.62rem;
 		font-weight: 700;
+		pointer-events: none;
 	}
 
-	.game-controls a,
-	.game-controls button {
-		border: 1px solid rgb(255 255 255 / 0.14);
-		border-radius: 999px;
-		padding: 0.42rem 0.7rem;
-		background: rgb(255 255 255 / 0.06);
-		color: #dce6e3;
-		text-decoration: none;
-	}
-
-	.game-controls p {
-		margin: 0;
-		max-width: 24rem;
-		padding-inline: 0.45rem;
-		color: #ffb5a8;
-	}
-
-	.game-controls span {
-		padding-inline: 0.4rem;
-		color: #7f9692;
-		font-weight: 500;
-	}
-
-	.game-controls button {
-		cursor: pointer;
-	}
-
-	.game-controls a:hover,
-	.game-controls button:hover {
-		background: rgb(255 255 255 / 0.12);
-	}
-
-	@media (max-width: 700px) {
-		.game-controls {
-			right: 0.65rem;
-			justify-content: space-between;
-		}
-
-		.game-controls span {
-			display: none;
-		}
+	.game-message.error {
+		border-color: rgb(255 148 128 / 0.45);
+		color: #ffc1b5;
 	}
 </style>

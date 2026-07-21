@@ -49,25 +49,28 @@
 </svelte:head>
 
 <div class="debug-page">
-	<nav aria-label="Debug controls">
-		<a href="/">Home</a>
-		<div class="controls">
-			<label>
-				Viewer
-				<select bind:value={viewerId}>
-					{#each game.players as player}
-						<option value={player.id}>{player.name}</option>
-					{/each}
-				</select>
-			</label>
-			<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
-			<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
-			<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
-			<button type="button" onclick={() => loadScenario(createDebugFinalScenario())}>Results</button>
-			<button type="button" onclick={resetSetupScenario}>Setup scenario</button>
-		</div>
-		{#if error}<p role="alert">{error}</p>{/if}
-	</nav>
+	<details class="debug-toolbar">
+		<summary>Debug</summary>
+		<nav aria-label="Debug controls">
+			<a href="/">Home</a>
+			<div class="controls">
+				<label>
+					Viewer
+					<select bind:value={viewerId}>
+						{#each game.players as player}
+							<option value={player.id}>{player.name}</option>
+						{/each}
+					</select>
+				</label>
+				<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
+				<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
+				<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
+				<button type="button" onclick={() => loadScenario(createDebugFinalScenario())}>Results</button>
+				<button type="button" onclick={resetSetupScenario}>Setup scenario</button>
+			</div>
+			{#if error}<p role="alert">{error}</p>{/if}
+		</nav>
+	</details>
 	<GameScreen state={game} {viewerId} {send} onrestart={resetSetupScenario} debug />
 </div>
 
@@ -78,6 +81,7 @@
 		background: #07151b;
 	}
 
+	.debug-toolbar,
 	nav,
 	.controls,
 	label {
@@ -85,13 +89,36 @@
 		align-items: center;
 	}
 
-	nav {
+	.debug-toolbar {
 		position: fixed;
-		top: 0.45rem;
-		left: 0.45rem;
+		top: 0.35rem;
+		left: 50%;
 		z-index: 40;
+		transform: translateX(-50%);
+	}
+
+	.debug-toolbar summary {
+		list-style: none;
+		border: 1px solid rgb(255 255 255 / 0.18);
+		border-radius: 999px;
+		padding: 0.25rem 0.55rem;
+		background: rgb(8 17 22 / 0.72);
+		color: #dce6e3;
+		font-size: 0.6rem;
+		font-weight: 800;
+		cursor: pointer;
+		text-align: center;
+	}
+
+	.debug-toolbar[open] {
+		align-items: center;
+		flex-direction: column;
+	}
+
+	nav {
 		justify-content: space-between;
 		gap: 0.55rem;
+		margin-top: 0.3rem;
 		border: 1px solid rgb(255 255 255 / 0.16);
 		border-radius: 999px;
 		padding: 0.3rem 0.4rem;
@@ -131,9 +158,12 @@
 	}
 
 	@media (max-width: 720px) {
+		.debug-toolbar {
+			left: 50%;
+			width: calc(100% - 0.9rem);
+		}
+
 		nav {
-			left: 0.45rem;
-			right: 0.45rem;
 			align-items: flex-start;
 			border-radius: 0.8rem;
 		}

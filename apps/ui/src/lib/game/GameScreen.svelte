@@ -12,7 +12,15 @@
 		TrainColor,
 	} from '@repo/shared';
 	import { isTicketComplete, USA_CITIES, USA_ROUTES, USA_TICKETS } from '@repo/shared';
+	import ClockCounterClockwiseIcon from 'phosphor-svelte/lib/ClockCounterClockwiseIcon';
+	import GaugeIcon from 'phosphor-svelte/lib/GaugeIcon';
+	import GearSixIcon from 'phosphor-svelte/lib/GearSixIcon';
+	import MusicNotesIcon from 'phosphor-svelte/lib/MusicNotesIcon';
+	import SpeakerHighIcon from 'phosphor-svelte/lib/SpeakerHighIcon';
+	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
+	import XIcon from 'phosphor-svelte/lib/XIcon';
 	import { tick } from 'svelte';
+	import { playerPortraitAssets, ticketBackAsset, ticketFaceAsset, trainBackAsset, trainCardAssets } from './assets';
 	import GameBoard from './GameBoard.svelte';
 
 	type Props = {
@@ -20,10 +28,11 @@
 		viewerId: string;
 		send: (action: GameAction) => void;
 		onrestart?: () => void;
+		ongamespeedchange?: (speed: number) => void;
 		debug?: boolean;
 	};
 
-	let { state: gameState, viewerId, send, onrestart, debug = false }: Props = $props();
+	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, debug = false }: Props = $props();
 
 	const cardOrder: readonly TrainCard[] = [
 		'red',
@@ -45,34 +54,44 @@
 		blue: 'Blue',
 		purple: 'Purple',
 		black: 'Black',
-		white: 'White',
+		white: 'Ivory',
 		locomotive: 'Wild',
 	};
 	const ticketById = new Map(USA_TICKETS.map(ticket => [ticket.id, ticket]));
 	const cityById = new Map(USA_CITIES.map(city => [city.id, city]));
 	const routeById = new Map(USA_ROUTES.map(route => [route.id, route]));
+	const speedLabels = ['Relaxed', 'Normal', 'Fast'];
 
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId | undefined>();
 	let previewTicketId = $state<TicketId | undefined>();
 	let activeOfferKey = $state('');
 	let ticketDialog = $state<HTMLElement | undefined>();
+	let settingsDialog = $state<HTMLElement | undefined>();
+	let claimDialog = $state<HTMLElement | undefined>();
+	let resultsDialog = $state<HTMLElement | undefined>();
+	let settingsButton = $state<HTMLButtonElement | undefined>();
+	let historyButton = $state<HTMLButtonElement | undefined>();
+	let settingsOpen = $state(false);
+	let historyOpen = $state(false);
+	let soundEffects = $state(82);
+	let music = $state(58);
+	let simplifiedMap = $state(false);
+	let showPlayerInfo = $state(true);
+	let gameSpeed = $state(1);
 
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const viewer = $derived(gameState.players.find(player => player.id === viewerId));
+	const opponents = $derived(gameState.players.filter(player => player.id !== viewerId));
 	const isViewerTurn = $derived(gameState.phase.type === 'turn' && currentPlayer?.id === viewerId);
 	const selectedRoute = $derived(selectedRouteId ? routeById.get(selectedRouteId) : undefined);
-	const recentLog = $derived(gameState.log.slice(-4).toReversed());
+	const recentLog = $derived(gameState.log.slice(-6).toReversed());
 	const ticketSelection = $derived(
 		gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId ? gameState.phase : undefined,
 	);
 	const offeredTickets = $derived(ticketSelection?.ticketIds.map(id => ticketById.get(id)).filter(isTicket) ?? []);
 	const highlightedTicket = $derived(
 		(previewTicketId ? ticketById.get(previewTicketId) : undefined) ?? offeredTickets[0],
-	);
-	const latestMove = $derived(gameState.log.at(-1));
-	const latestMoveIsBot = $derived(
-		gameState.players.some(player => player.isBot && latestMove?.startsWith(player.name)),
 	);
 	const finalRoundPlayer = $derived(
 		gameState.finalRound
@@ -81,6 +100,7 @@
 	);
 	const finalResults = $derived(gameState.finalResults ?? []);
 	const viewerWon = $derived(gameState.phase.type === 'game-over' && gameState.phase.winnerIds.includes(viewerId));
+	const drawerOpen = $derived(Boolean(settingsOpen || ticketSelection || selectedRoute || finalResults.length));
 
 	$effect(() => {
 		const offer = ticketSelection?.ticketIds.join('|') ?? '';
@@ -102,6 +122,17 @@
 		) {
 			selectedRouteId = undefined;
 		}
+	});
+
+	$effect(() => {
+		const dialog = settingsOpen
+			? settingsDialog
+			: selectedRoute
+				? claimDialog
+				: finalResults.length
+					? resultsDialog
+					: undefined;
+		if (dialog) void tick().then(() => dialog.focus());
 	});
 
 	function isTicket(ticket: DestinationTicket | undefined): ticket is DestinationTicket {
@@ -158,7 +189,7 @@
 
 	function winnerHeading(): string {
 		if (gameState.phase.type !== 'game-over') return '';
-		if (viewerWon) return gameState.phase.winnerIds.length > 1 ? 'You tied for first!' : 'You won!';
+		if (viewerWon) return gameState.phase.winnerIds.length > 1 ? 'A shared victory!' : 'The rails are yours!';
 		const winnerNames = gameState.phase.winnerIds
 			.map(id => gameState.players.find(player => player.id === id)?.name)
 			.filter(Boolean);
@@ -167,6 +198,8 @@
 
 	function selectRoute(route: Route) {
 		if (!isViewerTurn || gameState.phase.type !== 'turn' || gameState.phase.drawsTaken > 0) return;
+		settingsOpen = false;
+		historyOpen = false;
 		selectedRouteId = selectedRouteId === route.id ? undefined : route.id;
 	}
 
@@ -181,6 +214,12 @@
 		selectedRouteId = undefined;
 	}
 
+	function closeRouteSelection() {
+		const routeId = selectedRouteId;
+		selectedRouteId = undefined;
+		if (routeId) void tick().then(() => document.getElementById(`route-${routeId}`)?.focus());
+	}
+
 	function canDrawCard(card: TrainCard): boolean {
 		if (!isViewerTurn || gameState.phase.type !== 'turn') return false;
 		return !(gameState.phase.drawsTaken === 1 && card === 'locomotive');
@@ -188,24 +227,62 @@
 
 	function describeTurn(): string {
 		const phase = gameState.phase;
-		if (phase.type === 'game-over') return 'Game complete';
+		if (phase.type === 'game-over') return 'Journey complete';
 		if (phase.type === 'ticket-selection') {
 			const selector = gameState.players.find(player => player.id === phase.playerId);
-			return selector?.id === viewerId ? 'Choose your tickets' : `${selector?.name ?? 'Opponent'} is choosing tickets`;
+			return selector?.id === viewerId
+				? 'Choose your destinations'
+				: `${selector?.name ?? 'Opponent'} is choosing tickets`;
 		}
 		if (currentPlayer?.id !== viewerId) return `${currentPlayer?.name ?? 'Opponent'} is playing`;
 		if (phase.drawsTaken === 1) return 'Draw one more train card';
-		return 'Choose an action';
+		return "It's your turn!";
 	}
 
 	function ticketFor(id: TicketId): DestinationTicket | undefined {
 		return ticketById.get(id);
 	}
+
+	function showSettings() {
+		settingsOpen = true;
+		historyOpen = false;
+		selectedRouteId = undefined;
+	}
+
+	function closeSettings() {
+		settingsOpen = false;
+		void tick().then(() => settingsButton?.focus());
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key !== 'Escape') return;
+		if (settingsOpen) {
+			event.preventDefault();
+			closeSettings();
+		} else if (historyOpen) {
+			event.preventDefault();
+			historyOpen = false;
+			void tick().then(() => historyButton?.focus());
+		} else if (selectedRouteId) {
+			event.preventDefault();
+			closeRouteSelection();
+		}
+	}
+
+	function adjustSpeed(direction: number) {
+		const nextSpeed = Math.max(0, Math.min(speedLabels.length - 1, gameSpeed + direction));
+		gameSpeed = nextSpeed;
+		ongamespeedchange?.(nextSpeed);
+	}
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
+
 <main
-	class:drawer-open={Boolean(ticketSelection || selectedRoute || finalResults.length)}
+	class:drawer-open={drawerOpen}
 	class:debug-mode={debug}
+	class:simplified-map={simplifiedMap}
+	class:hide-player-info={!showPlayerInfo}
 	class="game-shell"
 >
 	<section class="board-stage" aria-label="Game board">
@@ -218,35 +295,82 @@
 		/>
 	</section>
 
-	<header class="game-controls">
-		<span class="brand-mark" aria-hidden="true">T</span>
-		<div>
-			<strong>Ticket to Ride</strong>
-			<span>Turn {gameState.turnNumber}</span>
-		</div>
-	</header>
+	<nav class="game-controls" aria-label="Game controls">
+		<button
+			bind:this={settingsButton}
+			type="button"
+			class:active={settingsOpen}
+			onclick={showSettings}
+			aria-label="Open settings"
+		>
+			<GearSixIcon size={31} weight="fill" />
+		</button>
+		<button
+			bind:this={historyButton}
+			type="button"
+			class:active={historyOpen}
+			onclick={() => {
+				historyOpen = !historyOpen;
+				settingsOpen = false;
+			}}
+			aria-label="Show turn history"
+		>
+			<ClockCounterClockwiseIcon size={30} weight="fill" />
+		</button>
+	</nav>
 
-	<aside class="players" aria-label="Players">
-		{#each gameState.players as player, index (player.id)}
-			<div
+	{#if historyOpen}
+		<aside class="history-popover" aria-label="Recent turns">
+			<header>
+				<strong>Railway journal</strong><button
+					type="button"
+					onclick={() => (historyOpen = false)}
+					aria-label="Close history"><XIcon size={18} /></button
+				>
+			</header>
+			{#each recentLog as entry}<p>{entry}</p>{:else}<p>No journeys recorded yet.</p>{/each}
+		</aside>
+	{/if}
+
+	<aside class="opponents" aria-label="Opponents">
+		{#each opponents as player (player.id)}
+			{@const index = gameState.players.findIndex(candidate => candidate.id === player.id)}
+			<article
 				class:active={index === gameState.currentPlayerIndex}
-				class:viewer-player={player.id === viewerId}
-				class="player-row"
+				class="opponent"
 				style:--player-color={playerColor(player)}
 				aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${trainCardCount(player)} train cards, ${player.tickets.length} destination tickets`}
 			>
-				<span class="player-token">{index + 1}</span>
-				<div class="player-name">
-					<strong>{player.name}</strong>
-					<span>{player.id === viewerId ? 'You' : player.isBot ? 'Bot' : 'Player'}</span>
+				<img src={playerPortraitAssets[player.color]} alt="" />
+				<div class="opponent-counts">
+					<span><strong>{player.tickets.length}</strong><small>tickets</small></span>
+					<span><strong>{trainCardCount(player)}</strong><small>cards</small></span>
 				</div>
-				<div class="player-stats">
-					<strong>{player.score}</strong>
-					<span>{player.trains} trains</span>
-				</div>
-			</div>
+				<strong class="opponent-score">{player.score}</strong>
+				<div class="opponent-trains"><TrainIcon size={17} weight="fill" /><strong>{player.trains}</strong></div>
+				<footer>{player.name}</footer>
+			</article>
 		{/each}
 	</aside>
+
+	{#if viewer}
+		<aside class="viewer-hud" style:--player-color={playerColor(viewer)} aria-label="Your player information">
+			<img class="viewer-portrait" src={playerPortraitAssets[viewer.color]} alt="" />
+			<div class="viewer-ticket-stack">
+				{#each viewer.tickets.slice(0, 3) as ticketId, index (ticketId)}
+					{@const ticket = ticketFor(ticketId)}
+					{#if ticket}
+						<article class="mini-ticket" style:--ticket-index={index}>
+							<strong>{ticket.points}</strong><span>{cityName(ticket.cityA)} · {cityName(ticket.cityB)}</span>
+						</article>
+					{/if}
+				{/each}
+			</div>
+			<div class="viewer-score"><strong>{viewer.score}</strong><small>points</small></div>
+			<div class="viewer-trains"><TrainIcon size={27} weight="fill" /><strong>{viewer.trains}</strong></div>
+			<footer><span>You</span><strong>{viewer.name}</strong></footer>
+		</aside>
+	{/if}
 
 	<aside class="market" aria-label="Train card market">
 		<button
@@ -259,20 +383,19 @@
 			onclick={() => send({ type: 'draw-destination-tickets' })}
 			aria-label={`Draw destination tickets. ${gameState.destinationDeck.length} remain.`}
 		>
-			<span class="ticket-stack" aria-hidden="true">TKT</span>
-			<small>{gameState.destinationDeck.length}</small>
+			<img src={ticketBackAsset} alt="" /><small>{gameState.destinationDeck.length}</small>
 		</button>
 		<div class="face-up">
 			{#each gameState.faceUpTrainCards as card, index (`${index}-${card}`)}
 				<button
 					type="button"
-					class={`train-card ${card}`}
+					class="train-card"
 					disabled={!canDrawCard(card)}
 					onclick={() => send({ type: 'draw-face-up', index })}
 					aria-label={`Draw ${cardLabels[card]} train card`}
 				>
-					<span class="rails" aria-hidden="true"></span>
-					<strong>{cardLabels[card]}</strong>
+					<img src={trainCardAssets[card]} alt="" />
+					<span class={`card-gem ${card}`} aria-hidden="true"></span>
 				</button>
 			{/each}
 		</div>
@@ -283,59 +406,104 @@
 			onclick={() => send({ type: 'draw-train-deck' })}
 			aria-label={`Draw a blind train card. ${gameState.trainDeck.length} remain.`}
 		>
-			<span class="deck-card" aria-hidden="true"></span>
-			<small>{gameState.trainDeck.length}</small>
+			<img src={trainBackAsset} alt="" /><small>{gameState.trainDeck.length}</small>
 		</button>
 	</aside>
 
-	<div class:your-turn={isViewerTurn} class="turn-banner" role="status" aria-live="polite">
-		<span class="turn-light" style:background={currentPlayer ? playerColor(currentPlayer) : undefined}></span>
-		<strong>{describeTurn()}</strong>
-		<span>{currentPlayer?.name ?? 'Waiting for players'}</span>
-	</div>
-
-	<div class="game-feedback" aria-live="polite">
-		{#if gameState.finalRound && gameState.phase.type !== 'game-over'}
-			<div class="final-round-alert" role="status">
-				<strong>Final round · {gameState.finalRound.turnsRemaining}</strong>
-				<span>{finalRoundPlayer?.name ?? 'A player'} is down to two trains.</span>
-			</div>
-		{:else if latestMove}
-			<div class:bot-move={latestMoveIsBot} class="latest-move" role="status">
-				<strong>{latestMoveIsBot ? 'Opponent' : 'Latest'}</strong>
-				<span>{latestMove}</span>
-			</div>
-		{/if}
-	</div>
-
-	<div class="ticket-hand" aria-label="Your destination tickets">
-		{#each viewer?.tickets ?? [] as ticketId, index (ticketId)}
-			{@const ticket = ticketFor(ticketId)}
-			{#if ticket}
-				<article class="ticket" style:--ticket-index={index}>
-					<span>{ticket.points}</span>
-					<div>
-						<strong>{cityName(ticket.cityA)}</strong>
-						<small>{cityName(ticket.cityB)}</small>
-					</div>
-				</article>
-			{/if}
-		{/each}
-	</div>
-
-	<footer class="hand-panel">
-		<div class="hand-cards" aria-label="Your train cards">
+	<footer class="hand-panel" aria-label="Your train cards">
+		<div class="hand-cards">
 			{#each cardOrder as card, index (`${card}-${viewer?.hand[card] ?? 0}`)}
-				<div class:empty={!viewer?.hand[card]} class={`hand-card ${card}`} style:--card-index={index}>
-					<span class="card-count">{viewer?.hand[card] ?? 0}</span>
-					<span class="mini-rails" aria-hidden="true"></span>
-					<strong>{cardLabels[card]}</strong>
-				</div>
+				{#if viewer?.hand[card]}
+					<article class="hand-card" style:--card-index={index}>
+						<img src={trainCardAssets[card]} alt="" />
+						<strong class="card-count">{viewer.hand[card]}</strong>
+					</article>
+				{/if}
 			{/each}
 		</div>
 	</footer>
 
-	{#if ticketSelection}
+	<div class:your-turn={isViewerTurn} class="turn-banner" role="status" aria-live="polite">
+		<strong>{describeTurn()}</strong>
+		{#if gameState.finalRound && gameState.phase.type !== 'game-over'}
+			<span>Final round · {gameState.finalRound.turnsRemaining} turns remain</span>
+		{:else}<span>{currentPlayer?.name ?? 'Waiting for players'} · turn {gameState.turnNumber}</span>{/if}
+	</div>
+
+	{#if settingsOpen}
+		<aside
+			bind:this={settingsDialog}
+			class="decision-drawer settings-drawer"
+			role="dialog"
+			aria-labelledby="settings-title"
+			tabindex="-1"
+		>
+			<header class="drawer-heading settings-heading">
+				<div>
+					<p class="section-label">Conductor's cabinet</p>
+					<h1 id="settings-title">Settings</h1>
+				</div>
+				<button type="button" class="close-drawer" onclick={closeSettings} aria-label="Close settings"
+					><XIcon size={28} weight="bold" /></button
+				>
+			</header>
+			<div class="settings-list">
+				<label class="setting-row"
+					><span><SpeakerHighIcon size={21} />Sound effects</span><input
+						aria-label="Sound effects volume"
+						type="range"
+						min="0"
+						max="100"
+						bind:value={soundEffects}
+					/></label
+				>
+				<label class="setting-row"
+					><span><MusicNotesIcon size={21} />Music</span><input
+						aria-label="Music volume"
+						type="range"
+						min="0"
+						max="100"
+						bind:value={music}
+					/></label
+				>
+				<div class="setting-row">
+					<span><GaugeIcon size={21} />Game speed</span>
+					<div class="stepper">
+						<button type="button" onclick={() => adjustSpeed(-1)} aria-label="Slower game speed">‹</button><strong
+							>{speedLabels[gameSpeed]}</strong
+						><button type="button" onclick={() => adjustSpeed(1)} aria-label="Faster game speed">›</button>
+					</div>
+				</div>
+				<div class="setting-row">
+					<span>Simplified map</span><button
+						type="button"
+						class:enabled={simplifiedMap}
+						class="toggle"
+						role="switch"
+						aria-label="Use simplified map"
+						aria-checked={simplifiedMap}
+						onclick={() => (simplifiedMap = !simplifiedMap)}><i></i></button
+					>
+				</div>
+				<div class="setting-row">
+					<span>Player information</span><button
+						type="button"
+						class:enabled={showPlayerInfo}
+						class="toggle"
+						role="switch"
+						aria-label="Show player information"
+						aria-checked={showPlayerInfo}
+						onclick={() => (showPlayerInfo = !showPlayerInfo)}><i></i></button
+					>
+				</div>
+			</div>
+			<footer class="drawer-footer settings-footer">
+				<a href="/" class="quiet">Main menu</a>
+				{#if onrestart}<button type="button" class="quiet" onclick={onrestart}>New game</button>{/if}
+				<button type="button" class="primary" onclick={closeSettings}>Resume</button>
+			</footer>
+		</aside>
+	{:else if ticketSelection}
 		<aside
 			class="decision-drawer ticket-drawer"
 			role="dialog"
@@ -345,14 +513,12 @@
 			bind:this={ticketDialog}
 		>
 			<header class="drawer-heading">
-				<p class="section-label">
-					{ticketSelection.source === 'opening' ? 'Plan your journey' : 'New destinations'}
-				</p>
-				<h1 id="ticket-title">
-					{ticketSelection.source === 'opening' ? 'Choose your routes' : 'Keep destinations'}
-				</h1>
+				<div>
+					<p class="section-label">{ticketSelection.source === 'opening' ? 'Plan your journey' : 'New destinations'}</p>
+					<h1 id="ticket-title">Choose your routes</h1>
+				</div>
 				<p id="ticket-instructions">
-					Keep at least {ticketSelection.minimum}. Point at a ticket to trace it on the map.
+					Keep at least {ticketSelection.minimum}. Hover or focus to trace a destination on the map.
 				</p>
 			</header>
 			<div class="ticket-offers">
@@ -365,39 +531,43 @@
 						onfocus={() => (previewTicketId = ticket.id)}
 						onclick={() => toggleTicket(ticket.id)}
 						aria-pressed={selectedTickets.includes(ticket.id)}
-						aria-label={`${cityName(ticket.cityA)} to ${cityName(ticket.cityB)}, ${ticket.points} points${selectedTickets.includes(ticket.id) ? ', selected' : ''}`}
+						aria-label={`${cityName(ticket.cityA)} to ${cityName(ticket.cityB)}, ${ticket.points} points`}
 					>
-						<span class="ticket-points">{ticket.points}</span>
-						<span class="ticket-route">
-							<strong>{cityName(ticket.cityA)}</strong>
-							<small>to {cityName(ticket.cityB)}</small>
-						</span>
-						<span class="selected-state" aria-hidden="true"
-							>{selectedTickets.includes(ticket.id) ? 'Kept' : 'Keep'}</span
+						<img src={ticketFaceAsset} alt="" />
+						<strong class="ticket-points">{ticket.points}</strong>
+						<span class="ticket-route"
+							><strong>{cityName(ticket.cityA)}</strong><small>to {cityName(ticket.cityB)}</small></span
 						>
+						<span class="selected-state">{selectedTickets.includes(ticket.id) ? 'Kept' : 'Keep'}</span>
 					</button>
 				{/each}
 			</div>
 			<footer class="drawer-footer">
-				<span>{selectedTickets.length} selected · {ticketSelection.minimum} required</span>
-				<button
+				<span>{selectedTickets.length} selected · {ticketSelection.minimum} required</span><button
 					type="button"
 					class="primary"
 					disabled={selectedTickets.length < ticketSelection.minimum}
-					onclick={keepTickets}
+					onclick={keepTickets}>Keep tickets</button
 				>
-					Keep tickets
-				</button>
 			</footer>
 		</aside>
 	{:else if selectedRoute}
-		<aside class="decision-drawer claim-drawer" role="dialog" aria-labelledby="claim-title" aria-live="polite">
+		<aside
+			bind:this={claimDialog}
+			class="decision-drawer claim-drawer"
+			role="dialog"
+			aria-labelledby="claim-title"
+			aria-live="polite"
+			tabindex="-1"
+		>
 			<header class="drawer-heading">
-				<p class="section-label">Claim route</p>
-				<h1 id="claim-title">{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</h1>
+				<div>
+					<p class="section-label">Claim route</p>
+					<h1 id="claim-title">{cityName(selectedRoute.cityA)} → {cityName(selectedRoute.cityB)}</h1>
+				</div>
 				<p>
 					{selectedRoute.length} trains · {selectedRoute.color === 'gray'
-						? 'use any single color'
+						? 'any single color'
 						: cardLabels[selectedRoute.color]}
 				</p>
 			</header>
@@ -405,30 +575,43 @@
 				{#each availablePaymentColors(selectedRoute) as color}
 					<button
 						type="button"
-						class={`card-swatch ${color}`}
+						class="payment-card"
 						onclick={() => claimRoute(selectedRoute, color)}
-						aria-label={`Claim ${cityName(selectedRoute.cityA)} to ${cityName(selectedRoute.cityB)} using ${cardLabels[color]} cards. You have ${viewer?.hand[color] ?? 0} plus ${viewer?.hand.locomotive ?? 0} wild.`}
+						aria-label={`Claim route using ${cardLabels[color]} cards`}
 					>
-						<span class="mini-rails" aria-hidden="true"></span>
-						<strong>{cardLabels[color]}</strong>
-						<small>{viewer?.hand[color] ?? 0} cards + {viewer?.hand.locomotive ?? 0} wild</small>
+						<img src={trainCardAssets[color]} alt="" /><span
+							><strong>{cardLabels[color]}</strong><small
+								>{viewer?.hand[color] ?? 0} cards + {viewer?.hand.locomotive ?? 0} wild</small
+							></span
+						>
 					</button>
 				{/each}
-				{#if !availablePaymentColors(selectedRoute).length}
-					<p class="claim-error">You need {selectedRoute.length} cards of one color, including wilds.</p>
-				{/if}
+				{#if !availablePaymentColors(selectedRoute).length}<p class="claim-error">
+						You need {selectedRoute.length} cards of one color, including wilds.
+					</p>{/if}
 			</div>
 			<footer class="drawer-footer">
-				<span>Select a color to claim the highlighted track.</span>
-				<button type="button" class="quiet" onclick={() => (selectedRouteId = undefined)}>Cancel</button>
+				<span>The chosen route is highlighted on the board.</span><button
+					type="button"
+					class="quiet"
+					onclick={closeRouteSelection}>Cancel</button
+				>
 			</footer>
 		</aside>
 	{:else if gameState.phase.type === 'game-over' && finalResults.length}
-		<aside class="decision-drawer results-drawer" role="dialog" aria-labelledby="results-title">
-			<header class="drawer-heading results-heading">
-				<p class="section-label">Journey complete</p>
-				<h1 id="results-title">{winnerHeading()}</h1>
-				<p>Final routes, destinations, and the longest railway are scored.</p>
+		<aside
+			bind:this={resultsDialog}
+			class="decision-drawer results-drawer"
+			role="dialog"
+			aria-labelledby="results-title"
+			tabindex="-1"
+		>
+			<header class="drawer-heading">
+				<div>
+					<p class="section-label">Journey complete</p>
+					<h1 id="results-title">{winnerHeading()}</h1>
+				</div>
+				<p>Routes, destinations, and the longest railway are scored.</p>
 			</header>
 			<div class="standings" aria-label="Final standings">
 				{#each finalResults as result (result.playerId)}
@@ -437,1162 +620,63 @@
 					{@const failed = failedTickets(result)}
 					<article
 						class:winner={result.rank === 1}
-						class:viewer-result={result.playerId === viewerId}
 						class="result-card"
+						style:--player-color={player ? playerColor(player) : undefined}
 					>
-						<div class="result-summary">
-							<span class="rank">{result.rank}</span>
-							<span class="player-token result-token" style:--player-color={player ? playerColor(player) : undefined}
-								>{result.rank}</span
+						{#if player}<img src={playerPortraitAssets[player.color]} alt="" />{/if}<span class="rank"
+							>{result.rank}</span
+						>
+						<div>
+							<strong>{player?.name ?? result.playerId}</strong><small
+								>{completed.length} completed · {failed.length} failed</small
 							>
-							<div class="result-name">
-								<strong>{player?.name ?? result.playerId}</strong><span
-									>{completed.length} completed · {failed.length} failed</span
-								>
-							</div>
-							<div class="score-total"><strong>{result.finalScore}</strong><span>points</span></div>
 						</div>
+						<strong class="final-score">{result.finalScore}</strong>
 						<div class="score-breakdown">
-							<span>Routes <strong>+{result.routePoints}</strong></span>
-							<span>Tickets <strong>{result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</strong></span>
-							<span>Longest <strong>{result.longestRouteBonus ? `+${result.longestRouteBonus}` : '—'}</strong></span>
+							<span>Routes <strong>+{result.routePoints}</strong></span><span
+								>Tickets <strong>{result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</strong></span
+							><span>Longest <strong>{result.longestRouteBonus ? `+${result.longestRouteBonus}` : '—'}</strong></span>
 						</div>
-						<details class="ticket-results">
-							<summary>Ticket results</summary>
-							{#each completed as ticket}<div class="ticket-result complete">
-									<span>Complete · {cityName(ticket.cityA)} to {cityName(ticket.cityB)}</span><strong
-										>+{ticket.points}</strong
-									>
-								</div>{/each}
-							{#each failed as ticket}<div class="ticket-result failed">
-									<span>Failed · {cityName(ticket.cityA)} to {cityName(ticket.cityB)}</span><strong
-										>−{ticket.points}</strong
-									>
-								</div>{/each}
-						</details>
 					</article>
 				{/each}
 			</div>
 			<footer class="drawer-footer">
-				<span>{gameState.turnNumber} turns · seed {gameState.seed}</span>
-				{#if onrestart}<button type="button" class="primary" onclick={onrestart}>Play again</button>{/if}
+				<span>{gameState.turnNumber} turns</span>{#if onrestart}<button
+						type="button"
+						class="primary"
+						onclick={onrestart}>Play again</button
+					>{/if}
 			</footer>
 		</aside>
 	{/if}
 
-	{#if debug}
-		<details class="debug">
+	{#if debug}<details class="debug">
 			<summary>State inspector</summary>
 			<pre>{JSON.stringify(gameState, null, 2)}</pre>
-		</details>
-	{/if}
+		</details>{/if}
 </main>
 
 <style>
 	:global(html) {
-		--player-red: #d84f49;
-		--player-blue: #4388c6;
-		--player-green: #4c9a65;
-		--player-yellow: #e4b934;
-		--player-black: #484b50;
+		--player-red: #b92f31;
+		--player-blue: #2876aa;
+		--player-green: #348451;
+		--player-yellow: #d1a522;
+		--player-black: #323942;
 	}
 
 	:global(body) {
-		background: #15262a;
 		overflow: hidden;
+		background: #102d31;
 	}
 
-	.game-shell {
-		min-height: 100vh;
-		padding: 1rem;
-		background:
-			radial-gradient(circle at 50% 15%, rgba(89, 128, 122, 0.38), transparent 38rem),
-			linear-gradient(145deg, #203b3d, #101d21 70%);
-		color: #f7f1df;
+	button,
+	input {
+		font: inherit;
 	}
 
-	.topbar,
-	.game-feedback,
-	.table,
-	.hand-panel,
-	.debug {
-		width: min(100%, 112rem);
-		margin-inline: auto;
-	}
-
-	.topbar {
-		display: grid;
-		grid-template-columns: 1fr auto 1fr;
-		align-items: center;
-		gap: 1rem;
-		min-height: 4.5rem;
-		margin-bottom: 1rem;
-		padding: 0 0.4rem;
-	}
-
-	.brand,
-	.turn-status,
-	.player-row,
-	.deck,
-	.destination-deck,
-	.hand-heading,
-	.hand-summary,
-	.modal-footer {
-		display: flex;
-		align-items: center;
-	}
-
-	.brand {
-		gap: 0.75rem;
-	}
-
-	.brand-mark {
-		display: grid;
-		width: 2.8rem;
-		height: 2.8rem;
-		place-items: center;
-		border: 2px solid #ead29d;
-		border-radius: 50%;
-		background: #a23e35;
-		box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.25);
-		color: #fff4d6;
-		font-family: Georgia, serif;
-		font-size: 1.55rem;
-		font-weight: 800;
-	}
-
-	.turn-status strong,
-	.turn-status span,
-	.round-meta span,
-	.round-meta strong {
-		display: block;
-		margin: 0;
-	}
-
-	.turn-status span,
-	.round-meta span {
-		color: #9fb3b1;
-		font-size: 0.72rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
-
-	.turn-status {
-		gap: 0.65rem;
-		min-width: 15rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 999px;
-		padding: 0.55rem 1rem;
-		background: rgba(10, 21, 24, 0.58);
-	}
-
-	.turn-status.your-turn {
-		border-color: rgba(237, 207, 125, 0.58);
-		box-shadow: 0 0 1.5rem rgba(237, 207, 125, 0.14);
-	}
-
-	.turn-light {
-		width: 0.75rem;
-		height: 0.75rem;
-		border: 2px solid rgba(255, 255, 255, 0.7);
-		border-radius: 50%;
-		box-shadow: 0 0 0.65rem currentColor;
-	}
-
-	.round-meta {
-		justify-self: end;
-		text-align: right;
-	}
-
-	.round-meta strong {
-		font-size: 1.2rem;
-	}
-
-	.game-feedback {
-		display: flex;
-		align-items: stretch;
-		justify-content: center;
-		gap: 0.65rem;
-		margin-top: -0.45rem;
-		margin-bottom: 1rem;
-	}
-
-	.latest-move,
-	.final-round-alert {
-		display: flex;
-		align-items: center;
-		gap: 0.65rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 0.75rem;
-		padding: 0.55rem 0.8rem;
-		background: rgba(10, 21, 24, 0.7);
-	}
-
-	.latest-move {
-		min-width: min(100%, 22rem);
-	}
-
-	.latest-move.bot-move {
-		border-color: rgba(115, 164, 209, 0.42);
-		background: rgba(31, 54, 69, 0.74);
-	}
-
-	.latest-move strong,
-	.latest-move span,
-	.final-round-alert strong,
-	.final-round-alert span {
-		display: block;
-	}
-
-	.latest-move strong,
-	.final-round-alert strong {
-		font-size: 0.71rem;
-	}
-
-	.move-icon,
-	.countdown {
-		display: grid;
-		width: 1.75rem;
-		height: 1.75rem;
-		flex: 0 0 auto;
-		place-items: center;
-		border-radius: 50%;
-		background: #385c67;
-		color: #d9ece8;
-		font-size: 0.7rem;
-		font-weight: 900;
-	}
-
-	.final-round-alert {
-		border-color: rgba(235, 177, 75, 0.55);
-		background: rgba(76, 50, 23, 0.82);
-	}
-
-	.countdown {
-		background: #b94a36;
-		color: #fff1cc;
-		font-size: 0.82rem;
-	}
-
-	.table {
-		display: grid;
-		grid-template-columns: 15.5rem minmax(0, 1fr) 12rem;
-		gap: 1rem;
-		align-items: start;
-	}
-
-	.panel {
-		border: 1px solid rgba(255, 255, 255, 0.11);
-		border-radius: 1rem;
-		background: rgba(10, 21, 24, 0.78);
-		box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.18);
-		backdrop-filter: blur(12px);
-	}
-
-	.players,
-	.market {
-		padding: 1rem;
-	}
-
-	.section-label {
-		margin: 0 0 0.55rem;
-		color: #adc0bd;
-		font-size: 0.68rem;
-		font-weight: 800;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-	}
-
-	.player-row {
-		gap: 0.65rem;
-		margin-top: 0.45rem;
-		border: 1px solid transparent;
-		border-radius: 0.75rem;
-		padding: 0.62rem;
-		background: rgba(255, 255, 255, 0.035);
-	}
-
-	.player-row.active {
-		border-color: rgba(234, 210, 153, 0.45);
-		background: rgba(234, 210, 153, 0.09);
-	}
-
-	.player-token {
-		display: grid;
-		width: 1.8rem;
-		height: 1.8rem;
-		flex: 0 0 auto;
-		place-items: center;
-		border: 2px solid rgba(255, 255, 255, 0.75);
-		border-radius: 50%;
-		color: white;
-		font-size: 0.72rem;
-		font-weight: 900;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-	}
-
-	.player-name {
-		min-width: 0;
-		flex: 1;
-	}
-
-	.player-name strong,
-	.player-name span,
-	.player-stats strong,
-	.player-stats span {
-		display: block;
-	}
-
-	.player-name strong {
-		overflow: hidden;
-		font-size: 0.82rem;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.player-name span,
-	.player-stats span {
-		color: #8fa4a2;
-		font-size: 0.65rem;
-	}
-
-	.player-stats {
-		text-align: right;
-	}
-
-	.player-stats strong {
-		font-size: 0.95rem;
-	}
-
-	.history {
-		margin-top: 1.2rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-		padding-top: 1rem;
-	}
-
-	.board-wrap {
-		position: relative;
-		min-width: 0;
-	}
-
-	.claim-panel {
-		position: absolute;
-		left: 50%;
-		bottom: 1rem;
-		display: flex;
-		width: min(94%, 42rem);
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		transform: translateX(-50%);
-		border: 1px solid rgba(255, 244, 206, 0.45);
-		border-radius: 0.9rem;
-		padding: 0.8rem 1rem;
-		background: rgba(21, 31, 31, 0.96);
-		box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.36);
-		animation: panel-arrive 180ms ease-out;
-	}
-
-	.claim-panel strong,
-	.claim-panel span {
-		display: block;
-	}
-
-	.claim-panel span {
-		margin-top: 0.2rem;
-		color: #aabbb8;
-		font-size: 0.72rem;
-	}
-
-	.claim-actions {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 0.45rem;
-	}
-
-	.card-swatch {
-		min-width: 5.6rem;
-		border: 2px solid rgba(255, 255, 255, 0.6);
-		border-radius: 0.6rem;
-		padding: 0.45rem 0.6rem;
-		color: white;
-		cursor: pointer;
-		text-align: left;
-		text-shadow: 0 1px 2px #000;
-	}
-
-	.card-swatch span {
-		margin: 0;
-		color: inherit;
-		font-size: 0.58rem;
-	}
-
-	.claim-error {
-		max-width: 15rem;
-		margin: 0;
-		color: #ffb8ae;
-		font-size: 0.72rem;
-	}
-
-	button.quiet {
-		border: 0;
-		padding: 0.5rem;
-		background: transparent;
-		color: #b8c5c3;
-		cursor: pointer;
-	}
-
-	.face-up {
-		display: grid;
-		gap: 0.55rem;
-		margin: 1rem 0;
-	}
-
-	.train-card {
-		position: relative;
-		display: flex;
-		height: 4.2rem;
-		align-items: end;
-		justify-content: space-between;
-		overflow: hidden;
-		border: 3px solid rgba(247, 238, 211, 0.75);
-		border-radius: 0.7rem;
-		padding: 0.55rem;
-		box-shadow:
-			inset 0 0 0 1px rgba(37, 30, 23, 0.5),
-			0 0.3rem 0.7rem rgba(0, 0, 0, 0.22);
-		color: white;
-		cursor: pointer;
-		font-size: 0.65rem;
-		text-shadow: 0 1px 3px #000;
-		transition:
-			transform 120ms ease,
-			filter 120ms ease;
-		animation: card-arrive 180ms ease-out;
-	}
-
-	.train-card:not(:disabled):hover {
-		transform: translateY(-2px) rotate(-1deg);
-		filter: brightness(1.12);
-	}
-
-	button:focus-visible {
-		outline: 3px solid #f2d879;
-		outline-offset: 2px;
-	}
-
-	button:disabled {
-		cursor: not-allowed;
-		filter: grayscale(0.45) brightness(0.66);
-	}
-
-	.rails,
-	.mini-rails {
-		position: absolute;
-		inset: 0.55rem 0.45rem 1.45rem;
-		border: 3px solid rgba(255, 255, 255, 0.58);
-		border-right-width: 10px;
-		border-left-width: 10px;
-		border-radius: 45% 45% 28% 28%;
-		background: repeating-linear-gradient(90deg, transparent 0 12%, rgba(255, 255, 255, 0.38) 12% 19%);
-		transform: perspective(2rem) rotateX(-8deg);
-	}
-
-	.deck {
-		width: 100%;
-		gap: 0.7rem;
-		border: 0;
-		border-radius: 0.7rem;
-		padding: 0.6rem;
-		background: rgba(255, 255, 255, 0.07);
-		color: #f7f1df;
-		cursor: pointer;
-		text-align: left;
-	}
-
-	.deck-card {
-		width: 2.35rem;
-		height: 3.2rem;
-		border: 3px double #e5cf96;
-		border-radius: 0.3rem;
-		background: repeating-linear-gradient(45deg, #963d35 0 5px, #752d2a 5px 10px);
-		box-shadow: 3px 3px 0 #46342b;
-	}
-
-	.deck strong,
-	.deck small {
-		display: block;
-	}
-
-	.deck small {
-		margin-top: 0.2rem;
-		color: #98aaa8;
-	}
-
-	.destination-deck {
-		width: 100%;
-		gap: 0.7rem;
-		margin-top: 0.55rem;
-		border: 1px solid rgba(220, 195, 139, 0.28);
-		border-radius: 0.7rem;
-		padding: 0.6rem;
-		background: rgba(217, 183, 113, 0.08);
-		color: #f7f1df;
-		cursor: pointer;
-		text-align: left;
-	}
-
-	.ticket-stack {
-		display: grid;
-		width: 2.35rem;
-		height: 3.2rem;
-		flex: 0 0 auto;
-		place-items: center;
-		border: 2px solid #d4ba7e;
-		border-radius: 0.3rem;
-		background: linear-gradient(135deg, #e2cc99, #b79255);
-		box-shadow: 3px 3px 0 #5f4931;
-		color: #794435;
-		font-size: 1.2rem;
-	}
-
-	.destination-deck strong,
-	.destination-deck small {
-		display: block;
-	}
-
-	.destination-deck small {
-		margin-top: 0.2rem;
-		color: #98aaa8;
-	}
-
-	.hand-panel {
-		margin-top: 1rem;
-		padding: 1rem;
-	}
-
-	.hand-heading {
-		justify-content: space-between;
-		margin-bottom: 0.75rem;
-	}
-
-	.hand-summary {
-		gap: 1rem;
-		color: #9fb1af;
-		font-size: 0.76rem;
-	}
-
-	.hand-summary strong {
-		color: #f7f1df;
-		font-size: 1rem;
-	}
-
-	.hand-content {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(15rem, 28rem);
-		gap: 1rem;
-	}
-
-	.hand-cards {
-		display: grid;
-		grid-template-columns: repeat(9, minmax(3.6rem, 1fr));
-		gap: 0.45rem;
-	}
-
-	.hand-card {
-		position: relative;
-		display: flex;
-		height: 5.4rem;
-		align-items: flex-end;
-		overflow: hidden;
-		border: 2px solid rgba(255, 255, 255, 0.62);
-		border-radius: 0.55rem;
-		padding: 0.45rem;
-		box-shadow: inset 0 0 0 1px rgba(21, 18, 14, 0.45);
-		color: white;
-		font-size: 0.62rem;
-		text-shadow: 0 1px 2px black;
-		animation: card-arrive 180ms ease-out;
-	}
-
-	.hand-card.empty {
-		opacity: 0.25;
-	}
-
-	.card-count {
-		position: absolute;
-		top: 0.3rem;
-		right: 0.35rem;
-		z-index: 1;
-		display: grid;
-		width: 1.35rem;
-		height: 1.35rem;
-		place-items: center;
-		border-radius: 50%;
-		background: rgba(18, 20, 21, 0.82);
-		font-size: 0.72rem;
-		font-weight: 900;
-	}
-
-	.mini-rails {
-		inset: 1.45rem 0.35rem 1.35rem;
-		border-width: 2px 7px;
-	}
-
-	.red {
-		background: linear-gradient(145deg, #dc554d, #8b2c2a);
-	}
-	.orange {
-		background: linear-gradient(145deg, #e48b3e, #9a4b21);
-	}
-	.yellow {
-		background: linear-gradient(145deg, #e5c842, #9b791e);
-	}
-	.green {
-		background: linear-gradient(145deg, #54a36a, #28623c);
-	}
-	.blue {
-		background: linear-gradient(145deg, #4d91c7, #285a84);
-	}
-	.purple {
-		background: linear-gradient(145deg, #a271ad, #674373);
-	}
-	.black {
-		background: linear-gradient(145deg, #5b6067, #25282c);
-	}
-	.white {
-		background: linear-gradient(145deg, #f4f0e1, #b7ad98);
-		color: #29251e;
-		text-shadow: none;
-	}
-	.locomotive {
-		background: conic-gradient(from 30deg, #c94b44, #dfae35, #4a9562, #3c7eaf, #9662a0, #c94b44);
-	}
-
-	.tickets {
-		display: flex;
-		gap: 0.55rem;
-		overflow-x: auto;
-	}
-
-	.ticket {
-		display: grid;
-		min-width: 9.5rem;
-		grid-template-columns: 2.1rem 1fr;
-		align-items: center;
-		gap: 0.5rem;
-		border: 1px solid #866b3d;
-		border-radius: 0.55rem;
-		padding: 0.55rem;
-		background: linear-gradient(135deg, #ead7a7, #c6a66d);
-		color: #39291a;
-	}
-
-	.ticket > span {
-		display: grid;
-		width: 2rem;
-		height: 2rem;
-		place-items: center;
-		border: 2px solid #8c3f34;
-		border-radius: 50%;
-		color: #8c3029;
-		font-family: Georgia, serif;
-		font-size: 1rem;
-		font-weight: 900;
-	}
-
-	.ticket strong,
-	.ticket small {
-		display: block;
-	}
-
-	.ticket strong {
-		font-size: 0.68rem;
-	}
-
-	.ticket small {
-		font-size: 0.61rem;
-	}
-
-	.muted {
-		color: #91a3a1;
-		font-size: 0.75rem;
-	}
-
-	.debug {
-		margin-top: 1rem;
-		padding: 0.8rem 1rem;
-	}
-
-	.debug summary {
-		cursor: pointer;
-		font-weight: 700;
-	}
-
-	.debug pre {
-		max-height: 20rem;
-		overflow: auto;
-		color: #c9d4d1;
-		font-size: 0.7rem;
-	}
-
-	.modal-backdrop {
-		position: fixed;
-		z-index: 20;
-		inset: 0;
-		display: grid;
-		place-items: center;
-		padding: 1.25rem;
-		background: rgba(5, 12, 14, 0.8);
-		backdrop-filter: blur(8px);
-	}
-
-	.ticket-modal {
-		width: min(100%, 54rem);
-		border: 1px solid rgba(233, 211, 157, 0.5);
-		border-radius: 1.3rem;
-		padding: 1.5rem;
-		background: #18292b;
-		box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.55);
-		color: #f7f1df;
-	}
-
-	.ticket-offers {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 0.8rem;
-		margin: 1.5rem 0;
-	}
-
-	.ticket-offers button {
-		position: relative;
-		display: flex;
-		min-height: 12rem;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		border: 3px solid #8b7145;
-		border-radius: 0.85rem;
-		padding: 1rem;
-		background:
-			linear-gradient(rgba(238, 217, 171, 0.82), rgba(205, 175, 117, 0.86)),
-			repeating-linear-gradient(25deg, #ddd 0 1px, transparent 1px 12px);
-		box-shadow: inset 0 0 0 2px #ead29d;
-		color: #39281a;
-		cursor: pointer;
-		transition:
-			transform 150ms ease,
-			box-shadow 150ms ease,
-			border-color 150ms ease;
-	}
-
-	.ticket-offers button.selected {
-		border-color: #f4da7c;
-		box-shadow:
-			inset 0 0 0 2px #9d3a30,
-			0 0 0 3px #f4da7c,
-			0 0 1.5rem rgba(244, 218, 124, 0.34);
-		transform: translateY(-4px);
-	}
-
-	.ticket-offers strong {
-		font-family: Georgia, serif;
-		font-size: 1.1rem;
-	}
-
-	.ticket-offers small {
-		margin: 0.25rem 0;
-		color: #785c34;
-	}
-
-	.ticket-map {
-		position: absolute;
-		top: -1.6rem;
-		right: -1rem;
-		color: rgba(130, 96, 50, 0.22);
-		font-size: 8rem;
-	}
-
-	.ticket-points {
-		margin-top: 1.2rem;
-		border-radius: 999px;
-		padding: 0.3rem 0.65rem;
-		background: #963a31;
-		color: #fff4d5;
-		font-size: 0.75rem;
-		font-weight: 800;
-	}
-
-	.selected-state {
-		position: absolute;
-		top: 0.65rem;
-		left: 0.65rem;
-		z-index: 1;
-		border-radius: 999px;
-		padding: 0.25rem 0.5rem;
-		background: #963a31;
-		color: #fff4d5;
-		font-size: 0.65rem;
-		font-weight: 800;
-	}
-
-	.modal-footer {
-		justify-content: space-between;
-		gap: 1rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.12);
-		padding-top: 1rem;
-		color: #a9bab7;
-		font-size: 0.8rem;
-	}
-
-	button.primary {
-		border: 1px solid #f0d58e;
-		border-radius: 0.65rem;
-		padding: 0.72rem 1rem;
-		background: #a84238;
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-		color: #fff5da;
-		cursor: pointer;
-		font-weight: 800;
-	}
-
-	.results-backdrop {
-		overflow-y: auto;
-		place-items: start center;
-	}
-
-	.results-modal {
-		width: min(100%, 68rem);
-		margin-block: auto;
-		border: 1px solid rgba(233, 211, 157, 0.52);
-		border-radius: 1.3rem;
-		padding: clamp(1rem, 3vw, 2rem);
-		background: radial-gradient(circle at 50% 0, rgba(190, 132, 60, 0.2), transparent 24rem), #142629;
-		box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.55);
-		color: #f7f1df;
-	}
-
-	.results-heading {
-		max-width: 42rem;
-		margin: 0 auto 1.5rem;
-		text-align: center;
-	}
-
-	.results-heading h1 {
-		margin: 0;
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: clamp(2.2rem, 6vw, 4.1rem);
-		font-weight: 500;
-		line-height: 1;
-	}
-
-	.results-heading > p:last-child {
-		margin: 0.85rem auto 0;
-		color: #adbfbc;
-		font-size: 0.9rem;
-		line-height: 1.55;
-	}
-
-	.standings {
-		display: grid;
-		gap: 0.7rem;
-	}
-
-	.result-card {
-		border: 1px solid rgba(255, 255, 255, 0.11);
-		border-radius: 0.9rem;
-		padding: 0.8rem 1rem;
-		background: rgba(4, 14, 17, 0.46);
-	}
-
-	.result-card.winner {
-		border-color: rgba(236, 200, 105, 0.65);
-		background: rgba(86, 62, 24, 0.35);
-		box-shadow: 0 0 1.3rem rgba(236, 200, 105, 0.1);
-	}
-
-	.result-card.viewer-result {
-		box-shadow: inset 3px 0 #e2b64e;
-	}
-
-	.result-summary {
-		display: grid;
-		grid-template-columns: 1.5rem 2.15rem minmax(8rem, 1fr) auto;
-		align-items: center;
-		gap: 0.65rem;
-	}
-
-	.rank {
-		color: #8fa3a0;
-		font-family: Georgia, serif;
-		font-size: 1rem;
-		font-weight: 800;
-		text-align: center;
-	}
-
-	.result-token {
-		width: 2.15rem;
-		height: 2.15rem;
-	}
-
-	.result-name strong,
-	.result-name span,
-	.score-total strong,
-	.score-total span {
-		display: block;
-	}
-
-	.result-name span,
-	.score-total span {
-		color: #94a7a4;
-		font-size: 0.65rem;
-	}
-
-	.score-total {
-		min-width: 4.3rem;
-		text-align: right;
-	}
-
-	.score-total strong {
-		font-family: Georgia, serif;
-		font-size: 1.65rem;
-		line-height: 1;
-	}
-
-	.score-breakdown {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 0.5rem;
-		margin-top: 0.7rem;
-		padding-left: 5.1rem;
-	}
-
-	.score-breakdown span {
-		color: #9fb0ad;
-	}
-
-	.score-breakdown strong {
-		color: #9ed8a8;
-		font-size: 0.8rem;
-	}
-
-	.ticket-results {
-		margin: 0.65rem 0 0 5.1rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		padding-top: 0.55rem;
-	}
-
-	.ticket-results summary {
-		color: #a9bbb8;
-		cursor: pointer;
-		font-size: 0.7rem;
-		font-weight: 700;
-	}
-
-	.ticket-result-list {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 0.35rem;
-		margin-top: 0.5rem;
-	}
-
-	.ticket-result {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		border-radius: 0.4rem;
-		padding: 0.4rem 0.55rem;
-		background: rgba(255, 255, 255, 0.04);
-		font-size: 0.67rem;
-	}
-
-	.ticket-result.complete strong {
-		color: #9ed8a8;
-	}
-
-	.ticket-result.failed strong {
-		color: #ff9c91;
-	}
-
-	.results-footer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		margin-top: 1.25rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.12);
-		padding-top: 1rem;
-		color: #94a7a4;
-		font-size: 0.7rem;
-	}
-
-	@keyframes panel-arrive {
-		from {
-			opacity: 0;
-			transform: translate(-50%, 0.5rem);
-		}
-	}
-
-	@keyframes card-arrive {
-		from {
-			opacity: 0.35;
-			transform: translateY(-0.35rem);
-		}
-	}
-
-	@media (max-width: 1180px) {
-		.table {
-			grid-template-columns: 13rem minmax(0, 1fr);
-		}
-
-		.market {
-			grid-column: 1 / -1;
-			display: grid;
-			grid-template-columns: auto 1fr 10rem 11rem;
-			align-items: center;
-			gap: 1rem;
-		}
-
-		.destination-deck {
-			margin-top: 0;
-		}
-
-		.face-up {
-			grid-template-columns: repeat(5, 1fr);
-			margin: 0;
-		}
-	}
-
-	@media (max-width: 860px) {
-		.game-shell {
-			padding: 0.7rem;
-		}
-
-		.game-feedback {
-			align-items: stretch;
-			flex-direction: column;
-		}
-
-		.topbar {
-			grid-template-columns: 1fr auto;
-		}
-
-		.turn-status {
-			grid-column: 1 / -1;
-			grid-row: 2;
-			justify-self: stretch;
-		}
-
-		.table {
-			grid-template-columns: 1fr;
-		}
-
-		.board-wrap {
-			grid-row: 1;
-			overflow-x: auto;
-		}
-
-		.board-wrap :global(.board) {
-			min-width: 48rem;
-		}
-
-		.players {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 0.45rem;
-		}
-
-		.market {
-			grid-template-columns: 1fr;
-		}
-
-		.destination-deck {
-			margin-top: 0.55rem;
-		}
-
-		.face-up {
-			grid-template-columns: repeat(5, minmax(5.5rem, 1fr));
-			overflow-x: auto;
-		}
-
-		.hand-content {
-			grid-template-columns: 1fr;
-		}
-
-		.hand-cards {
-			grid-template-columns: repeat(9, 4.5rem);
-			overflow-x: auto;
-		}
-
-		.claim-panel {
-			position: fixed;
-			z-index: 10;
-			bottom: 1rem;
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.results-modal {
-			margin-block: 0;
-		}
-
-		.score-breakdown {
-			padding-left: 0;
-		}
-
-		.ticket-results {
-			margin-left: 0;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.players {
-			grid-template-columns: 1fr;
-		}
-
-		.ticket-offers {
-			grid-template-columns: 1fr;
-			max-height: 60vh;
-			overflow-y: auto;
-		}
-
-		.ticket-offers button {
-			min-height: 8rem;
-		}
-
-		.result-summary {
-			grid-template-columns: 1.2rem 2rem minmax(0, 1fr) auto;
-		}
-
-		.score-breakdown,
-		.ticket-result-list {
-			grid-template-columns: 1fr;
-		}
-
-		.results-footer {
-			align-items: stretch;
-			flex-direction: column;
-		}
-
-		.modal-footer {
-			align-items: stretch;
-			flex-direction: column;
-		}
-
-		.claim-actions {
-			flex-wrap: wrap;
-			justify-content: flex-start;
-		}
-
-		.claim-panel {
-			bottom: 0.5rem;
-			width: calc(100% - 1rem);
-			max-height: min(50vh, 20rem);
-			overflow-y: auto;
-		}
+	button {
+		-webkit-tap-highlight-color: transparent;
 	}
 
 	.game-shell {
@@ -1600,577 +684,799 @@
 		isolation: isolate;
 		width: 100%;
 		height: 100svh;
-		min-height: 0;
 		overflow: hidden;
-		padding: 0;
-		background: #2f5d63;
-		color: #f7f1df;
+		background: #102d31 url('/game-assets/whimsical-1800s/table-background.webp') center / cover;
+		color: #fff9e7;
+		font-family: 'Arial Narrow', 'Roboto Condensed', Arial, sans-serif;
 	}
 
 	.board-stage {
 		position: absolute;
 		z-index: 0;
 		inset: 0;
-		display: grid;
-		min-width: 0;
-		place-items: center;
-		background: #547d82;
-		transition:
-			right 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
-			filter 240ms ease;
+		background: #326e75;
+		transition: right 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	}
 
 	.drawer-open .board-stage {
-		right: clamp(20rem, 29vw, 23rem);
-		filter: saturate(0.88) brightness(0.88);
+		right: clamp(21rem, 30vw, 24rem);
 	}
 
-	.board-stage :global(.board-frame) {
-		display: grid;
-		width: 100%;
-		height: 100%;
-		place-items: center;
-	}
-
+	.board-stage :global(.board-frame),
 	.board-stage :global(.board) {
 		width: 100%;
 		height: 100%;
+	}
+
+	.board-stage :global(.board) {
+		display: block;
 		border: 0;
 		border-radius: 0;
 		box-shadow: none;
 	}
 
+	.simplified-map .board-stage :global(.map-art) {
+		filter: saturate(0.32) contrast(0.94) brightness(0.72);
+	}
+
 	.board-stage :global(.board-help) {
 		position: absolute;
-		bottom: 3.35rem;
+		bottom: 3.25rem;
 		left: 50%;
-		z-index: 2;
 		margin: 0;
 		transform: translateX(-50%);
-		color: rgba(255, 249, 229, 0.82);
+		color: rgb(255 249 226 / 0.82);
 		font-size: 0.62rem;
-		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+		text-shadow: 0 1px 4px #111;
 		white-space: nowrap;
 	}
 
 	.game-controls {
 		position: absolute;
-		top: 0.55rem;
-		left: 50%;
-		z-index: 7;
+		top: 1.15rem;
+		left: 1.4rem;
+		z-index: 12;
+		display: flex;
+		gap: 1.25rem;
+	}
+
+	.game-controls button {
+		display: grid;
+		width: 3.6rem;
+		height: 3.6rem;
+		place-items: center;
+		border: 0.22rem solid #d7ae5b;
+		border-radius: 50%;
+		background: linear-gradient(#fff8e7, #ddd5c3);
+		box-shadow:
+			inset 0 0 0 2px #5d533e,
+			0 0.35rem 0.7rem rgb(0 0 0 / 0.45);
+		color: #3d4650;
+		cursor: pointer;
+		transition:
+			transform 140ms ease,
+			filter 140ms ease;
+	}
+
+	.game-controls button:hover,
+	.game-controls button.active {
+		transform: translateY(-2px) scale(1.04);
+		filter: brightness(1.08);
+	}
+
+	.history-popover {
+		position: absolute;
+		top: 5.55rem;
+		left: 1.4rem;
+		z-index: 13;
+		width: 18rem;
+		border: 2px solid #b98b43;
+		border-radius: 0.8rem;
+		padding: 0.8rem;
+		background: rgb(244 232 202 / 0.96);
+		box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 0.4);
+		color: #392a1c;
+		animation: popover-in 180ms ease-out;
+	}
+
+	.history-popover header {
 		display: flex;
 		align-items: center;
-		gap: 0.55rem;
-		transform: translateX(-50%);
-		border: 1px solid rgba(255, 244, 210, 0.4);
-		border-radius: 999px;
-		padding: 0.3rem 0.65rem 0.3rem 0.3rem;
-		background: rgba(13, 34, 38, 0.76);
-		box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.25);
-		backdrop-filter: blur(9px);
+		justify-content: space-between;
+		font-family: Georgia, serif;
 	}
 
-	.debug-mode .game-controls {
-		display: none;
+	.history-popover button {
+		border: 0;
+		background: transparent;
+		cursor: pointer;
 	}
 
-	.game-controls .brand-mark {
-		width: 2rem;
-		height: 2rem;
-		border-width: 1px;
-		font-size: 1rem;
+	.history-popover p {
+		margin: 0.45rem 0 0;
+		border-top: 1px solid rgb(91 67 36 / 0.2);
+		padding-top: 0.45rem;
+		font-size: 0.7rem;
 	}
 
-	.game-controls strong,
-	.game-controls span {
-		display: block;
-	}
-
-	.game-controls strong {
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: 0.78rem;
-	}
-
-	.game-controls div > span {
-		color: #c4d4d0;
-		font-size: 0.55rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-
-	.players {
+	.opponents {
 		position: absolute;
-		top: 4.2rem;
-		bottom: 4.9rem;
-		left: 0.45rem;
-		z-index: 6;
-		display: flex;
-		width: clamp(7.75rem, 11.5vw, 9rem);
-		flex-direction: column;
-		gap: 0.42rem;
-		padding: 0;
+		top: 7.55rem;
+		left: 0;
+		z-index: 9;
+		display: grid;
+		width: 8.4rem;
+		gap: 0.85rem;
 		pointer-events: none;
+		transition: opacity 180ms ease;
 	}
 
-	.players .player-row {
+	.opponent {
 		position: relative;
 		display: grid;
-		min-height: 4.4rem;
-		grid-template-columns: 1.7rem minmax(0, 1fr) auto;
+		height: 5.25rem;
+		grid-template-columns: 2.65rem 1fr 2.55rem;
+		grid-template-rows: 1fr 1.45rem;
 		align-items: center;
-		gap: 0.4rem;
-		margin: 0;
-		border: 1px solid rgba(255, 255, 255, 0.45);
-		border-left: 0.35rem solid var(--player-color);
+		border: 2px solid #d1ae61;
+		border-left: 0;
 		border-radius: 0 0.55rem 0.55rem 0;
-		padding: 0.45rem 0.45rem 0.45rem 0.35rem;
-		background: linear-gradient(100deg, color-mix(in srgb, var(--player-color) 68%, #172125), rgba(12, 24, 27, 0.88));
-		box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.26);
-		color: white;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+		background: linear-gradient(100deg, color-mix(in srgb, var(--player-color) 85%, #18272a), #f1ede2 70%);
+		box-shadow: 0 0.35rem 0.65rem rgb(0 0 0 / 0.4);
+		color: #222a2e;
 		transition:
 			transform 180ms ease,
 			filter 180ms ease;
 	}
 
-	.players .player-row.active {
-		transform: translateX(0.35rem);
-		border-color: #fff0b6;
-		filter: brightness(1.13);
+	.opponent.active {
+		transform: translateX(0.32rem);
+		filter: brightness(1.14);
 		box-shadow:
-			0 0 0 2px rgba(255, 231, 145, 0.28),
-			0 0.45rem 1.1rem rgba(0, 0, 0, 0.32);
+			0 0 0 3px rgb(255 229 143 / 0.38),
+			0 0.4rem 0.9rem rgb(0 0 0 / 0.5);
 	}
 
-	.players .viewer-player {
-		order: 99;
-		margin-top: auto;
+	.opponent img {
+		width: 2.75rem;
+		height: 3.25rem;
+		align-self: end;
+		object-fit: cover;
+		grid-row: 1;
+		border-radius: 0 0.4rem 0 0;
 	}
 
-	.players .player-token,
-	.result-token {
-		width: 1.7rem;
-		height: 1.7rem;
-		background: var(--player-color);
-		font-size: 0.68rem;
+	.opponent-counts {
+		display: flex;
+		align-self: stretch;
+		justify-content: space-around;
+		padding-top: 0.35rem;
 	}
 
-	.players .player-name strong,
-	.players .player-name span,
-	.players .player-stats strong,
-	.players .player-stats span {
+	.opponent-counts span,
+	.opponent-counts strong,
+	.opponent-counts small {
 		display: block;
+		text-align: center;
 	}
 
-	.players .player-name strong {
+	.opponent-counts strong,
+	.opponent-score {
+		font-family: Georgia, serif;
+		font-size: 1.35rem;
+	}
+
+	.opponent-counts small {
+		font-size: 0.43rem;
+		text-transform: uppercase;
+	}
+
+	.opponent-score {
+		justify-self: center;
+		font-size: 1.7rem;
+	}
+
+	.opponent-trains {
+		position: absolute;
+		right: 0.25rem;
+		bottom: 1.55rem;
+		display: flex;
+		align-items: center;
+		gap: 0.15rem;
+		color: var(--player-color);
+		text-shadow: 0 1px #fff;
+	}
+
+	.opponent footer {
+		grid-column: 1 / -1;
+		align-self: stretch;
+		border-radius: 0 0 0.38rem 0;
+		padding: 0.22rem 0.55rem;
+		background: var(--player-color);
+		color: white;
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-shadow: 0 1px 2px #222;
+	}
+
+	.viewer-hud {
+		position: absolute;
+		bottom: -0.1rem;
+		left: 0;
+		z-index: 11;
+		width: 13.75rem;
+		height: 13.3rem;
+		pointer-events: none;
+		transition: opacity 180ms ease;
+	}
+
+	.hide-player-info .opponents,
+	.hide-player-info .viewer-hud {
+		opacity: 0;
+	}
+
+	.viewer-portrait {
+		position: absolute;
+		bottom: 4.7rem;
+		left: 0.25rem;
+		width: 7.7rem;
+		height: 8.2rem;
+		object-fit: cover;
+		object-position: 50% 20%;
+		filter: drop-shadow(0 0.35rem 0.3rem rgb(0 0 0 / 0.45));
+	}
+
+	.viewer-ticket-stack {
+		position: absolute;
+		bottom: 2.3rem;
+		left: 0.2rem;
+		width: 8.7rem;
+		height: 5.5rem;
+	}
+
+	.mini-ticket {
+		position: absolute;
+		bottom: calc(var(--ticket-index) * 0.55rem);
+		left: calc(var(--ticket-index) * 0.15rem);
+		display: grid;
+		width: 8.4rem;
+		height: 4.25rem;
+		grid-template-columns: 1.6rem 1fr;
+		align-items: center;
+		gap: 0.35rem;
+		border: 2px solid #9b7237;
+		border-radius: 0.45rem;
+		padding: 0.4rem;
+		background: #efe0b6 url('/game-assets/whimsical-1800s/ticket-face.webp') center / cover;
+		box-shadow: 0 0.3rem 0.55rem rgb(0 0 0 / 0.4);
+		color: #3a2819;
+		transform: rotate(calc((var(--ticket-index) - 1) * -1.5deg));
+	}
+
+	.mini-ticket strong {
+		display: grid;
+		width: 1.55rem;
+		height: 1.55rem;
+		place-items: center;
+		border-radius: 50%;
+		background: #9a332c;
+		color: #fff3ce;
+	}
+
+	.mini-ticket span {
 		overflow: hidden;
-		font-size: 0.7rem;
+		font-size: 0.54rem;
+		font-weight: 800;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.players .player-name span,
-	.players .player-stats span {
-		color: rgba(255, 255, 255, 0.78);
-		font-size: 0.52rem;
+	.viewer-score {
+		position: absolute;
+		right: 0.9rem;
+		bottom: 3.1rem;
+		display: grid;
+		width: 4.8rem;
+		height: 4.6rem;
+		place-items: center;
+		border: 3px solid #d9be7b;
+		border-radius: 0.7rem;
+		background: rgb(248 243 226 / 0.96);
+		box-shadow: 0 0.35rem 0.7rem rgb(0 0 0 / 0.42);
+		color: #243033;
 	}
 
-	.players .player-stats strong {
+	.viewer-score strong {
+		align-self: end;
 		font-family: Georgia, serif;
-		font-size: 1rem;
+		font-size: 2.5rem;
+		line-height: 1;
+	}
+
+	.viewer-score small {
+		align-self: start;
+		font-size: 0.48rem;
+		text-transform: uppercase;
+	}
+
+	.viewer-trains {
+		position: absolute;
+		right: 1rem;
+		bottom: 1.2rem;
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		color: var(--player-color);
+		font-size: 1.2rem;
+		text-shadow: 0 1px #fff;
+	}
+
+	.viewer-hud > footer {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		width: 100%;
+		height: 2.4rem;
+		align-items: center;
+		gap: 0.55rem;
+		border: 2px solid #d6b567;
+		border-left: 0;
+		border-radius: 0 1.2rem 0 0;
+		padding: 0.3rem 1rem;
+		background: linear-gradient(100deg, var(--player-color), color-mix(in srgb, var(--player-color) 72%, #111));
+		box-shadow: 0 -0.25rem 0.6rem rgb(0 0 0 / 0.35);
+		color: white;
+		text-shadow: 0 1px 2px #222;
+	}
+
+	.viewer-hud footer span {
+		border-radius: 999px;
+		padding: 0.12rem 0.35rem;
+		background: rgb(0 0 0 / 0.22);
+		font-size: 0.55rem;
+		text-transform: uppercase;
 	}
 
 	.market {
 		position: absolute;
-		top: 0.45rem;
-		right: 0.45rem;
-		bottom: 0.45rem;
-		z-index: 7;
-		display: flex;
-		width: clamp(5.6rem, 8.8vw, 6.8rem);
-		flex-direction: column;
-		gap: 0.45rem;
-		padding: 0;
+		z-index: 10;
+		inset: 0 0 0 auto;
+		width: 5.9rem;
 		transition:
 			transform 220ms ease,
-			opacity 180ms ease;
+			opacity 160ms ease;
 	}
 
 	.drawer-open .market {
-		transform: translateX(120%);
+		transform: translateX(110%);
 		opacity: 0;
 		pointer-events: none;
 	}
 
-	.market .destination-deck,
-	.market .deck {
-		position: relative;
-		display: grid;
-		width: 100%;
-		min-height: 4rem;
-		flex: 0 0 auto;
-		place-items: center;
-		gap: 0;
-		margin: 0;
-		border: 2px solid rgba(241, 215, 154, 0.82);
-		border-radius: 0.45rem;
-		padding: 0.35rem;
-		background: rgba(16, 34, 37, 0.9);
-		box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.3);
-		color: #fff4d8;
-		text-align: center;
+	.destination-deck,
+	.deck,
+	.train-card {
+		border: 0;
+		padding: 0;
+		background: transparent;
+		cursor: pointer;
 	}
 
-	.market .destination-deck {
-		min-height: 4.5rem;
-		background: linear-gradient(150deg, rgba(220, 196, 143, 0.98), rgba(150, 110, 62, 0.98));
-	}
-
-	.market .ticket-stack {
-		width: 3.2rem;
-		height: 2.35rem;
-		border-width: 1px;
-		box-shadow: 2px 2px 0 rgba(61, 42, 25, 0.75);
-		font-size: 0.6rem;
-		font-weight: 900;
-		letter-spacing: 0.08em;
-	}
-
-	.market button small {
+	.destination-deck {
 		position: absolute;
-		right: 0.25rem;
-		bottom: 0.18rem;
-		border-radius: 999px;
-		padding: 0.12rem 0.3rem;
-		background: rgba(4, 11, 13, 0.76);
+		top: -0.35rem;
+		right: 9.9rem;
+		width: 6.35rem;
+		height: 4.4rem;
+	}
+
+	.destination-deck img {
+		width: 100%;
+		height: 100%;
+		border: 3px solid #f3e0b4;
+		border-radius: 0.35rem;
+		object-fit: cover;
+		box-shadow:
+			0.25rem 0.25rem 0 #29454a,
+			0 0.4rem 0.8rem rgb(0 0 0 / 0.4);
+	}
+
+	.market small {
+		position: absolute;
+		display: grid;
+		width: 2rem;
+		height: 2rem;
+		place-items: center;
+		border-radius: 50%;
+		background: #343c41;
+		box-shadow: 0 0.2rem 0.4rem rgb(0 0 0 / 0.5);
 		color: white;
-		font-size: 0.56rem;
+		font-family: Georgia, serif;
+		font-size: 1rem;
 		font-weight: 800;
 	}
 
-	.market .face-up {
+	.destination-deck small {
+		right: 1.9rem;
+		bottom: -1.4rem;
+	}
+
+	.face-up {
+		position: absolute;
+		top: 0.6rem;
+		right: -0.8rem;
 		display: grid;
-		min-height: 0;
-		flex: 1 1 auto;
-		grid-template-rows: repeat(5, minmax(0, 1fr));
+		width: 6.8rem;
 		gap: 0.42rem;
-		margin: 0;
 	}
 
-	.market .train-card {
-		display: flex;
-		width: 100%;
-		height: 100%;
-		min-height: 3.8rem;
-		align-items: end;
-		border-width: 2px;
-		border-radius: 0.5rem;
-		padding: 0.38rem;
-		font-size: 0.56rem;
-		animation: card-deal 220ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+	.train-card {
+		position: relative;
+		height: min(14.3vh, 6.95rem);
+		border: 3px solid #f2e5c8;
+		border-radius: 0.42rem;
+		box-shadow: 0 0.28rem 0.5rem rgb(0 0 0 / 0.42);
+		overflow: visible;
+		transition:
+			transform 130ms ease,
+			filter 130ms ease;
+		animation: market-deal 260ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 	}
 
-	.market .train-card:nth-child(2) {
+	.train-card:nth-child(2) {
 		animation-delay: 35ms;
 	}
-	.market .train-card:nth-child(3) {
+	.train-card:nth-child(3) {
 		animation-delay: 70ms;
 	}
-	.market .train-card:nth-child(4) {
+	.train-card:nth-child(4) {
 		animation-delay: 105ms;
 	}
-	.market .train-card:nth-child(5) {
+	.train-card:nth-child(5) {
 		animation-delay: 140ms;
 	}
 
-	.market .rails {
-		inset: 0.45rem 0.35rem 1.15rem;
-		border-width: 2px 7px;
+	.train-card:not(:disabled):hover {
+		transform: translateX(-0.45rem) rotate(-1deg);
+		filter: brightness(1.08);
 	}
 
-	.market .deck-card {
-		width: 2.6rem;
-		height: 3.35rem;
+	.train-card img,
+	.deck img {
+		width: 100%;
+		height: 100%;
+		border-radius: inherit;
+		object-fit: cover;
+	}
+
+	.card-gem {
+		position: absolute;
+		bottom: 0.18rem;
+		left: -0.7rem;
+		width: 1.4rem;
+		height: 1.4rem;
+		border: 2px solid #f7edcf;
+		border-radius: 50%;
+		background: currentColor;
+		box-shadow: 0 0.2rem 0.35rem rgb(0 0 0 / 0.45);
+	}
+
+	.card-gem.red {
+		color: #b92f31;
+	}
+	.card-gem.orange {
+		color: #d86f20;
+	}
+	.card-gem.yellow {
+		color: #e1b726;
+	}
+	.card-gem.green {
+		color: #37834c;
+	}
+	.card-gem.blue {
+		color: #2876aa;
+	}
+	.card-gem.purple {
+		color: #74479b;
+	}
+	.card-gem.black {
+		color: #333a41;
+	}
+	.card-gem.white {
+		color: #eee7d4;
+	}
+	.card-gem.locomotive {
+		background: conic-gradient(#c33, #dd8b25, #d9c33c, #3b8a55, #337fb6, #8a52a5, #c33);
+	}
+
+	.deck {
+		position: absolute;
+		right: -1rem;
+		bottom: -1.55rem;
+		width: 7.1rem;
+		height: 8.75rem;
+		border: 3px solid #ead7ac;
+		border-radius: 0.45rem;
+		box-shadow:
+			-0.25rem -0.25rem 0 #29454a,
+			0 0.4rem 0.8rem rgb(0 0 0 / 0.42);
+	}
+
+	.deck small {
+		left: -2.8rem;
+		bottom: 1.7rem;
+		width: 2.65rem;
+		height: 2.65rem;
+		font-size: 1.3rem;
+	}
+
+	.hand-panel {
+		position: absolute;
+		bottom: 1.55rem;
+		left: 51.5%;
+		z-index: 9;
+		width: 21rem;
+		height: 8.6rem;
+		transform: translateX(-50%);
+		pointer-events: none;
+	}
+
+	.hand-cards {
+		display: flex;
+		height: 100%;
+		align-items: end;
+		justify-content: center;
+	}
+
+	.hand-card {
+		position: relative;
+		width: 4.75rem;
+		height: 7.35rem;
+		flex: 0 0 4.75rem;
+		margin-left: -0.75rem;
+		transform: translateY(calc(abs(var(--card-index) - 4) * 0.14rem)) rotate(calc((var(--card-index) - 4) * 2.2deg));
+		transform-origin: 50% 115%;
+		filter: drop-shadow(0 0.35rem 0.38rem rgb(0 0 0 / 0.5));
+		animation: hand-deal 320ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+		animation-delay: calc(var(--card-index) * 26ms);
+	}
+
+	.hand-card:first-child {
+		margin-left: 0;
+	}
+
+	.hand-card img {
+		width: 100%;
+		height: 100%;
+		border: 2px solid #f4e7c7;
+		border-radius: 0.42rem;
+		object-fit: cover;
+	}
+
+	.card-count {
+		position: absolute;
+		top: -0.5rem;
+		left: 50%;
+		display: grid;
+		width: 2rem;
+		height: 2rem;
+		place-items: center;
+		transform: translateX(-50%);
+		border: 3px solid #fff5d7;
+		border-radius: 50%;
+		background: #9f352f;
+		box-shadow: 0 0.2rem 0.4rem rgb(0 0 0 / 0.45);
+		font-family: Georgia, serif;
+		font-size: 1rem;
 	}
 
 	.turn-banner {
 		position: absolute;
 		bottom: 0;
-		left: 50%;
-		z-index: 9;
-		display: flex;
-		width: min(52vw, 42rem);
-		min-height: 2.65rem;
-		align-items: center;
-		justify-content: center;
-		gap: 0.55rem;
-		transform: translateX(-50%);
-		border: 1px solid rgba(255, 255, 255, 0.62);
-		border-bottom: 0;
-		border-radius: 0.8rem 0.8rem 0 0;
-		padding: 0.45rem 1rem;
-		background: rgba(245, 241, 228, 0.9);
-		box-shadow: 0 -0.35rem 1.1rem rgba(0, 0, 0, 0.22);
-		color: #24373a;
-		animation: turn-banner-in 220ms ease-out;
-	}
-
-	.turn-banner.your-turn {
-		background: rgba(255, 250, 228, 0.95);
-		box-shadow: 0 -0.35rem 1.3rem rgba(241, 209, 112, 0.34);
-	}
-
-	.turn-banner .turn-light {
-		width: 0.68rem;
-		height: 0.68rem;
+		right: 23%;
+		left: 18%;
+		z-index: 8;
+		display: grid;
+		width: auto;
+		height: 2.7rem;
+		place-items: center;
+		transform: none;
+		border-top: 1px solid rgb(255 255 255 / 0.76);
+		background: linear-gradient(90deg, rgb(249 247 237 / 0), rgb(249 247 237 / 0.95) 18%, rgb(249 247 237 / 0.95));
+		box-shadow: 0 -0.25rem 0.8rem rgb(0 0 0 / 0.18);
+		color: #233034;
+		text-align: center;
+		animation: banner-in 220ms ease-out;
 	}
 
 	.turn-banner strong {
+		align-self: end;
 		font-family: Georgia, serif;
-		font-size: clamp(0.8rem, 1.25vw, 1rem);
+		font-size: 1.25rem;
+		line-height: 1;
 	}
 
-	.turn-banner > span:last-child {
-		color: #5d6f70;
-		font-size: 0.62rem;
+	.turn-banner span {
+		align-self: start;
+		font-size: 0.48rem;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-	}
-
-	.game-feedback {
-		position: absolute;
-		top: 3.45rem;
-		left: 50%;
-		z-index: 6;
-		display: block;
-		width: min(40vw, 25rem);
-		margin: 0;
-		transform: translateX(-50%);
-	}
-
-	.game-feedback .latest-move,
-	.game-feedback .final-round-alert {
-		display: grid;
-		min-width: 0;
-		grid-template-columns: auto 1fr;
-		align-items: baseline;
-		gap: 0.45rem;
-		border: 1px solid rgba(255, 255, 255, 0.24);
-		border-radius: 999px;
-		padding: 0.38rem 0.75rem;
-		background: rgba(7, 24, 28, 0.78);
-		box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.24);
-		backdrop-filter: blur(8px);
-		animation: toast-in 220ms ease-out;
-	}
-
-	.game-feedback strong {
-		font-size: 0.6rem;
-		text-transform: uppercase;
-	}
-
-	.game-feedback span {
-		overflow: hidden;
-		color: #d7e2df;
-		font-size: 0.62rem;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.ticket-hand {
-		position: absolute;
-		bottom: 0.8rem;
-		left: 0.45rem;
-		z-index: 8;
-		width: clamp(8rem, 13vw, 10rem);
-		height: 7.8rem;
-		pointer-events: none;
-	}
-
-	.ticket-hand .ticket {
-		position: absolute;
-		bottom: calc(var(--ticket-index) * 1.15rem);
-		left: 0;
-		width: 100%;
-		min-width: 0;
-		grid-template-columns: 1.7rem minmax(0, 1fr);
-		padding: 0.4rem;
-		box-shadow: 0 0.3rem 0.75rem rgba(0, 0, 0, 0.3);
-	}
-
-	.ticket-hand .ticket > span {
-		width: 1.6rem;
-		height: 1.6rem;
-		font-size: 0.76rem;
-	}
-
-	.ticket-hand .ticket strong,
-	.ticket-hand .ticket small {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.hand-panel {
-		position: absolute;
-		bottom: 2.45rem;
-		left: 50%;
-		z-index: 8;
-		width: min(33vw, 26rem);
-		height: 7.7rem;
-		margin: 0;
-		transform: translateX(-50%);
-		padding: 0;
-		background: transparent;
-		box-shadow: none;
-		pointer-events: none;
-	}
-
-	.hand-panel .hand-cards {
-		display: flex;
-		width: 100%;
-		height: 100%;
-		align-items: end;
-		justify-content: center;
-		gap: 0;
-		overflow: visible;
-	}
-
-	.hand-panel .hand-card {
-		width: 4.8rem;
-		height: 6.7rem;
-		flex: 0 0 4.8rem;
-		margin-left: -1.15rem;
-		transform: translateY(calc(var(--card-index) * 0.05rem)) rotate(calc((var(--card-index) - 4) * 1.5deg));
-		transform-origin: 50% 110%;
-		box-shadow: 0 0.4rem 0.85rem rgba(0, 0, 0, 0.35);
-		animation: hand-deal 280ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-		animation-delay: calc(var(--card-index) * 28ms);
-	}
-
-	.hand-panel .hand-card:first-child {
-		margin-left: 0;
-	}
-
-	.hand-panel .hand-card.empty {
-		display: none;
-	}
-
-	.hand-panel .card-count {
-		top: 0.3rem;
-		right: 0.3rem;
-		width: 1.45rem;
-		height: 1.45rem;
-		background: #f7ead0;
-		box-shadow: 0 0.15rem 0.35rem rgba(0, 0, 0, 0.35);
-		color: #263438;
-		text-shadow: none;
-		animation: count-pop 180ms ease-out;
 	}
 
 	.decision-drawer {
 		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
 		z-index: 20;
+		inset: 0 0 0 auto;
 		display: flex;
-		width: clamp(20rem, 29vw, 23rem);
+		width: clamp(21rem, 30vw, 24rem);
 		flex-direction: column;
 		overflow: hidden;
-		border-left: 1px solid rgba(237, 211, 150, 0.62);
-		padding: 1.25rem;
-		background: linear-gradient(180deg, rgba(38, 66, 70, 0.98), rgba(12, 29, 33, 0.99)), #14272a;
-		box-shadow: -1rem 0 2.4rem rgba(0, 0, 0, 0.4);
-		color: #f7f1df;
-		animation: drawer-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+		border-left: 3px solid #bd944f;
+		padding: 1.15rem;
+		background: linear-gradient(180deg, rgb(24 62 67 / 0.98), rgb(11 34 38 / 0.99));
+		box-shadow: -1rem 0 2.5rem rgb(0 0 0 / 0.4);
+		animation: drawer-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	}
 
 	.drawer-heading {
 		flex: 0 0 auto;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.13);
-		padding-bottom: 1rem;
+		border-bottom: 1px solid rgb(255 255 255 / 0.16);
+		padding-bottom: 0.9rem;
 	}
 
 	.drawer-heading h1 {
 		margin: 0;
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+		font-family: Georgia, serif;
+		font-size: clamp(1.65rem, 2.6vw, 2.35rem);
 		font-weight: 500;
-		line-height: 1.02;
+		line-height: 1.03;
 	}
 
-	.drawer-heading > p:last-child {
-		margin: 0.65rem 0 0;
-		color: #b2c4c0;
-		font-size: 0.76rem;
-		line-height: 1.5;
+	.drawer-heading > p,
+	.drawer-heading div + p {
+		margin: 0.55rem 0 0;
+		color: #c6d5cf;
+		font-size: 0.72rem;
+		line-height: 1.45;
 	}
 
-	.decision-drawer .ticket-offers {
-		display: grid;
+	.section-label {
+		margin: 0 0 0.25rem;
+		color: #e0bd72;
+		font-size: 0.6rem;
+		font-weight: 800;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+	}
+
+	.drawer-footer {
+		display: flex;
+		flex: 0 0 auto;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.7rem;
+		border-top: 1px solid rgb(255 255 255 / 0.15);
+		padding-top: 0.9rem;
+		color: #b8c8c3;
+		font-size: 0.66rem;
+	}
+
+	.primary,
+	.quiet {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.55rem;
+		padding: 0.6rem 0.9rem;
+		font-weight: 800;
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.primary {
+		border: 2px solid #d6af61;
+		background: #23868b;
+		box-shadow:
+			inset 0 0 0 1px #f0ddad,
+			0 0.25rem 0.5rem rgb(0 0 0 / 0.3);
+		color: white;
+	}
+
+	.quiet {
+		border: 1px solid rgb(255 255 255 / 0.28);
+		background: rgb(255 255 255 / 0.08);
+		color: #f5ead0;
+	}
+
+	button:disabled {
+		cursor: not-allowed;
+		filter: grayscale(0.6) brightness(0.65);
+	}
+
+	button:focus-visible,
+	input:focus-visible {
+		outline: 3px solid #ffe287;
+		outline-offset: 2px;
+	}
+
+	.ticket-offers,
+	.claim-actions,
+	.standings,
+	.settings-list {
 		min-height: 0;
 		flex: 1 1 auto;
-		grid-template-columns: 1fr;
-		align-content: start;
-		gap: 0.7rem;
 		overflow-y: auto;
-		margin: 1rem -0.15rem;
+		margin: 0.9rem -0.15rem;
 		padding: 0.15rem;
 	}
 
-	.decision-drawer .ticket-offers button {
+	.ticket-offers {
 		display: grid;
-		width: 100%;
-		min-height: 5.5rem;
-		grid-template-columns: 2.8rem minmax(0, 1fr) auto;
+		align-content: start;
+		gap: 0.75rem;
+	}
+
+	.ticket-offers button {
+		position: relative;
+		display: grid;
+		min-height: 6rem;
+		grid-template-columns: 2.9rem minmax(0, 1fr) auto;
 		align-items: center;
-		gap: 0.7rem;
-		border: 2px solid #8b7145;
+		gap: 0.6rem;
+		overflow: hidden;
+		border: 2px solid #96713b;
 		border-radius: 0.65rem;
-		padding: 0.75rem;
-		background:
-			linear-gradient(rgba(238, 217, 171, 0.91), rgba(205, 175, 117, 0.93)),
-			repeating-linear-gradient(25deg, #ddd 0 1px, transparent 1px 12px);
-		box-shadow: inset 0 0 0 1px #ead29d;
-		color: #39281a;
+		padding: 0.7rem;
+		background: #ead7a8;
+		color: #392719;
+		cursor: pointer;
 		text-align: left;
 		transition:
 			transform 150ms ease,
-			box-shadow 150ms ease,
-			border-color 150ms ease;
+			border-color 150ms ease,
+			box-shadow 150ms ease;
 	}
 
-	.decision-drawer .ticket-offers button:hover,
-	.decision-drawer .ticket-offers button.previewed {
-		transform: translateX(-0.25rem);
-		border-color: #f3d87b;
+	.ticket-offers button > img {
+		position: absolute;
+		z-index: 0;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.78;
+	}
+
+	.ticket-offers button > :not(img) {
+		position: relative;
+		z-index: 1;
+	}
+
+	.ticket-offers button:hover,
+	.ticket-offers button.previewed {
+		transform: translateX(-0.3rem);
+		border-color: #ffe38a;
+		box-shadow: 0 0 0 2px rgb(255 226 126 / 0.45);
+	}
+
+	.ticket-offers button.selected {
+		border-color: #fff1a2;
 		box-shadow:
-			inset 0 0 0 1px #9d3a30,
-			0 0 0 2px rgba(243, 216, 123, 0.5);
+			inset 0 0 0 3px #a83a31,
+			0 0 0 2px #f4d77d;
 	}
 
-	.decision-drawer .ticket-offers button.selected {
-		border-color: #fff0a1;
-		background:
-			linear-gradient(rgba(248, 227, 174, 0.96), rgba(218, 187, 124, 0.97)),
-			repeating-linear-gradient(25deg, #ddd 0 1px, transparent 1px 12px);
-		box-shadow:
-			inset 0 0 0 2px #9d3a30,
-			0 0 0 2px #f4da7c;
-	}
-
-	.decision-drawer .ticket-points {
+	.ticket-points {
 		display: grid;
 		width: 2.7rem;
 		height: 2.7rem;
 		place-items: center;
-		margin: 0;
 		border-radius: 50%;
-		background: #963a31;
-		color: #fff4d5;
+		background: #9d352e;
+		color: #fff2cb;
 		font-family: Georgia, serif;
-		font-size: 1rem;
-		font-weight: 900;
+		font-size: 1.1rem;
 	}
 
 	.ticket-route strong,
@@ -2184,125 +1490,269 @@
 	}
 
 	.ticket-route small {
-		margin-top: 0.2rem;
-		color: #72562f;
-		font-size: 0.72rem;
+		margin-top: 0.16rem;
+		font-size: 0.7rem;
 	}
 
-	.decision-drawer .selected-state {
-		position: static;
+	.selected-state {
 		border-radius: 999px;
-		padding: 0.25rem 0.42rem;
-		background: rgba(70, 49, 27, 0.14);
-		color: #6d3a2d;
+		padding: 0.24rem 0.4rem;
+		background: rgb(72 46 26 / 0.15);
 		font-size: 0.58rem;
-	}
-
-	.drawer-footer {
-		display: flex;
-		flex: 0 0 auto;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.13);
-		padding-top: 1rem;
-		color: #aebfbc;
-		font-size: 0.68rem;
+		font-weight: 800;
 	}
 
 	.claim-actions {
 		display: grid;
-		min-height: 0;
-		flex: 1 1 auto;
 		align-content: start;
 		gap: 0.65rem;
-		overflow-y: auto;
-		margin-block: 1rem;
 	}
 
-	.claim-actions .card-swatch {
-		position: relative;
+	.payment-card {
 		display: grid;
-		width: 100%;
-		min-height: 5.5rem;
-		grid-template-columns: 4rem minmax(0, 1fr);
+		grid-template-columns: 4.8rem minmax(0, 1fr);
 		align-items: center;
 		gap: 0.8rem;
-		border-radius: 0.7rem;
-		padding: 0.65rem;
+		border: 2px solid #c6a25c;
+		border-radius: 0.65rem;
+		padding: 0.5rem;
+		background: rgb(245 235 208 / 0.96);
+		color: #31271d;
+		cursor: pointer;
+		text-align: left;
+		transition: transform 140ms ease;
 	}
 
-	.claim-actions .card-swatch .mini-rails {
-		position: relative;
-		inset: auto;
-		width: 4rem;
-		height: 3rem;
-		grid-row: 1 / 3;
+	.payment-card:hover {
+		transform: translateX(-0.3rem);
 	}
 
-	.claim-actions .card-swatch strong,
-	.claim-actions .card-swatch small {
+	.payment-card img {
+		width: 4.8rem;
+		height: 6.5rem;
+		border-radius: 0.4rem;
+		object-fit: cover;
+	}
+
+	.payment-card span strong,
+	.payment-card span small {
 		display: block;
 	}
 
-	.claim-actions .card-swatch small {
-		color: inherit;
-		font-size: 0.65rem;
-		opacity: 0.86;
+	.payment-card span strong {
+		font-family: Georgia, serif;
+		font-size: 1.05rem;
 	}
 
-	.results-drawer {
-		overflow-y: auto;
+	.payment-card span small {
+		margin-top: 0.25rem;
+		font-size: 0.66rem;
 	}
 
-	.results-drawer .standings {
-		margin-block: 1rem;
+	.claim-error {
+		border: 1px solid rgb(255 164 146 / 0.45);
+		border-radius: 0.55rem;
+		padding: 0.8rem;
+		background: rgb(89 32 28 / 0.38);
+		color: #ffc1b4;
+		font-size: 0.75rem;
 	}
 
-	.results-drawer .result-card {
-		padding: 0.65rem;
-	}
-
-	.results-drawer .result-summary {
-		grid-template-columns: 1.2rem 1.8rem minmax(0, 1fr) auto;
-		gap: 0.45rem;
-	}
-
-	.results-drawer .score-breakdown {
+	.settings-heading {
 		display: flex;
-		gap: 0.35rem;
-		margin-top: 0.55rem;
-		padding-left: 0;
+		align-items: center;
+		justify-content: space-between;
+		margin: -1.15rem -1.15rem 0;
+		padding: 1rem 1.15rem 0.9rem;
+		background: linear-gradient(145deg, #34486d, #1e2d4d);
 	}
 
-	.results-drawer .score-breakdown > span {
+	.close-drawer {
+		display: grid;
+		width: 3.1rem;
+		height: 3.1rem;
+		place-items: center;
+		border: 3px solid #d5ad5d;
+		border-radius: 50%;
+		background: #2c3442;
+		color: white;
+		cursor: pointer;
+	}
+
+	.settings-list {
+		display: grid;
+		align-content: start;
+		gap: 0.42rem;
+	}
+
+	.setting-row {
+		display: flex;
+		min-height: 3.4rem;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		border: 1px solid #c8c1b2;
+		border-radius: 0.7rem;
+		padding: 0.5rem 0.75rem;
+		background: rgb(247 246 242 / 0.96);
+		box-shadow: inset 0 1px #fff;
+		color: #30343c;
+	}
+
+	.setting-row > span {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-size: 0.86rem;
+		font-weight: 700;
+	}
+
+	.setting-row input[type='range'] {
+		width: 48%;
+		accent-color: #23868b;
+	}
+
+	.toggle {
+		position: relative;
+		width: 3.25rem;
+		height: 1.8rem;
+		border: 0;
+		border-radius: 999px;
+		background: #c2c6c8;
+		cursor: pointer;
+		transition: background 140ms ease;
+	}
+
+	.toggle i {
+		position: absolute;
+		top: 0.15rem;
+		left: 0.15rem;
+		width: 1.5rem;
+		height: 1.5rem;
+		border: 2px solid #d4ad61;
+		border-radius: 50%;
+		background: white;
+		transition: transform 160ms ease;
+	}
+
+	.toggle.enabled {
+		background: #23868b;
+	}
+	.toggle.enabled i {
+		transform: translateX(1.45rem);
+	}
+
+	.stepper {
+		display: grid;
+		min-width: 9.8rem;
+		grid-template-columns: 2.2rem 1fr 2.2rem;
+		align-items: center;
+		text-align: center;
+	}
+
+	.stepper button {
+		display: grid;
+		width: 2.2rem;
+		height: 2.2rem;
+		place-items: center;
+		border: 2px solid #d5ad5f;
+		border-radius: 50%;
+		background: white;
+		font-size: 1.7rem;
+		cursor: pointer;
+	}
+
+	.settings-footer .primary {
+		min-width: 9.5rem;
+	}
+
+	.standings {
+		display: grid;
+		align-content: start;
+		gap: 0.65rem;
+	}
+
+	.result-card {
+		position: relative;
+		display: grid;
+		grid-template-columns: 3.1rem 1.5rem minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.55rem;
+		border: 2px solid color-mix(in srgb, var(--player-color) 72%, #d8bc77);
+		border-radius: 0.7rem;
+		padding: 0.55rem;
+		background: rgb(246 235 206 / 0.94);
+		color: #34271b;
+		animation: result-in 260ms ease-out backwards;
+	}
+
+	.result-card.winner {
+		box-shadow:
+			inset 0 0 0 3px #f4cb64,
+			0 0 1rem rgb(244 203 100 / 0.25);
+	}
+
+	.result-card > img {
+		width: 3.1rem;
+		height: 3.1rem;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.rank {
+		display: grid;
+		width: 1.45rem;
+		height: 1.45rem;
+		place-items: center;
+		border-radius: 50%;
+		background: var(--player-color);
+		color: white;
+		font-weight: 900;
+	}
+
+	.result-card div > strong,
+	.result-card div > small {
+		display: block;
+	}
+
+	.result-card div > small {
+		margin-top: 0.12rem;
+		font-size: 0.58rem;
+	}
+	.final-score {
+		font-family: Georgia, serif;
+		font-size: 1.65rem;
+	}
+
+	.score-breakdown {
+		display: flex;
+		grid-column: 1 / -1;
+		gap: 0.35rem;
+	}
+
+	.score-breakdown span {
 		flex: 1;
 		border-radius: 0.35rem;
 		padding: 0.35rem;
-		background: rgba(255, 255, 255, 0.05);
+		background: rgb(74 48 28 / 0.1);
 		font-size: 0.58rem;
-	}
-
-	.results-drawer .ticket-results {
-		margin-left: 0;
 	}
 
 	.debug {
 		position: absolute;
-		right: 7.8rem;
-		bottom: 0.55rem;
-		z-index: 12;
-		width: auto;
-		margin: 0;
-		border-radius: 0.45rem;
-		padding: 0.35rem 0.5rem;
-		background: rgba(6, 17, 21, 0.82);
-		font-size: 0.62rem;
+		right: 7rem;
+		bottom: 0.4rem;
+		z-index: 18;
+		border-radius: 0.4rem;
+		padding: 0.3rem 0.45rem;
+		background: rgb(7 21 24 / 0.84);
+		font-size: 0.58rem;
 	}
 
 	.debug pre {
-		width: min(38rem, 70vw);
-		max-height: 50vh;
+		width: min(38rem, 65vw);
+		max-height: 45vh;
+		overflow: auto;
 	}
 
 	@keyframes drawer-in {
@@ -2311,233 +1761,173 @@
 			opacity: 0.5;
 		}
 	}
-
-	@keyframes toast-in {
+	@keyframes popover-in {
 		from {
-			transform: translateY(-0.45rem);
+			transform: translateY(-0.35rem);
 			opacity: 0;
 		}
 	}
-
-	@keyframes turn-banner-in {
+	@keyframes market-deal {
 		from {
-			transform: translate(-50%, 0.7rem);
+			transform: translateX(1.2rem) rotate(3deg);
 			opacity: 0;
 		}
 	}
-
-	@keyframes card-deal {
-		from {
-			transform: translateX(0.7rem) rotate(2deg);
-			opacity: 0;
-		}
-	}
-
 	@keyframes hand-deal {
 		from {
-			transform: translateY(1.5rem) rotate(0);
+			transform: translateY(2rem) rotate(0);
 			opacity: 0;
 		}
 	}
-
-	@keyframes count-pop {
+	@keyframes banner-in {
 		from {
-			transform: scale(0.65);
+			transform: translateY(0.7rem);
+			opacity: 0;
+		}
+	}
+	@keyframes result-in {
+		from {
+			transform: translateX(0.75rem);
+			opacity: 0;
 		}
 	}
 
 	@media (max-width: 900px) {
 		.drawer-open .board-stage {
 			right: 0;
-			bottom: min(42svh, 26rem);
+			bottom: min(45svh, 27rem);
 		}
-
 		.game-controls {
-			top: 0.4rem;
+			top: 0.55rem;
+			left: 0.55rem;
+			gap: 0.5rem;
 		}
-
-		.players {
-			top: 3.35rem;
-			right: 0.35rem;
-			bottom: auto;
-			left: 0.35rem;
+		.game-controls button {
+			width: 2.8rem;
+			height: 2.8rem;
+		}
+		.opponents {
+			top: 3.8rem;
+			display: flex;
 			width: auto;
-			height: auto;
-			flex-direction: row;
-			overflow-x: auto;
+			max-width: calc(100vw - 1rem);
+			gap: 0.35rem;
+			overflow: hidden;
 		}
-
-		.players .player-row {
-			width: 7.4rem;
-			min-height: 3.4rem;
-			flex: 0 0 7.4rem;
-			grid-template-columns: 1.35rem minmax(0, 1fr) auto;
-			border-left-width: 0.25rem;
+		.opponent {
+			width: 6.8rem;
+			height: 3.5rem;
+			flex: 0 0 6.8rem;
+			grid-template-columns: 2rem 1fr 1.8rem;
+			grid-template-rows: 1fr 1rem;
 		}
-
-		.players .viewer-player {
-			order: 0;
-			margin-top: 0;
+		.opponent img {
+			width: 2rem;
+			height: 2.3rem;
 		}
-
-		.players .player-token {
-			width: 1.35rem;
-			height: 1.35rem;
+		.opponent-counts small,
+		.opponent-trains {
+			display: none;
 		}
-
+		.opponent-counts strong {
+			font-size: 0.85rem;
+		}
+		.opponent-score {
+			font-size: 1.1rem;
+		}
+		.opponent footer {
+			font-size: 0.55rem;
+			padding-block: 0.08rem;
+		}
+		.viewer-hud {
+			transform: scale(0.74);
+			transform-origin: bottom left;
+		}
 		.market {
 			top: auto;
-			right: 0.35rem;
-			bottom: 2.9rem;
-			left: 0.35rem;
+			right: 0.3rem;
+			bottom: 3rem;
+			left: 0.3rem;
+			width: auto;
+			height: 4.2rem;
+		}
+		.destination-deck {
+			top: 0;
+			right: auto;
+			left: 0;
+			width: 3.8rem;
+			height: 3rem;
+		}
+		.destination-deck small {
+			right: -0.5rem;
+			bottom: -0.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			font-size: 0.7rem;
+		}
+		.face-up {
+			top: 0;
+			right: 4.4rem;
+			left: 4.4rem;
 			display: grid;
 			width: auto;
-			height: 4.1rem;
-			grid-template-columns: 3.6rem minmax(0, 1fr) 3.6rem;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 0.25rem;
 		}
-
-		.market .destination-deck,
-		.market .deck {
-			min-height: 0;
-			height: 4.1rem;
+		.train-card {
+			height: 4.2rem;
 		}
-
-		.market .ticket-stack,
-		.market .deck-card {
-			width: 2rem;
-			height: 2.7rem;
+		.deck {
+			right: 0;
+			bottom: 0;
+			width: 3.8rem;
+			height: 4.6rem;
 		}
-
-		.market .face-up {
-			display: grid;
-			grid-template-columns: repeat(5, minmax(3.25rem, 1fr));
-			grid-template-rows: 1fr;
+		.deck small {
+			left: -0.8rem;
+			bottom: 0.1rem;
+			width: 1.6rem;
+			height: 1.6rem;
+			font-size: 0.75rem;
 		}
-
-		.market .train-card {
-			min-height: 0;
-			height: 4.1rem;
-		}
-
 		.hand-panel {
-			bottom: 6.55rem;
-			width: min(80vw, 22rem);
-			height: 5.8rem;
+			bottom: 6.4rem;
+			width: 18rem;
+			height: 6.2rem;
 		}
-
-		.hand-panel .hand-card {
-			width: 4rem;
-			height: 5.2rem;
-			flex-basis: 4rem;
+		.hand-card {
+			width: 3.65rem;
+			height: 5.5rem;
+			flex-basis: 3.65rem;
+			margin-left: -0.85rem;
 		}
-
-		.ticket-hand {
-			display: none;
-		}
-
 		.turn-banner {
-			width: 100%;
-			border-radius: 0;
-		}
-
-		.game-feedback {
-			top: 7.2rem;
-			width: min(86vw, 25rem);
-		}
-
-		.decision-drawer {
-			top: auto;
+			right: 0;
 			left: 0;
 			width: 100%;
-			height: min(42svh, 26rem);
-			border-top: 1px solid rgba(237, 211, 150, 0.62);
+			transform: none;
+		}
+		.decision-drawer {
+			inset: auto 0 0;
+			width: 100%;
+			height: min(45svh, 27rem);
+			border-top: 3px solid #bd944f;
 			border-left: 0;
-			padding: 0.9rem;
 			animation-name: sheet-in;
 		}
-
-		.drawer-heading {
-			padding-bottom: 0.55rem;
-		}
-
-		.drawer-heading h1 {
-			font-size: 1.4rem;
-		}
-
-		.decision-drawer .ticket-offers {
-			grid-template-columns: repeat(3, minmax(11rem, 1fr));
+		.ticket-offers {
+			grid-template-columns: repeat(3, minmax(12rem, 1fr));
 			overflow-x: auto;
 			overflow-y: hidden;
-			margin-block: 0.6rem;
 		}
-
-		.decision-drawer .ticket-offers button {
-			min-height: 4.6rem;
+		.ticket-offers button {
+			min-height: 5rem;
 		}
-
-		.drawer-footer {
-			padding-top: 0.55rem;
+		.settings-list {
+			grid-template-columns: 1fr 1fr;
 		}
-
-		.drawer-open .market,
-		.drawer-open .hand-panel,
-		.drawer-open .ticket-hand,
-		.drawer-open .turn-banner,
-		.drawer-open .game-feedback {
-			opacity: 0;
-			pointer-events: none;
-		}
-	}
-
-	@media (max-width: 560px) {
-		.game-controls div,
-		.board-stage :global(.board-help) {
-			display: none;
-		}
-
-		.game-controls {
-			left: 0.4rem;
-			transform: none;
-			padding-right: 0.3rem;
-		}
-
-		.players {
-			top: 2.9rem;
-		}
-
-		.players .player-name span,
-		.players .player-stats span {
-			display: none;
-		}
-
-		.players .player-row {
-			width: 5.7rem;
-			min-height: 2.8rem;
-			flex-basis: 5.7rem;
-		}
-
-		.game-feedback {
-			display: none;
-		}
-
-		.hand-panel {
-			bottom: 6.65rem;
-		}
-
-		.turn-banner > span:last-child {
-			display: none;
-		}
-
-		.decision-drawer .ticket-offers {
-			grid-template-columns: repeat(3, 10rem);
-		}
-
-		.decision-drawer .ticket-offers button {
-			grid-template-columns: 2.3rem minmax(0, 1fr);
-		}
-
-		.decision-drawer .selected-state {
-			display: none;
+		.setting-row {
+			min-height: 3rem;
 		}
 	}
 
@@ -2548,13 +1938,34 @@
 		}
 	}
 
+	@media (max-width: 560px) {
+		.viewer-hud {
+			transform: scale(0.62);
+		}
+		.hand-panel {
+			left: 58%;
+			width: 14rem;
+		}
+		.hand-card {
+			width: 3.1rem;
+			height: 4.7rem;
+			flex-basis: 3.1rem;
+		}
+		.turn-banner strong {
+			font-size: 1rem;
+		}
+		.ticket-offers {
+			grid-template-columns: repeat(3, 10rem);
+		}
+		.settings-list {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.game-shell *,
 		.game-shell *::before,
-		.game-shell *::after,
-		.modal-backdrop *,
-		.modal-backdrop *::before,
-		.modal-backdrop *::after {
+		.game-shell *::after {
 			animation-duration: 0.01ms !important;
 			animation-iteration-count: 1 !important;
 			transition-duration: 0.01ms !important;

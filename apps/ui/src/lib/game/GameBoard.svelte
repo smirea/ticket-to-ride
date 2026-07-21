@@ -166,46 +166,29 @@
 		</desc>
 
 		<defs>
-			<linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-				<stop offset="0" stop-color="#e8d7ad" />
-				<stop offset="0.56" stop-color="#cfba89" />
-				<stop offset="1" stop-color="#bca070" />
-			</linearGradient>
 			<filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
 				<feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-opacity="0.24" />
 			</filter>
 			<filter id="route-glow" x="-40%" y="-80%" width="180%" height="260%">
 				<feGaussianBlur stdDeviation="5" />
 			</filter>
-			<pattern id="water-lines" width="36" height="20" patternUnits="userSpaceOnUse">
-				<path d="M0 10 Q9 4 18 10 T36 10" fill="none" stroke="#f6e8c4" stroke-opacity="0.18" stroke-width="2" />
-			</pattern>
+			<linearGradient id="map-wash" x1="0" y1="0" x2="0" y2="1">
+				<stop offset="0" stop-color="#0b3b42" stop-opacity="0.02" />
+				<stop offset="0.7" stop-color="#d4a85e" stop-opacity="0.04" />
+				<stop offset="1" stop-color="#1f2d2f" stop-opacity="0.16" />
+			</linearGradient>
 		</defs>
 
-		<rect width="1000" height="620" rx="20" fill="#547d82" />
-		<rect width="1000" height="620" rx="20" fill="url(#water-lines)" />
-		<path
-			d="M74 104 L130 72 L226 58 L309 73 L374 57 L454 68 L526 45 L624 62 L692 91 L785 104 L865 143 L935 206 L919 283 L879 331 L837 352 L812 406 L760 427 L717 474 L656 479 L606 526 L525 539 L457 519 L393 524 L337 491 L282 496 L224 460 L180 421 L142 367 L109 340 L101 286 L71 237 Z"
-			fill="url(#paper)"
-			stroke="#7c663e"
-			stroke-width="5"
-			filter="url(#soft-shadow)"
+		<image
+			href="/game-assets/whimsical-1800s/board-map.webp"
+			x="-286"
+			y="-166"
+			width="1463"
+			height="948"
+			preserveAspectRatio="none"
+			class="map-art"
 		/>
-		<path d="M618 473 Q661 506 690 489 Q677 525 638 537 Q615 522 618 473Z" fill="#d7c291" opacity="0.8" />
-		<path d="M106 339 Q150 329 182 362" fill="none" stroke="#8ba3a0" stroke-width="8" opacity="0.45" />
-		<text x="500" y="108" class="map-title" text-anchor="middle">TICKET TO RIDE</text>
-		<text x="500" y="131" class="map-subtitle" text-anchor="middle">NORTH AMERICA</text>
-
-		{#key highlightedTicket?.id}
-			{#if highlightedTicket}
-				{@const ticketStart = city(highlightedTicket.cityA)}
-				{@const ticketEnd = city(highlightedTicket.cityB)}
-				<g class="ticket-preview-trace" aria-hidden="true">
-					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace-halo" />
-					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace" />
-				</g>
-			{/if}
-		{/key}
+		<rect width="1000" height="620" fill="url(#map-wash)" />
 
 		{#each routes as route (route.id)}
 			{@const routeOwner = owner(route)}
@@ -256,6 +239,17 @@
 			</g>
 		{/each}
 
+		{#key highlightedTicket?.id}
+			{#if highlightedTicket}
+				{@const ticketStart = city(highlightedTicket.cityA)}
+				{@const ticketEnd = city(highlightedTicket.cityB)}
+				<g class="ticket-preview-trace" aria-hidden="true">
+					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace-halo" />
+					<line x1={ticketStart.x} y1={ticketStart.y} x2={ticketEnd.x} y2={ticketEnd.y} class="ticket-trace" />
+				</g>
+			{/if}
+		{/key}
+
 		{#each cities as cityItem (cityItem.id)}
 			{@const isTicketEndpoint = highlightedTicket?.cityA === cityItem.id || highlightedTicket?.cityB === cityItem.id}
 			<g
@@ -290,22 +284,8 @@
 		background: #547d82;
 	}
 
-	.map-title {
-		fill: #9c352b;
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: 29px;
-		font-weight: 800;
-		letter-spacing: 3px;
-		paint-order: stroke;
-		stroke: #e8d5a7;
-		stroke-width: 6px;
-	}
-
-	.map-subtitle {
-		fill: #71522e;
-		font-size: 10px;
-		font-weight: 800;
-		letter-spacing: 5px;
+	.map-art {
+		filter: saturate(0.92) contrast(1.04) brightness(0.94);
 	}
 
 	.route-hitbox {
@@ -328,9 +308,9 @@
 	}
 
 	.route-segment {
-		stroke: rgba(42, 35, 24, 0.72);
-		stroke-width: 1.6;
-		filter: drop-shadow(0 1px 1px rgba(22, 18, 13, 0.28));
+		stroke: rgba(42, 30, 17, 0.9);
+		stroke-width: 2;
+		filter: drop-shadow(0 1.5px 1.5px rgba(22, 18, 13, 0.55));
 		animation: segment-enter 240ms ease-out backwards;
 		animation-delay: calc(var(--segment-index) * 16ms);
 		transition:
@@ -374,11 +354,13 @@
 	}
 
 	.board-help {
-		margin: 0.45rem 0.25rem 0;
-		color: #aebfbc;
-		font-size: 0.68rem;
-		line-height: 1.4;
-		text-align: center;
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
 
 	.ticket-preview-trace {
@@ -387,18 +369,18 @@
 	}
 
 	.ticket-trace-halo {
-		stroke: rgba(65, 39, 17, 0.38);
+		stroke: rgba(66, 24, 16, 0.64);
 		stroke-linecap: round;
-		stroke-width: 12;
-		filter: blur(3px);
+		stroke-width: 15;
+		filter: blur(4px);
 	}
 
 	.ticket-trace {
-		stroke: #fff0a6;
-		stroke-dasharray: 14 9;
+		stroke: #fff4a8;
+		stroke-dasharray: 17 10;
 		stroke-linecap: round;
-		stroke-width: 3.5;
-		filter: drop-shadow(0 1px 2px rgba(60, 37, 16, 0.55));
+		stroke-width: 5;
+		filter: drop-shadow(0 1px 2px rgba(60, 37, 16, 0.8)) drop-shadow(0 0 4px rgba(255, 225, 102, 0.9));
 		animation: ticket-dash 1.25s linear infinite;
 	}
 
@@ -417,13 +399,14 @@
 	}
 
 	.city text {
-		fill: #3f2b1d;
-		font-size: 11px;
+		fill: #fff8de;
+		font-family: 'Arial Narrow', 'Roboto Condensed', sans-serif;
+		font-size: 12px;
 		font-weight: 800;
 		paint-order: stroke;
-		stroke: #e7d2a1;
+		stroke: #2d251c;
 		stroke-linejoin: round;
-		stroke-width: 4px;
+		stroke-width: 4.5px;
 	}
 
 	.ticket-endpoint-ring {

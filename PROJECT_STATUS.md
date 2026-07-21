@@ -6,7 +6,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 
 - USA map only.
 - Use the installed Steam game as the gameplay and interaction reference. Inspect each feature in Steam before implementing it.
-- Recreate visuals with CSS and code-native SVG. Do not reuse commercial game assets; use image generation sparingly when a raster asset is genuinely needed.
+- Recreate the interaction geometry with Svelte/CSS and project-owned overlays. Do not reuse commercial game assets; generate the complete cohesive raster art family with ImageGen.
 - Follow `~/code/knowledgebase/skills/code-ts-game-framework`.
 - Keep deterministic, serializable game rules in `packages/shared`.
 - Build and validate the complete local game before adding networking.
@@ -16,6 +16,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 
 ## Current
 
+- [x] Pixel-precision Steam frame and original whimsical-1800s art pass completed, including real four-player interaction, responsive board-preserving decisions, repeated source comparisons, and full verification.
 - [x] Steam-reference UX parity pass completed: board-first HUD, side-docked gameplay decisions, map ticket previews, and motion polish.
 - [x] Bun API server and SvelteKit SPA scaffolded.
 - [x] Vite development proxy and production static serving configured.
@@ -35,6 +36,18 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Add restrained drawer, turn, card, count, and route-claim animation with reduced-motion handling.
 - [x] Validate default turn, ticket selection, route claim, final results, and narrow-screen states through the real debug action path.
 - [x] Complete a same-viewport source/implementation comparison and record the result in `design-qa.md`.
+
+## Completed milestone: Pixel-precision Steam frame and original art pass
+
+- [x] Capture the installed Steam game's live turn and settings states at 1210×768.
+- [x] Capture the local default game at the same viewport for a direct baseline comparison.
+- [x] Generate an original whimsical-1800s map, table background, ticket faces/backs, train deck back, nine train-card illustrations, and player portraits.
+- [x] Replace generic card and map surfaces with the generated asset family while preserving route and city interaction geometry.
+- [x] Rebuild the edge HUD to match Steam's dense left player rail, right market, deck counters, hand fan, and bottom turn banner.
+- [x] Match ticket choice, route payment, settings, and results states while keeping the board visible and highlighted.
+- [x] Add card-deal, hand-fan, route-claim, drawer, counter, hover, and turn-transition motion with reduced-motion handling.
+- [x] Complete repeated same-state, same-viewport source/local comparisons and record the final QA result.
+- [x] Run the complete test, typecheck, lint, format, and production-build suite.
 
 ## Completed milestone: Open and interact with a single-player game
 
