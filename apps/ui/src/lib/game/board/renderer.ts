@@ -10,6 +10,9 @@ import {
 	routeColors,
 	routeGeometry,
 	routePoint,
+	routeMarkerT,
+	ROUTE_MARKER_LENGTH,
+	ROUTE_MARKER_WIDTH,
 	routes,
 	terrainHeight,
 } from './layout';
@@ -81,7 +84,8 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	scene.add(sun, sun.target);
 	const time = { value: 0 },
 		pointer = { value: new THREE.Vector2(-2000, -2000) },
-		motion = { value: 1 };
+		motion = { value: 1 },
+		interactionMotion = { value: 1 };
 	let resolveTexture!: () => void;
 	let rejectTexture!: (error: unknown) => void;
 	const ready = new Promise<void>((resolve, reject) => {
@@ -205,6 +209,39 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	});
 	trees.castShadow = true;
 	scene.add(trees);
+	const ribbonVertices: number[] = [];
+	for (const route of routes) {
+		const edges = Array.from({ length: 49 }, (_, i) => {
+			const t = i / 48,
+				p = routePoint(route, t);
+			const a = routePoint(route, Math.max(0, t - 0.002)),
+				b = routePoint(route, Math.min(1, t + 0.002));
+			const angle = Math.atan2(b.y - a.y, b.x - a.x);
+			return [-1, 1].map(side => {
+				const x = p.x - Math.sin(angle) * 6.4 * side,
+					y = p.y + Math.cos(angle) * 6.4 * side;
+				return [x, y, terrainHeight(x, y) + 0.28];
+			});
+		});
+		for (let i = 1; i < edges.length; i++) {
+			const a = edges[i - 1]!,
+				b = edges[i]!;
+			ribbonVertices.push(...a[0]!, ...a[1]!, ...b[0]!, ...b[0]!, ...a[1]!, ...b[1]!);
+		}
+	}
+	const ribbonGeometry = new THREE.BufferGeometry();
+	ribbonGeometry.setAttribute('position', new THREE.Float32BufferAttribute(ribbonVertices, 3));
+	const ribbons = new THREE.Mesh(
+		ribbonGeometry,
+		new THREE.MeshBasicMaterial({
+			color: '#15191a',
+			transparent: true,
+			opacity: 0.32,
+			side: THREE.DoubleSide,
+			depthWrite: false,
+		}),
+	);
+	scene.add(ribbons);
 	const segmentCount = routes.reduce((count, route) => count + route.length, 0);
 	const segmentGeometry = new RoundedBoxGeometry(1, 1, 1, 2, 0.16);
 	const segmentMaterial = new THREE.MeshPhysicalMaterial({
@@ -224,6 +261,10 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		segmentCount,
 	);
 	scene.add(roofs);
+	const rejectionStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
+	rejectionStarts.setUsage(THREE.DynamicDrawUsage);
+	segments.geometry.setAttribute('aRejectAt', rejectionStarts);
+	roofs.geometry.setAttribute('aRejectAt', rejectionStarts);
 	const claimStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
 	claimStarts.setUsage(THREE.DynamicDrawUsage);
 	segments.geometry.setAttribute('aClaimAt', claimStarts);
@@ -231,18 +272,19 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	for (const material of [segments.material, roofs.material])
 		material.onBeforeCompile = shader => {
 			shader.uniforms.uTime = time;
-			shader.uniforms.uMotion = motion;
+			shader.uniforms.uInteractionMotion = interactionMotion;
 			shader.vertexShader =
-				'attribute float aClaimAt;uniform float uTime;uniform float uMotion;\n' + shader.vertexShader;
+				'attribute float aClaimAt;attribute float aRejectAt;uniform float uTime;uniform float uInteractionMotion;\n' +
+				shader.vertexShader;
 			shader.vertexShader = shader.vertexShader.replace(
 				'#include <begin_vertex>',
 				`#include <begin_vertex>
-   float age=uTime-aClaimAt;float settle=clamp(age/.65,0.0,1.0);float lift=pow(1.0-settle,3.0)*1.6+sin(settle*9.0)*pow(1.0-settle,2.0)*.12;transformed.z+=lift*step(0.0,age)*step(age,.65)*uMotion;`,
+   float age=uTime-aClaimAt;float settle=clamp(age/.65,0.0,1.0);float lift=pow(1.0-settle,3.0)*1.6+sin(settle*9.0)*pow(1.0-settle,2.0)*.12;transformed.z+=lift*step(0.0,age)*step(age,.65)*uInteractionMotion;float rejectAge=uTime-aRejectAt;transformed.x+=sin(rejectAge*48.)*pow(1.-clamp(rejectAge/.5,0.,1.),2.)*.16*step(0.,rejectAge)*uInteractionMotion;`,
 			);
 		};
 
-	segments.material.customProgramCacheKey = () => 'atlas-route-settle-v2';
-	roofs.material.customProgramCacheKey = () => 'atlas-roof-settle-v2';
+	segments.material.customProgramCacheKey = () => 'atlas-route-settle-v3';
+	roofs.material.customProgramCacheKey = () => 'atlas-roof-settle-v3';
 	const routeIndexes = new Map<RouteId, number[]>();
 	let nextIndex = 0;
 	for (const route of routes) {
@@ -251,17 +293,19 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		routeIndexes.set(route.id, indices);
 	}
 	let currentState: GameState | undefined, selected: RouteId | undefined, hovered: RouteId | undefined;
+	let eligibleRoutes: Set<string> | undefined;
+	let lastRejectionKey: number | undefined;
 	function updateRoutes() {
 		if (!currentState) return;
 		const players = new Map(currentState.players.map(player => [player.id, player]));
 		for (const route of routes) {
 			const owner = players.get(currentState.claimedRoutes[route.id]!);
 			const color = new THREE.Color(owner ? playerColors[owner.color] : routeColors[route.color]);
+			if (eligibleRoutes && !eligibleRoutes.has(route.id)) color.lerp(new THREE.Color('#a9a397'), 0.86);
 			const active = route.id === selected || route.id === hovered;
-			const g = routeGeometry(route);
-			const length = Math.min(34, (g.distance - 16) / route.length - 4);
+			const length = ROUTE_MARKER_LENGTH;
 			routeIndexes.get(route.id)!.forEach((index, i) => {
-				const t = (i + 0.5) / route.length,
+				const t = routeMarkerT(route, i),
 					p = routePoint(route, t),
 					before = routePoint(route, Math.max(0, t - 0.01)),
 					after = routePoint(route, Math.min(1, t + 0.01));
@@ -277,7 +321,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					angle,
 					'ZYX',
 				);
-				dummy.scale.set(Math.max(8, length), 10.2, owner ? 5.4 : 0.9);
+				dummy.scale.set(length, ROUTE_MARKER_WIDTH, owner ? 5.4 : 0.9);
 				dummy.updateMatrix();
 				segments.setMatrixAt(index, dummy.matrix);
 				segments.setColorAt(
@@ -288,7 +332,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 						.lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0),
 				);
 				dummy.position.z += owner ? 3.4 : 0.5;
-				dummy.scale.set(Math.max(6, length - (owner ? 3 : 1.6)), owner ? 7.4 : 8.6, owner ? 1.6 : 0.12);
+				dummy.scale.set(length - (owner ? 3 : 1.6), owner ? 6.4 : 7.2, owner ? 1.6 : 0.12);
 				dummy.updateMatrix();
 				roofs.setMatrixAt(index, dummy.matrix);
 				roofs.setColorAt(index, color);
@@ -334,7 +378,8 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		lastFrame = 0,
 		visible = true,
 		disposed = false,
-		ambientEnabled = true;
+		ambientEnabled = true,
+		interactionUntil = 0;
 	const frameTimes: number[] = [];
 	function render() {
 		if (!disposed) {
@@ -354,7 +399,8 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	}
 	function animate(now: number) {
 		frame = 0;
-		if (disposed || document.hidden || !visible || reduced.matches || !ambientEnabled) return;
+		if (disposed || document.hidden || !visible || reduced.matches || (!ambientEnabled && now > interactionUntil))
+			return;
 		if (now - lastFrame >= 1000 / 65) {
 			if (import.meta.env.DEV && lastFrame && frameTimes.length < 180) {
 				frameTimes.push(now - lastFrame);
@@ -376,11 +422,13 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	}
 	function syncAnimation() {
 		motion.value = reduced.matches || !ambientEnabled ? 0 : 1;
+		interactionMotion.value = reduced.matches ? 0 : 1;
 		if (frame) cancelAnimationFrame(frame);
 		frame = 0;
 		lastFrame = 0;
 		render();
-		if (!document.hidden && visible && !reduced.matches && ambientEnabled) frame = requestAnimationFrame(animate);
+		if (!document.hidden && visible && !reduced.matches && (ambientEnabled || performance.now() < interactionUntil))
+			frame = requestAnimationFrame(animate);
 	}
 	const resize = new ResizeObserver(() => {
 		const rect = canvas.getBoundingClientRect();
@@ -399,7 +447,21 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	syncAnimation();
 	return {
 		ready,
-		update(state: GameState, selectedId?: RouteId, hoveredId?: RouteId) {
+		update(
+			state: GameState,
+			selectedId?: RouteId,
+			hoveredId?: RouteId,
+			eligibleRouteIds?: string[],
+			rejectedRouteId?: string,
+			rejectionKey?: number,
+		) {
+			eligibleRoutes = eligibleRouteIds ? new Set(eligibleRouteIds) : undefined;
+			if (rejectedRouteId && rejectionKey !== lastRejectionKey) {
+				lastRejectionKey = rejectionKey;
+				routeIndexes.get(rejectedRouteId)?.forEach(index => rejectionStarts.setX(index, performance.now() * 0.001));
+				rejectionStarts.needsUpdate = true;
+				interactionUntil = performance.now() + 550;
+			}
 			if (currentState) {
 				for (const route of routes) {
 					if (state.claimedRoutes[route.id] && !currentState.claimedRoutes[route.id]) {
@@ -407,6 +469,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 							.get(route.id)!
 							.forEach((index, i) => claimStarts.setX(index, performance.now() * 0.001 + i * 0.055));
 						claimStarts.needsUpdate = true;
+						interactionUntil = performance.now() + 1100;
 					}
 				}
 			}
@@ -414,6 +477,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			selected = selectedId;
 			hovered = hoveredId;
 			updateRoutes();
+			if (!frame && performance.now() < interactionUntil) syncAnimation();
 		},
 		pointer(x: number, y: number) {
 			pointer.value.set(x, y);

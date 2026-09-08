@@ -48,7 +48,15 @@
 			next = result.state;
 		}
 		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
+		next.destinationDeck = next.destinationDeck.filter(id => !next.players.some(player => player.tickets.includes(id)));
 		for (const color of TRAIN_CARDS) next.players[0].hand[color] = color === 'locomotive' ? 2 : 4;
+		loadScenario(next);
+	}
+
+	function loadMarketReset() {
+		const next = createDebugClaimScenario();
+		next.faceUpTrainCards = ['locomotive', 'red', 'locomotive', 'blue', 'black'];
+		next.trainDeck.push('locomotive');
 		loadScenario(next);
 	}
 
@@ -120,6 +128,7 @@
 				<button type="button" onclick={loadFullTable}>Full table</button>
 				<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
 				<button type="button" onclick={loadStampScenario}>Ticket stamp</button>
+				<button type="button" onclick={loadMarketReset}>Market reset</button>
 				<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
 				<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
 				<button type="button" onclick={() => loadScenario(createDebugFinalScenario())}>Results</button>
