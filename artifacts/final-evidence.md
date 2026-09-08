@@ -1,5 +1,7 @@
 # Atlas correction evidence
 
+Historical evidence for the atlas artwork correction. The subsequent desktop/tablet-only UX pass supersedes its phone layout and viewport-based renderer quality settings; see ../design-qa.md.
+
 ## Requested skill source
 
 https://github.com/majidmanzarpour/threejs-game-skills at `e5f301d548bb18c530afbece78cd25082f4cda9c`.

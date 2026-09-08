@@ -187,18 +187,6 @@
 		transform: translateY(-2px);
 		box-shadow: 0 7px 16px #64523b20;
 	}
-	@media (max-width: 720px) {
-		section {
-			grid-template-columns: 1fr;
-		}
-		.heading {
-			border-right: 0;
-			border-bottom: 1px solid #ded7c8;
-		}
-		.heading img {
-			height: 150px;
-		}
-	}
 	@media (prefers-reduced-motion: reduce) {
 		button {
 			transition: none;

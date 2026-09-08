@@ -193,25 +193,4 @@
 		font: inherit;
 		cursor: pointer;
 	}
-
-	@media (max-width: 720px) {
-		.debug-toolbar {
-			left: 50%;
-			width: calc(100% - 0.9rem);
-		}
-
-		nav {
-			align-items: flex-start;
-			border-radius: 0.8rem;
-		}
-
-		.controls {
-			flex-wrap: wrap;
-		}
-
-		nav > a,
-		nav label {
-			display: none;
-		}
-	}
 </style>

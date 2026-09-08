@@ -922,8 +922,7 @@
 		text-align: left;
 	}
 	.live-room {
-		height: 100svh;
-		overflow: hidden;
+		min-height: 100svh;
 		background: #f7f3e9;
 	}
 	.game-room-menu {
@@ -1031,60 +1030,6 @@
 		}
 		.lobby-grid {
 			grid-template-columns: 1fr;
-		}
-	}
-	@media (max-width: 680px) {
-		.live-room,
-		.finished-game {
-			height: auto;
-			min-height: 100svh;
-			overflow: visible;
-		}
-		.game-room-menu {
-			top: 4.1rem;
-			right: 1rem;
-			left: auto;
-			transform: none;
-		}
-		.game-room-popover {
-			right: 0;
-			left: auto;
-			transform: none;
-		}
-	}
-	@media (max-width: 560px) {
-		nav {
-			margin-bottom: 2rem;
-			gap: 0.7rem;
-		}
-		nav .connection {
-			margin-left: auto;
-		}
-		.lobby-link {
-			font-size: 0.7rem;
-		}
-		.room-heading {
-			align-items: flex-start;
-			gap: 1rem;
-		}
-		.occupancy strong {
-			font-size: 1.5rem;
-		}
-		.room-player {
-			flex-wrap: wrap;
-		}
-		.ready-badge {
-			margin-left: auto;
-		}
-		.room-footer {
-			align-items: stretch;
-			flex-direction: column;
-		}
-		.room-footer button {
-			align-self: flex-start;
-		}
-		.connection small {
-			display: none;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

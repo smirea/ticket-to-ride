@@ -46,7 +46,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		alpha: false,
 		powerPreference: 'high-performance',
 	});
-	const pixelRatio = () => Math.min(window.devicePixelRatio, window.innerWidth < 900 ? 1.5 : 2);
+	const pixelRatio = () => Math.min(window.devicePixelRatio, 2);
 	renderer.setPixelRatio(pixelRatio());
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -69,8 +69,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	sun.position.set(-200, -600, 1200);
 	sun.target.position.set(500, 310, 0);
 	sun.castShadow = true;
-	const shadowSize = window.innerWidth < 900 ? 1024 : 2048;
-	sun.shadow.mapSize.set(shadowSize, shadowSize);
+	sun.shadow.mapSize.set(2048, 2048);
 	sun.shadow.camera.left = -650;
 	sun.shadow.camera.right = 650;
 	sun.shadow.camera.top = 500;

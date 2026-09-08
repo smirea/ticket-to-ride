@@ -386,7 +386,8 @@
 			</header>
 			{#if panel === 'tickets' && ticketSelection}
 				<p class="dialog-description">
-					Keep at least {ticketSelection.minimum} tickets.
+					Keep at least {ticketSelection.minimum}
+					{ticketSelection.minimum === 1 ? 'ticket' : 'tickets'}.
 				</p>
 				<div class="ticket-offers">
 					{#each offeredTickets as ticket}<button
@@ -508,7 +509,7 @@
 		isolation: isolate;
 		display: grid;
 		grid-template-columns: 198px minmax(0, 1fr);
-		grid-template-rows: 78px minmax(280px, 1fr) 180px;
+		grid-template-rows: 78px minmax(280px, 1fr) 200px;
 		gap: 0 16px;
 		width: 100%;
 		height: 100svh;
@@ -780,7 +781,7 @@
 	.hand-scroll {
 		overflow-x: auto;
 		overflow-y: hidden;
-		padding: 12px 9px 8px;
+		padding: 12px 9px 32px;
 		margin: 0 -9px;
 		scrollbar-width: thin;
 	}
@@ -1178,7 +1179,7 @@
 			height: 42px;
 		}
 		.game-shell {
-			grid-template-rows: 78px minmax(280px, 1fr) 220px;
+			grid-template-rows: 78px minmax(280px, 1fr) 240px;
 		}
 		h2 {
 			font-size: 18px;
@@ -1198,7 +1199,7 @@
 	@media (min-width: 1650px) {
 		.game-shell {
 			grid-template-columns: 220px minmax(0, 1fr);
-			grid-template-rows: 86px minmax(0, 1fr) 220px;
+			grid-template-rows: 86px minmax(0, 1fr) 240px;
 			gap: 0 22px;
 			padding-right: 28px;
 		}
@@ -1246,205 +1247,83 @@
 			gap: 10px;
 		}
 	}
-	@media (max-width: 1000px) {
+	@media (max-width: 1100px) {
 		.table-header {
 			display: grid;
 			grid-template-columns: 1fr auto;
-			grid-template-rows: 51px 50px;
+			grid-template-rows: 54px 54px;
 			gap: 0 12px;
 		}
 		.players {
 			grid-row: 2;
 			grid-column: 1 / -1;
-			justify-content: space-around;
+			justify-content: space-between;
 		}
 		.game-controls {
 			grid-column: 2;
 			grid-row: 1;
 		}
 		.game-shell {
-			grid-template-rows: 112px minmax(280px, 1fr) 155px;
-		}
-		.player-info > span {
-			font-size: 10px;
+			grid-template-rows: 112px minmax(320px, 1fr) 200px;
+			min-height: 700px;
 		}
 		.journey-sidebar {
 			padding-top: 17px;
 		}
-		.turn-info {
-			padding-bottom: 15px;
-			margin-bottom: 15px;
-		}
 		.turn-info p {
 			font-size: 13px;
 		}
-		.hand-card {
-			width: 65px;
-			height: 95px;
-			margin-left: -25px;
-		}
-		.blind-deck {
-			width: 45px;
+		.history-popover {
+			top: 108px;
 		}
 	}
-	@media (max-width: 900px) {
-		.game-shell:has(:global(.board-frame.fit)) {
-			grid-template-rows: auto auto auto auto;
-		}
+	@media (max-width: 1100px) and (orientation: portrait) {
 		.game-shell {
-			height: auto;
-			min-height: 100svh;
-			grid-template-columns: minmax(0, 1fr);
-			grid-template-rows: auto auto 410px auto;
-			padding: 0 12px 20px;
-			gap: 12px;
+			grid-template-columns: 180px minmax(0, 1fr);
+			grid-template-rows: 112px auto minmax(380px, 1fr);
+			min-height: 1024px;
+			padding: 0 20px 16px;
+			gap: 8px 24px;
 		}
 		.table-header {
-			grid-column: 1;
-			grid-row: 1;
 			padding: 0;
-			grid-template-rows: 50px 56px;
 		}
-		.players {
-			overflow-x: auto;
-			justify-content: flex-start;
-			gap: 14px;
-			padding-bottom: 3px;
-		}
-		.player {
-			flex-shrink: 0;
-		}
-		.player img {
-			width: 28px;
-			height: 28px;
-		}
-		.player-info > strong {
-			max-width: 85px;
-			font-size: 11px;
-		}
-		.player-info > span {
-			font-size: 9px;
-		}
-		.game-controls button {
-			width: 31px;
-			height: 31px;
+		.board-stage {
+			grid-column: 1 / -1;
+			grid-row: 2;
+			aspect-ratio: 1000 / 620;
 		}
 		.journey-sidebar {
 			grid-column: 1;
-			grid-row: 2;
-			padding: 0;
-			display: grid;
-			grid-template-columns: 1fr auto;
-			gap: 7px 10px;
+			grid-row: 3;
+			padding: 16px 0 0;
 		}
 		.turn-info {
-			grid-column: 1;
-			margin: 0;
-			border: 0;
-			padding: 0;
-		}
-		h1 {
-			font-size: 24px;
-			margin-bottom: 4px;
-		}
-		.turn-info p {
-			font-size: 11px;
-		}
-		.ticket-heading {
-			grid-column: 1;
-			grid-row: 2;
-			margin: 3px 0 0;
-			display: flex;
-			align-items: baseline;
-			gap: 10px;
-		}
-		.ticket-heading h2 {
-			font-size: 12px;
-		}
-		.ticket-filter {
-			font-size: 9px;
-		}
-		.ticket-collection {
-			grid-column: 1 / -1;
-			grid-row: 3;
-			flex-direction: row;
-			max-height: 108px;
-			padding: 4px 3px 7px;
-			margin: 0;
-			gap: 10px;
-		}
-		.ticket-button {
-			width: 159px;
-			height: 94px;
-			min-height: 90px;
-		}
-		.ticket-button :global(.destination-card) {
-			min-height: 90px;
-		}
-		.draw-tickets {
-			grid-column: 2;
-			grid-row: 1 / 3;
-			padding: 9px;
-			gap: 5px;
-			margin: 0;
-			align-self: center;
-		}
-		.draw-tickets > span {
-			font-size: 11px;
-		}
-		.board-stage {
-			grid-column: 1;
-			grid-row: 3;
-			border-radius: 9px;
+			padding-bottom: 12px;
+			margin-bottom: 12px;
 		}
 		.play-tray {
-			grid-column: 1;
-			grid-row: 4;
-			grid-template-columns: 1fr;
-			gap: 9px;
-			padding-top: 0;
-		}
-		.hand-panel {
-			min-height: 142px;
+			grid-column: 2;
+			grid-row: 3;
+			grid-template-columns: minmax(0, 1fr);
+			grid-template-rows: 210px 1fr;
+			gap: 12px;
 		}
 		.hand-card {
-			width: 75px;
-			height: 111px;
-			margin-left: -23px;
-		}
-		.hand-scroll {
-			padding-top: 6px;
-			padding-bottom: 12px;
-		}
-		.section-title {
-			padding-top: 3px;
+			width: 88px;
+			height: 126px;
+			margin-left: -22px;
 		}
 		.market {
-			padding: 11px 0 0;
+			padding: 12px 0 0;
 			border-left: 0;
 			border-top: 1px solid var(--rule);
 		}
-		.market-row {
-			gap: 16px;
-			padding-top: 13px;
-		}
 		.market-card {
-			max-width: 65px;
+			max-width: 72px;
 		}
 		.blind-deck {
-			width: 56px;
-		}
-		.decision-dialog {
-			margin: auto;
-			padding: 21px;
-		}
-		.dialog-heading h2 {
-			font-size: 25px;
-		}
-		.history-popover {
-			top: 104px;
-			right: 12px;
-			max-height: 65svh;
+			width: 62px;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
