@@ -13,8 +13,8 @@
 		type RouteId,
 		type TicketId,
 		type TrainCard as CardColor,
-		type TrainColor,
 	} from '@repo/shared';
+	import TrophyIcon from 'phosphor-svelte/lib/TrophyIcon';
 	import GearSixIcon from 'phosphor-svelte/lib/GearSixIcon';
 	import ClockCounterClockwiseIcon from 'phosphor-svelte/lib/ClockCounterClockwiseIcon';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
@@ -26,6 +26,8 @@
 	import Brand from './Brand.svelte';
 	import GameBoard from './GameBoard.svelte';
 	import TrainCard from './TrainCard.svelte';
+	import RoutePayment from './RoutePayment.svelte';
+	import { routePayments, type RoutePayment as Payment } from './route-payments';
 	import CardFlight from './CardFlight.svelte';
 	import DestinationCard from './DestinationCard.svelte';
 	import TableStatus from './TableStatus.svelte';
@@ -37,7 +39,7 @@
 	type Props = {
 		state: GameState;
 		viewerId: string;
-		send: (action: GameAction) => void;
+		send: (action: GameAction) => void | boolean | Promise<void | boolean>;
 		onrestart?: () => void;
 		ongamespeedchange?: (speed: number) => void;
 		debug?: boolean;
@@ -59,6 +61,7 @@
 	const playerColors = { red: '#bc4a41', blue: '#367dac', green: '#49765a', yellow: '#b9952b', black: '#404851' };
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId>();
+	let paymentRoute = $state<Route>();
 	let previewTicketId = $state<TicketId>();
 	let activeOfferKey = $state('');
 	let settingsOpen = $state(false);
@@ -103,6 +106,10 @@
 	const pause = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, reduceMotion ? 0 : ms));
 
 	const viewer = $derived(gameState.players.find(player => player.id === viewerId));
+	const paymentsByRoute = $derived(
+		new Map(USA_ROUTES.map(route => [route.id, routePayments(gameState, viewerId, route)])),
+	);
+	const paymentOptions = $derived(paymentRoute ? (paymentsByRoute.get(paymentRoute.id) ?? []) : []);
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const isViewerTurn = $derived(gameState.phase.type === 'turn' && currentPlayer?.id === viewerId);
 	const turnReady = $derived(
@@ -191,6 +198,7 @@
 		}
 	});
 	$effect(() => {
+		if (!turnReady) paymentRoute = undefined;
 		if (selectedRouteId && (!turnReady || gameState.claimedRoutes[selectedRouteId])) selectedRouteId = undefined;
 	});
 	$effect(() => {
@@ -277,13 +285,10 @@
 		heldHand = before;
 		if (index !== undefined) departingMarketId = marketCards[index]?.id;
 		try {
-			send(index === undefined ? { type: 'draw-train-deck' } : { type: 'draw-face-up', index });
+			if ((await send(index === undefined ? { type: 'draw-train-deck' } : { type: 'draw-face-up', index })) === false)
+				return;
 			await tick();
-			let color = TRAIN_CARDS.find(card => (viewer?.hand[card] ?? 0) > before[card]);
-			for (let attempt = 0; !color && attempt < 40; attempt++) {
-				await new Promise(resolve => setTimeout(resolve, 100));
-				color = TRAIN_CARDS.find(card => (viewer?.hand[card] ?? 0) > before[card]);
-			}
+			const color = TRAIN_CARDS.find(card => (viewer?.hand[card] ?? 0) > before[card]);
 			if (!color) return;
 			const nextMarket = [...gameState.faceUpTrainCards];
 			const handBounds = cardRect(handScroll ?? null);
@@ -307,19 +312,18 @@
 		}
 	}
 
-	function paymentFor(route: Route, card?: CardColor): TrainColor | undefined {
-		const colors = TRAIN_CARDS.filter((color): color is TrainColor => color !== 'locomotive');
-		const choices = colors.filter(color => route.color === 'gray' || route.color === color);
-		if (card && card !== 'locomotive') return choices.includes(card) ? card : undefined;
-		return choices.sort((a, b) => (viewer?.hand[b] ?? 0) - (viewer?.hand[a] ?? 0))[0];
-	}
 	function claimInfo(route: Route, card?: CardColor) {
-		const color = paymentFor(route, card);
-		const wilds = color ? Math.max(0, route.length - (viewer?.hand[color] ?? 0)) : 0;
-		const ok = Boolean(
-			color && canClaimRoute(gameState, viewerId, route.id, color).ok && (card !== 'locomotive' || wilds > 0),
+		const options = paymentsByRoute.get(route.id) ?? [];
+		const choice = options.find(
+			option => !card || (card === 'locomotive' ? option.wilds > 0 : option.color === card && option.cars > 0),
 		);
-		return { color, wilds, ok, points: ROUTE_SCORES[route.length] ?? route.length };
+		const color = choice?.color ?? (route.color === 'gray' ? undefined : route.color);
+		return {
+			color,
+			wilds: choice?.wilds ?? 0,
+			ok: Boolean(choice),
+			points: ROUTE_SCORES[route.length] ?? route.length,
+		};
 	}
 	const eligibleRouteIds = $derived(
 		activeCard ? USA_ROUTES.filter(route => claimInfo(route, activeCard).ok).map(route => route.id) : undefined,
@@ -329,10 +333,7 @@
 			? Object.fromEntries(
 					USA_ROUTES.filter(route => claimInfo(route, activeCard).ok).map(route => {
 						const info = claimInfo(route, activeCard);
-						return [
-							route.id,
-							`${info.wilds ? `+${info.wilds} locomotive${info.wilds > 1 ? 's' : ''} · ` : ''}${info.points} points`,
-						];
+						return [route.id, { points: info.points, wilds: info.wilds }];
 					}),
 				)
 			: {},
@@ -373,21 +374,30 @@
 		if (!isViewerTurn) return `${currentPlayer?.name ?? 'A player'} is playing`;
 		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
 	}
-	async function selectRoute(route: Route) {
+	function selectRoute(route: Route) {
 		if (!turnReady) return;
-		const info = claimInfo(route, pinnedCard);
 		previewTicketId = undefined;
-		if (!info.ok || !info.color) {
+		const options = paymentsByRoute.get(route.id) ?? [];
+		if (!options.length) {
 			rejectedRouteId = route.id;
 			rejectionKey++;
 			return;
 		}
+		if (options.length > 1) {
+			paymentRoute = paymentRoute?.id === route.id ? undefined : route;
+			selectedRouteId = paymentRoute?.id;
+			return;
+		}
+		void claimRoute(route, options[0]!);
+	}
+	async function claimRoute(route: Route, payment: Payment) {
+		if (!turnReady || !canClaimRoute(gameState, viewerId, route.id, payment.color, payment.wilds).ok) return;
 		busy = true;
+		paymentRoute = undefined;
 		selectedRouteId = route.id;
-		const coloredCount = route.length - info.wilds;
 		const colors: CardColor[] = [
-			...Array<CardColor>(coloredCount).fill(info.color),
-			...Array<CardColor>(info.wilds).fill('locomotive'),
+			...Array<CardColor>(payment.cars).fill(payment.color),
+			...Array<CardColor>(payment.wilds).fill('locomotive'),
 		];
 		const anchors = [...document.querySelectorAll(`[data-route-marker="${route.id}"]`)];
 		const routeBounds = cardRect(document.getElementById(`route-${route.id}`));
@@ -403,10 +413,16 @@
 					finishClaimFlight = resolve;
 				});
 			}
-			send({ type: 'claim-route', routeId: route.id, paymentColor: info.color });
+			if (
+				(await send({
+					type: 'claim-route',
+					routeId: route.id,
+					paymentColor: payment.color,
+					locomotives: payment.wilds,
+				})) === false
+			)
+				return;
 			await tick();
-			for (let attempt = 0; !gameState.claimedRoutes[route.id] && attempt < 40; attempt++)
-				await new Promise(resolve => setTimeout(resolve, 100));
 			pinnedCard = undefined;
 			hoveredCard = undefined;
 			hoveredRoute = undefined;
@@ -484,10 +500,17 @@
 			}
 			await tick();
 			await pause(100);
-			send({ type: 'keep-tickets', ticketIds: ids });
+			if ((await send({ type: 'keep-tickets', ticketIds: ids })) === false) {
+				for (const id of ids) {
+					const element = document.querySelector<HTMLElement>(`[data-offer-ticket="${id}"]`);
+					if (element) {
+						element.style.visibility = '';
+						element.getAnimations().forEach(animation => animation.cancel());
+					}
+				}
+				return;
+			}
 			await tick();
-			for (let attempt = 0; !ids.every(id => viewer?.tickets.includes(id)) && attempt < 40; attempt++)
-				await new Promise(resolve => setTimeout(resolve, 100));
 			closingTickets = true;
 			await pause(320);
 		} finally {
@@ -516,6 +539,15 @@
 			{/each}
 		</div>
 		<nav class="game-controls" aria-label="Game controls">
+			{#if gameState.phase.type === 'game-over'}
+				<button
+					onclick={() => {
+						settingsOpen = false;
+						resultsDismissed = false;
+					}}
+					aria-label="Show final standings"><TrophyIcon size={21} /></button
+				>
+			{/if}
 			<button
 				class:active={historyOpen}
 				onclick={() => (historyOpen = !historyOpen)}
@@ -528,14 +560,14 @@
 
 	<aside class="journey-sidebar" aria-label="Destination tickets">
 		<TableStatus
-			player={activePlayer}
+			player={gameState.phase.type === 'game-over' ? undefined : activePlayer}
 			{viewerId}
-			active={isViewerTurn || Boolean(ticketSelection)}
+			active={gameState.phase.type !== 'game-over' && (isViewerTurn || Boolean(ticketSelection))}
 			message={describeTurn()}
 			detail={ticketSelection
 				? `Keep at least ${ticketSelection.minimum}`
-				: gameState.finalRound
-					? `${gameState.finalRound.turnsRemaining} turns remaining`
+				: gameState.finalRound && gameState.phase.type !== 'game-over'
+					? `${gameState.finalRound.turnsRemaining} ${gameState.finalRound.turnsRemaining === 1 ? 'turn' : 'turns'} remaining`
 					: undefined}
 		/>
 		{#if completedIds.size > 0}<button
@@ -621,6 +653,7 @@
 	<section class="board-stage" aria-label="Game board">
 		<GameBoard
 			state={gameState}
+			{viewerId}
 			{selectedRouteId}
 			{highlightedTicket}
 			ambientMotion={ambientMotion && !reduceMotion}
@@ -633,6 +666,22 @@
 			{rejectionKey}
 		/>
 	</section>
+
+	{#if paymentRoute}
+		<RoutePayment
+			routeId={paymentRoute.id}
+			options={paymentOptions}
+			points={ROUTE_SCORES[paymentRoute.length] ?? 0}
+			{reduceMotion}
+			onchoose={payment => {
+				if (paymentRoute) void claimRoute(paymentRoute, payment);
+			}}
+			onclose={() => {
+				paymentRoute = undefined;
+				selectedRouteId = undefined;
+			}}
+		/>
+	{/if}
 
 	<footer class="play-tray">
 		<section class="hand-panel" aria-label="Your train cards">
@@ -945,7 +994,11 @@
 		scrollbar-width: thin;
 		scrollbar-color: #a5997b55 transparent;
 	}
+	.journey-sidebar > .ticket-collection {
+		pointer-events: none;
+	}
 	.ticket-button {
+		pointer-events: auto;
 		position: relative;
 		flex-shrink: 0;
 		width: 100%;
@@ -964,9 +1017,15 @@
 	.ticket-button + .ticket-button {
 		margin-top: calc(var(--ticket-step) - 82px);
 	}
+	.ticket-button :global(.destination-card) {
+		pointer-events: none;
+		transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+	.ticket-button.previewed :global(.destination-card) {
+		transform: translate(5px, -5px);
+	}
 	.ticket-button.previewed {
 		z-index: 50;
-		transform: translate(7px, -5px) rotate(-0.4deg);
 		filter: drop-shadow(0 7px 5px #3d302733);
 	}
 
@@ -1066,9 +1125,17 @@
 	.hand-card:first-child {
 		margin-left: 0;
 	}
+	.hand-card :global(.card-face) {
+		pointer-events: none;
+		transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+	.hand-card:hover :global(.card-face),
+	.hand-card:focus-visible :global(.card-face),
+	.hand-card.raised :global(.card-face) {
+		transform: translateY(-18px) rotate(calc(-1 * var(--fan-angle))) scale(1.04);
+	}
 	.hand-card:hover,
 	.hand-card:focus-visible {
-		transform: translateY(-15px) rotate(0) scale(1.04);
 		filter: drop-shadow(6px 20px 11px #352b2260);
 		z-index: 20 !important;
 	}
@@ -1386,7 +1453,6 @@
 		border-radius: 7px;
 	}
 	.hand-card.raised {
-		transform: translateY(-22px) rotate(0);
 		z-index: 20 !important;
 		filter: drop-shadow(4px 18px 9px #352b2270);
 	}
@@ -1518,11 +1584,11 @@
 			gap: 12px;
 		}
 		.game-shell {
-			grid-template-columns: 190px minmax(0, 1fr);
+			grid-template-columns: 224px minmax(0, 1fr);
 			padding-right: 16px;
 		}
 		.journey-sidebar {
-			width: calc(100% + 68px);
+			width: 254px;
 		}
 		.hand-card {
 			width: 79px;

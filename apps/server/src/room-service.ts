@@ -308,6 +308,9 @@ function validateGameAction(action: GameAction): void {
 		if (typeof action.routeId !== 'string' || !TRAIN_COLORS.includes(action.paymentColor)) {
 			throw new RoomError('route claim is invalid.', 400);
 		}
+		if (action.locomotives !== undefined && (!Number.isInteger(action.locomotives) || action.locomotives < 0)) {
+			throw new RoomError('locomotive count is invalid.', 400);
+		}
 		return;
 	}
 	throw new RoomError('action type is invalid.', 400);

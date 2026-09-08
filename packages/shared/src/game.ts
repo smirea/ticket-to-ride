@@ -102,7 +102,7 @@ export type GameAction =
 	| { type: 'draw-destination-tickets' }
 	| { type: 'draw-face-up'; index: number }
 	| { type: 'draw-train-deck' }
-	| { type: 'claim-route'; routeId: RouteId; paymentColor: TrainColor };
+	| { type: 'claim-route'; routeId: RouteId; paymentColor: TrainColor; locomotives?: number };
 
 export type ActionResult = { ok: true; state: GameState } | { ok: false; state: GameState; error: string };
 
@@ -599,6 +599,7 @@ export function canClaimRoute(
 	playerId: PlayerId,
 	routeId: RouteId,
 	paymentColor: TrainColor,
+	locomotives?: number,
 ): { ok: true } | { ok: false; error: string } {
 	const player = state.players.find(item => item.id === playerId);
 	if (!player) return { ok: false, error: 'Unknown player.' };
@@ -612,7 +613,11 @@ export function canClaimRoute(
 	if (routeToClaim.color !== 'gray' && routeToClaim.color !== paymentColor) {
 		return { ok: false, error: `This route requires ${routeToClaim.color} cards.` };
 	}
-	if (player.hand[paymentColor] + player.hand.locomotive < routeToClaim.length) {
+	const wilds = locomotives ?? Math.max(0, routeToClaim.length - player.hand[paymentColor]);
+	if (!Number.isInteger(wilds) || wilds < 0 || wilds > routeToClaim.length) {
+		return { ok: false, error: 'Invalid locomotive count.' };
+	}
+	if (player.hand[paymentColor] < routeToClaim.length - wilds || player.hand.locomotive < wilds) {
 		return { ok: false, error: 'Not enough matching cards.' };
 	}
 	return { ok: true };
@@ -641,7 +646,9 @@ function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep
 	nextPlayer.tickets.push(...uniqueTicketIds);
 	const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
 	next.destinationDeck.unshift(...returned);
-	next.log.push(`${nextPlayer.name} kept ${uniqueTicketIds.length} destination tickets.`);
+	next.log.push(
+		`${nextPlayer.name} kept ${uniqueTicketIds.length} destination ${uniqueTicketIds.length === 1 ? 'ticket' : 'tickets'}.`,
+	);
 	return succeed(next, action);
 }
 
@@ -679,13 +686,13 @@ function drawTrainDeck(state: GameState, action: Extract<GameAction, { type: 'dr
 
 function claimRoute(state: GameState, action: Extract<GameAction, { type: 'claim-route' }>): ActionResult {
 	const player = currentPlayer(state);
-	const validation = canClaimRoute(state, player.id, action.routeId, action.paymentColor);
+	const validation = canClaimRoute(state, player.id, action.routeId, action.paymentColor, action.locomotives);
 	if (!validation.ok) return fail(state, validation.error);
 	const routeToClaim = getRoute(action.routeId)!;
 	const next = cloneState(state);
 	const nextPlayer = currentPlayer(next);
-	const coloredCards = Math.min(nextPlayer.hand[action.paymentColor], routeToClaim.length);
-	const locomotives = routeToClaim.length - coloredCards;
+	const locomotives = action.locomotives ?? Math.max(0, routeToClaim.length - nextPlayer.hand[action.paymentColor]);
+	const coloredCards = routeToClaim.length - locomotives;
 	for (let count = 0; count < coloredCards; count += 1) next.trainDiscard.push(action.paymentColor);
 	for (let count = 0; count < locomotives; count += 1) next.trainDiscard.push('locomotive');
 	nextPlayer.hand[action.paymentColor] -= coloredCards;

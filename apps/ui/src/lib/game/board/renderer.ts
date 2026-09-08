@@ -1,3 +1,4 @@
+import { atlasPoint } from './atlas-warp';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -7,11 +8,10 @@ import {
 	cityPoint,
 	isLand,
 	playerColors,
-	routeColors,
 	routeGeometry,
 	routePoint,
 	routeMarkerT,
-	ROUTE_MARKER_LENGTH,
+	routeMarkerLength,
 	ROUTE_MARKER_WIDTH,
 	routes,
 	terrainHeight,
@@ -35,8 +35,11 @@ function terrainGeometry() {
 	geometry.rotateX(Math.PI);
 	geometry.translate(500, 310, 0);
 	const positions = geometry.attributes.position!;
+	const uvs = geometry.attributes.uv!;
 	for (let i = 0; i < positions.count; i++) {
 		positions.setZ(i, terrainHeight(positions.getX(i), positions.getY(i)));
+		const source = atlasPoint({ x: positions.getX(i), y: positions.getY(i) });
+		uvs.setXY(i, source.x / 1000, 1 - source.y / 620);
 	}
 	geometry.computeVertexNormals();
 	return geometry;
@@ -209,39 +212,6 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	});
 	trees.castShadow = true;
 	scene.add(trees);
-	const ribbonVertices: number[] = [];
-	for (const route of routes) {
-		const edges = Array.from({ length: 49 }, (_, i) => {
-			const t = i / 48,
-				p = routePoint(route, t);
-			const a = routePoint(route, Math.max(0, t - 0.002)),
-				b = routePoint(route, Math.min(1, t + 0.002));
-			const angle = Math.atan2(b.y - a.y, b.x - a.x);
-			return [-1, 1].map(side => {
-				const x = p.x - Math.sin(angle) * 6.4 * side,
-					y = p.y + Math.cos(angle) * 6.4 * side;
-				return [x, y, terrainHeight(x, y) + 0.28];
-			});
-		});
-		for (let i = 1; i < edges.length; i++) {
-			const a = edges[i - 1]!,
-				b = edges[i]!;
-			ribbonVertices.push(...a[0]!, ...a[1]!, ...b[0]!, ...b[0]!, ...a[1]!, ...b[1]!);
-		}
-	}
-	const ribbonGeometry = new THREE.BufferGeometry();
-	ribbonGeometry.setAttribute('position', new THREE.Float32BufferAttribute(ribbonVertices, 3));
-	const ribbons = new THREE.Mesh(
-		ribbonGeometry,
-		new THREE.MeshBasicMaterial({
-			color: '#15191a',
-			transparent: true,
-			opacity: 0.32,
-			side: THREE.DoubleSide,
-			depthWrite: false,
-		}),
-	);
-	scene.add(ribbons);
 	const segmentCount = routes.reduce((count, route) => count + route.length, 0);
 	const segmentGeometry = new RoundedBoxGeometry(1, 1, 1, 2, 0.16);
 	const segmentMaterial = new THREE.MeshPhysicalMaterial({
@@ -300,10 +270,10 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		const players = new Map(currentState.players.map(player => [player.id, player]));
 		for (const route of routes) {
 			const owner = players.get(currentState.claimedRoutes[route.id]!);
-			const color = new THREE.Color(owner ? playerColors[owner.color] : routeColors[route.color]);
+			const color = new THREE.Color(owner ? playerColors[owner.color] : '#888888');
 			if (eligibleRoutes && !eligibleRoutes.has(route.id)) color.lerp(new THREE.Color('#a9a397'), 0.86);
 			const active = route.id === selected || route.id === hovered;
-			const length = ROUTE_MARKER_LENGTH;
+			const length = routeMarkerLength(route);
 			routeIndexes.get(route.id)!.forEach((index, i) => {
 				const t = routeMarkerT(route, i),
 					p = routePoint(route, t),
@@ -321,7 +291,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					angle,
 					'ZYX',
 				);
-				dummy.scale.set(length, ROUTE_MARKER_WIDTH, owner ? 5.4 : 0.9);
+				dummy.scale.set(owner ? length : 0, ROUTE_MARKER_WIDTH, owner ? 5.4 : 0);
 				dummy.updateMatrix();
 				segments.setMatrixAt(index, dummy.matrix);
 				segments.setColorAt(
@@ -332,7 +302,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 						.lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0),
 				);
 				dummy.position.z += owner ? 3.4 : 0.5;
-				dummy.scale.set(length - (owner ? 3 : 1.6), owner ? 6.4 : 7.2, owner ? 1.6 : 0.12);
+				dummy.scale.set(owner ? length - 3 : 0, 6.4, owner ? 1.6 : 0);
 				dummy.updateMatrix();
 				roofs.setMatrixAt(index, dummy.matrix);
 				roofs.setColorAt(index, color);

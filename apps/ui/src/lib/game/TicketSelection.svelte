@@ -95,11 +95,17 @@
 	}
 	.offer :global(.destination-card) {
 		min-height: 0;
+		pointer-events: none;
+		transition: transform 220ms ease;
 	}
 	.offer:hover:not(:disabled),
+	.offer:hover:not(:disabled) :global(.destination-card),
+	.offer:focus-visible :global(.destination-card) {
+		transform: translateY(-3px);
+	}
 	.offer:focus-visible {
 		z-index: 2;
-		transform: translate(3px, -3px) rotate(0deg);
+
 		filter: brightness(1.035);
 	}
 	.offer:focus-visible {
