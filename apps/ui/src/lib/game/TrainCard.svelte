@@ -103,17 +103,13 @@
 		width: 22%;
 		height: auto;
 		fill: none;
-		stroke: currentColor;
-		stroke-width: 2.8;
+		stroke: #fffbee;
+		stroke-width: 2.4;
 		stroke-linecap: round;
 		stroke-linejoin: round;
-		opacity: 0.78;
-		filter: drop-shadow(0 1px 1px #202321b3);
+		opacity: 0.68;
+		filter: drop-shadow(0 0 0.65px #171b19) drop-shadow(0 1px 0.5px #171b1966);
 		pointer-events: none;
-	}
-	.light .color-symbol {
-		color: #403b2d;
-		filter: drop-shadow(0 1px 1px #fff7);
 	}
 	.card-count {
 		position: absolute;

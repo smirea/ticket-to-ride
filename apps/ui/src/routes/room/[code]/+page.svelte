@@ -201,12 +201,11 @@
 	}
 
 	function send(action: GameAction) {
-		if (!identity || pending) return;
-		void submitAction(action);
+		return submitAction(action);
 	}
 
 	async function submitAction(action: GameAction) {
-		if (!identity || pending) return;
+		if (!identity || pending) return false;
 		pending = 'action';
 		error = '';
 		notice = 'Submitting move…';
@@ -214,10 +213,12 @@
 		try {
 			const response = await submitRoomAction(roomCode, action, actionId);
 			applySnapshot(response.room);
-			notice = 'Move accepted by the server.';
+			notice = '';
+			return true;
 		} catch (cause) {
 			error = messageFrom(cause);
 			notice = '';
+			return false;
 		} finally {
 			pending = null;
 		}
@@ -244,7 +245,7 @@
 	<title>Room {roomCode} — Ticket to Travel</title>
 </svelte:head>
 
-{#if room?.phase === 'playing' && game && identity}
+{#if (room?.phase === 'playing' || room?.finishedReason === 'game-over') && game && identity}
 	<div class="live-room">
 		<details class="game-room-menu">
 			<summary aria-label={`Room ${room.code} controls — ${connectionLabel()}`}>
@@ -272,9 +273,15 @@
 					{#if connection !== 'live'}
 						<button type="button" class="small-button" onclick={reconnect}>Reconnect</button>
 					{/if}
-					<button type="button" class="danger-link" disabled={Boolean(pending)} onclick={abandonGame}>
-						Abandon game
-					</button>
+					{#if room.phase === 'playing'}
+						<button type="button" class="danger-link" disabled={Boolean(pending)} onclick={abandonGame}
+							>Abandon game</button
+						>
+					{:else}
+						<button type="button" class="small-button" disabled={Boolean(pending)} onclick={leaveRoom}
+							>Leave room</button
+						>
+					{/if}
 				</div>
 			</div>
 		</details>
@@ -471,9 +478,6 @@
 						? 'A player abandoned the active game. The room is closed and no further moves can be submitted.'
 						: 'Final standings are shown on the game board.'}
 				</span>
-				{#if room.finishedReason === 'game-over' && room.game && identity}
-					<div class="finished-game"><GameScreen state={room.game} viewerId={identity.clientId} {send} /></div>
-				{/if}
 				<div class="finished-actions">
 					<button type="button" disabled={Boolean(pending)} onclick={leaveRoom}>Leave finished room</button>
 					<a href={lobbyHref}>Back to lobby</a>
@@ -914,12 +918,6 @@
 		flex-wrap: wrap;
 		gap: 1rem;
 		margin-top: 1.5rem;
-	}
-	.finished-game {
-		width: 100vw;
-		height: 100svh;
-		margin: 2rem calc(50% - 50vw) 0;
-		text-align: left;
 	}
 	.live-room {
 		min-height: 100svh;

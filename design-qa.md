@@ -1,59 +1,46 @@
-# Tabletop interaction QA
+# Traced route network and live game QA
 
-Date: 2026-09-08
+Date: 2026-09-08. Final result: **passed**.
 
-## Implemented direction
+## Reference and implementation
 
-The status uses the supplied ticket silhouette, plain cream paper, and a separate avatar/turn stub. It sits above the destination collection. Ticket selection slides onto the left of the atlas, below existing tickets during the game. Kept tickets move to their measured collection positions before the selector leaves; its position is frozen during transfer to prevent a layout jump. Selection outlines follow the paper cutouts, and previews clear on pointer leave or blur.
+The supplied `codex-clipboard-07b02d41-5aac-4935-a191-97e33654f286.png` is the source for all 36 city centers and 100 route lanes. The scoring frame is cropped to x40–985, y45–640 and normalized to the existing board. Measured source coordinates and fitted cubic arcs live in `apps/ui/src/lib/game/board/route-trace.ts`; detailed trace measurements and limitations are in `artifacts/route-network/trace-notes.md`. This is a manual trace, not pixel-identical automatic vectorization. The existing orange Salt Lake City–Denver rule color is retained rather than the reference's yellow.
 
-Carriages have stronger color tints and eight distinct SVG symbols. The locomotive has a newly generated eight-color sky. The five market slots share a fitted, thin-edged storage tray. Stable card identities replace slot/color keys. Drawing moves one card into the hand, shifts the surviving market cards, then brings in the replacement. A three-locomotive reset clears the old market before refilling sequentially. Outgoing drawn cards stay hidden through their entire outro.
+Equal-distance placement follows each measured curve. Neighboring segments almost touch (0.90–1.08 board-unit gaps), with clear approaches to city hubs. Flat SVG placeholders replace the unclaimed plastic meshes. One translucent SVG group joins route backings and city halos without compounding opacity at junctions. Claimed trains remain instanced Three.js pieces. A static triangulated UV warp aligns the existing painted terrain to the traced city locations; no new texture or per-frame triangulation is required.
 
-Route clicks claim directly through the existing shared XState rules. Hovering routes raises the matching hand cards and shows an arced payment/points notice. Insufficient claims jiggle the route and show a fading red message. Successful claims lift the payment cards, transform them into player-colored train pieces, then place them on the route. Hovering or pinning a hand color filters routes and displays points/wild requirements. Settings/results retain their dialogs; route-payment dialogs are removed.
+Car symbols now share ivory-white strokes and a faint dark edge. A compact route-anchored payment menu shows counts and card images for every affordable combination, ordered by locomotive count, with all-wild payment deduplicated. The shared XState transition validates and deducts the exact selected payment. Single-option routes claim directly; unavailable routes reject without opening a menu.
 
-All 309 markers share one physical size. Arc-length placement, tailored city approaches, and small visual offsets for Omaha/Kansas City keep marker footprints and route hit paths separated. Continuous translucent dark backing improves contrast. The actual game graph, lengths, and scoring are unchanged.
+## Corrections found through browser testing
 
-## Browser evidence
+- Invisible ticket collection space intercepted west-coast route clicks. Only the actual tickets now receive pointer events.
+- At 1024×768, real stacked tickets covered nine route markers. Adjusting the sidebar/map columns cleared those targets.
+- Portrait map controls covered two Los Angeles–El Paso markers. Smaller controls at the lower edge cleared them.
+- Moving whole hand buttons during hover changed which card was under the pointer. The artwork now lifts inside stable hit targets; ticket offers use the same approach.
+- Locomotive filtering omitted legal optional-wild payments. Payment enumeration now includes all legal mixes and preserves the exact choice through the server.
+- A closed parallel lane appeared open and produced misleading payment feedback. It is now visibly unavailable and cannot be selected.
+- Move animations polled for state changes. They now await authoritative action success and unwind cleanly when an action fails.
+- Finished multiplayer rooms added a large duplicate header and displaced the board. The board now remains in its existing layout, the turn/countdown clears, and a trophy control reopens standings. An agent reloaded the completed room and verified these fixes.
 
-CUA checks covered production and debug fixtures at 1586×992, 1280×720, 1024×768, and 768×1024. Screenshots are in `artifacts/current-table/`:
+## Full live two-player game
 
-- `production-selection.png`: fresh five-player game with the entire map and three opening tickets.
-- `production-desktop.png`: actual five-player game after opening selection and card draws.
-- `tablet-full-table.png`: five players, twelve stacked tickets, and all nine hand types at 1024×768.
-- `portrait-ticket-selection.png`: two held tickets plus all three new offers at 768×1024.
+Two low-thinking agents played separate browser identities in real room Y74NR5 through revision 128 and final scoring. They used visible browser controls, including actual mouse-coordinate route claims; no direct API actions or state mutation substituted for gameplay. Reports are `artifacts/route-network/live-player-a.md` and `live-player-b.md`.
 
-The dense ticket collection intentionally overlaps. Hover/focus raises a full ticket; large collections retain internal scrolling. Card counts and ticket values remain UI text. Destination names are now included in the illustrated artwork described below. Generated locomotive provenance is in `artifacts/current-table/card-art.md`.
+The game covered lobby readiness/start, both opening selections, face-up and blind draws, face-up locomotive restrictions, direct and multi-option claims, exact mixed/all-wild deductions, parallel restrictions, midgame ticket selection, ticket completion/filtering, pinned cards, invalid claims, history/settings, reload/reconnect, final-round countdown, and endgame. Bert won 128 = 60 route + 58 ticket + 10 longest-route points; Ada scored 101 = 46 route + 55 ticket points. Both clients agreed. Nine development warnings appeared for one client during hot module replacement; reloaded final-room and production checks had no warnings/errors.
 
-## Gameplay and corrections
+## Root browser checks and visual evidence
 
-A low-thinking subagent exercised direct valid/invalid route clicks, pinned hand selection, face-up and blind draws, opening ticket selection, midgame ticket selection, and the three-locomotive reset. A red Boston–New York claim deducted two cards/trains and awarded two points. Face-up then blind draws added exactly two cards and ended the turn. Opening selection required two tickets; midgame selection required one; final ticket collections contained no duplicates.
+All 309 marker centers resolve through `elementFromPoint` to their intended routes at 1586×992, 1024×768, and 768×1024, including the five-player/twelve-ticket fixture. Geometry tests separately check inter-route footprints, city clearances, segment spacing, and crossing hit paths. This is systematic target coverage plus live mouse play, not a claim to have manually clicked every pixel.
 
-Root verified all 309 SVG marker centers with `document.elementFromPoint`: zero wrong route targets at 1280×720 after separating route approaches. The original audit found twelve wrong targets. The geometry agent additionally verified zero overlapping marker rectangles and zero crossing route centerlines; those checks are now regression tests.
+Mouse checks verified stable red-card hover, pin persistence after leaving, second-click unpin, and clearing all hints afterward. Ticket hover showed two destination endpoints and its connecting trace; leaving cleared both. Gray-route menus opened, dismissed, reopened, scrolled, and paid exact selected amounts. A three-locomotive market reset finished with five face-up cards and exactly one added red card in the hand (three purple retained). The production build consumed the new-game query without the router initialization error and completed opening selection.
 
-Root claimed San Francisco–Los Angeles in the completion fixture: three claim-flight elements, zero open dialogs, then one completed ticket, 18 route points, 34 trains, and no remaining flights. A development warning from a nonreactive animation-element binding was fixed and the claim was repeated with no new warnings.
+Screenshots in `artifacts/route-network/` include `desktop-full-table.png`, `tablet-full-table.png`, `portrait-full-table.png`, `pinned-card-hints.png`, `payment-options.png`, `market-reset-settled.png`, `production-desktop.png`, and both agents' live-game evidence. The twelve-ticket collection intentionally overlaps; hovering/focusing reveals individual tickets. At portrait tablet size the entire network remains visible but is dense; map zoom controls remain available. No horizontal overflow occurred at either tablet size.
 
-The reset playtest caught a drawn card becoming visible again during its outro. Its hidden identity now persists until settlement. A second boundary fix waits for all outgoing market transitions to finish before the first refill card enters. Root observed one initial draw flight and exactly one new card in the final hand. The final market has five cards.
+## Performance and checks
 
-Ticket-transfer measurement confirmed the selector's rectangle stays identical before/after Keep while the receiving tickets remain hidden until landing. Both opening and midgame transfers finished with the correct unique ticket counts. Pointer leave/blur cleanup is implemented; the available automated browser controls did not provide a hover-only pointer movement check.
+The observed full-table canvas used six draw calls, five textures, four geometries and 292040 triangles. A sampled development tablet window reported 16.7 ms median / 33.4 ms p95 frame intervals; this is a local browser observation, not a cross-device FPS guarantee. Existing visibility pausing, pixel-ratio caps, reduced-motion handling and resource disposal remain. SVG network geometry is static between layout changes; payment choices are cached per game state.
 
-## Performance and validation
-
-The board remains instanced Three.js geometry; the dark route backing is batched. Production diagnostics reported 16 draw calls, 311116 triangles, five textures, and thirteen geometries. Existing pixel-ratio caps, visibility pausing, disposal, and reduced-motion handling remain. Card/selection animations use transforms and opacity; they do not advance the authoritative game rules independently.
-
-- `bun run test`: 45 passing tests, including three route geometry regressions.
-- `bun run typecheck`: no errors or warnings.
-- `bun run lint`: passes.
-- `bun run build`: passes.
-- Production startup consumes the fresh-game query without the router initialization error.
-- Final browser checks reported no new console errors/warnings.
-
-## Engraved tickets and portrait plaques
-
-The September 8 evening pass replaces all 30 ticket faces with full-bleed illustrated panoramas. The city pairs are part of the image in a shared navy Victorian serif and ivory sky treatment, framed with fine brass ornament. A separately generated transparent burgundy clay seal carries each live UI point value. PointsSeal also supplies the score icon in the player plaques. Source prompts and asset paths are in `artifacts/engraved-table/art-direction.md` and the three batch records alongside it.
-
-Player plaques use tall portraits, cream/brass frames, a player-color inlay, a point-seal icon, and a carriage icon. The current player's plaque takes their color and rises with a deeper shadow. The plaques rest over the atlas edge; tablet spacing keeps the separate turn ticket readable. All boat meshes and their per-frame animation were removed; water and trees retain ambient motion.
-
-A low-thinking browser playtest covered five players, twelve stacked tickets, nine hand colors, drawing/selecting/keeping a ticket, and completing a route. The claim changed points 14→18 and remaining trains 37→34, lifted Maya's plaque on turn advance, and punched the ticket without erasing its 11-point seal. Keeping Los Angeles–Miami increased the ticket count from two to three. No console errors or warnings were reported. Dense stacks intentionally cover lower ticket artwork and seals until hover/focus or selection raises the ticket.
-
-Root visually checked desktop 1586×992, landscape tablet 1024×768, and portrait tablet 768×1024. All displayed images loaded, all five plaques fit, and there was no horizontal overflow. Evidence is in `artifacts/engraved-table/desktop-atlas.png`, `tablet-full-table.png`, and `portrait-full-table.png`. All 30 ticket IDs have corresponding 1152×384 WebP assets. Optimization reduced the ticket set from 8.05 MB to 4.53 MB. The live board reports eight draw calls after the boat removal, down from sixteen.
-
-Validation: 45 tests pass; full typecheck and lint pass; production build passes. No game-rule behavior was changed.
+- 49 tests pass, 1726 assertions across five files.
+- Full Svelte/server typecheck: zero errors and warnings.
+- Lint/format and production build pass.
+- `git diff --check` passes.
+- Rechecked finished live room and fresh production startup: no console errors or warnings.

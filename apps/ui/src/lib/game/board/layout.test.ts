@@ -2,7 +2,7 @@ import { expect, test } from 'bun:test';
 import {
 	cities,
 	cityPoint,
-	ROUTE_MARKER_LENGTH,
+	routeMarkerLength,
 	ROUTE_MARKER_WIDTH,
 	routeMarkerPoint,
 	routeMarkerT,
@@ -22,20 +22,20 @@ const markers = routes.flatMap(route =>
 			route: route.id,
 			index,
 			point: routeMarkerPoint(route, index),
+			halfLength: routeMarkerLength(route) / 2,
 			along: { x: Math.cos(angle), y: Math.sin(angle) },
 			across: { x: -Math.sin(angle), y: Math.cos(angle) },
 		};
 	}),
 );
 type Marker = (typeof markers)[number];
-const halfLength = ROUTE_MARKER_LENGTH / 2,
-	halfWidth = ROUTE_MARKER_WIDTH / 2;
+const halfWidth = ROUTE_MARKER_WIDTH / 2;
 
 function markersOverlap(a: Marker, b: Marker) {
 	const delta = { x: a.point.x - b.point.x, y: a.point.y - b.point.y };
 	return [a.along, a.across, b.along, b.across].every(axis => {
 		const extent = (marker: Marker) =>
-			halfLength * Math.abs(dot(marker.along, axis)) + halfWidth * Math.abs(dot(marker.across, axis));
+			marker.halfLength * Math.abs(dot(marker.along, axis)) + halfWidth * Math.abs(dot(marker.across, axis));
 		return Math.abs(dot(delta, axis)) < extent(a) + extent(b);
 	});
 }
@@ -46,15 +46,17 @@ test('every route marker has its own unobstructed footprint', () => {
 		for (let j = i + 1; j < markers.length; j++) {
 			const a = markers[i]!,
 				b = markers[j]!;
-			if (markersOverlap(a, b)) collisions.push(`${a.route}[${a.index}] / ${b.route}[${b.index}]`);
+			if (a.route !== b.route && markersOverlap(a, b))
+				collisions.push(`${a.route}[${a.index}] / ${b.route}[${b.index}]`);
 		}
 	}
 	expect(collisions).toEqual([]);
 });
 
-test('markers leave visible gaps between cars and around city hubs', () => {
+test('markers leave city hubs clear and sit nearly edge to edge', () => {
 	let nearestCity = Infinity,
-		nearestCar = Infinity;
+		nearestCar = Infinity,
+		farthestCar = 0;
 	for (const marker of markers) {
 		for (const city of cities) {
 			const point = cityPoint(city);
@@ -62,20 +64,21 @@ test('markers leave visible gaps between cars and around city hubs', () => {
 			nearestCity = Math.min(
 				nearestCity,
 				Math.hypot(
-					Math.max(0, Math.abs(dot(delta, marker.along)) - halfLength),
+					Math.max(0, Math.abs(dot(delta, marker.along)) - marker.halfLength),
 					Math.max(0, Math.abs(dot(delta, marker.across)) - halfWidth),
 				),
 			);
 		}
 		const next = markers.find(other => other.route === marker.route && other.index === marker.index + 1);
-		if (next)
-			nearestCar = Math.min(
-				nearestCar,
-				Math.hypot(next.point.x - marker.point.x, next.point.y - marker.point.y) - ROUTE_MARKER_LENGTH,
-			);
+		if (next) {
+			const gap = Math.hypot(next.point.x - marker.point.x, next.point.y - marker.point.y) - marker.halfLength * 2;
+			nearestCar = Math.min(nearestCar, gap);
+			farthestCar = Math.max(farthestCar, gap);
+		}
 	}
 	expect(nearestCity).toBeGreaterThan(9);
-	expect(nearestCar).toBeGreaterThan(2);
+	expect(nearestCar).toBeGreaterThan(0.5);
+	expect(farthestCar).toBeLessThan(1.2);
 });
 
 test('route hit paths never cross into another route', () => {

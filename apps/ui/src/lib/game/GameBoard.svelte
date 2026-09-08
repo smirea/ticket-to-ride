@@ -2,6 +2,7 @@
 	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
 	import {
 		cities,
 		cityById,
@@ -10,26 +11,28 @@
 		routeColors,
 		routePoint,
 		routeMarkerT,
-		ROUTE_MARKER_LENGTH,
+		routeMarkerLength,
 		ROUTE_MARKER_WIDTH,
 		routes,
 	} from './board/layout';
 	import { createAtlasRenderer, projectPoint } from './board/renderer';
 	type Props = {
 		state: GameState;
+		viewerId: string;
 		selectedRouteId?: RouteId;
 		highlightedTicket?: DestinationTicket;
 		disabled?: boolean;
 		ambientMotion?: boolean;
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
-		routeHints?: Record<string, string>;
+		routeHints?: Record<string, { points: number; wilds: number }>;
 		eligibleRouteIds?: string[];
 		rejectedRouteId?: string;
 		rejectionKey?: number;
 	};
 	let {
 		state: gameState,
+		viewerId,
 		selectedRouteId,
 		highlightedTicket,
 		disabled = false,
@@ -56,10 +59,30 @@
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
-	const selectableRoutes = $derived(routes.filter(route => !owner(route) && !disabled));
+	const hintRoutes = $derived(
+		routes
+			.filter(route => routeHints[route.id] && !owner(route))
+			.filter(
+				(route, index, list) =>
+					!route.parallelGroup || list.findIndex(other => other.parallelGroup === route.parallelGroup) === index,
+			),
+	);
+	const selectableRoutes = $derived(routes.filter(route => !owner(route) && !blocked(route) && !disabled));
 	function owner(route: Route): Player | undefined {
 		const playerId = gameState.claimedRoutes[route.id];
 		return playerId ? playerById.get(playerId) : undefined;
+	}
+	function blocked(route: Route) {
+		return Boolean(
+			route.parallelGroup &&
+			routes.some(
+				other =>
+					other.id !== route.id &&
+					other.parallelGroup === route.parallelGroup &&
+					gameState.claimedRoutes[other.id] &&
+					(gameState.players.length <= 3 || gameState.claimedRoutes[other.id] === viewerId),
+			),
+		);
 	}
 	function point(route: Route, t: number) {
 		return projectPoint(routePoint(route, t), 1.6);
@@ -69,6 +92,11 @@
 			const p = point(route, i / 48);
 			return `${i ? 'L' : 'M'}${p.x},${p.y}`;
 		}).join(' ');
+	}
+	function outline(route: Route) {
+		const start = projectPoint(cityPoint(cityById.get(route.cityA)!), 1.6);
+		const end = projectPoint(cityPoint(cityById.get(route.cityB)!), 1.6);
+		return `M${start.x},${start.y} L${path(route).slice(1)} L${end.x},${end.y}`;
 	}
 	function hoverRoute(route?: Route) {
 		hoveredRouteId = route?.id;
@@ -199,23 +227,31 @@
 						transform="rotate(8 41 508)">PACIFIC</text
 					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
 				>
+				<g class="network-outline" aria-hidden="true">
+					{#each routes as route (route.id)}<path d={outline(route)} />{/each}
+					{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
+						<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
+					{/each}
+				</g>
 				{#each routes as route (route.id)}
-					{@const routeOwner = owner(route)}{@const selected = selectedRouteId === route.id}
+					{@const routeOwner = owner(route)}{@const unavailable = blocked(route)}{@const selected =
+						selectedRouteId === route.id}
 					<g
 						id={`route-${route.id}`}
 						class="route"
-						class:available={!routeOwner && !disabled}
+						class:available={!routeOwner && !unavailable && !disabled}
+						class:blocked={unavailable}
 						class:selected
 						class:claimed={Boolean(routeOwner)}
 						class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
 						role="button"
-						tabindex={routeOwner || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
-						aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : selected ? ', selected' : ', open'}`}
-						aria-disabled={Boolean(routeOwner) || disabled}
-						aria-pressed={!routeOwner && !disabled ? selected : undefined}
-						onclick={() => !routeOwner && !disabled && onselect(route)}
+						tabindex={routeOwner || unavailable || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
+						aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
+						aria-disabled={Boolean(routeOwner) || unavailable || disabled}
+						aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
+						onclick={() => !routeOwner && !unavailable && !disabled && onselect(route)}
 						onpointerenter={() => {
-							if (!routeOwner && !disabled) hoverRoute(route);
+							if (!routeOwner && !unavailable && !disabled) hoverRoute(route);
 						}}
 						onpointerleave={() => hoverRoute()}
 						onfocus={() => {
@@ -223,7 +259,7 @@
 							hoverRoute(route);
 						}}
 						onblur={() => hoverRoute()}
-						onkeydown={event => !routeOwner && !disabled && keySelect(event, route)}
+						onkeydown={event => !routeOwner && !unavailable && !disabled && keySelect(event, route)}
 					>
 						<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
 						{#each Array(route.length) as _, i}
@@ -234,15 +270,19 @@
 							<rect
 								data-route-marker={route.id}
 								data-marker-index={i}
-								x={p.x - ROUTE_MARKER_LENGTH / 2}
+								x={p.x - routeMarkerLength(route) / 2}
 								y={p.y - ROUTE_MARKER_WIDTH / 2}
-								width={ROUTE_MARKER_LENGTH}
+								width={routeMarkerLength(route)}
 								height={ROUTE_MARKER_WIDTH}
-								rx="2"
+								rx="0.8"
 								transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-								fill={ready ? 'transparent' : routeOwner ? playerColors[routeOwner.color] : routeColors[route.color]}
+								fill={routeOwner && ready
+									? 'transparent'
+									: routeOwner
+										? playerColors[routeOwner.color]
+										: routeColors[route.color]}
 								class="marker-anchor"
-								class:fallback-segment={!ready}
+								class:fallback-segment={!routeOwner || !ready}
 							/>
 						{/each}
 					</g>
@@ -277,28 +317,26 @@
 							r="4.8"
 						/>
 						<text
-							y={city.id === 'vancouver' || city.id === 'winnipeg' ? 22 : -13}
+							y={['winnipeg', 'montreal', 'boston', 'kansas-city', 'little-rock'].includes(city.id) ? 22 : -13}
 							x={city.id === 'boston' ? -2 : 0}
 							text-anchor={city.x > 90 ? 'end' : city.x < 10 ? 'start' : 'middle'}>{city.name}</text
 						>
 					</g>
 				{/each}
-				{#each routes.filter(route => routeHints[route.id] && !owner(route)) as route (route.id)}
-					{@const p = point(route, 0.5)}
+				{#each hintRoutes as route (route.id)}
+					{@const p = point(route, 0.5)}{@const hint = routeHints[route.id]!}{@const width = hint.wilds ? 78 : 39}
 					<g
 						transition:fade={{ duration: ambientMotion ? 160 : 0 }}
 						class="route-hint"
 						transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`}
 						aria-hidden="true"
 					>
-						<rect
-							x={-routeHints[route.id]!.length * 2.7 - 7}
-							y="-11"
-							width={routeHints[route.id]!.length * 5.4 + 14}
-							height="20"
-							rx="5"
-						/>
-						<text y="3">{routeHints[route.id]}</text>
+						<rect x={-width / 2} y="-11" {width} height="21" rx="5" />
+						<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
+						<text x={-width / 2 + 25} y="3">{hint.points}</text>
+						{#if hint.wilds}<text x="9" y="3">+{hint.wilds}</text><g transform="translate(22 -8)"
+								><TrainIcon size={15} weight="fill" /></g
+							>{/if}
 					</g>
 				{/each}
 				{#key rejectionKey}
@@ -417,6 +455,15 @@
 		padding: 0 9px;
 		border-inline: 1px solid #7d7c5c33;
 	}
+	@media (max-width: 1100px) and (orientation: portrait) {
+		.map-tools {
+			bottom: 0;
+		}
+		.map-tools button {
+			height: 28px;
+			min-width: 28px;
+		}
+	}
 	.motion-paused .endpoint-ring,
 	.motion-paused .ticket-trace,
 	.motion-paused .selected .route-aura {
@@ -457,9 +504,26 @@
 			serif;
 		letter-spacing: 4px;
 	}
+	.network-outline {
+		opacity: 0.48;
+		pointer-events: none;
+	}
+	.network-outline path {
+		stroke: #101819;
+		stroke-width: 13;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		fill: none;
+	}
+	.network-outline circle {
+		fill: #101819;
+	}
+	.blocked {
+		opacity: 0.4;
+	}
 	.route-hitbox {
 		stroke: transparent;
-		stroke-width: 14;
+		stroke-width: 11.5;
 		stroke-linecap: round;
 		pointer-events: stroke;
 		fill: none;
@@ -504,10 +568,9 @@
 		opacity: 0.5;
 	}
 	.fallback-segment {
-		stroke: #55554c;
-		stroke-width: 0.8;
+		stroke: #fff4d9a6;
+		stroke-width: 0.7;
 		pointer-events: none;
-		filter: drop-shadow(0 1px 1px #3e432d80);
 	}
 	.city {
 		pointer-events: none;

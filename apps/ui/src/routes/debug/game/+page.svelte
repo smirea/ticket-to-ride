@@ -22,10 +22,11 @@
 		const result = applyGameAction(game, action);
 		if (!result.ok) {
 			error = result.error;
-			return;
+			return false;
 		}
 		error = '';
 		game = result.state;
+		return true;
 	}
 
 	function resetClaimScenario() {

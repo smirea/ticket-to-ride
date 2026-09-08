@@ -1,4 +1,6 @@
+import { atlasPoint } from './atlas-warp';
 import { USA_CITIES, USA_ROUTES, type City, type Route } from '@repo/shared';
+import { cityTrace, normalizeTracePoint, routeTrace } from './route-trace';
 
 export const cities = USA_CITIES;
 export const routes = USA_ROUTES;
@@ -163,10 +165,15 @@ export function insidePolygon(x: number, y: number, polygon: number[][]) {
 	}
 	return inside;
 }
-export function isLand(x: number, y: number) {
+function atlasLand(x: number, y: number) {
 	return insidePolygon(x, y, mainland) && !lakes.some(lake => insidePolygon(x, y, lake));
 }
-export function terrainHeight(x: number, y: number) {
+export function isLand(x: number, y: number) {
+	const p = atlasPoint({ x, y });
+	return atlasLand(p.x, p.y);
+}
+export function terrainHeight(worldX: number, worldY: number) {
+	const { x, y } = atlasPoint({ x: worldX, y: worldY });
 	const ridgeCenter = 158 + y * 0.15 + Math.sin(y * 0.018) * 15;
 	const ridgeEnvelope = Math.exp(-Math.pow((x - ridgeCenter) / 48, 2));
 	const ridge =
@@ -175,16 +182,18 @@ export function terrainHeight(x: number, y: number) {
 	const east =
 		Math.exp(-Math.pow((x - (838 - y * 0.12)) / 39, 2)) * (2 + 5 * Math.pow(Math.sin(y * 0.072 + x * 0.041), 2));
 	const edge = Math.min(1, Math.max(0, Math.min(x, 1000 - x, y, 620 - y) / 30));
-	return (isLand(x, y) ? 1.2 + (ridge + coast + east) * 0.21 : 0) * edge;
+	return (atlasLand(x, y) ? 1.2 + (ridge + coast + east) * 0.21 : 0) * edge;
 }
 
 export function cityPoint(city: City) {
-	const offset = city.id === 'omaha' ? { x: 20, y: -18 } : city.id === 'kansas-city' ? { x: 10, y: 0 } : { x: 0, y: 0 };
-	return { x: city.x * 10 + offset.x, y: city.y * 6.2 + offset.y };
+	const point = cityTrace[city.id];
+	if (!point) throw new Error(`Missing city trace: ${city.id}`);
+	return normalizeTracePoint(point);
 }
+type RoutePoint = { x: number; y: number };
 type RouteGeometry = {
-	start: { x: number; y: number };
-	end: { x: number; y: number };
+	start: RoutePoint;
+	end: RoutePoint;
 	dx: number;
 	dy: number;
 	distance: number;
@@ -197,136 +206,53 @@ export function routeGeometry(route: Route): RouteGeometry {
 	if (cached) return cached;
 	const start = cityPoint(cityById.get(route.cityA)!);
 	const end = cityPoint(cityById.get(route.cityB)!);
-	const parallels = routes.filter(
-		candidate => [candidate.cityA, candidate.cityB].sort().join(':') === [route.cityA, route.cityB].sort().join(':'),
-	);
-	const direction = route.cityA < route.cityB ? 1 : -1;
-	const offset = (parallels.indexOf(route) - (parallels.length - 1) / 2) * 14 * direction;
 	const dx = end.x - start.x,
-		dy = end.y - start.y,
-		distance = Math.hypot(dx, dy);
-	const geometry = {
-		start,
-		end,
-		dx,
-		dy,
-		distance,
-		normalX: (-dy / distance) * offset,
-		normalY: (dx / distance) * offset,
-	};
+		dy = end.y - start.y;
+	const geometry = { start, end, dx, dy, distance: Math.hypot(dx, dy), normalX: 0, normalY: 0 };
 	geometryCache.set(route.id, geometry);
 	return geometry;
 }
-export const ROUTE_MARKER_LENGTH = 21;
+export const ROUTE_MARKER_LENGTH = 34;
 export const ROUTE_MARKER_WIDTH = 8.8;
-const CITY_CLEARANCE = 14;
-type RoutePoint = { x: number; y: number };
-type RoutePath = { points: RoutePoint[]; distances: number[]; length: number };
+export const ROUTE_MARKER_GAP = 0.9;
+type RoutePath = { points: RoutePoint[]; distances: number[]; length: number; svg: string };
 const pathCache = new Map<string, RoutePath>();
-const routeCurves: Record<string, number | [number, number]> = {
-	'omaha-kansas-city-gray-a': -10,
-	'omaha-kansas-city-gray-b': -10,
-	'new-york-pittsburgh-white-a': [26, 18],
-	'new-york-pittsburgh-green-b': [26, 18],
-	'salt-lake-city-las-vegas-orange': [-22, -14],
-	'los-angeles-phoenix-gray': [-18, 22],
-	'los-angeles-el-paso-black': [20, 60],
-	'phoenix-denver-white': [-76, -14],
-	'denver-oklahoma-city-red': [24, -10],
-	'denver-omaha-purple': [-6, -14],
-	'denver-kansas-city-black-a': [1.5, -6.5],
-	'denver-kansas-city-orange-b': [1.5, -6.5],
-	'chicago-pittsburgh-orange-a': [6, -42],
-	'chicago-pittsburgh-black-b': [6, -42],
-	'new-orleans-atlanta-yellow-a': [-36, -20],
-	'new-orleans-atlanta-orange-b': [-36, -20],
-	'new-orleans-miami-red': [-11, 5],
-	'atlanta-miami-blue': [-6, -6],
-	'vancouver-calgary-gray': [1.5, -6.5],
-	'portland-salt-lake-city-blue': [-19, -27],
-	'calgary-winnipeg-white': [5, -3],
-	'winnipeg-helena-blue': [5, 21],
-	'winnipeg-sault-ste-marie-gray': [5, -11],
-	'sault-ste-marie-toronto-gray': [1.5, -6.5],
-	'sault-ste-marie-montreal-black': [-3, -3],
-	'montreal-new-york-blue': [21, -3],
-	'montreal-boston-gray-a': [-6.5, 1.5],
-	'montreal-boston-gray-b': [-6.5, 1.5],
-	'boston-new-york-yellow-a': [-6.5, 1.5],
-	'boston-new-york-red-b': [-6.5, 1.5],
-	'helena-duluth-orange': [-28, 5],
-	'helena-omaha-red': [-3, -27],
-	'helena-denver-green': [13, -43],
-	'helena-salt-lake-city-purple': [9.5, 1.5],
-	'duluth-toronto-purple': [-3, -3],
-	'duluth-chicago-red': [5, -3],
-	'toronto-chicago-white': [1.5, 17.5],
-	'toronto-pittsburgh-gray': [1.5, -22.5],
-	'new-york-washington-orange-a': [-6.5, -6.5],
-	'new-york-washington-black-b': [-6.5, -6.5],
-	'san-francisco-salt-lake-city-orange-a': [-19, 5],
-	'san-francisco-salt-lake-city-white-b': [-19, 5],
-	'san-francisco-los-angeles-yellow-a': [1.5, 9.5],
-	'san-francisco-los-angeles-purple-b': [1.5, 9.5],
-	'salt-lake-city-denver-orange-a': [-46.5, -14.5],
-	'salt-lake-city-denver-red-b': [-46.5, -14.5],
-	'las-vegas-los-angeles-gray': [49.5, 1.5],
-	'phoenix-santa-fe-gray': [9.5, 1.5],
-	'denver-santa-fe-gray': [2.5, -30.5],
-	'chicago-saint-louis-green-a': [9.5, 1.5],
-	'chicago-saint-louis-white-b': [9.5, 1.5],
-	'pittsburgh-saint-louis-green': [6, 13],
-	'pittsburgh-nashville-yellow': [-3, -11],
-	'pittsburgh-raleigh-gray': [-3, 21],
-	'pittsburgh-washington-gray': [-6.5, 1.5],
-	'washington-raleigh-gray-a': [-14.5, 1.5],
-	'washington-raleigh-gray-b': [-14.5, 1.5],
-	'oklahoma-city-santa-fe-blue': [1.5, -14.5],
-	'oklahoma-city-el-paso-yellow': [-3, 5],
-	'oklahoma-city-little-rock-gray': [-6.5, 1.5],
-	'little-rock-new-orleans-green': [1.5, 17.5],
-	'nashville-raleigh-black': [-6.5, -6.5],
-	'raleigh-atlanta-gray-a': [-6.5, 17.5],
-	'raleigh-atlanta-gray-b': [-6.5, 17.5],
-	'raleigh-charleston-gray': [-6.5, 1.5],
-	'charleston-atlanta-gray': [-6.5, 1.5],
-	'charleston-miami-purple': [1.5, -6.5],
-};
 
 function routePath(route: Route): RoutePath {
 	const cached = pathCache.get(route.id);
 	if (cached) return cached;
-	const g = routeGeometry(route);
-	const curve = routeCurves[route.id] ?? (g.distance > 140 ? 5 : 1.5);
-	const [startCurve, endCurve] = typeof curve === 'number' ? [curve, curve] : curve;
-	let curveScale = 1;
-	const minimumLength = route.length * ROUTE_MARKER_LENGTH + Math.max(0, route.length - 1) * 3 + CITY_CLEARANCE * 2;
-	let path: RoutePath;
-	do {
-		const points = Array.from({ length: 97 }, (_, i) => {
-			const t = i / 96;
-			const arc = Math.sin(t * Math.PI) * (startCurve + (endCurve - startCurve) * t) * curveScale;
-			return {
-				x: g.start.x + g.dx * t + g.normalX - (g.dy / g.distance) * arc,
-				y: g.start.y + g.dy * t + g.normalY + (g.dx / g.distance) * arc,
-			};
-		});
-		const distances = [0];
-		for (let i = 1; i < points.length; i++) {
-			const a = points[i - 1]!,
-				b = points[i]!;
-			distances.push(distances[i - 1]! + Math.hypot(b.x - a.x, b.y - a.y));
-		}
-		path = { points, distances, length: distances.at(-1)! };
-		curveScale += 0.25;
-	} while (path.length < minimumLength);
+	const trace = routeTrace[route.id];
+	if (!trace) throw new Error(`Missing route trace: ${route.id}`);
+	const controls = trace.map(normalizeTracePoint);
+	const start = controls[0]!,
+		end = controls.at(-1)!;
+	const points = Array.from({ length: 129 }, (_, i) => {
+		const t = i / 128,
+			u = 1 - t;
+		if (controls.length === 2) return { x: start.x + (end.x - start.x) * t, y: start.y + (end.y - start.y) * t };
+		const a = controls[1]!,
+			b = controls[2]!;
+		return {
+			x: u ** 3 * start.x + 3 * u ** 2 * t * a.x + 3 * u * t ** 2 * b.x + t ** 3 * end.x,
+			y: u ** 3 * start.y + 3 * u ** 2 * t * a.y + 3 * u * t ** 2 * b.y + t ** 3 * end.y,
+		};
+	});
+	const distances = [0];
+	for (let i = 1; i < points.length; i++) {
+		const a = points[i - 1]!,
+			b = points[i]!;
+		distances.push(distances[i - 1]! + Math.hypot(b.x - a.x, b.y - a.y));
+	}
+	const format = (p: RoutePoint) => `${p.x.toFixed(3)} ${p.y.toFixed(3)}`;
+	const svg = `M ${format(start)} ${controls.length === 2 ? 'L' : 'C'} ${controls.slice(1).map(format).join(' ')}`;
+	const path = { points, distances, length: distances.at(-1)!, svg };
 	pathCache.set(route.id, path);
 	return path;
 }
 
 export function routePoint(route: Route, t: number): RoutePoint {
 	const path = routePath(route);
-	const distance = CITY_CLEARANCE + Math.max(0, Math.min(1, t)) * (path.length - CITY_CLEARANCE * 2);
+	const distance = Math.max(0, Math.min(1, t)) * path.length;
 	let low = 0,
 		high = path.distances.length - 1;
 	while (high - low > 1) {
@@ -340,13 +266,34 @@ export function routePoint(route: Route, t: number): RoutePoint {
 	return { x: a.x + (b.x - a.x) * fraction, y: a.y + (b.y - a.y) * fraction };
 }
 
+const markerLengthCache = new Map<string, number>();
+export function routeMarkerLength(route: Route) {
+	const cached = markerLengthCache.get(route.id);
+	if (cached) return cached;
+	let spacing = routePath(route).length / route.length;
+	for (let i = 1; i < route.length; i++) {
+		const previous = routePoint(route, routeMarkerT(route, i - 1));
+		const current = routePoint(route, routeMarkerT(route, i));
+		spacing = Math.min(spacing, Math.hypot(current.x - previous.x, current.y - previous.y));
+	}
+	const length = spacing - ROUTE_MARKER_GAP;
+	markerLengthCache.set(route.id, length);
+	return length;
+}
+
 export function routeMarkerT(route: Route, index: number) {
-	const path = routePath(route);
-	const available = path.length - CITY_CLEARANCE * 2;
-	const inset = ROUTE_MARKER_LENGTH / 2 / available;
-	return route.length === 1 ? 0.5 : inset + ((1 - inset * 2) * index) / (route.length - 1);
+	return (index + 0.5) / route.length;
 }
 
 export function routeMarkerPoint(route: Route, index: number) {
 	return routePoint(route, routeMarkerT(route, index));
+}
+
+export function routeSvgPath(route: Route) {
+	return routePath(route).svg;
+}
+
+export function routeOutlinePath(route: Route) {
+	const { start, end } = routeGeometry(route);
+	return `M ${start.x} ${start.y} L ${routePath(route).svg.slice(2)} L ${end.x} ${end.y}`;
 }
