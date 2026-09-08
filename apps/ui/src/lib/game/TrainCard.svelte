@@ -1,32 +1,32 @@
 <script lang="ts">
 	import type { TrainCard } from '@repo/shared';
-	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
 	let { color, count, back = false }: { color?: TrainCard; count?: number; back?: boolean } = $props();
 	const hues = {
-		red: '#ce5149',
-		orange: '#cf833c',
-		yellow: '#edc151',
-		green: '#648967',
-		blue: '#4699ca',
-		purple: '#947ba1',
-		black: '#4c5156',
-		white: '#ddd9c9',
-		locomotive: '#b8bca2',
+		red: '#b84e40',
+		orange: '#bd813c',
+		yellow: '#dbb648',
+		green: '#597b60',
+		blue: '#3e7197',
+		purple: '#826889',
+		black: '#404745',
+		white: '#ddd5bf',
+		locomotive: '#354b55',
 	};
 </script>
 
 <span
 	class="card-face"
 	class:back
-	class:dark={color === 'black'}
-	class:locomotive={color === 'locomotive'}
+	class:light={color === 'white' || color === 'yellow'}
 	style:--card-color={color ? hues[color] : '#203f54'}
 >
 	{#if back}
-		<TrainIcon size={36} weight="light" /><span class="back-name">TICKET<br />TO TRAVEL</span>
+		<img src="/game-assets/atlas/card-back-v2.webp" alt="" draggable="false" />
 	{:else if color}
 		<img
-			src={`/game-assets/atlas/${color === 'locomotive' ? 'locomotive' : 'carriage'}.webp`}
+			src={color === 'locomotive'
+				? '/game-assets/atlas/locomotive.webp'
+				: `/game-assets/atlas/carriage-${color}-v2.webp`}
 			alt=""
 			draggable="false"
 		/>
@@ -37,68 +37,48 @@
 <style>
 	.card-face {
 		position: relative;
-		container-type: inline-size;
 		display: block;
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
-		border: 5px solid #fff6df;
-		border-radius: 9px;
+		border: 3px solid #fff6df;
+		border-radius: 7px;
 		background: var(--card-color);
-		outline: 1px solid #bbaf9659;
+		outline: 1px solid #ab99736b;
 		box-shadow:
-			0 2px 2px #30231830,
-			0 6px 10px #30231820,
-			inset 0 0 0 1px #ffffff8a;
+			0 2px 1px #ad9a74,
+			0 4px 7px #30231833;
 		color: #fffbee;
+		user-select: none;
 	}
 	img {
+		display: block;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		mix-blend-mode: multiply;
-		opacity: 0.88;
 		pointer-events: none;
 	}
 	.card-count {
 		position: absolute;
-		top: 1px;
-		left: 7px;
+		top: -1px;
+		left: -1px;
+		min-width: 28px;
+		padding: 2px 7px 4px;
+		border-bottom-right-radius: 10px;
+		background: var(--card-color);
 		font:
-			700 29px/1.2 Georgia,
+			700 24px/1.2 Georgia,
 			serif;
-		text-shadow: 0 1px 2px #0007;
+		text-align: center;
+		text-shadow: 0 1px 2px #0005;
+		box-shadow: 1px 2px 2px #30231826;
+	}
+	.light .card-count {
+		color: #493f2b;
+		text-shadow: 0 1px #fff5;
 	}
 	.back {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 9px;
-		outline-offset: 2px;
-	}
-	.back::after {
-		content: '';
-		position: absolute;
-		inset: 5px;
-		border: 1px solid #eddeb790;
-		border-radius: 4px;
-		pointer-events: none;
-	}
-	.back-name {
-		font:
-			600 clamp(7px, 12cqw, 10px)/1.3 Georgia,
-			serif;
-		letter-spacing: 0.12em;
-		text-align: center;
-	}
-	.dark img {
-		filter: invert(1);
-		mix-blend-mode: screen;
-		opacity: 0.72;
-	}
-	.locomotive img {
-		mix-blend-mode: normal;
-		opacity: 1;
+		border-color: #38566b;
+		outline-color: #d4ceb9;
 	}
 </style>

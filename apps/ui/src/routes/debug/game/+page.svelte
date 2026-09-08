@@ -8,6 +8,7 @@
 		createDebugTicketScenario,
 		createGame,
 		USA_TICKETS,
+		USA_ROUTES,
 		TRAIN_CARDS,
 		type GameAction,
 		type GameState,
@@ -48,6 +49,23 @@
 		}
 		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
 		for (const color of TRAIN_CARDS) next.players[0].hand[color] = color === 'locomotive' ? 2 : 4;
+		loadScenario(next);
+	}
+
+	function loadStampScenario() {
+		const next = createDebugClaimScenario();
+		next.players[0].tickets = ['portland-phoenix'];
+		for (const [a, b] of [
+			['portland', 'san-francisco'],
+			['los-angeles', 'phoenix'],
+		]) {
+			const route = USA_ROUTES.find(
+				route => (route.cityA === a && route.cityB === b) || (route.cityA === b && route.cityB === a),
+			)!;
+			next.claimedRoutes[route.id] = 'player';
+		}
+		next.players[0].trains = 37;
+		next.players[0].score = 14;
 		loadScenario(next);
 	}
 
@@ -101,6 +119,7 @@
 				<button type="button" onclick={loadAtlasScenario}>Atlas preview</button>
 				<button type="button" onclick={loadFullTable}>Full table</button>
 				<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
+				<button type="button" onclick={loadStampScenario}>Ticket stamp</button>
 				<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
 				<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
 				<button type="button" onclick={() => loadScenario(createDebugFinalScenario())}>Results</button>

@@ -21,7 +21,7 @@
 
 # Frontend
 
-- Design exclusively for desktop and tablets (minimum layout width 768px), including portrait tablets. Preserve the tabletop composition; do not add phone layouts, hidden city labels, or phone-specific map modes.
+- Design exclusively for desktop and tablets (minimum layout width 768px), including portrait tablets. Preserve the physical tabletop: overlapping paper tickets and card fan, fitted market tray, one small action ticket and minimal prose. Do not add phone layouts, hidden city labels, phone-specific map modes or section labels for the ticket/hand/market areas.
 
 - Tailwind CSS v4 is wired through `@tailwindcss/vite`.
 - Global styles are imported from `apps/ui/src/routes/layout.css`.
