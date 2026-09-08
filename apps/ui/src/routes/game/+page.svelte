@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { replaceState } from '$app/navigation';
+	import { afterNavigate, replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import {
@@ -33,13 +33,17 @@
 		} catch {
 			error = 'Your saved game could not be loaded. A new journey is ready.';
 		}
-		if (data.startFresh) {
+		loaded = true;
+		scheduleBotAction();
+	});
+
+	afterNavigate(async ({ complete }) => {
+		await complete;
+		if (data.startFresh && page.url.searchParams.has('new')) {
 			const url = new URL(window.location.href);
 			url.searchParams.delete('new');
 			replaceState(url, page.state);
 		}
-		loaded = true;
-		scheduleBotAction();
 	});
 
 	onDestroy(() => clearTimeout(botTimer));

@@ -4,6 +4,14 @@ Date: 2026-09-08
 
 final result: passed
 
+## Follow-up: direct fresh-game startup
+
+The user reported a blank terrain canvas and `Cannot call replaceState(...) before router is initialized` on direct entry to `/game?new=1`. The earlier in-app navigation and restore checks missed this startup path. Reproduced with a newly opened browser tab: opening tickets appeared, but startup retained the fresh-game query and did not finish normally.
+
+Moved query consumption out of `onMount` into `afterNavigate`, awaiting navigation completion before using SvelteKit's `replaceState`. The installed router explicitly rejects this call before initialization. Game loading and persistence can now finish independently of URL cleanup.
+
+Verified a direct five-player fresh URL in a new tab: the query was removed, the terrain and routes rendered with 17 draw calls, and opening ticket selection completed. Opening the cleaned URL in another new tab restored the same two selected tickets and “Your turn.” Evidence: `docs/design/2026-09-08/implementation/direct-load-fixed.png`, 1280 × 720 browser capture after selection. Type checking, lint, formatting, and all 42 game/server tests passed. This is a manual browser regression check; the shared-rule tests do not cover router initialization.
+
 ## Comparison evidence
 
 - Source visual truth: `docs/design/2026-09-08/01-modern.png`, the user's selected second image. The fanned carriage-card direction comes from the user's first attachment and `03-victorian-club.png`.
