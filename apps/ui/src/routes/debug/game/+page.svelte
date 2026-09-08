@@ -7,6 +7,8 @@
 		createDebugFinalScenario,
 		createDebugTicketScenario,
 		createGame,
+		USA_TICKETS,
+		TRAIN_CARDS,
 		type GameAction,
 		type GameState,
 	} from '@repo/shared';
@@ -37,6 +39,40 @@
 		error = '';
 	}
 
+	function loadFullTable() {
+		let next = createGame({ seed: 'full-table-layout', humanName: 'You', botCount: 4 });
+		while (next.phase.type === 'ticket-selection') {
+			const result = applyGameAction(next, { type: 'keep-tickets', ticketIds: next.phase.ticketIds.slice(0, 2) });
+			if (!result.ok) break;
+			next = result.state;
+		}
+		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
+		for (const color of TRAIN_CARDS) next.players[0].hand[color] = color === 'locomotive' ? 2 : 4;
+		loadScenario(next);
+	}
+
+	function loadAtlasScenario() {
+		const next = createDebugClaimScenario();
+		next.players[0].tickets = ['portland-phoenix', 'chicago-santa-fe'];
+		next.players[0].hand = {
+			red: 4,
+			orange: 0,
+			yellow: 2,
+			green: 0,
+			blue: 3,
+			purple: 0,
+			black: 0,
+			white: 0,
+			locomotive: 1,
+		};
+		next.players[0].score = 24;
+		next.players[0].trains = 32;
+		next.players[1].score = 18;
+		next.players[1].trains = 35;
+		next.faceUpTrainCards = ['blue', 'white', 'red', 'locomotive', 'black'];
+		loadScenario(next);
+	}
+
 	function loadScenario(next: GameState) {
 		game = next;
 		viewerId = 'player';
@@ -45,7 +81,7 @@
 </script>
 
 <svelte:head>
-	<title>Game Debugger — Railbound</title>
+	<title>Game Debugger — Ticket to Travel</title>
 </svelte:head>
 
 <div class="debug-page">
@@ -62,6 +98,8 @@
 						{/each}
 					</select>
 				</label>
+				<button type="button" onclick={loadAtlasScenario}>Atlas preview</button>
+				<button type="button" onclick={loadFullTable}>Full table</button>
 				<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
 				<button type="button" onclick={() => loadScenario(createDebugTicketScenario())}>Ticket draw</button>
 				<button type="button" onclick={() => loadScenario(createDebugFinalRoundScenario())}>Final round</button>
@@ -76,8 +114,7 @@
 
 <style>
 	.debug-page {
-		height: 100svh;
-		overflow: hidden;
+		min-height: 100svh;
 		background: #07151b;
 	}
 

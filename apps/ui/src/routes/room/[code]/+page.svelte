@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import Brand from '$lib/game/Brand.svelte';
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import {
 		abandonRoom,
@@ -240,7 +241,7 @@
 </script>
 
 <svelte:head>
-	<title>Room {roomCode} — Railbound</title>
+	<title>Room {roomCode} — Ticket to Travel</title>
 </svelte:head>
 
 {#if room?.phase === 'playing' && game && identity}
@@ -292,7 +293,8 @@
 {:else}
 	<main class="room-page">
 		<nav>
-			<a href={lobbyHref}>← Lobby</a>
+			<Brand compact href={preserveDebugId('/')} />
+			<a class="lobby-link" href={lobbyHref}>← Lobby</a>
 			<div
 				class="connection"
 				class:live={connection === 'live'}
@@ -483,26 +485,18 @@
 
 <style>
 	:global(html) {
-		--room-player-red: #d84f49;
+		--room-player-red: #c74c43;
 		--room-player-blue: #4388c6;
 		--room-player-green: #4c9a65;
 		--room-player-yellow: #e4b934;
 		--room-player-black: #484b50;
 	}
-
-	:global(body) {
-		background: #0d1b20;
-	}
-
 	.room-page {
-		min-height: 100vh;
-		padding: 1.25rem clamp(1rem, 4vw, 4rem) 2rem;
-		background:
-			radial-gradient(circle at 50% 0, rgba(68, 113, 109, 0.28), transparent 34rem),
-			linear-gradient(145deg, #172f33, #08161b 68%);
-		color: #f6efdd;
+		min-height: 100svh;
+		padding: 1.3rem clamp(1rem, 4vw, 4rem) 2rem;
+		background: #f7f3e9;
+		color: #142d3e;
 	}
-
 	.room-page > nav,
 	.room-heading,
 	.room-message,
@@ -511,7 +505,6 @@
 		width: min(100%, 74rem);
 		margin-inline: auto;
 	}
-
 	nav,
 	.connection,
 	.room-heading,
@@ -524,453 +517,415 @@
 		display: flex;
 		align-items: center;
 	}
-
 	nav {
 		justify-content: space-between;
-		margin-bottom: 3rem;
+		flex-wrap: wrap;
+		gap: 1rem;
+		border-bottom: 1px solid #dcd6c7;
+		padding-bottom: 1.25rem;
+		margin-bottom: 2.5rem;
 	}
-
+	.lobby-link {
+		margin-left: auto;
+		font-size: 0.78rem;
+	}
 	a {
 		color: inherit;
 		font-weight: 700;
 		text-decoration: none;
 	}
-
 	.connection {
 		gap: 0.45rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
+		border: 1px solid #d9d2c4;
 		border-radius: 999px;
-		padding: 0.35rem 0.65rem;
-		background: rgba(4, 13, 16, 0.48);
-		color: #b8c6c3;
+		padding: 0.4rem 0.65rem;
+		background: #fffcf5;
+		color: #617079;
 		font-size: 0.7rem;
 		font-weight: 700;
 	}
-
 	.connection i {
 		width: 0.48rem;
 		height: 0.48rem;
 		border-radius: 50%;
-		background: #d69b45;
-		box-shadow: 0 0 0.65rem rgba(214, 155, 69, 0.55);
+		background: #c08a39;
 	}
-
 	.connection.live i {
-		background: #57b884;
-		box-shadow: 0 0 0.65rem rgba(87, 184, 132, 0.65);
+		background: #418764;
 	}
-
 	.connection.warning i {
 		animation: pulse 1.3s ease-in-out infinite;
 	}
-
 	.connection small {
-		color: #728784;
-		font-weight: 500;
+		color: #788185;
+		font-weight: 400;
 	}
-
 	.room-heading {
 		align-items: end;
 		justify-content: space-between;
-		margin-bottom: 1.3rem;
+		margin-bottom: 1.5rem;
 	}
-
 	.room-heading p,
 	.panel-heading p,
 	.finished-card > p,
 	.loading-card > p {
-		margin: 0 0 0.4rem;
-		color: #d69b45;
+		margin: 0 0 0.6rem;
+		color: #a34a3d;
 		font-size: 0.7rem;
 		font-weight: 800;
 		letter-spacing: 0.13em;
 		text-transform: uppercase;
 	}
-
 	.room-heading h1 {
 		margin: 0;
 		font-family: Georgia, serif;
-		font-size: clamp(3rem, 8vw, 5.8rem);
-		font-weight: 500;
+		font-size: clamp(3rem, 7vw, 5rem);
+		font-weight: 400;
 		letter-spacing: 0.06em;
-		line-height: 0.9;
+		line-height: 1;
 	}
-
 	.room-heading > div > span,
 	.finished-card > span,
 	.loading-card > span {
 		display: block;
 		margin-top: 0.75rem;
-		color: #9eafac;
+		color: #647077;
 		line-height: 1.6;
 	}
-
 	.occupancy {
 		text-align: right;
 	}
-
 	.occupancy strong,
 	.occupancy span {
 		display: block;
 	}
-
 	.occupancy strong {
 		font-family: Georgia, serif;
 		font-size: 2rem;
 	}
-
 	.occupancy span {
-		color: #80928f;
+		color: #647077;
 		font-size: 0.68rem;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 	}
-
 	.room-message,
 	.game-message {
-		border: 1px solid rgba(94, 178, 130, 0.34);
-		border-radius: 0.55rem;
-		padding: 0.65rem 0.8rem;
-		background: rgba(43, 105, 72, 0.2);
-		color: #bfe2ca;
+		border: 1px solid #bfcebf;
+		border-radius: 0.5rem;
+		padding: 0.7rem 0.9rem;
+		background: #edf3e9;
+		color: #3e654d;
 		font-size: 0.75rem;
 	}
-
 	.room-message {
 		margin-bottom: 1rem;
 	}
-
 	.room-message.error,
 	.game-message.error {
-		border-color: rgba(217, 91, 78, 0.48);
-		background: rgba(116, 42, 35, 0.25);
-		color: #ffc0b7;
+		border-color: #d9b2a7;
+		background: #fff1e9;
+		color: #a13f31;
 	}
-
 	.lobby-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
-		gap: 1rem;
+		gap: 1.25rem;
 	}
-
 	.panel {
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 0.85rem;
-		padding: clamp(1rem, 3vw, 1.5rem);
-		background: rgba(6, 18, 22, 0.7);
-		box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.18);
+		border: 1px solid #d8d0bf;
+		border-radius: 0.6rem;
+		padding: clamp(1rem, 3vw, 1.6rem);
+		background: #fffcf5;
+		box-shadow: 0 7px 25px #75613f0d;
 	}
-
 	.panel-heading {
 		justify-content: space-between;
 		gap: 1rem;
-		margin-bottom: 1rem;
+		margin-bottom: 1.2rem;
 	}
-
 	.panel-heading h2 {
 		margin: 0;
 		font-family: Georgia, serif;
-		font-size: 1.35rem;
+		font-size: 1.5rem;
+		font-weight: 400;
 	}
-
 	.panel-heading > span {
 		border-radius: 999px;
-		padding: 0.3rem 0.55rem;
-		background: rgba(255, 255, 255, 0.07);
-		color: #97aaa7;
+		padding: 0.35rem 0.65rem;
+		background: #ede8dc;
+		color: #637176;
 		font-size: 0.65rem;
 		font-weight: 700;
 	}
-
 	.player-list {
 		display: grid;
-		gap: 0.5rem;
+		gap: 0.6rem;
 	}
-
 	.room-player,
 	.empty-seat {
 		min-height: 4.2rem;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		border-radius: 0.65rem;
-		padding: 0.7rem;
-		background: rgba(255, 255, 255, 0.035);
+		border: 1px solid #e1dacb;
+		border-radius: 0.5rem;
+		padding: 0.75rem;
+		background: #f8f5ed;
 	}
-
 	.room-player {
 		gap: 0.7rem;
 	}
-
 	.room-player.inactive {
 		opacity: 0.55;
 	}
-
 	.player-number {
 		display: grid;
-		width: 2.2rem;
-		height: 2.2rem;
+		width: 2.3rem;
+		height: 2.3rem;
 		flex: 0 0 auto;
 		place-items: center;
-		border: 2px solid rgba(255, 255, 255, 0.72);
+		border: 2px solid #fffefa;
 		border-radius: 50%;
 		color: white;
 		font-size: 0.75rem;
-		font-weight: 900;
-		text-shadow: 0 1px 2px #000;
+		font-weight: 800;
+		text-shadow: 0 1px 2px #0009;
 	}
-
 	.room-player > div {
 		min-width: 0;
 		flex: 1;
 	}
-
 	.room-player strong,
 	.room-player > div span {
 		display: block;
+		overflow-wrap: anywhere;
 	}
-
 	.room-player > div span {
-		margin-top: 0.15rem;
-		color: #7f9491;
+		margin-top: 0.2rem;
+		color: #647077;
 		font-size: 0.67rem;
 	}
-
 	.host-badge,
 	.ready-badge {
 		border-radius: 999px;
-		padding: 0.28rem 0.5rem;
-		font-size: 0.61rem;
+		padding: 0.3rem 0.5rem;
+		font-size: 0.6rem;
 		font-weight: 800;
 		text-transform: uppercase;
 	}
-
 	.host-badge {
-		background: rgba(213, 158, 66, 0.14);
-		color: #e1b768;
+		background: #f0e4c7;
+		color: #846324;
 	}
-
 	.ready-badge {
-		background: rgba(255, 255, 255, 0.065);
-		color: #829693;
+		background: #e9e6dd;
+		color: #647077;
 	}
-
 	.ready-badge.ready {
-		background: rgba(70, 151, 102, 0.2);
-		color: #8bd0a5;
+		background: #e1eddc;
+		color: #406b46;
 	}
-
 	.ready-badge.inactive-badge {
-		color: #d69b8c;
+		color: #976453;
 	}
-
 	.empty-seat {
 		display: flex;
 		align-items: center;
 		gap: 0.7rem;
 		border-style: dashed;
-		color: #637774;
+		color: #7b827f;
 		font-size: 0.75rem;
+		background: transparent;
 	}
-
 	.empty-seat span {
 		display: grid;
-		width: 2.2rem;
-		height: 2.2rem;
+		width: 2.3rem;
+		height: 2.3rem;
 		place-items: center;
-		border: 1px dashed #566a67;
+		border: 1px dashed #c0b9aa;
 		border-radius: 50%;
 	}
-
 	.ready-actions {
 		gap: 0.6rem;
-		margin-top: 1rem;
+		margin-top: 1.2rem;
 	}
-
 	button,
 	select,
 	input {
 		font: inherit;
 	}
-
 	button {
 		cursor: pointer;
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease;
 	}
-
+	button:not(:disabled):hover {
+		transform: translateY(-1px);
+		box-shadow: 0 4px 10px #75613f18;
+	}
 	button:disabled {
 		cursor: not-allowed;
-		opacity: 0.48;
+		opacity: 0.5;
 	}
-
 	.ready-actions button,
 	.settings button,
 	.loading-actions button,
 	.finished-actions button {
-		border: 1px solid rgba(255, 255, 255, 0.15);
+		min-height: 44px;
+		border: 1px solid #cfc7b6;
 		border-radius: 0.4rem;
-		padding: 0.7rem 0.9rem;
-		background: #1b3237;
-		color: #edf0e8;
-		font-weight: 800;
+		padding: 0.75rem 1rem;
+		background: #f0eadd;
+		color: #233d4b;
+		font-weight: 750;
 	}
-
 	.ready-actions button.ready {
-		border-color: rgba(88, 182, 125, 0.5);
-		background: #285b3d;
+		border-color: #b4c9ae;
+		background: #dfebd9;
+		color: #3d6542;
 	}
-
 	.ready-actions button.start {
 		margin-left: auto;
-		border-color: #e1ab59;
-		background: #b64a38;
+		border-color: #b6493d;
+		background: #b6493d;
+		color: white;
 	}
-
 	.start-help,
 	.settings-help {
 		margin: 0.75rem 0 0;
-		color: #7f9290;
+		color: #647077;
 		font-size: 0.7rem;
 	}
-
 	.settings form,
 	.settings label {
 		display: grid;
 	}
-
 	.settings form {
-		gap: 1rem;
+		gap: 1.2rem;
 	}
-
 	.settings label {
-		gap: 0.4rem;
+		gap: 0.5rem;
 	}
-
 	.settings label > span,
 	.settings dt {
-		color: #829692;
+		color: #647077;
 		font-size: 0.65rem;
 		font-weight: 800;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.07em;
 		text-transform: uppercase;
 	}
-
 	.settings input,
 	.settings select {
 		width: 100%;
-		border: 1px solid rgba(255, 255, 255, 0.13);
+		min-height: 44px;
+		border: 1px solid #cfc7b6;
 		border-radius: 0.35rem;
-		padding: 0.7rem;
-		background: #11262b;
-		color: #f5efdf;
+		padding: 0.75rem;
+		background: #fffef9;
+		color: #142d3e;
 	}
-
+	input:focus,
+	select:focus {
+		outline: 2px solid #698ba3;
+		outline-offset: 2px;
+	}
 	.settings dl {
 		display: grid;
 		gap: 0;
 		margin: 0;
 	}
-
 	.settings dl div {
 		display: flex;
 		justify-content: space-between;
 		gap: 1rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-		padding: 0.7rem 0;
+		border-bottom: 1px solid #e1dacb;
+		padding: 0.8rem 0;
 	}
-
 	.settings dd {
 		margin: 0;
 		font-size: 0.78rem;
 		text-align: right;
 		word-break: break-word;
 	}
-
 	.room-meta {
 		display: grid;
 		gap: 0.3rem;
-		margin-top: 1rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		padding-top: 0.8rem;
-		color: #647a77;
+		margin-top: 1.4rem;
+		border-top: 1px solid #e1dacb;
+		padding-top: 1rem;
+		color: #7b827f;
 		font-size: 0.63rem;
 	}
-
 	.room-footer {
 		justify-content: space-between;
 		gap: 1rem;
-		margin-top: 1rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		margin-top: 1.25rem;
+		border-top: 1px solid #dcd6c7;
 		padding-top: 1rem;
-		color: #6f8582;
+		color: #647077;
 		font-size: 0.7rem;
 	}
-
 	.leave,
 	.danger-link,
 	.small-button {
-		border: 1px solid rgba(255, 255, 255, 0.15);
+		min-height: 36px;
+		border: 1px solid #cfc7b6;
 		border-radius: 0.35rem;
-		padding: 0.45rem 0.65rem;
-		background: transparent;
-		color: #c4cfcc;
+		padding: 0.5rem 0.7rem;
+		background: #fffcf5;
+		color: #455e6a;
 	}
-
 	.leave,
 	.danger-link {
-		border-color: rgba(221, 105, 91, 0.3);
-		color: #e6a49b;
+		border-color: #dab8ae;
+		color: #a24739;
 	}
-
 	.loading-card,
 	.finished-card {
 		width: min(100%, 48rem);
-		margin: 10vh auto 0;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 0.9rem;
+		margin: 8vh auto 0;
+		border: 1px solid #d8d0bf;
+		border-radius: 0.6rem;
 		padding: clamp(2rem, 6vw, 4rem);
-		background: rgba(5, 16, 20, 0.72);
-		box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.24);
+		background: #fffcf5;
+		box-shadow: 0 12px 35px #75613f12;
 		text-align: center;
 	}
-
 	.loading-card h1,
 	.finished-card h1 {
 		margin: 0;
 		font-family: Georgia, serif;
 		font-size: clamp(2rem, 6vw, 4rem);
-		font-weight: 500;
+		font-weight: 400;
 	}
-
 	.signal {
 		width: 0.8rem;
 		height: 0.8rem;
 		margin: 0 auto 1rem;
 		border-radius: 50%;
-		background: #d59a47;
-		box-shadow: 0 0 1rem rgba(213, 154, 71, 0.7);
+		background: #c08a39;
 		animation: pulse 1.3s ease-in-out infinite;
 	}
-
 	.signal.warning {
-		background: #c75447;
+		background: #b6493d;
 	}
-
 	.loading-actions,
 	.finished-actions {
 		justify-content: center;
-		gap: 0.75rem;
+		flex-wrap: wrap;
+		gap: 1rem;
 		margin-top: 1.5rem;
 	}
-
 	.finished-game {
+		width: 100vw;
+		height: 100svh;
 		margin: 2rem calc(50% - 50vw) 0;
 		text-align: left;
 	}
-
 	.live-room {
 		height: 100svh;
 		overflow: hidden;
-		background: #07151b;
+		background: #f7f3e9;
 	}
-
 	.game-room-menu {
 		position: fixed;
 		top: 0.75rem;
@@ -978,7 +933,6 @@
 		z-index: 30;
 		transform: translateX(-50%);
 	}
-
 	.game-room-menu summary {
 		display: flex;
 		width: 2.25rem;
@@ -986,88 +940,73 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.25rem;
-		border: 1px solid rgba(255, 255, 255, 0.16);
+		border: 1px solid #d6cebd;
 		border-radius: 50%;
-		background: rgba(8, 17, 22, 0.86);
-		box-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.24);
-		backdrop-filter: blur(12px);
-		color: #dce6e3;
+		background: #fffcf5;
+		box-shadow: 0 3px 10px #75613f1a;
+		color: #142d3e;
 		font-size: 0.58rem;
 		letter-spacing: 0.08em;
 		cursor: pointer;
 		list-style: none;
 	}
-
 	.game-room-menu summary::-webkit-details-marker {
 		display: none;
 	}
-
 	.game-room-menu summary > i {
 		position: absolute;
 		top: 0.1rem;
 		right: 0.1rem;
 		width: 0.5rem;
 		height: 0.5rem;
-		border: 1px solid rgba(255, 255, 255, 0.58);
+		border: 1px solid #fffcf5;
 		border-radius: 50%;
-		background: #d69b45;
-		box-shadow: 0 0 0.55rem rgba(214, 155, 69, 0.65);
+		background: #c08a39;
 	}
-
 	.game-room-menu summary > i.live {
-		background: #57b884;
-		box-shadow: 0 0 0.55rem rgba(87, 184, 132, 0.68);
+		background: #418764;
 	}
-
 	.game-room-menu summary > i.warning {
 		animation: pulse 1.3s ease-in-out infinite;
 	}
-
 	.game-room-popover {
 		position: absolute;
-		top: calc(100% + 0.45rem);
+		top: calc(100% + 0.5rem);
 		left: 50%;
 		display: grid;
 		width: 16.5rem;
 		gap: 0.75rem;
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		border-radius: 0.7rem;
-		padding: 0.8rem;
+		border: 1px solid #d6cebd;
+		border-radius: 0.6rem;
+		padding: 0.9rem;
 		transform: translateX(-50%);
-		background: rgba(8, 17, 22, 0.94);
-		box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.35);
-		backdrop-filter: blur(14px);
-		color: #dce6e3;
+		background: #fffcf5;
+		box-shadow: 0 10px 25px #75613f26;
+		color: #142d3e;
 		font-size: 0.68rem;
 	}
-
 	.room-title {
 		display: flex;
 		align-items: baseline;
-		gap: 0.45rem;
+		gap: 0.5rem;
 	}
-
 	.room-title span {
-		color: #718784;
+		color: #647077;
 		text-transform: uppercase;
 	}
-
 	.room-title strong {
 		letter-spacing: 0.08em;
 	}
-
 	.game-room-actions {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-		padding-top: 0.7rem;
+		border-top: 1px solid #e1dacb;
+		padding-top: 0.75rem;
 	}
-
 	.game-room-actions a {
 		margin-right: auto;
 	}
-
 	.game-message {
 		position: fixed;
 		z-index: 12;
@@ -1075,63 +1014,87 @@
 		left: 50%;
 		max-width: min(90vw, 32rem);
 		transform: translateX(-50%);
-		box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.28);
+		box-shadow: 0 5px 15px #75613f1a;
 	}
-
 	@keyframes pulse {
 		0%,
 		100% {
 			opacity: 1;
 		}
 		50% {
-			opacity: 0.35;
+			opacity: 0.4;
 		}
 	}
-
 	@media (max-width: 800px) {
 		.room-page {
-			padding-inline: 0.8rem;
+			padding-inline: 1rem;
 		}
-
 		.lobby-grid {
 			grid-template-columns: 1fr;
 		}
 	}
-
+	@media (max-width: 680px) {
+		.live-room,
+		.finished-game {
+			height: auto;
+			min-height: 100svh;
+			overflow: visible;
+		}
+		.game-room-menu {
+			top: 4.1rem;
+			right: 1rem;
+			left: auto;
+			transform: none;
+		}
+		.game-room-popover {
+			right: 0;
+			left: auto;
+			transform: none;
+		}
+	}
 	@media (max-width: 560px) {
 		nav {
 			margin-bottom: 2rem;
+			gap: 0.7rem;
 		}
-
+		nav .connection {
+			margin-left: auto;
+		}
+		.lobby-link {
+			font-size: 0.7rem;
+		}
 		.room-heading {
 			align-items: flex-start;
-			flex-direction: column;
 			gap: 1rem;
 		}
-
-		.occupancy {
-			text-align: left;
+		.occupancy strong {
+			font-size: 1.5rem;
 		}
-
 		.room-player {
 			flex-wrap: wrap;
 		}
-
 		.ready-badge {
 			margin-left: auto;
 		}
-
 		.room-footer {
 			align-items: stretch;
 			flex-direction: column;
 		}
-
 		.room-footer button {
 			align-self: flex-start;
 		}
-
 		.connection small {
 			display: none;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		button {
+			transition: none;
+		}
+		.connection.warning i,
+		.game-room-menu summary > i.warning,
+		.signal {
+			animation: none;
 		}
 	}
 </style>

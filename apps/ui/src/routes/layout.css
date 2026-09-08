@@ -19,7 +19,7 @@ button {
 }
 
 @theme inline {
-	--font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+	--font-sans: Barlow, ui-sans-serif, system-ui, sans-serif;
 	--font-mono: 'SFMono-Regular', ui-monospace, monospace;
 
 	--color-app: var(--app-bg);

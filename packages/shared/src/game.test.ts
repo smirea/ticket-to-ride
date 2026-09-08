@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test';
+import { createActor } from 'xstate';
 import {
 	DEBUG_ROUTE_ID,
 	PLAYER_COLORS,
@@ -15,6 +16,7 @@ import {
 	createGame,
 	deserializeGame,
 	getGameMachineState,
+	gameMachine,
 	playBotTurns,
 	replayGame,
 	restoreGameState,
@@ -110,6 +112,47 @@ describe('classic USA setup', () => {
 });
 
 describe('turn rules', () => {
+	test('a running actor rejects invalid events after successful actions without retaining an old result', () => {
+		const state = finishTicketSelection(createGame({ seed: 'actor-invalid-action', botCount: 1 }));
+		const actor = createActor(gameMachine, { input: { game: state } }).start();
+		actor.send({ type: 'draw-train-deck' });
+		const first = actor.getSnapshot();
+		expect(first.value).toBe('turnSecondDraw');
+		expect(first.context.lastResult?.ok).toBe(true);
+		actor.send({ type: 'draw-destination-tickets' });
+		const rejected = actor.getSnapshot();
+		expect(rejected.value).toBe('turnSecondDraw');
+		expect(rejected.context.lastResult?.ok).toBe(false);
+		expect(rejected.context.game).toBe(first.context.game);
+		actor.send({ type: 'draw-train-deck' });
+		expect(actor.getSnapshot().value).toBe('turnReady');
+		expect(actor.getSnapshot().context.game.currentPlayerIndex).toBe(1);
+		expect(first.context.game.currentPlayerIndex).toBe(0);
+		expect(first.context.game.history).toHaveLength(state.history.length + 1);
+		actor.stop();
+	});
+
+	test('five-player actor games match stateless multiplayer transitions through final scoring', () => {
+		let state = createGame({ seed: 'actor-five-travelers', botCount: 4 });
+		state.players.forEach(player => {
+			player.isBot = true;
+		});
+		const actor = createActor(gameMachine, { input: { game: state } }).start();
+		for (let step = 0; step < 1500 && state.phase.type !== 'game-over'; step += 1) {
+			const action = chooseBotAction(state);
+			if (!action) throw new Error('Bot has no legal move.');
+			const result = applyGameAction(state, action);
+			if (!result.ok) throw new Error(result.error);
+			actor.send(action);
+			state = result.state;
+			expect(actor.getSnapshot().context.game).toEqual(state);
+			expect(actor.getSnapshot().value).toBe(getGameMachineState(state));
+		}
+		expect(actor.getSnapshot().value).toBe('gameOver');
+		expect(state.finalResults).toHaveLength(5);
+		actor.stop();
+	});
+
 	test('uses XState nodes as the authoritative turn lifecycle', () => {
 		let state = createGame({ seed: 'machine-lifecycle', botCount: 1 });
 		expect(getGameMachineState(state)).toBe('openingTicketSelection');

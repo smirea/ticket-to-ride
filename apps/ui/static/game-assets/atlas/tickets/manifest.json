@@ -1,0 +1,129 @@
+{
+	"map": "usa",
+	"style": "Optimistic handpainted railway travel panoramas",
+	"format": "webp",
+	"width": 640,
+	"artworkContainsText": false,
+	"tickets": {
+		"seattle-new-york": {
+			"file": "seattle-new-york.webp",
+			"scene": "A transcontinental journey from the evergreen Puget Sound and Seattle's timber waterfront to the copper Statue of Liberty and elegant New York skyline, winding train tracks through distant prairie."
+		},
+		"los-angeles-new-york": {
+			"file": "los-angeles-new-york.webp",
+			"scene": "A golden California mission and tall palms on the left, distant desert railway crossing broad plains, the Statue of Liberty and handsome Manhattan waterfront on the right."
+		},
+		"los-angeles-miami": {
+			"file": "los-angeles-miami.webp",
+			"scene": "A sunlit journey from a California Spanish mission and fan palms, through a terracotta desert railway, to Miami's turquoise Atlantic bay and lush royal palms."
+		},
+		"vancouver-montreal": {
+			"file": "vancouver-montreal.webp",
+			"scene": "Vancouver's mountain-framed harbor with a little sailboat and cedar trees blending into Montreal's twin-tower stone basilica and St Lawrence waterfront in a sunny Canadian panorama."
+		},
+		"san-francisco-atlanta": {
+			"file": "san-francisco-atlanta.webp",
+			"scene": "San Francisco's colorful hillside Victorian homes and a historic bay ferry blending into Atlanta's grand red-brick railway terminal beneath magnolias, peach sunlight."
+		},
+		"portland-nashville": {
+			"file": "portland-nashville.webp",
+			"scene": "Portland's evergreen river valley with a handsome iron truss railway bridge blending into Nashville's elegant classical capitol and a paddle steamer, warm afternoon sunlight."
+		},
+		"los-angeles-chicago": {
+			"file": "los-angeles-chicago.webp",
+			"scene": "Los Angeles mission arches and tall palms blending into Chicago's grand early railway station and graceful lakeshore buildings beside sapphire Lake Michigan."
+		},
+		"montreal-new-orleans": {
+			"file": "montreal-new-orleans.webp",
+			"scene": "Montreal's grey stone waterfront and twin Gothic basilica towers blending into New Orleans's pastel French Quarter balconies and a white Mississippi paddlewheel steamer."
+		},
+		"calgary-phoenix": {
+			"file": "calgary-phoenix.webp",
+			"scene": "Calgary's open golden foothills beneath the snowy Canadian Rockies, a tiny distant red railway train, blending into Phoenix's warm Sonoran desert with tall saguaro cacti."
+		},
+		"vancouver-santa-fe": {
+			"file": "vancouver-santa-fe.webp",
+			"scene": "A luminous Vancouver inlet and blue snowy coastal mountains with cedar trees blending into Santa Fe's sculptural adobe pueblo architecture, copper mesas and desert juniper."
+		},
+		"boston-miami": {
+			"file": "boston-miami.webp",
+			"scene": "Boston's red brick waterfront and a historic tall sailing ship blending into Miami's aquamarine tropical shore and elegant cream buildings behind wind-swept palms."
+		},
+		"winnipeg-houston": {
+			"file": "winnipeg-houston.webp",
+			"scene": "Winnipeg's handsome stone railway station in open golden prairie country blending into Houston's verdant bayou beneath a brilliant sky, early railway warehouses and graceful oak trees."
+		},
+		"portland-phoenix": {
+			"file": "portland-phoenix.webp",
+			"scene": "Pacific Northwest cedar trees and a Portland river bridge blending into Phoenix's dramatic red desert mesas and monumental saguaro cacti, tiny railway winding through landscape."
+		},
+		"dallas-new-york": {
+			"file": "dallas-new-york.webp",
+			"scene": "Dallas's red sandstone courthouse and golden Texas wildflowers blending into New York's harbor, copper Statue of Liberty and a graceful early skyline, sunlit railway journey."
+		},
+		"denver-pittsburgh": {
+			"file": "denver-pittsburgh.webp",
+			"scene": "Denver's gold-domed capitol below blue Rocky Mountains blending into Pittsburgh's three rivers and majestic iron railway bridges, early brick riverside mills with clean optimistic morning light."
+		},
+		"winnipeg-little-rock": {
+			"file": "winnipeg-little-rock.webp",
+			"scene": "Winnipeg's open golden prairie and stone station blending into Little Rock's lush green river valley and the elegant Arkansas capitol dome, winding railway beneath cotton clouds."
+		},
+		"toronto-miami": {
+			"file": "toronto-miami.webp",
+			"scene": "Toronto's grand red-brick Romanesque old city hall and blue Lake Ontario blending into Miami's turquoise coast with sunny villas, palms and a small white sailing boat."
+		},
+		"duluth-el-paso": {
+			"file": "duluth-el-paso.webp",
+			"scene": "Duluth's massive iron aerial lift bridge above deep blue Lake Superior blending into El Paso's golden desert foothills and Spanish mission with yucca plants."
+		},
+		"sault-ste-marie-oklahoma-city": {
+			"file": "sault-ste-marie-oklahoma-city.webp",
+			"scene": "A handsome freighter passing green wooded Sault Ste. Marie canal locks blending into Oklahoma City's golden plains and elegant frontier brick railway station, endless optimistic sky."
+		},
+		"seattle-los-angeles": {
+			"file": "seattle-los-angeles.webp",
+			"scene": "A coastal train journey from Seattle's tall cedars and island-studded Puget Sound, along the Pacific cliff coast, into Los Angeles's warm white Spanish mission arches and palms."
+		},
+		"chicago-santa-fe": {
+			"file": "chicago-santa-fe.webp",
+			"scene": "Chicago's monumental early stone railway terminal and Lake Michigan blue blending into Santa Fe's amber adobe church, pinon pine and rose desert mesas."
+		},
+		"montreal-atlanta": {
+			"file": "montreal-atlanta.webp",
+			"scene": "Montreal's twin Gothic basilica towers and French stone waterfront blending into Atlanta's ornate red-brick station and blooming magnolia, soft amber afternoon."
+		},
+		"duluth-houston": {
+			"file": "duluth-houston.webp",
+			"scene": "Duluth's iron lift bridge and blue Lake Superior harbor blending into Houston's lush slow bayou, great live oaks, and handsome early railway district."
+		},
+		"helena-los-angeles": {
+			"file": "helena-los-angeles.webp",
+			"scene": "Helena's copper-domed capitol among Montana's forested foothills blending into Los Angeles's sunlit Spanish mission and slender palm trees, distant railway."
+		},
+		"sault-ste-marie-nashville": {
+			"file": "sault-ste-marie-nashville.webp",
+			"scene": "The clear green Great Lakes shipping canal at Sault Ste. Marie with a white lake steamer blending into Nashville's classical stone capitol and rolling emerald hills."
+		},
+		"calgary-salt-lake-city": {
+			"file": "calgary-salt-lake-city.webp",
+			"scene": "Calgary's foothill grasslands beneath snowy rugged Canadian Rocky Mountains blending into Salt Lake City's elegant domed capitol, silver-blue lake and rugged Wasatch peaks."
+		},
+		"chicago-new-orleans": {
+			"file": "chicago-new-orleans.webp",
+			"scene": "Chicago's grand lakeside early railway buildings and blue water blending into New Orleans's lively but unpeopled pastel French Quarter balconies, Mississippi paddlewheel steamer and southern magnolias."
+		},
+		"new-york-atlanta": {
+			"file": "new-york-atlanta.webp",
+			"scene": "New York's copper Statue of Liberty and early harbor skyline blending into Atlanta's elegant brick railway terminal and green magnolia trees, winding railway through soft hills."
+		},
+		"kansas-city-houston": {
+			"file": "kansas-city-houston.webp",
+			"scene": "Kansas City's monumental Beaux-Arts Union Station and fountain blending into Houston's leafy bayou and charming brick railway buildings beneath oak trees, golden prairie between."
+		},
+		"denver-el-paso": {
+			"file": "denver-el-paso.webp",
+			"scene": "Denver's elegant gold-domed capitol and blue snowcapped Colorado mountains blending into El Paso's sun-warmed desert mission, yucca and layered Franklin Mountain foothills."
+		}
+	}
+}

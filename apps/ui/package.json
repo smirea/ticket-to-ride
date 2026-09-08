@@ -9,16 +9,20 @@
 		"preview": "bun --env-file=../../.env --env-file=../../.env.local --bun vite preview"
 	},
 	"dependencies": {
+		"@fontsource/barlow": "^5.3.0",
+		"@fontsource/barlow-condensed": "^5.3.0",
 		"@repo/shared": "workspace:*",
 		"@sveltejs/adapter-static": "^3.0.9",
 		"@sveltejs/kit": "^2.48.4",
 		"@tanstack/svelte-query": "^6.1.33",
 		"phosphor-svelte": "^3.1.0",
 		"svelte": "^5.41.3",
+		"three": "^0.185.1",
 		"vite": "^7.1.12"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.3.0",
+		"@types/three": "^0.185.4",
 		"svelte-check": "^4.3.3",
 		"tailwindcss": "^4.3.0",
 		"typescript": "5.9.3"
