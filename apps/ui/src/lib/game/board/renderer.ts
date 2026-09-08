@@ -345,34 +345,6 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		renderer.shadowMap.needsUpdate = true;
 		render();
 	}
-	const boats: THREE.Group[] = [];
-	for (const [x, y, scale] of [
-		[15, 435, 1.15],
-		[940, 437, 1.4],
-		[932, 547, 0.85],
-		[13, 180, 1],
-	]) {
-		const boat = new THREE.Group();
-		const hull = new THREE.Mesh(
-			new THREE.SphereGeometry(5, 6, 3),
-			new THREE.MeshStandardMaterial({ color: '#765b43', roughness: 0.9 }),
-		);
-		hull.scale.set(0.7, 1.8, 0.4);
-		boat.add(hull);
-		const sailGeometry = new THREE.BufferGeometry();
-		sailGeometry.setAttribute('position', new THREE.Float32BufferAttribute([-5, 7, 3, 6, 7, 3, -4, -8, 22], 3));
-		sailGeometry.computeVertexNormals();
-		const sail = new THREE.Mesh(
-			sailGeometry,
-			new THREE.MeshBasicMaterial({ color: '#fff6db', side: THREE.DoubleSide }),
-		);
-		sail.rotation.z = -0.25;
-		boat.add(sail);
-		boat.position.set(x!, y!, 1);
-		boat.scale.setScalar(scale!);
-		scene.add(boat);
-		boats.push(boat);
-	}
 	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 	let frame = 0,
 		lastFrame = 0,
@@ -411,10 +383,6 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 				}
 			}
 			time.value = now * 0.001;
-			boats.forEach((boat, i) => {
-				boat.position.z = 1 + Math.sin(now * 0.0008 + i) * 0.35;
-				boat.rotation.y = Math.sin(now * 0.0007 + i) * 0.025;
-			});
 			render();
 			lastFrame = now;
 		}

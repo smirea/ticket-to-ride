@@ -21,7 +21,7 @@ CUA checks covered production and debug fixtures at 1586×992, 1280×720, 1024×
 - `tablet-full-table.png`: five players, twelve stacked tickets, and all nine hand types at 1024×768.
 - `portrait-ticket-selection.png`: two held tickets plus all three new offers at 768×1024.
 
-The dense ticket collection intentionally overlaps. Hover/focus raises a full ticket; large collections retain internal scrolling. Card counts, ticket values, and destination names remain UI text, not baked into art. Generated locomotive provenance is in `artifacts/current-table/card-art.md`.
+The dense ticket collection intentionally overlaps. Hover/focus raises a full ticket; large collections retain internal scrolling. Card counts and ticket values remain UI text. Destination names are now included in the illustrated artwork described below. Generated locomotive provenance is in `artifacts/current-table/card-art.md`.
 
 ## Gameplay and corrections
 
@@ -45,3 +45,15 @@ The board remains instanced Three.js geometry; the dark route backing is batched
 - `bun run build`: passes.
 - Production startup consumes the fresh-game query without the router initialization error.
 - Final browser checks reported no new console errors/warnings.
+
+## Engraved tickets and portrait plaques
+
+The September 8 evening pass replaces all 30 ticket faces with full-bleed illustrated panoramas. The city pairs are part of the image in a shared navy Victorian serif and ivory sky treatment, framed with fine brass ornament. A separately generated transparent burgundy clay seal carries each live UI point value. PointsSeal also supplies the score icon in the player plaques. Source prompts and asset paths are in `artifacts/engraved-table/art-direction.md` and the three batch records alongside it.
+
+Player plaques use tall portraits, cream/brass frames, a player-color inlay, a point-seal icon, and a carriage icon. The current player's plaque takes their color and rises with a deeper shadow. The plaques rest over the atlas edge; tablet spacing keeps the separate turn ticket readable. All boat meshes and their per-frame animation were removed; water and trees retain ambient motion.
+
+A low-thinking browser playtest covered five players, twelve stacked tickets, nine hand colors, drawing/selecting/keeping a ticket, and completing a route. The claim changed points 14→18 and remaining trains 37→34, lifted Maya's plaque on turn advance, and punched the ticket without erasing its 11-point seal. Keeping Los Angeles–Miami increased the ticket count from two to three. No console errors or warnings were reported. Dense stacks intentionally cover lower ticket artwork and seals until hover/focus or selection raises the ticket.
+
+Root visually checked desktop 1586×992, landscape tablet 1024×768, and portrait tablet 768×1024. All displayed images loaded, all five plaques fit, and there was no horizontal overflow. Evidence is in `artifacts/engraved-table/desktop-atlas.png`, `tablet-full-table.png`, and `portrait-full-table.png`. All 30 ticket IDs have corresponding 1152×384 WebP assets. Optimization reduced the ticket set from 8.05 MB to 4.53 MB. The live board reports eight draw calls after the boat removal, down from sixteen.
+
+Validation: 45 tests pass; full typecheck and lint pass; production build passes. No game-rule behavior was changed.
