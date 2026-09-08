@@ -23,7 +23,9 @@
 	<span class="ticket-paper">
 		<img src={getTicketArtwork(ticket)} alt="" loading="lazy" draggable="false" />
 		<span class="ticket-stub"><PointsSeal value={ticket.points} /></span>
-		{#if complete}<span class="complete-mark" aria-label="Connected"></span>{/if}
+		{#if complete}<span class="complete-mark" aria-label="Completed destination"
+				><span aria-hidden="true">✓</span> Completed</span
+			>{/if}
 	</span>
 	{#if punching}
 		<span class="paper-punch" aria-hidden="true" onanimationend={() => (punching = false)}></span>
@@ -88,13 +90,44 @@
 	}
 	.complete-mark {
 		position: absolute;
-		right: 56px;
-		bottom: 5px;
-		width: 18px;
-		height: 18px;
-		border: 1px solid #53705c91;
-		border-radius: 50%;
-		box-shadow: inset 0 0 0 2px #7e8e6740;
+		left: 13px;
+		bottom: 13px;
+		padding: 3px 7px 2px;
+		border: 2px solid currentColor;
+		outline: 1px solid currentColor;
+		outline-offset: 2px;
+		border-radius: 2px;
+		color: #235b48;
+		background: #f8edcfdf;
+		font:
+			800 12px Georgia,
+			serif;
+		letter-spacing: 0.075em;
+		text-transform: uppercase;
+		transform: rotate(-9deg);
+		box-shadow: 0 1px 2px #fff8df;
+	}
+	.complete-mark > span {
+		font-size: 15px;
+	}
+	.punching .complete-mark {
+		animation: stamp-land 580ms ease-out both;
+	}
+	@keyframes stamp-land {
+		0%,
+		22% {
+			opacity: 0;
+			transform: rotate(-9deg) scale(1.45);
+		}
+		36% {
+			opacity: 1;
+			transform: rotate(-9deg) scale(0.95);
+		}
+		55%,
+		100% {
+			opacity: 1;
+			transform: rotate(-9deg) scale(1);
+		}
 	}
 	.punching .ticket-paper {
 		animation: ticket-press 580ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
@@ -143,6 +176,7 @@
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.punching .ticket-paper,
+		.punching .complete-mark,
 		.paper-punch {
 			animation-duration: 1ms;
 		}

@@ -44,3 +44,13 @@ The observed full-table canvas used six draw calls, five textures, four geometri
 - Lint/format and production build pass.
 - `git diff --check` passes.
 - Rechecked finished live room and fresh production startup: no console errors or warnings.
+
+## Carriage models and visible completion stamps
+
+The follow-up replaces the two plain claimed-route boxes with a reusable three-material carriage model: painted barrel roof/body, ivory clerestory roof and window surrounds, dark windows/roof vents, underframe, wheels, couplers and end platforms. All carriages share three instanced meshes; tiny details use simple boxes instead of subdivided rounded geometry. The observed canvas uses seven draw calls and 426764 triangles, with five textures. A sampled local frame window remained 16.7 ms median / 33.3 ms p95. This is not a device-independent performance guarantee.
+
+The SVG backing previously darkened meshes because it sits above the canvas. Claimed lanes now relinquish that overlay, allowing the model and its real shadow to remain visible. Keyboard focus styling is restricted to available routes so it cannot obscure a completed claim. Open routes retain their flat printed segments.
+
+Completed destination cards now keep an angled green COMPLETED ink mark and check, in addition to the animated punch hole and live point seal. A low-thinking agent completed Portland–Phoenix through the SF–LA purple lane: three cards/trains spent, score 14→18, trains 37→34, and the 11-point ticket stamped. Desktop and 768px tablet checks found no ticket overlap or console errors. Root repeated the claim after the overlay correction and checked the models at full board scale. Evidence includes `carriages-and-completed-ticket.png`, the unaltered screenshot crops `completed-ticket-closeup.png` and `carriage-closeup.png`, and `stamp-fixture-qa.md` in `artifacts/route-network/`.
+
+Follow-up validation: lint, full typecheck and production build pass. The change is visual; no additional trivial tests were introduced. Final result: **passed**.

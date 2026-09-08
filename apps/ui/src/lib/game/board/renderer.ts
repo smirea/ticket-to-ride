@@ -1,7 +1,7 @@
+import { carriageGeometries } from './carriage';
 import { atlasPoint } from './atlas-warp';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import type { GameState, RouteId } from '@repo/shared';
 import {
 	cities,
@@ -12,7 +12,6 @@ import {
 	routePoint,
 	routeMarkerT,
 	routeMarkerLength,
-	ROUTE_MARKER_WIDTH,
 	routes,
 	terrainHeight,
 } from './layout';
@@ -213,33 +212,48 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	trees.castShadow = true;
 	scene.add(trees);
 	const segmentCount = routes.reduce((count, route) => count + route.length, 0);
-	const segmentGeometry = new RoundedBoxGeometry(1, 1, 1, 2, 0.16);
-	const segmentMaterial = new THREE.MeshPhysicalMaterial({
-		roughness: 0.9,
-		metalness: 0,
-		envMapIntensity: 0.08,
-		clearcoat: 0.06,
-		clearcoatRoughness: 0.35,
-	});
-	const segments = new THREE.InstancedMesh(segmentGeometry, segmentMaterial, segmentCount);
-	segments.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-	segments.castShadow = true;
-	scene.add(segments);
-	const roofs = new THREE.InstancedMesh(
-		new RoundedBoxGeometry(1, 1, 1, 2, 0.14),
-		new THREE.MeshStandardMaterial({ roughness: 0.9, metalness: 0, envMapIntensity: 0.08 }),
+	const carriage = carriageGeometries();
+	const segments = new THREE.InstancedMesh(
+		carriage.paint,
+		new THREE.MeshStandardMaterial({
+			roughness: 0.38,
+			metalness: 0.15,
+			envMapIntensity: 0.35,
+		}),
 		segmentCount,
 	);
-	scene.add(roofs);
+	const roofs = new THREE.InstancedMesh(
+		carriage.ivory,
+		new THREE.MeshStandardMaterial({
+			color: '#f5dfad',
+			roughness: 0.55,
+			metalness: 0.18,
+		}),
+		segmentCount,
+	);
+	const ironwork = new THREE.InstancedMesh(
+		carriage.iron,
+		new THREE.MeshStandardMaterial({
+			color: '#202c30',
+			roughness: 0.6,
+			metalness: 0.25,
+		}),
+		segmentCount,
+	);
+	const carriageMeshes = [segments, roofs, ironwork];
+	for (const mesh of carriageMeshes) {
+		mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add(mesh);
+	}
 	const rejectionStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
 	rejectionStarts.setUsage(THREE.DynamicDrawUsage);
-	segments.geometry.setAttribute('aRejectAt', rejectionStarts);
-	roofs.geometry.setAttribute('aRejectAt', rejectionStarts);
+	for (const mesh of carriageMeshes) mesh.geometry.setAttribute('aRejectAt', rejectionStarts);
 	const claimStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
 	claimStarts.setUsage(THREE.DynamicDrawUsage);
-	segments.geometry.setAttribute('aClaimAt', claimStarts);
-	roofs.geometry.setAttribute('aClaimAt', claimStarts);
-	for (const material of [segments.material, roofs.material])
+	for (const mesh of carriageMeshes) mesh.geometry.setAttribute('aClaimAt', claimStarts);
+	for (const material of carriageMeshes.map(mesh => mesh.material))
 		material.onBeforeCompile = shader => {
 			shader.uniforms.uTime = time;
 			shader.uniforms.uInteractionMotion = interactionMotion;
@@ -253,8 +267,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			);
 		};
 
-	segments.material.customProgramCacheKey = () => 'atlas-route-settle-v3';
-	roofs.material.customProgramCacheKey = () => 'atlas-roof-settle-v3';
+	for (const mesh of carriageMeshes) mesh.material.customProgramCacheKey = () => 'atlas-carriage-settle-v1';
 	const routeIndexes = new Map<RouteId, number[]>();
 	let nextIndex = 0;
 	for (const route of routes) {
@@ -271,7 +284,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		for (const route of routes) {
 			const owner = players.get(currentState.claimedRoutes[route.id]!);
 			const color = new THREE.Color(owner ? playerColors[owner.color] : '#888888');
-			if (eligibleRoutes && !eligibleRoutes.has(route.id)) color.lerp(new THREE.Color('#a9a397'), 0.86);
+			if (!owner && eligibleRoutes && !eligibleRoutes.has(route.id)) color.lerp(new THREE.Color('#a9a397'), 0.86);
 			const active = route.id === selected || route.id === hovered;
 			const length = routeMarkerLength(route);
 			routeIndexes.get(route.id)!.forEach((index, i) => {
@@ -280,7 +293,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					before = routePoint(route, Math.max(0, t - 0.01)),
 					after = routePoint(route, Math.min(1, t + 0.01));
 				const angle = Math.atan2(after.y - before.y, after.x - before.x);
-				const height = terrainHeight(p.x, p.y) + (owner ? 3.6 : 1) + (active ? 0.4 : 0);
+				const height = terrainHeight(p.x, p.y) + 0.8 + (active ? 0.4 : 0);
 				dummy.position.set(p.x, p.y, height);
 				dummy.rotation.set(
 					0,
@@ -291,27 +304,14 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					angle,
 					'ZYX',
 				);
-				dummy.scale.set(owner ? length : 0, ROUTE_MARKER_WIDTH, owner ? 5.4 : 0);
+				dummy.scale.set(owner ? (length - 1.8) / 30 : 0, owner ? 1 : 0, owner ? 1 : 0);
 				dummy.updateMatrix();
-				segments.setMatrixAt(index, dummy.matrix);
-				segments.setColorAt(
-					index,
-					color
-						.clone()
-						.multiplyScalar(owner ? 1 : 0.65)
-						.lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0),
-				);
-				dummy.position.z += owner ? 3.4 : 0.5;
-				dummy.scale.set(owner ? length - 3 : 0, 6.4, owner ? 1.6 : 0);
-				dummy.updateMatrix();
-				roofs.setMatrixAt(index, dummy.matrix);
-				roofs.setColorAt(index, color);
+				for (const mesh of carriageMeshes) mesh.setMatrixAt(index, dummy.matrix);
+				segments.setColorAt(index, color.clone().lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0));
 			});
 		}
-		segments.instanceMatrix.needsUpdate = true;
+		for (const mesh of carriageMeshes) mesh.instanceMatrix.needsUpdate = true;
 		segments.instanceColor!.needsUpdate = true;
-		roofs.instanceMatrix.needsUpdate = true;
-		roofs.instanceColor!.needsUpdate = true;
 		renderer.shadowMap.needsUpdate = true;
 		render();
 	}
