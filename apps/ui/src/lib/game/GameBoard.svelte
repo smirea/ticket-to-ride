@@ -228,7 +228,7 @@
 					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
 				>
 				<g class="network-outline" aria-hidden="true">
-					{#each routes as route (route.id)}<path d={outline(route)} />{/each}
+					{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
 					{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
 						<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
 					{/each}
@@ -553,7 +553,7 @@
 	.route:focus {
 		outline: none;
 	}
-	.route:focus-visible .route-aura {
+	.available:focus-visible .route-aura {
 		stroke: #fff;
 		opacity: 0.9;
 	}
