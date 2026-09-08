@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { USA_CITIES, type DestinationTicket } from '@repo/shared';
+	import { type DestinationTicket } from '@repo/shared';
 	import { getTicketArtwork } from './ticket-art';
+	import PointsSeal from './PointsSeal.svelte';
 
 	let {
 		ticket,
 		complete = false,
 		selected = false,
 	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean } = $props();
-	const cityNames = new Map(USA_CITIES.map(city => [city.id, city.name]));
 	let punching = $state(false);
 	let initialized = false;
 	let wasComplete = false;
@@ -22,14 +22,7 @@
 <span class="destination-card" class:complete class:punching class:selected>
 	<span class="ticket-paper">
 		<img src={getTicketArtwork(ticket)} alt="" loading="lazy" draggable="false" />
-		<span class="route-name">
-			<strong>{cityNames.get(ticket.cityA)}</strong>
-			<span class="journey-line" aria-hidden="true"></span>
-			<strong>{cityNames.get(ticket.cityB)}</strong>
-		</span>
-		<span class="ticket-stub">
-			<strong class="ticket-points" aria-label={`${ticket.points} points`}>{ticket.points}</strong>
-		</span>
+		<span class="ticket-stub"><PointsSeal value={ticket.points} /></span>
 		{#if complete}<span class="complete-mark" aria-label="Connected"></span>{/if}
 	</span>
 	{#if punching}
@@ -39,7 +32,6 @@
 
 <style>
 	.destination-card {
-		--stub-width: 18%;
 		position: relative;
 		display: block;
 		isolation: isolate;
@@ -73,89 +65,44 @@
 	}
 	img {
 		position: absolute;
-		inset: 5px auto 5px 5px;
-		width: 41%;
-		height: calc(100% - 10px);
-		object-fit: cover;
-		border-radius: 1px;
-		filter: saturate(0.82);
-		box-shadow: 1px 0 0 #a5876152;
-	}
-	.route-name {
-		position: absolute;
-		inset: 11px calc(var(--stub-width) + 7px) 11px 46%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		gap: 5px;
-		color: #243744;
-		font-size: clamp(13px, 0.94vw, 15px);
-		line-height: 1.15;
-	}
-	.route-name strong {
-		font-weight: 650;
-	}
-	.journey-line {
-		position: relative;
-		display: block;
-		width: 23px;
-		height: 1px;
-		background: #947a515e;
-	}
-	.journey-line::after {
-		position: absolute;
-		right: 0;
-		top: -2px;
-		width: 4px;
-		height: 4px;
-		border-top: 1px solid #947a5199;
-		border-right: 1px solid #947a5199;
-		transform: rotate(45deg);
-		content: '';
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: fill;
+		pointer-events: none;
 	}
 	.ticket-stub {
 		position: absolute;
-		inset: 7px 0;
-		left: calc(100% - var(--stub-width));
-		display: grid;
-		place-items: center;
-		border-left: 1px dashed #b79b6e8c;
-		background: linear-gradient(90deg, #b39c6c09, transparent 12%);
+		width: 46px;
+		height: 46px;
+		right: 7px;
+		bottom: 4px;
+		--seal-number-size: 23px;
 	}
-	.ticket-points {
-		color: #9d483b;
-		font:
-			700 29px Georgia,
-			serif;
-		font-variant-numeric: lining-nums;
-		text-shadow: 0 1px #fff8e5;
-	}
+
 	.complete .ticket-paper {
 		mask-image:
 			radial-gradient(circle at 0 50%, transparent 5px, #000 5.6px),
 			radial-gradient(circle at 100% 50%, transparent 5px, #000 5.6px),
-			radial-gradient(circle at calc(100% - 22px) calc(100% - 20px), transparent 5px, #000 5.6px);
+			radial-gradient(circle at calc(100% - 65px) calc(100% - 14px), transparent 5px, #000 5.6px);
 	}
 	.complete-mark {
 		position: absolute;
-		right: 13px;
-		bottom: 11px;
+		right: 56px;
+		bottom: 5px;
 		width: 18px;
 		height: 18px;
 		border: 1px solid #53705c91;
 		border-radius: 50%;
 		box-shadow: inset 0 0 0 2px #7e8e6740;
 	}
-	.complete .ticket-points {
-		color: #4d6752;
-	}
 	.punching .ticket-paper {
 		animation: ticket-press 580ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
 	}
 	.paper-punch {
 		position: absolute;
-		right: 17px;
-		bottom: 15px;
+		right: 60px;
+		bottom: 9px;
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;

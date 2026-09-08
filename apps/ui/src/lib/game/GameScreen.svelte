@@ -29,6 +29,7 @@
 	import CardFlight from './CardFlight.svelte';
 	import DestinationCard from './DestinationCard.svelte';
 	import TableStatus from './TableStatus.svelte';
+	import PlayerPlaque from './PlayerPlaque.svelte';
 	import TicketSelection from './TicketSelection.svelte';
 	import ClaimFlight from './ClaimFlight.svelte';
 	import { playerPortraitAssets } from './assets';
@@ -505,19 +506,13 @@
 		<div class="identity"><Brand compact /><span class="map-edition">Classic USA</span></div>
 		<div class="players" aria-label="Players" style:--players={gameState.players.length}>
 			{#each gameState.players as player, index (player.id)}
-				<div
-					class="player"
-					class:active={index === gameState.currentPlayerIndex && gameState.phase.type !== 'game-over'}
-					style:--player-color={playerColors[player.color]}
-					aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${Object.values(player.hand).reduce((sum, count) => sum + count, 0)} cards, ${player.tickets.length} tickets`}
-				>
-					<img src={playerPortraitAssets[player.color]} alt="" />
-					<div class="player-info">
-						<strong>{player.id === viewerId ? 'You' : player.name}</strong><span
-							><b>{player.score}</b> pts <i>·</i> {player.trains} trains</span
-						>
-					</div>
-				</div>
+				<PlayerPlaque
+					{player}
+					{viewerId}
+					{index}
+					active={player.id === activePlayer?.id && gameState.phase.type !== 'game-over'}
+					color={playerColors[player.color]}
+				/>
 			{/each}
 		</div>
 		<nav class="game-controls" aria-label="Game controls">
@@ -740,7 +735,7 @@
 			{#if panel === 'settings'}
 				<div class="settings-list">
 					<label
-						><span><strong>Living atlas</strong><small>Gentle water, boats, and wind in the trees</small></span><input
+						><span><strong>Living atlas</strong><small>Gentle water and wind in the trees</small></span><input
 							type="checkbox"
 							bind:checked={ambientMotion}
 							disabled={reduceMotion}
@@ -859,11 +854,13 @@
 	.table-header {
 		grid-column: 1 / -1;
 		align-self: start;
-		height: 76px;
+		height: 130px;
+		position: relative;
+		z-index: 20;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		gap: 18px;
-		padding: 0 0 0 10px;
+		padding: 20px 0 0 10px;
 		min-width: 0;
 	}
 	.identity {
@@ -883,48 +880,9 @@
 		display: flex;
 		justify-content: flex-end;
 		flex: 1;
-		gap: clamp(10px, 1.4vw, 24px);
+		gap: clamp(7px, 0.8vw, 13px);
+		margin-top: 14px;
 		min-width: 0;
-	}
-	.player {
-		display: flex;
-		align-items: center;
-		gap: 7px;
-		min-width: 0;
-		padding: 6px 0;
-		border-bottom: 2px solid transparent;
-	}
-	.player.active {
-		border-bottom-color: var(--player-color);
-	}
-	.player img {
-		width: 38px;
-		height: 38px;
-		object-fit: cover;
-		border-radius: 50%;
-		padding: 2px;
-		border: 2px solid var(--player-color);
-		flex-shrink: 0;
-	}
-	.player-info {
-		display: grid;
-		gap: 2px;
-		min-width: 0;
-	}
-	.player-info > strong {
-		max-width: 105px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		font-size: 13px;
-	}
-	.player-info > span {
-		white-space: nowrap;
-		font-size: 11px;
-	}
-	.player-info i {
-		font-style: normal;
-		color: #a79e8a;
 	}
 	.game-controls {
 		display: flex;
@@ -1005,17 +963,6 @@
 	}
 	.ticket-button + .ticket-button {
 		margin-top: calc(var(--ticket-step) - 82px);
-	}
-	.ticket-button:hover,
-	.ticket-button:focus-visible,
-	.stacked .ticket-button:not(:hover):not(:focus-visible):not(.previewed) :global(.route-name) {
-		justify-content: flex-start;
-	}
-	.stacked .ticket-button:not(:hover):not(:focus-visible):not(.previewed) :global(.ticket-stub) {
-		align-items: start;
-	}
-	.stacked .ticket-button:not(:hover):not(:focus-visible):not(.previewed) :global(.ticket-points) {
-		font-size: 21px;
 	}
 	.ticket-button.previewed {
 		z-index: 50;
@@ -1545,16 +1492,6 @@
 	}
 
 	@media (min-width: 1400px) {
-		.player-info > strong {
-			font-size: 15px;
-		}
-		.player-info > span {
-			font-size: 13px;
-		}
-		.player img {
-			width: 42px;
-			height: 42px;
-		}
 		.game-shell {
 			grid-template-rows: 108px minmax(380px, 1fr) 190px;
 		}
@@ -1608,27 +1545,28 @@
 	}
 	@media (max-width: 1100px) {
 		.table-header {
-			height: 102px;
+			height: 163px;
+			padding-top: 0;
 			display: grid;
 			grid-template-columns: 1fr auto;
-			grid-template-rows: 48px 54px;
+			grid-template-rows: 48px 99px;
 			gap: 0 12px;
 		}
 		.players {
 			grid-row: 2;
 			grid-column: 1 / -1;
 			justify-content: space-between;
-		}
-		.player img {
-			width: 32px;
-			height: 32px;
+			margin-top: 18px;
 		}
 		.game-controls {
 			grid-column: 2;
 			grid-row: 1;
 		}
+		.journey-sidebar {
+			padding-top: 20px;
+		}
 		.game-shell {
-			grid-template-rows: 146px minmax(330px, 1fr) 170px;
+			grid-template-rows: 150px minmax(330px, 1fr) 170px;
 			min-height: 768px;
 		}
 		.history-popover {
@@ -1647,7 +1585,7 @@
 	@media (max-width: 1100px) and (orientation: portrait) {
 		.game-shell {
 			grid-template-columns: 242px minmax(0, 1fr);
-			grid-template-rows: 118px minmax(420px, 1fr) 320px;
+			grid-template-rows: 150px 430px minmax(300px, 1fr);
 			min-height: 1024px;
 			padding: 0 14px 16px 6px;
 		}
@@ -1659,7 +1597,7 @@
 		.board-stage {
 			grid-column: 2;
 			grid-row: 2;
-			align-self: center;
+			align-self: start;
 			height: 430px;
 		}
 		.play-tray {
