@@ -1,7 +1,19 @@
 <script lang="ts">
 	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { onMount, tick } from 'svelte';
-	import { cities, cityById, cityPoint, playerColors, routeColors, routePoint, routes } from './board/layout';
+	import { fade } from 'svelte/transition';
+	import {
+		cities,
+		cityById,
+		cityPoint,
+		playerColors,
+		routeColors,
+		routePoint,
+		routeMarkerT,
+		ROUTE_MARKER_LENGTH,
+		ROUTE_MARKER_WIDTH,
+		routes,
+	} from './board/layout';
 	import { createAtlasRenderer, projectPoint } from './board/renderer';
 	type Props = {
 		state: GameState;
@@ -10,6 +22,11 @@
 		disabled?: boolean;
 		ambientMotion?: boolean;
 		onselect: (route: Route) => void;
+		onhover?: (route: Route | undefined) => void;
+		routeHints?: Record<string, string>;
+		eligibleRouteIds?: string[];
+		rejectedRouteId?: string;
+		rejectionKey?: number;
 	};
 	let {
 		state: gameState,
@@ -18,6 +35,11 @@
 		disabled = false,
 		ambientMotion = true,
 		onselect,
+		onhover,
+		routeHints = {},
+		eligibleRouteIds,
+		rejectedRouteId,
+		rejectionKey,
 	}: Props = $props();
 	let canvas = $state<HTMLCanvasElement>();
 	let viewport = $state<HTMLDivElement>();
@@ -40,13 +62,17 @@
 		return playerId ? playerById.get(playerId) : undefined;
 	}
 	function point(route: Route, t: number) {
-		return projectPoint(routePoint(route, t));
+		return projectPoint(routePoint(route, t), 1.6);
 	}
 	function path(route: Route) {
-		return Array.from({ length: 13 }, (_, i) => {
-			const p = point(route, i / 12);
+		return Array.from({ length: 49 }, (_, i) => {
+			const p = point(route, i / 48);
 			return `${i ? 'L' : 'M'}${p.x},${p.y}`;
 		}).join(' ');
+	}
+	function hoverRoute(route?: Route) {
+		hoveredRouteId = route?.id;
+		onhover?.(route);
 	}
 	function focusRoute(route?: Route) {
 		if (!route) return;
@@ -107,7 +133,7 @@
 		measure.observe(viewport);
 		try {
 			atlas = createAtlasRenderer(canvas);
-			atlas.update(gameState, selectedRouteId, hoveredRouteId);
+			atlas.update(gameState, selectedRouteId, hoveredRouteId, eligibleRouteIds, rejectedRouteId, rejectionKey);
 			atlas.setAmbientMotion(ambientMotion);
 			void atlas.ready
 				.then(() => {
@@ -125,7 +151,7 @@
 		};
 	});
 	$effect(() => {
-		atlas?.update(gameState, selectedRouteId, hoveredRouteId);
+		atlas?.update(gameState, selectedRouteId, hoveredRouteId, eligibleRouteIds, rejectedRouteId, rejectionKey);
 	});
 	$effect(() => {
 		atlas?.setAmbientMotion(ambientMotion);
@@ -149,7 +175,7 @@
 				aria-describedby="board-help"
 				onpointermove={pointerMove}
 				onpointerleave={() => {
-					hoveredRouteId = undefined;
+					hoverRoute();
 					atlas?.pointer(-2000, -2000);
 				}}
 			>
@@ -181,6 +207,7 @@
 						class:available={!routeOwner && !disabled}
 						class:selected
 						class:claimed={Boolean(routeOwner)}
+						class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
 						role="button"
 						tabindex={routeOwner || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
 						aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : selected ? ', selected' : ', open'}`}
@@ -188,33 +215,36 @@
 						aria-pressed={!routeOwner && !disabled ? selected : undefined}
 						onclick={() => !routeOwner && !disabled && onselect(route)}
 						onpointerenter={() => {
-							if (!routeOwner && !disabled) hoveredRouteId = route.id;
+							if (!routeOwner && !disabled) hoverRoute(route);
 						}}
-						onpointerleave={() => (hoveredRouteId = undefined)}
+						onpointerleave={() => hoverRoute()}
 						onfocus={() => {
 							focusedRouteId = route.id;
-							hoveredRouteId = route.id;
+							hoverRoute(route);
 						}}
-						onblur={() => (hoveredRouteId = undefined)}
+						onblur={() => hoverRoute()}
 						onkeydown={event => !routeOwner && !disabled && keySelect(event, route)}
 					>
 						<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
-						{#if !ready}{#each Array(route.length) as _, i}{@const p = point(
-									route,
-									(i + 0.5) / route.length,
-								)}{@const a = point(route, Math.max(0, (i + 0.5) / route.length - 0.01))}{@const b = point(
-									route,
-									Math.min(1, (i + 0.5) / route.length + 0.01),
-								)}<rect
-									x={p.x - 8}
-									y={p.y - 3.5}
-									width="16"
-									height="7"
-									rx="2"
-									transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-									fill={routeOwner ? playerColors[routeOwner.color] : routeColors[route.color]}
-									class="fallback-segment"
-								/>{/each}{/if}
+						{#each Array(route.length) as _, i}
+							{@const t = routeMarkerT(route, i)}
+							{@const p = point(route, t)}
+							{@const a = point(route, Math.max(0, t - 0.002))}
+							{@const b = point(route, Math.min(1, t + 0.002))}
+							<rect
+								data-route-marker={route.id}
+								data-marker-index={i}
+								x={p.x - ROUTE_MARKER_LENGTH / 2}
+								y={p.y - ROUTE_MARKER_WIDTH / 2}
+								width={ROUTE_MARKER_LENGTH}
+								height={ROUTE_MARKER_WIDTH}
+								rx="2"
+								transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
+								fill={ready ? 'transparent' : routeOwner ? playerColors[routeOwner.color] : routeColors[route.color]}
+								class="marker-anchor"
+								class:fallback-segment={!ready}
+							/>
+						{/each}
 					</g>
 				{/each}
 				{#if highlightedTicket}
@@ -223,11 +253,13 @@
 					)}
 					<path
 						class="ticket-trace-underlay"
+						transition:fade={{ duration: ambientMotion ? 180 : 0 }}
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
 					/>
 					<path
 						class="ticket-trace"
+						transition:fade={{ duration: ambientMotion ? 180 : 0 }}
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
 					/>
@@ -236,11 +268,14 @@
 					{@const p = projectPoint(cityPoint(city))}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
 					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
-						{#if endpoint}<circle class="endpoint-ring" r="21" />{/if}<circle
-							class="city-shadow"
-							cy="1.8"
-							r="9.5"
-						/><circle class="city-hub" r="8.2" /><circle class="city-center" r="4.8" />
+						{#if endpoint}<circle
+								class="endpoint-ring"
+								r="21"
+								transition:fade={{ duration: ambientMotion ? 180 : 0 }}
+							/>{/if}<circle class="city-shadow" cy="1.8" r="9.5" /><circle class="city-hub" r="8.2" /><circle
+							class="city-center"
+							r="4.8"
+						/>
 						<text
 							y={city.id === 'vancouver' || city.id === 'winnipeg' ? 22 : -13}
 							x={city.id === 'boston' ? -2 : 0}
@@ -248,6 +283,39 @@
 						>
 					</g>
 				{/each}
+				{#each routes.filter(route => routeHints[route.id] && !owner(route)) as route (route.id)}
+					{@const p = point(route, 0.5)}
+					<g
+						transition:fade={{ duration: ambientMotion ? 160 : 0 }}
+						class="route-hint"
+						transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`}
+						aria-hidden="true"
+					>
+						<rect
+							x={-routeHints[route.id]!.length * 2.7 - 7}
+							y="-11"
+							width={routeHints[route.id]!.length * 5.4 + 14}
+							height="20"
+							rx="5"
+						/>
+						<text y="3">{routeHints[route.id]}</text>
+					</g>
+				{/each}
+				{#key rejectionKey}
+					{#if rejectedRouteId}
+						{@const rejected = routes.find(route => route.id === rejectedRouteId)}
+						{#if rejected}
+							{@const p = point(rejected, 0.5)}
+							<g class="route-rejection" aria-hidden="true">
+								<path d={path(rejected)} />
+								<g transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}>
+									<rect x="-74" y="-13" width="148" height="24" rx="5" />
+									<text y="3">not enough to claim</text>
+								</g>
+							</g>
+						{/if}
+					{/if}
+				{/key}
 				<g class="compass" transform="translate(950 548)" aria-hidden="true"
 					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
 				>
@@ -292,6 +360,7 @@
 		background: #68a4ac;
 		transform: perspective(1900px) rotateX(9deg) rotateZ(-0.65deg);
 		transform-origin: center;
+		animation: board-arrive 760ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 		box-shadow:
 			0 1px 0 #e9dfbd,
 			0 3px 0 #d1c4a3,
@@ -391,6 +460,8 @@
 	.route-hitbox {
 		stroke: transparent;
 		stroke-width: 14;
+		stroke-linecap: round;
+		pointer-events: stroke;
 		fill: none;
 	}
 	.route-aura {
@@ -421,6 +492,16 @@
 	.route:focus-visible .route-aura {
 		stroke: #fff;
 		opacity: 0.9;
+	}
+	.marker-anchor {
+		pointer-events: none;
+	}
+	.route:not(.available) {
+		pointer-events: none;
+	}
+	.dimmed .fallback-segment {
+		filter: grayscale(1);
+		opacity: 0.5;
 	}
 	.fallback-segment {
 		stroke: #55554c;
@@ -510,6 +591,86 @@
 		overflow: hidden;
 		clip-path: inset(50%);
 		white-space: nowrap;
+	}
+	.route-hint,
+	.route-rejection {
+		pointer-events: none;
+		text-anchor: middle;
+		font:
+			600 11px Barlow,
+			sans-serif;
+	}
+	.route-hint {
+		animation: hint-in 180ms ease-out both;
+	}
+	.route-hint rect {
+		fill: #fff8e9ee;
+		stroke: #8f80675c;
+		stroke-width: 0.6;
+	}
+	.route-hint text {
+		fill: #394847;
+	}
+	.route-rejection {
+		animation: rejection-out 1.8s ease both;
+	}
+	.route-rejection path {
+		fill: none;
+		stroke: #b63e30;
+		stroke-width: 13;
+		stroke-linecap: round;
+		opacity: 0.4;
+		animation: route-jiggle 480ms ease-out;
+	}
+	.route-rejection rect {
+		fill: #fff0e4f5;
+		stroke: #b63e3055;
+	}
+	.route-rejection text {
+		fill: #a83328;
+		font-weight: 700;
+	}
+	@keyframes board-arrive {
+		from {
+			opacity: 0;
+			translate: 0 -45px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	@keyframes hint-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes rejection-out {
+		0% {
+			opacity: 0;
+		}
+		10%,
+		65% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+	@keyframes route-jiggle {
+		15%,
+		45%,
+		75% {
+			translate: -3px 0;
+		}
+		30%,
+		60%,
+		90% {
+			translate: 3px 0;
+		}
 	}
 	@keyframes selection-glow {
 		from {

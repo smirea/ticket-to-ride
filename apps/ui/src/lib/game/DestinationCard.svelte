@@ -2,7 +2,11 @@
 	import { USA_CITIES, type DestinationTicket } from '@repo/shared';
 	import { getTicketArtwork } from './ticket-art';
 
-	let { ticket, complete = false }: { ticket: DestinationTicket; complete?: boolean } = $props();
+	let {
+		ticket,
+		complete = false,
+		selected = false,
+	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean } = $props();
 	const cityNames = new Map(USA_CITIES.map(city => [city.id, city.name]));
 	let punching = $state(false);
 	let initialized = false;
@@ -15,7 +19,7 @@
 	});
 </script>
 
-<span class="destination-card" class:complete class:punching>
+<span class="destination-card" class:complete class:punching class:selected>
 	<span class="ticket-paper">
 		<img src={getTicketArtwork(ticket)} alt="" loading="lazy" draggable="false" />
 		<span class="route-name">
@@ -46,6 +50,10 @@
 		filter: drop-shadow(0 1px 0 #ae9671) drop-shadow(0 3px 2px #4a342d26) drop-shadow(0 8px 7px #37271626);
 		text-align: left;
 		user-select: none;
+	}
+	.selected {
+		filter: drop-shadow(1px 0 0 #4e735f) drop-shadow(-1px 0 0 #4e735f) drop-shadow(0 1px 0 #4e735f)
+			drop-shadow(0 -1px 0 #4e735f) drop-shadow(0 3px 2px #4a342d26) drop-shadow(0 8px 7px #37271626);
 	}
 	.ticket-paper {
 		position: absolute;
