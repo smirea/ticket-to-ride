@@ -21,6 +21,8 @@
 
 # Frontend
 
+- Design exclusively for desktop and tablets (minimum layout width 768px), including portrait tablets. Preserve the tabletop composition; do not add phone layouts, hidden city labels, or phone-specific map modes.
+
 - Tailwind CSS v4 is wired through `@tailwindcss/vite`.
 - Global styles are imported from `apps/ui/src/routes/layout.css`.
 - Theme values live in `apps/ui/src/routes/theme.css` and are selected with `html[data-theme]`.

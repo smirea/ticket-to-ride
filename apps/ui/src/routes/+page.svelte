@@ -194,30 +194,6 @@
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
 	}
-	@media (max-width: 820px) {
-		.hero-layout {
-			grid-template-columns: 1fr;
-			max-width: 650px;
-		}
-		.travel-print {
-			transform: none;
-		}
-		.travel-print img {
-			height: 300px;
-		}
-	}
-	@media (max-width: 420px) {
-		.small-link {
-			font-size: 0.65rem;
-		}
-		.primary,
-		.multiplayer {
-			width: 100%;
-		}
-		footer {
-			letter-spacing: 0.04em;
-		}
-	}
 	@media (prefers-reduced-motion: reduce) {
 		.primary,
 		.multiplayer {

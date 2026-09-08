@@ -26,24 +26,9 @@
 	let atlas = $state.raw<ReturnType<typeof createAtlasRenderer> | undefined>();
 	let ready = $state(false);
 	let zoom = $state(1);
-	let fitMap = $state(false);
-	const inspectNarrow = $derived(!fitMap && viewportWidth < 700);
-	const mapWidth = $derived((inspectNarrow ? Math.max(760, viewportWidth) : viewportWidth) * zoom);
-	const mapHeight = $derived(viewportWidth < 700 ? mapWidth * 0.62 : viewportHeight * zoom);
-	const labelFactor = $derived(viewportWidth < 700 && fitMap ? Math.min(1, 0.72 * zoom) : 1);
-	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
-	const overviewCities = new Set([
-		'seattle',
-		'san-francisco',
-		'los-angeles',
-		'denver',
-		'chicago',
-		'new-york',
-		'miami',
-		'houston',
-		'montreal',
-		'calgary',
-	]);
+	const mapWidth = $derived(viewportWidth * zoom);
+	const mapHeight = $derived(viewportHeight * zoom);
+	const labelScale = $derived(`scale(${1000 / mapWidth} ${620 / mapHeight})`);
 
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
@@ -112,15 +97,10 @@
 	}
 	onMount(() => {
 		if (!canvas || !viewport) return;
-		let measured = false;
 		const measure = new ResizeObserver(([entry]) => {
 			if (entry) {
 				viewportWidth = entry.contentRect.width;
 				viewportHeight = entry.contentRect.height;
-				if (!measured && viewportWidth > 0) {
-					fitMap = viewportWidth < 700;
-					measured = true;
-				}
 			}
 		});
 		measure.observe(viewport);
@@ -155,13 +135,7 @@
 	});
 </script>
 
-<div
-	class="board-frame"
-	class:ready
-	class:fit={fitMap && viewportWidth < 700}
-	data-renderer-ready={ready}
-	class:motion-paused={!ambientMotion}
->
+<div class="board-frame" class:ready data-renderer-ready={ready} class:motion-paused={!ambientMotion}>
 	<div class="board-viewport" bind:this={viewport}>
 		<div class="board-stage" style:width={`${mapWidth}px`} style:height={`${mapHeight}px`}>
 			<canvas bind:this={canvas} aria-hidden="true"></canvas>
@@ -255,12 +229,7 @@
 				{#each cities as city (city.id)}
 					{@const p = projectPoint(cityPoint(city))}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
-					<g
-						class="city"
-						class:minor={!endpoint && !overviewCities.has(city.id)}
-						class:ticket-endpoint={endpoint}
-						transform={`translate(${p.x} ${p.y}) ${labelScale}`}
-					>
+					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
 						{#if endpoint}<circle class="endpoint-ring" r="13" />{/if}<circle
 							class="city-shadow"
 							cy="1.8"
@@ -286,9 +255,9 @@
 			type="button"
 			class="fit-control"
 			onclick={() => {
-				fitMap = !fitMap;
 				zoom = 1;
-			}}>{fitMap ? 'Inspect map' : 'Fit map'}</button
+				viewport?.scrollTo({ left: 0, top: 0 });
+			}}>Fit map</button
 		><button type="button" aria-label="Zoom in" disabled={zoom >= 2} onclick={() => (zoom = Math.min(2, zoom + 0.25))}
 			>+</button
 		>
@@ -342,7 +311,7 @@
 	}
 	.map-tools {
 		position: absolute;
-		right: 10px;
+		left: 10px;
 		bottom: 10px;
 		display: flex;
 		border: 1px solid #7d7c5c55;
@@ -354,8 +323,8 @@
 		border: 0;
 		background: #fff9ebeb;
 		color: #314951;
-		height: 29px;
-		min-width: 30px;
+		height: 36px;
+		min-width: 36px;
 		font-size: 18px;
 		cursor: pointer;
 	}
@@ -367,7 +336,7 @@
 		cursor: default;
 	}
 	.map-tools .fit-control {
-		font: 600 10px system-ui;
+		font: 600 11px system-ui;
 		padding: 0 9px;
 		border-inline: 1px solid #7d7c5c33;
 	}
@@ -521,12 +490,6 @@
 		clip-path: inset(50%);
 		white-space: nowrap;
 	}
-	@media (max-width: 700px) {
-		.map-tools {
-			bottom: 7px;
-			right: 7px;
-		}
-	}
 	@keyframes selection-glow {
 		from {
 			opacity: 0.25;
@@ -544,30 +507,6 @@
 	@keyframes travel {
 		to {
 			stroke-dashoffset: -70;
-		}
-	}
-	@media (max-width: 900px) {
-		.board-frame {
-			width: calc(100% - 12px);
-			height: calc(100% - 18px);
-			margin: 4px auto 14px;
-			transform: rotate(-0.35deg);
-		}
-		.board-frame.fit {
-			height: auto;
-			min-height: 0;
-			aspect-ratio: 1000 / 620;
-			margin-bottom: 45px;
-		}
-		.fit .board-viewport {
-			min-height: 0;
-		}
-		.fit .map-tools {
-			bottom: -40px;
-			right: 0;
-		}
-		.fit .city.minor text {
-			display: none;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

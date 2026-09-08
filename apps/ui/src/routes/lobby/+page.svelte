@@ -564,27 +564,6 @@
 		color: #647077;
 		text-align: center;
 	}
-	@media (max-width: 850px) {
-		.lobby-page {
-			display: block;
-		}
-		.intro {
-			width: min(100%, 42rem);
-			margin: auto;
-			padding: 2.5rem 1.5rem;
-		}
-		.intro ul {
-			gap: 2rem;
-		}
-		.travel-art {
-			height: 150px;
-		}
-		.entry {
-			width: min(36rem, calc(100% - 2rem));
-			margin: 0 auto;
-			padding-bottom: 3rem;
-		}
-	}
 	@media (prefers-reduced-motion: reduce) {
 		.submit {
 			transition: none;

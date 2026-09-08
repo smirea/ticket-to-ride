@@ -37,6 +37,7 @@
 <style>
 	.card-face {
 		position: relative;
+		container-type: inline-size;
 		display: block;
 		width: 100%;
 		height: 100%;
@@ -86,7 +87,7 @@
 	}
 	.back-name {
 		font:
-			600 10px/1.3 Georgia,
+			600 clamp(7px, 12cqw, 10px)/1.3 Georgia,
 			serif;
 		letter-spacing: 0.12em;
 		text-align: center;

@@ -31,11 +31,4 @@
 			height: 70px;
 		}
 	}
-	@media (max-width: 680px) {
-		.brand,
-		.compact {
-			width: 215px;
-			height: 52px;
-		}
-	}
 </style>
