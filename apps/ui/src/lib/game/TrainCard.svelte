@@ -1,25 +1,13 @@
 <script lang="ts">
 	import type { TrainCard } from '@repo/shared';
 	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
-	import StarIcon from 'phosphor-svelte/lib/StarIcon';
 	let { color, count, back = false }: { color?: TrainCard; count?: number; back?: boolean } = $props();
-	const labels = {
-		red: 'Red',
-		orange: 'Orange',
-		yellow: 'Yellow',
-		green: 'Green',
-		blue: 'Blue',
-		purple: 'Purple',
-		black: 'Black',
-		white: 'Ivory',
-		locomotive: 'Wild',
-	};
 	const hues = {
-		red: '#b84841',
+		red: '#ce5149',
 		orange: '#cf833c',
-		yellow: '#dfb446',
+		yellow: '#edc151',
 		green: '#648967',
-		blue: '#4384b5',
+		blue: '#4699ca',
 		purple: '#947ba1',
 		black: '#4c5156',
 		white: '#ddd9c9',
@@ -42,10 +30,6 @@
 			alt=""
 			draggable="false"
 		/>
-		<span class="card-kind"
-			>{#if color === 'locomotive'}<StarIcon weight="fill" />{:else}<TrainIcon weight="fill" />{/if}</span
-		>
-		<span class="card-name">{labels[color]}</span>
 		{#if count !== undefined}<strong class="card-count">{count}</strong>{/if}
 	{/if}
 </span>
@@ -57,12 +41,13 @@
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
-		border: 4px solid #fff8e7;
-		border-radius: 8px;
+		border: 5px solid #fff6df;
+		border-radius: 9px;
 		background: var(--card-color);
 		outline: 1px solid #bbaf9659;
 		box-shadow:
-			0 3px 4px #30231826,
+			0 2px 2px #30231830,
+			0 6px 10px #30231820,
 			inset 0 0 0 1px #ffffff8a;
 		color: #fffbee;
 	}
@@ -73,26 +58,6 @@
 		mix-blend-mode: multiply;
 		opacity: 0.88;
 		pointer-events: none;
-	}
-	.card-kind {
-		position: absolute;
-		top: 7px;
-		right: 7px;
-		display: flex;
-		filter: drop-shadow(0 1px 2px #0005);
-	}
-	.card-name {
-		position: absolute;
-		bottom: 5px;
-		left: 5px;
-		color: #fff;
-		background: #132b3bcb;
-		padding: 2px 5px;
-		border-radius: 3px;
-		font-size: 9px;
-		font-weight: 700;
-		letter-spacing: 0.07em;
-		text-transform: uppercase;
 	}
 	.card-count {
 		position: absolute;

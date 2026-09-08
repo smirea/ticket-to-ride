@@ -1,64 +1,54 @@
-# Ticket to Travel implementation QA
+# Ticket to Travel — atlas correction QA
 
 Date: 2026-09-08
 
-final result: passed
+final result: passed for the tested correction scope
 
-## Follow-up: direct fresh-game startup
+The previous visual pass accepted a sparse geometric map that did not meet the selected reference. This pass replaces that surface and removes the unwanted card color tags and excess copy. The earlier QA's claim that additional terrain detail was optional is superseded.
 
-The user reported a blank terrain canvas and `Cannot call replaceState(...) before router is initialized` on direct entry to `/game?new=1`. The earlier in-app navigation and restore checks missed this startup path. Reproduced with a newly opened browser tab: opening tickets appeared, but startup retained the fresh-game query and did not finish normally.
+## Visual comparison
 
-Moved query consumption out of `onMount` into `afterNavigate`, awaiting navigation completion before using SvelteKit's `replaceState`. The installed router explicitly rejects this call before initialization. Game loading and persistence can now finish independently of URL cleanup.
+- Reference: `docs/design/2026-09-08/01-modern.png`.
+- Matched fixture: `artifacts/atlas-v2/desktop.png`, 1586 × 992, two players at 24/18 points and 32/35 trains, Portland–Phoenix and Chicago–Santa Fe tickets, four hand groups, five market cards.
+- Actual five-player production game: `artifacts/atlas-v2/desktop-production.png`, 1586 × 992.
+- Phone: `artifacts/atlas-v2/mobile-overview.png` and `mobile-production.png`, 390 × 844.
+- Reference and matched fixture were opened together at identical output dimensions. Captures are real browser output, one output pixel per CSS pixel, with no resampling.
+- The current card fan follows the user's first reference; the surrounding tabletop follows the second. The full USA dataset includes routes and cities absent or simplified in the generated reference.
 
-Verified a direct five-player fresh URL in a new tab: the query was removed, the terrain and routes rendered with 17 draw calls, and opening ticket selection completed. Opening the cleaned URL in another new tab restored the same two selected tickets and “Your turn.” Evidence: `docs/design/2026-09-08/implementation/direct-load-fixed.png`, 1280 × 720 browser capture after selection. Type checking, lint, formatting, and all 42 game/server tests passed. This is a manual browser regression check; the shared-rule tests do not cover router initialization.
+The board now has authored mountain relief, forests, coastlines and water, a slight perspective, a bound paper edge and a broad contact shadow. The illustrated texture sits on a Three.js height mesh, with separate raised route pieces, boats and instanced trees. Water and forest motion are shader-driven. The final coast artwork and southern route curves keep the Gulf routes readable.
 
-## Comparison evidence
+## Findings resolved
 
-- Source visual truth: `docs/design/2026-09-08/01-modern.png`, the user's selected second image. The fanned carriage-card direction comes from the user's first attachment and `03-victorian-club.png`.
-- Implementation: `http://127.0.0.1:6090/debug/game`, Atlas preview fixture.
-- Final desktop capture: `docs/design/2026-09-08/implementation/desktop-atlas.png`.
-- Source and implementation are both 1586 × 992 pixels. Browser CSS viewport was 1586 × 992; the saved capture is one output pixel per CSS pixel. No density resampling was used.
-- State: light theme, two players, scores 24/18, trains 32/35, Portland–Phoenix and Chicago–Santa Fe tickets, four hand groups, five market cards, 97-card deck. Hand ordering follows the game's color order. Route geometry follows the real USA dataset, including its parallel routes; the generated source does not reproduce that dataset exactly.
-- The source and final implementation were opened together in the same image comparison input. Full-resolution text, cards, ticket badges, city labels, and logo were readable, so a separate cropped comparison was unnecessary.
-- Responsive captures: `implementation/tablet-atlas.png` at 768 × 1024, `implementation/phone-full-table.png` and `implementation/phone-overview-and-cards.png` at 390 × 844, relative to the design directory above. The phone overview capture is scrolled to show the board and both card sections.
+1. **P1: rejected map fidelity.** Replaced the sparse procedural surface with the illustrated relief atlas, aligned to actual city coordinates. Await texture loading before revealing the canvas; retain an illustrated SVG fallback.
+2. **P2: visual clutter.** Removed visible train color-name tags, corner train icons, repeated ticket-selection labels, turn counter, motto, hand totals, and redundant deck/player prose. Card counts and ticket points remain UI content. Accessible button names retain card colors.
+3. **P2: route readability.** Independent playtesting identified undersized route pieces and city markers. Enlarged pieces and markers, increased parallel-route spacing and strengthened route colors.
+4. **P2: phone framing.** Removed empty overview bars. A fresh phone load fits the entire atlas; Inspect expands it for readable route selection. Minor city text is hidden only in phone overview, except ticket endpoints.
+5. **P2: dense layout.** Five players fit the desktop header. On phones, players, tickets and card collections scroll independently. The dense fixture measured document/viewport widths of 390/390, players 366/526, tickets 366/2024 and hand 384/528 pixels (client/scroll widths).
+6. **P2: renderer warning.** Replaced deprecated PCFSoftShadowMap with PCFShadowMap. Final production reload produced no errors or warnings.
 
-## Findings and corrections
-
-No actionable P0/P1/P2 findings remain in the tested states.
-
-1. **P2, desktop proportions:** the first comparison exposed undersized card groups and city labels, and excessive space beneath a short ticket collection. Increased desktop cards to 106 × 150, market cards up to 102 pixels wide, labels to 14 pixels, and the tray to 220 pixels. Short ticket collections now size to their content. The final capture shows complete cards within the viewport; the lowest transformed card edge measures 985.54 pixels against a 992-pixel viewport.
-2. **P2, tablet market:** at 768 pixels, the sidebar layout compressed face-up cards and left a tall, cropped map viewport. Applied the stacked layout through 900 pixels. The revised tablet capture shows full-width map and independent card sections. Document width equals viewport width.
-3. **P2, phone overview:** Fit initially distorted the map. It now preserves the map's 1000:620 proportions and centers it. Inspect retains a scrollable 760-pixel map for legible route selection. Both states were recaptured.
-4. **P2, preferences:** playtesting found that pace and ambient-animation preferences reset after refresh. They now persist locally. A separate low-thinking playtest agent verified Off/Quick across reload, then restored On/Normal.
-5. **P1, saved solo journey:** the fresh-game query previously remained in the URL and could restart a game on refresh. The query is consumed after creating the game; the playtest verified restored progress.
+No actionable P0/P1/P2 findings remain in the tested correction states. This is not a claim of pixel identity or complete device coverage.
 
 ## Required fidelity surfaces
 
-- **Fonts:** self-hosted Barlow and Barlow Condensed provide the reference's strong navy display hierarchy. Weights, wrapping, 14-pixel board labels, and small supporting copy were checked in the final capture. Mobile overview deliberately reduces labels; Inspect retains full-size labels.
-- **Layout:** ivory tabletop, dominant atlas, left ticket collection, bottom hand and market, and header players preserve the reference's composition. The fan is an explicitly requested variation. Five players and large collections use independent scrolling rather than page overflow. Phone and tablet use a stacked reading order.
-- **Colors:** warm ivory, navy ink, muted red accents, turquoise water, and cream terrain preserve the optimistic palette. Card color labels and a separate locomotive subject supplement color. Keyboard focus uses a visible blue outline.
-- **Images:** generated Ticket to Travel logo, distinct carriage/locomotive artwork, and 30 unique destination panoramas are real WebP assets. Ticket names, points, completion state, and hand counts are UI content. Destination art is lazy-loaded; all 30 images total approximately 2.79 MB. The live Three.js terrain is intentionally simpler and more geometric than the painted reference, following the user's explicit request for animated terrain and performance.
-- **Copy:** Ticket to Travel replaces the old visible brand across entry, setup, lobby, room, and game surfaces. Existing save keys remain compatible. Turn instructions, payment costs, ticket minimums, draw availability, final standings, and player counts reflect actual state.
+- **Fonts and hierarchy:** navy Barlow headings, restrained supporting copy, readable city labels and ticket names; desktop player names/stats enlarged.
+- **Layout:** dominant angled atlas, ivory tabletop, left destination collection and bottom card fan/market. Five-player and phone layouts checked.
+- **Color and imagery:** warm land and cream paper against blue water; distinct carriage and locomotive subjects. No color-name labels are printed on the cards. Destination numbers are rendered by the UI.
+- **Interaction:** hover/selection states, ticket endpoints, route selection and payment remain functional with the transformed board. Larger routes retain accurate targeting.
+- **Motion:** unpaused browser captures `motion-a.png` and `motion-b.png` show ambient changes; live play verified selection and route-claim transitions. Pixel differences establish ongoing motion, not frame pacing by themselves.
 
-## Interaction and performance evidence
+## Functional and performance checks
 
-- Low-thinking agents played five-player solo through turn 16: opening tickets, face-up and blind draws, locomotive draw cost, gray-route claims, extra tickets, AI turns, and refresh restore passed.
-- A 12-ticket, nine-card-type fixture verified the final ticket and locomotive group remain reachable. Results fixtures verified close/reopen and play again.
-- Two independent browser clients passed room creation, join, ready, start, ticket selection, and synchronized turn advancement.
-- Actual browser render diagnostics: 17 steady draw calls, 84,388 triangles; a 180-frame local development sample measured 16.70 ms median and 17.70 ms p95. This is a local observation, not a hardware-independent frame-rate guarantee.
-- Ambient water, tree gusts, boat bobbing, and route settling run in the renderer. Static shadows update only when needed; DPR is capped at 1.65. Hidden/offscreen, reduced-motion, and ambient-off states suspend the continuous loop. Ambient-off render count was observed staying constant.
-- `bun test`: 42 passed, 1,599 assertions, including complete deterministic games and five-player XState actor/stateless equivalence. Type checking, Oxlint, formatting, and production build passed.
+- Low-thinking playtest agent: direct fresh five-player game, keep two tickets, face-up plus blind draw (hand 4 → 6), Phoenix–Santa Fe selection and payment with one red/two wild (score 0 → 4, trains 45 → 42, hand 6 → 3).
+- Production preview: direct fresh URL, opening selection, two blind draws, AI claims, clean URL consumption and reload restoring six cards/two tickets. The earlier router-initialization fix is preserved.
+- A stale preview process referenced an old bundle after rebuilding; restarting preview resolved it. The final reload's console is clean.
+- Steady renderer: 14 draw calls, 289,004 triangles, 12 geometries, 5 textures on both measured viewports.
+- Local development sample: 180 frames, median 16.70 ms, p95 17.60 ms. This is local evidence, not a hardware-independent guarantee or a production frame-time measurement.
+- DPR caps: 2 desktop, 1.5 mobile. Shadow allocation: 2048 desktop, 1024 on mobile initialization. Hidden/offscreen, reduced-motion and ambient-off loop controls are retained.
+- Atlas texture: 1591 × 988 WebP, 626,270 bytes. Instanced routes and trees share geometry/material resources; no post-processing passes.
+- Production build, type checking (zero errors/warnings), Oxlint, formatting and diff checks passed. All 42 tests passed with 1,599 assertions.
 
-## Intentional differences and remaining coverage
+## Coverage limits
 
-The implementation uses the correct full route network and a quieter live relief map, rather than reproducing painted scenery pixel for pixel. Generated artwork varies by destination. Header sizing accommodates five players. Triple-route offset calculation is generic, but the current USA map contains only single and double routes, so no triple-route game was played. Browser viewport tests do not replace testing on physical low-powered phones. A separate browser-console log export was not collected in this pass.
+Phone viewport testing does not replace physical low-powered phone testing. Triple-route offsets are generic, but the USA dataset has only single/double routes, so a triple-route game was not played. Prior multiplayer/results regression evidence remains in the previous revision of this document; those flows were not rerun during this visual correction. Correct routes, new branding, fanned cards and five-player header sizing intentionally differ from the generated reference.
 
-P3 follow-up polish: additional terrain surface detail could move the live map closer to the painted source, provided frame timing remains within budget.
-
-## Implementation checklist
-
-- [x] Compare selected reference and rendered desktop in one visual input.
-- [x] Correct desktop density, tablet card sizing, and phone map proportions.
-- [x] Verify all destination art and UI-owned points.
-- [x] Exercise solo, multiplayer, large collections, persistence, and final results.
-- [x] Run functional tests, type checking, lint, formatting, and production build.
+Additional skill, asset and measured pixel evidence: `artifacts/final-evidence.md`.

@@ -12,7 +12,8 @@
 		><strong>{cityNames.get(ticket.cityA)}</strong><span>— {cityNames.get(ticket.cityB)}</span></span
 	>
 	<strong class="ticket-points" aria-label={`${ticket.points} points`}>{ticket.points}</strong>
-	{#if complete}<span class="complete-mark"><CheckCircleIcon size={16} weight="fill" />Connected</span>{/if}
+	{#if complete}<span class="complete-mark" aria-label="Connected"><CheckCircleIcon size={18} weight="fill" /></span
+		>{/if}
 </span>
 
 <style>
@@ -47,8 +48,8 @@
 		border-radius: 3px;
 		background: #fff9e9ed;
 		color: #182d3a;
-		font-size: 12px;
-		line-height: 1.35;
+		font-size: 14px;
+		line-height: 1.3;
 	}
 	.ticket-points {
 		position: absolute;
@@ -56,14 +57,14 @@
 		right: 7px;
 		display: grid;
 		place-items: center;
-		width: 35px;
-		height: 35px;
+		width: 39px;
+		height: 39px;
 		border: 2px solid #fff5de;
 		border-radius: 50%;
 		background: #ac453c;
 		color: #fff9e8;
 		font:
-			700 21px Georgia,
+			700 22px Georgia,
 			serif;
 		box-shadow: 0 1px 3px #0003;
 	}
@@ -74,7 +75,7 @@
 		display: flex;
 		align-items: center;
 		gap: 3px;
-		padding: 3px 5px;
+		padding: 3px;
 		background: #f7faebed;
 		color: #336044;
 		font-size: 10px;

@@ -229,8 +229,6 @@
 					<div class="player-info">
 						<strong>{player.id === viewerId ? 'You' : player.name}</strong><span
 							><b>{player.score}</b> pts <i>·</i> {player.trains} trains</span
-						><small
-							>{player.tickets.length} tickets · {Object.values(player.hand).reduce((sum, count) => sum + count, 0)} cards</small
 						>
 					</div>
 				</div>
@@ -249,13 +247,8 @@
 
 	<aside class="journey-sidebar">
 		<div class="turn-info" role="status" aria-live="polite">
-			<span class="eyebrow">{gameState.finalRound ? 'Final round' : `Turn ${gameState.turnNumber}`}</span>
 			<h1>{describeTurn()}</h1>
-			<p>
-				{#if turnReady}Draw cards or<br />claim a route.{:else if isViewerTurn}Choose a carriage card<br />or draw from
-					the deck.{:else if ticketSelection}Choose the destinations<br />you want to connect.{:else if gameState.phase.type === 'game-over'}Every
-					journey tells a story.{:else}A little patience.<br />Your journey is next.{/if}
-			</p>
+			{#if turnReady}<p>Draw cards or claim a route.</p>{/if}
 			{#if gameState.finalRound && gameState.phase.type !== 'game-over'}<strong class="final-round"
 					>{gameState.finalRound.turnsRemaining} turns left</strong
 				>{/if}
@@ -264,13 +257,13 @@
 				>{/if}
 		</div>
 		<div class="ticket-heading">
-			<h2>Destination tickets <span>{heldTickets.length}</span></h2>
-			<button
-				class="ticket-filter"
-				aria-pressed={ticketFilter === 'unfinished'}
-				onclick={() => (ticketFilter = ticketFilter === 'all' ? 'unfinished' : 'all')}
-				>{ticketFilter === 'all' ? 'Show unfinished' : 'Show all'}</button
-			>
+			<h2>Destination tickets</h2>
+			{#if completedIds.size > 0}<button
+					class="ticket-filter"
+					aria-pressed={ticketFilter === 'unfinished'}
+					onclick={() => (ticketFilter = ticketFilter === 'all' ? 'unfinished' : 'all')}
+					>{ticketFilter === 'all' ? 'Show unfinished' : 'Show all'}</button
+				>{/if}
 		</div>
 		<div class="ticket-collection" aria-label="Your destination tickets" tabindex="0">
 			{#each visibleTickets as ticket (ticket.id)}
@@ -286,7 +279,7 @@
 					<DestinationCard {ticket} complete={completedIds.has(ticket.id)} />
 				</button>
 			{:else}<p class="empty-tickets">
-					{heldTickets.length ? 'Every destination connected.' : 'Your next great journey starts with a ticket.'}
+					{heldTickets.length ? 'All connected' : 'No tickets yet'}
 				</p>{/each}
 		</div>
 		<button
@@ -294,10 +287,8 @@
 			disabled={!turnReady || !gameState.destinationDeck.length}
 			onclick={() => send({ type: 'draw-destination-tickets' })}
 			aria-label={`Draw destination tickets. ${gameState.destinationDeck.length} remain.`}
-			><TicketIcon size={25} /><span>Draw tickets<small>{gameState.destinationDeck.length} in the deck</small></span
-			></button
+			><TicketIcon size={25} /><span>Draw tickets</span></button
 		>
-		<p class="table-motto">A wider world<br />by train.</p>
 	</aside>
 
 	<section class="board-stage" aria-label="Game board">
@@ -315,15 +306,14 @@
 		<section class="hand-panel" aria-label="Your train cards">
 			<div class="section-title">
 				<h2>Your train cards</h2>
-				<span>{Object.values(viewer?.hand ?? {}).reduce((a, b) => a + b, 0)} in hand</span>
 			</div>
 			<div class="hand-scroll">
 				<div class="hand-cards" style:--hand-count={handColors.length}>
 					{#each handColors as card, index (card)}
 						<div
 							class="hand-card"
-							style:--fan-angle={`${(index - (handColors.length - 1) / 2) * Math.min(4, 20 / Math.max(1, handColors.length - 1))}deg`}
-							style:--fan-rise={`${Math.abs(index - (handColors.length - 1) / 2) * 2}px`}
+							style:--fan-angle={`${(index - (handColors.length - 1) / 2) * Math.min(6, 26 / Math.max(1, handColors.length - 1))}deg`}
+							style:--fan-rise={`${Math.abs(index - (handColors.length - 1) / 2) * 3}px`}
 							style:z-index={index + 1}
 							tabindex="0"
 							role="img"
@@ -333,14 +323,13 @@
 						>
 							<TrainCard color={card} count={viewer?.hand[card]} />
 						</div>
-					{:else}<span class="empty-hand">Collect cards to build your railway.</span>{/each}
+					{:else}<span class="empty-hand">No cards</span>{/each}
 				</div>
 			</div>
 		</section>
 		<section class="market" aria-label="Train card market">
 			<div class="section-title">
 				<h2>Face-up train cards</h2>
-				<span>Wild takes both draws</span>
 			</div>
 			<div class="market-row">
 				<div class="face-up">
@@ -375,7 +364,7 @@
 				<button onclick={() => (historyOpen = false)} aria-label="Close history"><XIcon size={20} /></button>
 			</header>
 			<div>
-				{#each recentLog as entry}<p>{entry}</p>{:else}<p>Your story is just beginning.</p>{/each}
+				{#each recentLog as entry}<p>{entry}</p>{:else}<p>No turns yet.</p>{/each}
 			</div>
 		</aside>{/if}
 
@@ -383,18 +372,9 @@
 		{#if panel}
 			<header class="dialog-heading">
 				<div>
-					<span class="eyebrow"
-						>{panel === 'tickets'
-							? 'Plan your journey'
-							: panel === 'claim'
-								? 'Lay your railway'
-								: panel === 'results'
-									? 'Journey complete'
-									: 'At your own pace'}</span
-					>
 					<h2 id="decision-title">
 						{panel === 'tickets'
-							? 'Choose your destinations'
+							? 'Choose destinations'
 							: panel === 'claim' && selectedRoute
 								? `${cityName(selectedRoute.cityA)} — ${cityName(selectedRoute.cityB)}`
 								: panel === 'results'
@@ -406,8 +386,7 @@
 			</header>
 			{#if panel === 'tickets' && ticketSelection}
 				<p class="dialog-description">
-					Keep at least {ticketSelection.minimum}. Each ticket earns its points when connected, or loses them if
-					unfinished.
+					Keep at least {ticketSelection.minimum} tickets.
 				</p>
 				<div class="ticket-offers">
 					{#each offeredTickets as ticket}<button
@@ -417,9 +396,10 @@
 							onclick={() => toggleTicket(ticket.id)}
 							aria-pressed={selectedTickets.includes(ticket.id)}
 							aria-label={`${cityName(ticket.cityA)} to ${cityName(ticket.cityB)}, ${ticket.points} points`}
-							><DestinationCard {ticket} /><span class="selection-label"
-								>{selectedTickets.includes(ticket.id) ? 'Selected' : 'Keep this ticket'}</span
-							></button
+							><DestinationCard {ticket} />{#if selectedTickets.includes(ticket.id)}<span
+									class="selection-label"
+									aria-hidden="true">✓</span
+								>{/if}</button
 						>{/each}
 				</div>
 				<footer class="dialog-footer">
@@ -440,14 +420,14 @@
 							onclick={() => selectedRoute && claim(selectedRoute, color)}
 							aria-label={`Claim route using ${paymentLabel(selectedRoute, color)}`}
 							><span class="payment-preview"><TrainCard {color} /></span><span
-								><strong>{paymentLabel(selectedRoute, color)}</strong><small>Spend these cards</small></span
+								><strong>{paymentLabel(selectedRoute, color)}</strong></span
 							><ArrowRightIcon size={18} /></button
 						>{:else}<p class="claim-error">
 							You cannot claim this route yet. Check your cards, remaining trains, and parallel route restrictions.
 						</p>{/each}
 				</div>
 				<footer class="dialog-footer">
-					<span>The route is highlighted on the atlas.</span><button class="quiet" onclick={closePanel}>Cancel</button>
+					<button class="quiet" onclick={closePanel}>Cancel</button>
 				</footer>
 			{:else if panel === 'settings'}
 				<div class="settings-list">
@@ -561,9 +541,10 @@
 		margin: 0;
 	}
 	h2 {
-		font-family: 'Barlow Condensed', sans-serif;
+		font-family: Barlow, Arial, sans-serif;
 		font-size: 16px;
-		letter-spacing: -0.025em;
+		font-weight: 700;
+		letter-spacing: -0.015em;
 	}
 	.table-header {
 		grid-column: 1 / -1;
@@ -633,11 +614,6 @@
 		font-style: normal;
 		color: #a79e8a;
 	}
-	.player-info small {
-		font-size: 9px;
-		color: var(--muted);
-		white-space: nowrap;
-	}
 	.game-controls {
 		display: flex;
 		gap: 5px;
@@ -674,22 +650,13 @@
 		margin-bottom: 16px;
 		border-bottom: 1px solid var(--rule);
 	}
-	.eyebrow {
-		display: block;
-		margin-bottom: 7px;
-		font-size: 9px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
-		color: #8a785b;
-	}
 	h1 {
-		font-family: 'Barlow Condensed', sans-serif;
+		font-family: Barlow, Arial, sans-serif;
 		margin-bottom: 12px;
-		font-size: clamp(23px, 2.5vw, 35px);
-		font-weight: 800;
+		font-size: clamp(25px, 2.4vw, 35px);
+		font-weight: 700;
 		line-height: 1.04;
-		letter-spacing: -0.055em;
+		letter-spacing: -0.04em;
 	}
 	.turn-info p {
 		color: #646c73;
@@ -704,11 +671,6 @@
 	}
 	.ticket-heading {
 		margin-bottom: 12px;
-	}
-	.ticket-heading h2 span {
-		color: #9a9385;
-		margin-left: 3px;
-		font-size: 11px;
 	}
 	.ticket-filter {
 		margin-top: 5px;
@@ -734,7 +696,8 @@
 	}
 	.ticket-button {
 		flex-shrink: 0;
-		min-height: 116px;
+		height: 137px;
+		min-height: 120px;
 		width: 100%;
 		padding: 0;
 		border: 0;
@@ -779,22 +742,8 @@
 		font-size: 13px;
 		font-weight: 700;
 	}
-	.draw-tickets small {
-		display: block;
-		margin-top: 3px;
-		font-size: 9px;
-		font-weight: 400;
-		color: var(--muted);
-	}
 	.draw-tickets:disabled {
 		opacity: 0.5;
-	}
-	.table-motto {
-		margin: 12px 0 0;
-		color: #a6a197;
-		font:
-			italic 12px/1.6 Georgia,
-			serif;
 	}
 	.board-stage {
 		grid-column: 2;
@@ -802,13 +751,8 @@
 		position: relative;
 		min-width: 0;
 		min-height: 0;
-		overflow: hidden;
-		border: 1px solid #91a8a0;
-		border-radius: 12px;
-		box-shadow:
-			0 5px 5px #332c2026,
-			0 14px 22px #44341c10;
-		background: #82b8bd;
+		overflow: visible;
+		background: transparent;
 	}
 	.play-tray {
 		grid-column: 2;
@@ -833,11 +777,6 @@
 		justify-content: space-between;
 		gap: 6px;
 	}
-	.section-title > span {
-		font-size: 10px;
-		color: #8a887e;
-		white-space: nowrap;
-	}
 	.hand-scroll {
 		overflow-x: auto;
 		overflow-y: hidden;
@@ -852,14 +791,14 @@
 		width: max-content;
 		min-width: 100%;
 		padding-top: 9px;
-		padding-inline: 4px;
+		padding-inline: 23px 12px;
 	}
 	.hand-card {
 		position: relative;
 		width: 78px;
 		height: 112px;
 		flex-shrink: 0;
-		margin-left: -15px;
+		margin-left: -18px;
 		transform: translateY(var(--fan-rise)) rotate(var(--fan-angle));
 		transform-origin: bottom center;
 		transition: transform 190ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -908,7 +847,7 @@
 		transform: translateY(-7px) rotate(1deg);
 	}
 	.market-card:disabled {
-		opacity: 0.52;
+		opacity: 0.8;
 	}
 	.blind-deck {
 		width: 68px;
@@ -920,7 +859,7 @@
 			7px -7px #7b806e;
 	}
 	.blind-deck:disabled {
-		opacity: 0.6;
+		opacity: 0.8;
 	}
 	.deck-count {
 		position: absolute;
@@ -970,7 +909,7 @@
 	.decision-dialog {
 		position: fixed;
 		margin: auto 24px auto auto;
-		width: 410px;
+		width: 380px;
 		max-width: calc(100vw - 32px);
 		max-height: calc(100svh - 32px);
 		overflow-y: auto;
@@ -991,9 +930,9 @@
 		align-items: flex-start;
 	}
 	.dialog-heading h2 {
-		font-size: 28px;
-		line-height: 1.1;
-		letter-spacing: -0.05em;
+		font-size: 25px;
+		line-height: 1.15;
+		letter-spacing: -0.025em;
 	}
 	.dialog-heading > button {
 		flex-shrink: 0;
@@ -1028,7 +967,10 @@
 		position: absolute;
 		bottom: 13px;
 		left: 15px;
-		padding: 4px 7px;
+		width: 25px;
+		height: 25px;
+		display: grid;
+		place-items: center;
 		border-radius: 3px;
 		background: #fff9eb;
 		font-size: 10px;
@@ -1104,12 +1046,6 @@
 	}
 	.payment-options strong {
 		font-size: 13px;
-	}
-	.payment-options small {
-		display: block;
-		margin-top: 4px;
-		color: var(--muted);
-		font-size: 11px;
 	}
 	.payment-options > button > :last-child {
 		margin-left: auto;
@@ -1231,6 +1167,16 @@
 		overflow: auto;
 	}
 	@media (min-width: 1400px) {
+		.player-info > strong {
+			font-size: 15px;
+		}
+		.player-info > span {
+			font-size: 13px;
+		}
+		.player img {
+			width: 42px;
+			height: 42px;
+		}
 		.game-shell {
 			grid-template-rows: 78px minmax(280px, 1fr) 220px;
 		}
@@ -1284,9 +1230,6 @@
 			height: 104px;
 			margin-left: -20px;
 		}
-		.section-title > span {
-			display: none;
-		}
 		.market {
 			padding-left: 13px;
 		}
@@ -1322,9 +1265,6 @@
 		.game-shell {
 			grid-template-rows: 112px minmax(280px, 1fr) 155px;
 		}
-		.player-info small {
-			display: none;
-		}
 		.player-info > span {
 			font-size: 10px;
 		}
@@ -1338,9 +1278,6 @@
 		.turn-info p {
 			font-size: 13px;
 		}
-		.table-motto {
-			display: none;
-		}
 		.hand-card {
 			width: 65px;
 			height: 95px;
@@ -1351,6 +1288,9 @@
 		}
 	}
 	@media (max-width: 900px) {
+		.game-shell:has(:global(.board-frame.fit)) {
+			grid-template-rows: auto auto auto auto;
+		}
 		.game-shell {
 			height: auto;
 			min-height: 100svh;
@@ -1403,19 +1343,12 @@
 			border: 0;
 			padding: 0;
 		}
-		.eyebrow {
-			font-size: 8px;
-			margin-bottom: 4px;
-		}
 		h1 {
 			font-size: 24px;
 			margin-bottom: 4px;
 		}
 		.turn-info p {
 			font-size: 11px;
-		}
-		.turn-info br {
-			display: none;
 		}
 		.ticket-heading {
 			grid-column: 1;
@@ -1442,6 +1375,7 @@
 		}
 		.ticket-button {
 			width: 159px;
+			height: 94px;
 			min-height: 90px;
 		}
 		.ticket-button :global(.destination-card) {
@@ -1484,10 +1418,6 @@
 		}
 		.section-title {
 			padding-top: 3px;
-		}
-		.section-title > span {
-			display: block;
-			font-size: 9px;
 		}
 		.market {
 			padding: 11px 0 0;

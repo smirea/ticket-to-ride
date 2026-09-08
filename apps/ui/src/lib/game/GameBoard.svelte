@@ -1,17 +1,7 @@
 <script lang="ts">
 	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { onMount, tick } from 'svelte';
-	import {
-		cities,
-		cityById,
-		cityPoint,
-		mainland,
-		lakes,
-		playerColors,
-		routeColors,
-		routePoint,
-		routes,
-	} from './board/layout';
+	import { cities, cityById, cityPoint, playerColors, routeColors, routePoint, routes } from './board/layout';
 	import { createAtlasRenderer, projectPoint } from './board/renderer';
 	type Props = {
 		state: GameState;
@@ -42,6 +32,18 @@
 	const mapHeight = $derived(viewportWidth < 700 ? mapWidth * 0.62 : viewportHeight * zoom);
 	const labelFactor = $derived(viewportWidth < 700 && fitMap ? Math.min(1, 0.72 * zoom) : 1);
 	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
+	const overviewCities = new Set([
+		'seattle',
+		'san-francisco',
+		'los-angeles',
+		'denver',
+		'chicago',
+		'new-york',
+		'miami',
+		'houston',
+		'montreal',
+		'calgary',
+	]);
 
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
@@ -59,9 +61,6 @@
 			const p = point(route, i / 12);
 			return `${i ? 'L' : 'M'}${p.x},${p.y}`;
 		}).join(' ');
-	}
-	function polygon(points: number[][]) {
-		return points.map(p => `${p[0]},${p[1]}`).join(' ');
 	}
 	function focusRoute(route?: Route) {
 		if (!route) return;
@@ -113,10 +112,15 @@
 	}
 	onMount(() => {
 		if (!canvas || !viewport) return;
+		let measured = false;
 		const measure = new ResizeObserver(([entry]) => {
 			if (entry) {
 				viewportWidth = entry.contentRect.width;
 				viewportHeight = entry.contentRect.height;
+				if (!measured && viewportWidth > 0) {
+					fitMap = viewportWidth < 700;
+					measured = true;
+				}
 			}
 		});
 		measure.observe(viewport);
@@ -124,7 +128,13 @@
 			atlas = createAtlasRenderer(canvas);
 			atlas.update(gameState, selectedRouteId, hoveredRouteId);
 			atlas.setAmbientMotion(ambientMotion);
-			ready = true;
+			void atlas.ready
+				.then(() => {
+					ready = true;
+				})
+				.catch(() => {
+					ready = false;
+				});
 		} catch {
 			ready = false;
 		}
@@ -145,7 +155,13 @@
 	});
 </script>
 
-<div class="board-frame" class:ready data-renderer-ready={ready} class:motion-paused={!ambientMotion}>
+<div
+	class="board-frame"
+	class:ready
+	class:fit={fitMap && viewportWidth < 700}
+	data-renderer-ready={ready}
+	class:motion-paused={!ambientMotion}
+>
 	<div class="board-viewport" bind:this={viewport}>
 		<div class="board-stage" style:width={`${mapWidth}px`} style:height={`${mapHeight}px`}>
 			<canvas bind:this={canvas} aria-hidden="true"></canvas>
@@ -163,12 +179,13 @@
 				}}
 			>
 				{#if !ready}
-					<g class="fallback-land" aria-hidden="true"
-						><polygon points={polygon(mainland)} fill="#e4d5ae" />{#each lakes as lake}<polygon
-								points={polygon(lake)}
-								fill="#68a4ac"
-							/>{/each}</g
-					>
+					<image
+						href="/game-assets/atlas/usa-relief-v2.webp"
+						width="1000"
+						height="620"
+						preserveAspectRatio="none"
+						aria-hidden="true"
+					/>
 				{/if}
 				<g class="geography" aria-hidden="true"
 					><text x="415" y="32">C A N A D A</text><text x="243" y="597">M E X I C O</text><text
@@ -238,14 +255,19 @@
 				{#each cities as city (city.id)}
 					{@const p = projectPoint(cityPoint(city))}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
-					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
+					<g
+						class="city"
+						class:minor={!endpoint && !overviewCities.has(city.id)}
+						class:ticket-endpoint={endpoint}
+						transform={`translate(${p.x} ${p.y}) ${labelScale}`}
+					>
 						{#if endpoint}<circle class="endpoint-ring" r="13" />{/if}<circle
 							class="city-shadow"
 							cy="1.8"
-							r="7"
-						/><circle class="city-hub" r="6.2" /><circle class="city-center" r="3.6" />
+							r="9.5"
+						/><circle class="city-hub" r="8.2" /><circle class="city-center" r="4.8" />
 						<text
-							y={city.id === 'vancouver' || city.id === 'winnipeg' ? 16 : -10}
+							y={city.id === 'vancouver' || city.id === 'winnipeg' ? 22 : -13}
 							x={city.id === 'boston' ? -2 : 0}
 							text-anchor={city.x > 90 ? 'end' : city.x < 10 ? 'start' : 'middle'}>{city.name}</text
 						>
@@ -282,22 +304,32 @@
 	.board-frame {
 		position: relative;
 		min-width: 0;
-		height: 100%;
+		width: calc(100% - 30px);
+		height: calc(100% - 24px);
+		margin: 8px auto 16px;
 		min-height: 260px;
 		isolation: isolate;
-		overflow: hidden;
-		border: 1px solid #486e7080;
-		border-radius: 14px;
+		overflow: visible;
+		border: 1px solid #687d7277;
+		border-radius: 10px;
 		background: #68a4ac;
+		transform: perspective(1900px) rotateX(9deg) rotateZ(-0.65deg);
+		transform-origin: center;
 		box-shadow:
-			0 3px 3px #543d2726,
-			0 14px 28px #5c503324;
+			0 1px 0 #e9dfbd,
+			0 3px 0 #d1c4a3,
+			0 4px 0 #efe3c6,
+			0 6px 0 #967b50,
+			0 8px 0 #596e61,
+			0 13px 12px #4f40262b,
+			4px 25px 28px #4f40262b;
 	}
 	.board-viewport {
 		width: 100%;
 		height: 100%;
 		min-height: 260px;
 		display: flex;
+		border-radius: inherit;
 		overflow: auto;
 		scrollbar-width: thin;
 		scrollbar-color: #657e7866 transparent;
@@ -435,12 +467,12 @@
 	}
 	.city text {
 		fill: #21323a;
-		font-family: 'Barlow Condensed', sans-serif;
+		font-family: Barlow, sans-serif;
 		font-size: 14px;
 		font-weight: 700;
 		paint-order: stroke;
 		stroke: #fff7e4;
-		stroke-width: 3.7;
+		stroke-width: 2.6;
 		stroke-linejoin: round;
 		letter-spacing: -0.25px;
 	}
@@ -512,6 +544,30 @@
 	@keyframes travel {
 		to {
 			stroke-dashoffset: -70;
+		}
+	}
+	@media (max-width: 900px) {
+		.board-frame {
+			width: calc(100% - 12px);
+			height: calc(100% - 18px);
+			margin: 4px auto 14px;
+			transform: rotate(-0.35deg);
+		}
+		.board-frame.fit {
+			height: auto;
+			min-height: 0;
+			aspect-ratio: 1000 / 620;
+			margin-bottom: 45px;
+		}
+		.fit .board-viewport {
+			min-height: 0;
+		}
+		.fit .map-tools {
+			bottom: -40px;
+			right: 0;
+		}
+		.fit .city.minor text {
+			display: none;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
