@@ -208,10 +208,10 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	const segmentCount = routes.reduce((count, route) => count + route.length, 0);
 	const segmentGeometry = new RoundedBoxGeometry(1, 1, 1, 2, 0.16);
 	const segmentMaterial = new THREE.MeshPhysicalMaterial({
-		roughness: 0.48,
+		roughness: 0.9,
 		metalness: 0,
-		envMapIntensity: 0.3,
-		clearcoat: 0.6,
+		envMapIntensity: 0.08,
+		clearcoat: 0.06,
 		clearcoatRoughness: 0.35,
 	});
 	const segments = new THREE.InstancedMesh(segmentGeometry, segmentMaterial, segmentCount);
@@ -220,7 +220,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	scene.add(segments);
 	const roofs = new THREE.InstancedMesh(
 		new RoundedBoxGeometry(1, 1, 1, 2, 0.14),
-		new THREE.MeshStandardMaterial({ roughness: 0.66, metalness: 0, envMapIntensity: 0.25 }),
+		new THREE.MeshStandardMaterial({ roughness: 0.9, metalness: 0, envMapIntensity: 0.08 }),
 		segmentCount,
 	);
 	scene.add(roofs);
@@ -266,7 +266,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					before = routePoint(route, Math.max(0, t - 0.01)),
 					after = routePoint(route, Math.min(1, t + 0.01));
 				const angle = Math.atan2(after.y - before.y, after.x - before.x);
-				const height = terrainHeight(p.x, p.y) + 5 + (active ? 2 : 0);
+				const height = terrainHeight(p.x, p.y) + (owner ? 3.6 : 1) + (active ? 0.4 : 0);
 				dummy.position.set(p.x, p.y, height);
 				dummy.rotation.set(
 					0,
@@ -277,15 +277,21 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 					angle,
 					'ZYX',
 				);
-				dummy.scale.set(Math.max(8, length), 10.2, owner ? 6.4 : 5.0);
+				dummy.scale.set(Math.max(8, length), 10.2, owner ? 5.4 : 0.9);
 				dummy.updateMatrix();
 				segments.setMatrixAt(index, dummy.matrix);
-				segments.setColorAt(index, color.clone().lerp(new THREE.Color('#fff6c9'), active ? 0.25 : 0));
-				dummy.position.z += owner ? 4 : 3.1;
-				dummy.scale.set(Math.max(6, length - 3), 7.4, owner ? 2 : 1.1);
+				segments.setColorAt(
+					index,
+					color
+						.clone()
+						.multiplyScalar(owner ? 1 : 0.65)
+						.lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0),
+				);
+				dummy.position.z += owner ? 3.4 : 0.5;
+				dummy.scale.set(Math.max(6, length - (owner ? 3 : 1.6)), owner ? 7.4 : 8.6, owner ? 1.6 : 0.12);
 				dummy.updateMatrix();
 				roofs.setMatrixAt(index, dummy.matrix);
-				roofs.setColorAt(index, color.clone().multiplyScalar(owner ? 1 : 1.06));
+				roofs.setColorAt(index, color);
 			});
 		}
 		segments.instanceMatrix.needsUpdate = true;

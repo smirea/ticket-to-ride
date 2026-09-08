@@ -28,7 +28,8 @@
 	let zoom = $state(1);
 	const mapWidth = $derived(viewportWidth * zoom);
 	const mapHeight = $derived(viewportHeight * zoom);
-	const labelScale = $derived(`scale(${1000 / mapWidth} ${620 / mapHeight})`);
+	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
+	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
 
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
@@ -221,6 +222,11 @@
 						cityPoint(cityById.get(highlightedTicket.cityB)!),
 					)}
 					<path
+						class="ticket-trace-underlay"
+						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
+						aria-hidden="true"
+					/>
+					<path
 						class="ticket-trace"
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
@@ -230,7 +236,7 @@
 					{@const p = projectPoint(cityPoint(city))}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
 					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
-						{#if endpoint}<circle class="endpoint-ring" r="13" />{/if}<circle
+						{#if endpoint}<circle class="endpoint-ring" r="21" />{/if}<circle
 							class="city-shadow"
 							cy="1.8"
 							r="9.5"
@@ -271,6 +277,8 @@
 
 <style>
 	.board-frame {
+		user-select: none;
+		-webkit-user-select: none;
 		position: relative;
 		min-width: 0;
 		width: calc(100% - 30px);
@@ -447,24 +455,37 @@
 	}
 	.endpoint-ring {
 		fill: #fff4b45c;
-		stroke: #efb23b;
-		stroke-width: 2.5;
+		stroke: #c2603e;
+		stroke-width: 4;
 		filter: drop-shadow(0 0 4px #fff);
 		animation: breathe 1.8s ease-in-out infinite alternate;
 	}
 	.ticket-endpoint .city-hub {
-		stroke: #d99c27;
+		stroke: #b65439;
 		stroke-width: 2.5;
+	}
+	.ticket-trace-underlay {
+		fill: none;
+		stroke: #fff7da;
+		stroke-width: 9;
+		opacity: 0.9;
+		pointer-events: none;
+		filter: drop-shadow(0 1px 2px #342f2888);
+	}
+	.ticket-endpoint text {
+		fill: #923b28;
+		stroke-width: 5;
+		font-size: 16px;
 	}
 	.ticket-trace {
 		fill: none;
-		stroke: #fff2b2;
-		stroke-width: 3;
-		stroke-dasharray: 7 7;
+		stroke: #bd5539;
+		stroke-width: 4;
+		stroke-dasharray: 9 6;
 		opacity: 0.8;
 		pointer-events: none;
 		filter: drop-shadow(0 1px 1px #694b2c);
-		animation: travel 8s linear infinite;
+		animation: travel 5s linear infinite;
 	}
 	.compass {
 		fill: #336a7066;
