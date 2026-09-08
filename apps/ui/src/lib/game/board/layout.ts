@@ -12,7 +12,7 @@ export const routeColors = {
 	purple: '#883ba7',
 	black: '#41484a',
 	white: '#f1ead6',
-	gray: '#85877e',
+	gray: '#7b8588',
 };
 export const playerColors = { red: '#cf201e', blue: '#047ac1', green: '#19854b', yellow: '#efb900', black: '#343c43' };
 export const mainland = [
@@ -174,7 +174,8 @@ export function terrainHeight(x: number, y: number) {
 	const coast = Math.exp(-Math.pow((x - (68 + y * 0.1)) / 19, 2)) * (3 + 7 * Math.pow(Math.sin(y * 0.062), 2));
 	const east =
 		Math.exp(-Math.pow((x - (838 - y * 0.12)) / 39, 2)) * (2 + 5 * Math.pow(Math.sin(y * 0.072 + x * 0.041), 2));
-	return 3.5 + ridge + coast + east + Math.sin(x * 0.037) * Math.cos(y * 0.041) * 0.8;
+	const edge = Math.min(1, Math.max(0, Math.min(x, 1000 - x, y, 620 - y) / 30));
+	return (isLand(x, y) ? 1.2 + (ridge + coast + east) * 0.21 : 0) * edge;
 }
 
 export function cityPoint(city: City) {
@@ -199,7 +200,7 @@ export function routeGeometry(route: Route): RouteGeometry {
 		candidate => [candidate.cityA, candidate.cityB].sort().join(':') === [route.cityA, route.cityB].sort().join(':'),
 	);
 	const direction = route.cityA < route.cityB ? 1 : -1;
-	const offset = (parallels.indexOf(route) - (parallels.length - 1) / 2) * 11 * direction;
+	const offset = (parallels.indexOf(route) - (parallels.length - 1) / 2) * 14 * direction;
 	const dx = end.x - start.x,
 		dy = end.y - start.y,
 		distance = Math.hypot(dx, dy);
@@ -217,7 +218,8 @@ export function routeGeometry(route: Route): RouteGeometry {
 }
 export function routePoint(route: Route, t: number) {
 	const g = routeGeometry(route);
-	const arc = Math.sin(t * Math.PI) * (g.distance > 140 ? 5 : 1.5);
+	const coastalCurve = route.id === 'new-orleans-miami-red' ? -35 : route.id === 'atlanta-miami-blue' ? -14 : undefined;
+	const arc = Math.sin(t * Math.PI) * (coastalCurve ?? (g.distance > 140 ? 5 : 1.5));
 	return {
 		x: g.start.x + g.dx * t + g.normalX - (g.dy / g.distance) * arc,
 		y: g.start.y + g.dy * t + g.normalY + (g.dx / g.distance) * arc,
