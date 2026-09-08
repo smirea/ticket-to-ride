@@ -1,14 +1,24 @@
+<script lang="ts">
+	import Brand from '$lib/game/Brand.svelte';
+</script>
+
 <svelte:head>
-	<title>New Game — Railbound</title>
+	<title>New Game — Ticket to Travel</title>
 </svelte:head>
 
 <main>
-	<a class="back" href="/">← Back</a>
+	<nav><Brand /><a class="back" href="/">← Home</a></nav>
 	<section>
 		<div class="heading">
 			<p>Single player</p>
 			<h1>Ready the passengers.</h1>
 			<span>Choose who will join your cross-country race.</span>
+			<img
+				src="/game-assets/atlas/tickets/chicago-santa-fe.webp"
+				alt="Illustrated destinations from Chicago to Santa Fe"
+				width="768"
+				height="512"
+			/>
 		</div>
 
 		<form action="/game" method="get">
@@ -37,169 +47,161 @@
 			<button type="submit">Deal the tickets <span aria-hidden="true">→</span></button>
 		</form>
 	</section>
-	<div class="route" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 </main>
 
 <style>
 	main {
-		position: relative;
-		display: grid;
-		place-items: center;
-		min-height: 100vh;
-		overflow: hidden;
-		padding: 5rem 1.5rem;
-		background:
-			radial-gradient(circle at 15% 15%, rgb(202 126 61 / 0.2), transparent 30%),
-			linear-gradient(145deg, #11252b, #071318 70%);
-		color: #f8efd9;
+		min-height: 100svh;
+		padding-bottom: 4rem;
+		background: #f7f3e9;
+		color: #142d3e;
 	}
-
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1.4rem clamp(1.25rem, 5vw, 5rem);
+		border-bottom: 1px solid #dcd6c7;
+	}
 	.back {
-		position: absolute;
-		top: 2rem;
-		left: 2rem;
-		color: #aebbb7;
+		color: #667076;
 		font-size: 0.78rem;
 		font-weight: 700;
 		text-decoration: none;
 	}
-
 	section {
-		position: relative;
-		z-index: 1;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		width: min(62rem, 100%);
-		border: 1px solid rgb(255 255 255 / 0.12);
-		border-radius: 0.45rem;
-		background: rgb(7 19 24 / 0.88);
-		box-shadow: 0 30px 90px rgb(0 0 0 / 0.34);
+		width: min(64rem, calc(100% - 3rem));
+		margin: clamp(2rem, 5vw, 5rem) auto 0;
+		border: 1px solid #d8d0bf;
+		border-radius: 0.6rem;
+		overflow: hidden;
+		background: #fffcf5;
+		box-shadow: 0 12px 35px #75613f12;
 	}
-
 	.heading,
 	form {
-		padding: clamp(2rem, 5vw, 4rem);
+		padding: clamp(1.5rem, 4vw, 3.4rem);
 	}
-
 	.heading {
-		border-right: 1px solid rgb(255 255 255 / 0.1);
-		background: linear-gradient(160deg, rgb(41 71 70 / 0.65), transparent);
+		border-right: 1px solid #ded7c8;
+		background: #f1ebdd;
 	}
-
 	.heading p {
-		margin: 0 0 2rem;
-		color: #df9b4c;
-		font-size: 0.72rem;
+		margin: 0 0 1.5rem;
+		color: #a34a3d;
+		font-size: 0.7rem;
 		font-weight: 800;
-		letter-spacing: 0.16em;
+		letter-spacing: 0.15em;
 		text-transform: uppercase;
 	}
-
 	h1 {
-		margin: 0 0 1.5rem;
-		font-family: Georgia, 'Times New Roman', serif;
-		font-size: clamp(2.6rem, 5vw, 4.8rem);
-		font-weight: 500;
-		letter-spacing: -0.055em;
-		line-height: 0.95;
+		margin: 0 0 1.25rem;
+		font-family: Georgia, serif;
+		font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+		font-weight: 400;
+		letter-spacing: -0.04em;
+		line-height: 1.02;
 	}
-
 	.heading span {
-		color: #a9b1aa;
+		color: #647077;
+		font-size: 0.9rem;
 		line-height: 1.7;
 	}
-
+	.heading img {
+		display: block;
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+		margin-top: 2rem;
+		border: 5px solid #fffcf5;
+		box-shadow: 0 3px 10px #75613f18;
+	}
 	form {
 		display: grid;
 		align-content: center;
 		gap: 1.5rem;
 	}
-
 	label {
 		display: grid;
 		gap: 0.55rem;
 	}
-
 	label > span,
 	.details strong {
-		color: #879894;
+		color: #637076;
 		font-size: 0.68rem;
 		font-weight: 800;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 	}
-
 	input,
 	select {
 		width: 100%;
-		border: 1px solid rgb(255 255 255 / 0.16);
-		border-radius: 0.3rem;
+		min-height: 46px;
+		border: 1px solid #cfc7b6;
+		border-radius: 0.35rem;
 		padding: 0.8rem 0.9rem;
-		background: #13262c;
-		color: #f8efd9;
+		background: #fffef9;
+		color: #142d3e;
 		font: inherit;
 	}
-
+	input:focus,
+	select:focus {
+		outline: 2px solid #698ba3;
+		outline-offset: 2px;
+	}
 	.details {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 0.5rem;
-		border-top: 1px solid rgb(255 255 255 / 0.1);
+		border-top: 1px solid #ded7c8;
 		padding-top: 1.25rem;
 	}
-
 	.details div {
 		display: grid;
-		gap: 0.25rem;
+		gap: 0.4rem;
 	}
-
 	.details span {
-		color: #c3cbc5;
+		color: #647077;
 		font-size: 0.78rem;
 	}
-
 	button {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		min-height: 48px;
 		border: 0;
-		border-radius: 0.3rem;
+		border-radius: 0.4rem;
 		padding: 1rem;
-		background: #c84c37;
+		background: #b6493d;
 		color: white;
-		font-weight: 800;
+		font-weight: 750;
 		cursor: pointer;
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease;
 	}
-
-	.route {
-		position: absolute;
-		right: -5rem;
-		bottom: 5rem;
-		display: flex;
-		gap: 0.5rem;
-		transform: rotate(-12deg);
-		opacity: 0.25;
+	button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 7px 16px #64523b20;
 	}
-
-	.route i {
-		width: 5rem;
-		height: 1.7rem;
-		border: 3px solid #d6a55e;
-		border-radius: 0.3rem;
-	}
-
 	@media (max-width: 720px) {
-		main {
-			padding-top: 6rem;
-		}
-
 		section {
 			grid-template-columns: 1fr;
 		}
-
 		.heading {
 			border-right: 0;
-			border-bottom: 1px solid rgb(255 255 255 / 0.1);
+			border-bottom: 1px solid #ded7c8;
+		}
+		.heading img {
+			height: 150px;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		button {
+			transition: none;
 		}
 	}
 </style>

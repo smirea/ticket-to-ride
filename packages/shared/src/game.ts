@@ -624,108 +624,61 @@ export function getClaimableRoutes(state: GameState, playerId: PlayerId): Route[
 	);
 }
 
-function reduceGameAction(state: GameState, action: GameAction): ActionResult {
-	if (state.phase.type === 'game-over') return fail(state, 'The game is over.');
+function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep-tickets' }>): ActionResult {
+	if (state.phase.type !== 'ticket-selection') return fail(state, 'No tickets are being selected.');
 	const player = currentPlayer(state);
-
-	if (action.type === 'keep-tickets') {
-		if (state.phase.type !== 'ticket-selection') return fail(state, 'No tickets are being selected.');
-		const selection = state.phase;
-		if (selection.playerId !== player.id) return fail(state, 'It is not this player’s selection.');
-		const uniqueTicketIds = [...new Set(action.ticketIds)];
-		if (uniqueTicketIds.length < selection.minimum) {
-			return fail(state, `Keep at least ${selection.minimum} tickets.`);
-		}
-		if (uniqueTicketIds.some(ticketId => !selection.ticketIds.includes(ticketId))) {
-			return fail(state, 'A selected ticket was not offered.');
-		}
-		const next = cloneState(state);
-		const nextPlayer = currentPlayer(next);
-		nextPlayer.tickets.push(...uniqueTicketIds);
-		const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
-		next.destinationDeck.unshift(...returned);
-		next.log.push(`${nextPlayer.name} kept ${uniqueTicketIds.length} destination tickets.`);
-		if (selection.source === 'turn') {
-			endTurn(next);
-		} else {
-			delete next.openingTicketOffers[nextPlayer.id];
-			const nextOpeningIndex = next.players.findIndex(
-				(candidate, index) => index > next.currentPlayerIndex && next.openingTicketOffers[candidate.id],
-			);
-			if (nextOpeningIndex >= 0) {
-				next.currentPlayerIndex = nextOpeningIndex;
-				const ticketIds = next.openingTicketOffers[next.players[nextOpeningIndex]!.id]!;
-				next.phase = {
-					type: 'ticket-selection',
-					playerId: next.players[nextOpeningIndex]!.id,
-					ticketIds,
-					minimum: Math.min(2, ticketIds.length),
-					source: 'opening',
-				};
-			} else {
-				next.currentPlayerIndex = 0;
-				next.phase = { type: 'turn', drawsTaken: 0 };
-			}
-		}
-		return succeed(next, action);
+	const selection = state.phase;
+	if (selection.playerId !== player.id) return fail(state, 'It is not this player’s selection.');
+	const uniqueTicketIds = [...new Set(action.ticketIds)];
+	if (uniqueTicketIds.length < selection.minimum) {
+		return fail(state, `Keep at least ${selection.minimum} tickets.`);
 	}
-
-	if (state.phase.type !== 'turn') return fail(state, 'Finish selecting tickets first.');
-	const turn = state.phase;
-
-	if (action.type === 'draw-destination-tickets') {
-		if (turn.drawsTaken !== 0) return fail(state, 'Destination tickets must be the only action this turn.');
-		if (state.destinationDeck.length === 0) return fail(state, 'There are no destination tickets left.');
-		const next = cloneState(state);
-		const offered = drawDestinationIds(next.destinationDeck, 3);
-		next.phase = {
-			type: 'ticket-selection',
-			playerId: player.id,
-			ticketIds: offered,
-			minimum: 1,
-			source: 'turn',
-		};
-		next.log.push(`${player.name} drew ${offered.length} destination tickets.`);
-		return succeed(next, action);
+	if (uniqueTicketIds.some(ticketId => !selection.ticketIds.includes(ticketId))) {
+		return fail(state, 'A selected ticket was not offered.');
 	}
+	const next = cloneState(state);
+	const nextPlayer = currentPlayer(next);
+	nextPlayer.tickets.push(...uniqueTicketIds);
+	const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
+	next.destinationDeck.unshift(...returned);
+	next.log.push(`${nextPlayer.name} kept ${uniqueTicketIds.length} destination tickets.`);
+	return succeed(next, action);
+}
 
-	if (action.type === 'draw-face-up') {
-		if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
-			return fail(state, 'There are no train cards left to draw.');
-		}
-		const card = state.faceUpTrainCards[action.index];
-		if (!card) return fail(state, 'Choose an available face-up card.');
-		if (card === 'locomotive' && turn.drawsTaken === 1) {
-			return fail(state, 'A face-up locomotive can only be the first and only draw.');
-		}
-		const next = cloneState(state);
-		const nextPlayer = currentPlayer(next);
-		const [drawn] = next.faceUpTrainCards.splice(action.index, 1);
-		if (!drawn) return fail(state, 'Choose an available face-up card.');
-		nextPlayer.hand[drawn] += 1;
-		refillFaceUp(next);
-		next.log.push(`${nextPlayer.name} drew a face-up ${drawn} card.`);
-		if (drawn === 'locomotive' || turn.drawsTaken === 1 || !canTakeAnotherTrainCard(next)) endTurn(next);
-		else next.phase = { type: 'turn', drawsTaken: 1 };
-		return succeed(next, action);
+function drawFaceUp(state: GameState, action: Extract<GameAction, { type: 'draw-face-up' }>): ActionResult {
+	if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
+		return fail(state, 'There are no train cards left to draw.');
 	}
-
-	if (action.type === 'draw-train-deck') {
-		if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
-			return fail(state, 'There are no train cards left to draw.');
-		}
-		const next = cloneState(state);
-		const nextPlayer = currentPlayer(next);
-		const card = takeTrainDeckCard(next);
-		if (!card) return fail(state, 'There are no train cards left to draw.');
-		nextPlayer.hand[card] += 1;
-		next.log.push(`${nextPlayer.name} drew from the train deck.`);
-		if (turn.drawsTaken === 1 || !canTakeAnotherTrainCard(next)) endTurn(next);
-		else next.phase = { type: 'turn', drawsTaken: 1 };
-		return succeed(next, action);
+	const card = state.faceUpTrainCards[action.index];
+	if (!card) return fail(state, 'Choose an available face-up card.');
+	if (card === 'locomotive' && state.phase.type === 'turn' && state.phase.drawsTaken === 1) {
+		return fail(state, 'A face-up locomotive can only be the first and only draw.');
 	}
+	const next = cloneState(state);
+	const nextPlayer = currentPlayer(next);
+	const [drawn] = next.faceUpTrainCards.splice(action.index, 1);
+	if (!drawn) return fail(state, 'Choose an available face-up card.');
+	nextPlayer.hand[drawn] += 1;
+	refillFaceUp(next);
+	next.log.push(`${nextPlayer.name} drew a face-up ${drawn} card.`);
+	return succeed(next, action);
+}
 
-	if (turn.drawsTaken !== 0) return fail(state, 'A route cannot be claimed after drawing.');
+function drawTrainDeck(state: GameState, action: Extract<GameAction, { type: 'draw-train-deck' }>): ActionResult {
+	if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
+		return fail(state, 'There are no train cards left to draw.');
+	}
+	const next = cloneState(state);
+	const nextPlayer = currentPlayer(next);
+	const card = takeTrainDeckCard(next);
+	if (!card) return fail(state, 'There are no train cards left to draw.');
+	nextPlayer.hand[card] += 1;
+	next.log.push(`${nextPlayer.name} drew from the train deck.`);
+	return succeed(next, action);
+}
+
+function claimRoute(state: GameState, action: Extract<GameAction, { type: 'claim-route' }>): ActionResult {
+	const player = currentPlayer(state);
 	const validation = canClaimRoute(state, player.id, action.routeId, action.paymentColor);
 	if (!validation.ok) return fail(state, validation.error);
 	const routeToClaim = getRoute(action.routeId)!;
@@ -743,7 +696,21 @@ function reduceGameAction(state: GameState, action: GameAction): ActionResult {
 	const cityA = USA_CITIES.find(city => city.id === routeToClaim.cityA)?.name ?? routeToClaim.cityA;
 	const cityB = USA_CITIES.find(city => city.id === routeToClaim.cityB)?.name ?? routeToClaim.cityB;
 	next.log.push(`${nextPlayer.name} claimed ${cityA}–${cityB}.`);
-	endTurn(next);
+	return succeed(next, action);
+}
+
+function drawDestinationTickets(state: GameState, action: GameAction): ActionResult {
+	if (state.destinationDeck.length === 0) return fail(state, 'There are no destination tickets left.');
+	const next = cloneState(state);
+	const offered = drawDestinationIds(next.destinationDeck, 3);
+	next.phase = {
+		type: 'ticket-selection',
+		playerId: currentPlayer(next).id,
+		ticketIds: offered,
+		minimum: 1,
+		source: 'turn',
+	};
+	next.log.push(`${currentPlayer(next).name} drew ${offered.length} destination tickets.`);
 	return succeed(next, action);
 }
 
@@ -757,6 +724,11 @@ export type GameMachineState =
 interface GameMachineContext {
 	game: GameState;
 	lastResult: ActionResult | null;
+	drewFaceUpLocomotive: boolean;
+}
+
+function resultContext(lastResult: ActionResult) {
+	return { game: lastResult.state, lastResult };
 }
 
 const gameMachineSetup = setup({
@@ -772,19 +744,80 @@ const gameMachineSetup = setup({
 		isDestinationTicketSelection: ({ context }) =>
 			context.game.phase.type === 'ticket-selection' && context.game.phase.source === 'turn',
 		isSecondDraw: ({ context }) => context.game.phase.type === 'turn' && context.game.phase.drawsTaken === 1,
+		actionFailed: ({ context }) => context.lastResult?.ok === false,
+		drawEndsTurn: ({ context }) =>
+			context.drewFaceUpLocomotive ||
+			(context.game.phase.type === 'turn' && context.game.phase.drawsTaken === 1) ||
+			!canTakeAnotherTrainCard(context.game),
 	},
 	actions: {
-		applyRuleAction: assign(({ context, event }) => {
-			const lastResult = reduceGameAction(context.game, event);
-			return { game: lastResult.state, lastResult };
+		keepTickets: assign(({ context, event }) =>
+			event.type === 'keep-tickets' ? resultContext(keepTickets(context.game, event)) : {},
+		),
+		drawDestinationTickets: assign(({ context, event }) => resultContext(drawDestinationTickets(context.game, event))),
+		drawFaceUp: assign(({ context, event }) =>
+			event.type === 'draw-face-up'
+				? {
+						...resultContext(drawFaceUp(context.game, event)),
+						drewFaceUpLocomotive: context.game.faceUpTrainCards[event.index] === 'locomotive',
+					}
+				: {},
+		),
+		drawTrainDeck: assign(({ context, event }) =>
+			event.type === 'draw-train-deck'
+				? {
+						...resultContext(drawTrainDeck(context.game, event)),
+						drewFaceUpLocomotive: false,
+					}
+				: {},
+		),
+		claimRoute: assign(({ context, event }) =>
+			event.type === 'claim-route' ? resultContext(claimRoute(context.game, event)) : {},
+		),
+		advanceOpeningSelection: assign(({ context }) => {
+			const next = cloneState(context.game);
+			delete next.openingTicketOffers[currentPlayer(next).id];
+			const index = next.players.findIndex(
+				(candidate, index) => index > next.currentPlayerIndex && next.openingTicketOffers[candidate.id],
+			);
+			if (index >= 0) {
+				next.currentPlayerIndex = index;
+				const playerId = currentPlayer(next).id;
+				const ticketIds = next.openingTicketOffers[playerId]!;
+				next.phase = {
+					type: 'ticket-selection',
+					playerId,
+					ticketIds,
+					minimum: Math.min(2, ticketIds.length),
+					source: 'opening',
+				};
+			} else {
+				next.currentPlayerIndex = 0;
+				next.phase = { type: 'turn', drawsTaken: 0 };
+			}
+			return resultContext({ ok: true, state: next });
 		}),
+		prepareSecondDraw: assign(({ context }) => {
+			const next = { ...context.game, phase: { type: 'turn', drawsTaken: 1 } as const };
+			return resultContext({ ok: true, state: next });
+		}),
+		endTurn: assign(({ context }) => {
+			const next = cloneState(context.game);
+			endTurn(next);
+			return resultContext({ ok: true, state: next });
+		}),
+		rejectAction: assign(({ context, event }) =>
+			resultContext(fail(context.game, disallowedActionError(getGameMachineState(context.game), event))),
+		),
 	},
 });
 
+// Phase remains serializable for saved games and the multiplayer protocol; the machine owns transitions.
 export const gameMachine = gameMachineSetup.createMachine({
-	id: 'ticket-to-ride',
-	context: ({ input }) => ({ game: input.game, lastResult: null }),
+	id: 'ticket-to-travel',
+	context: ({ input }) => ({ game: input.game, lastResult: null, drewFaceUpLocomotive: false }),
 	initial: 'routeState',
+	on: { '*': { actions: 'rejectAction' } },
 	states: {
 		routeState: {
 			always: [
@@ -796,28 +829,43 @@ export const gameMachine = gameMachineSetup.createMachine({
 			],
 		},
 		openingTicketSelection: {
-			on: {
-				'keep-tickets': { target: 'routeState', actions: 'applyRuleAction' },
-			},
+			on: { 'keep-tickets': { target: 'resolveOpeningSelection', actions: 'keepTickets' } },
+		},
+		resolveOpeningSelection: {
+			always: [
+				{ guard: 'actionFailed', target: 'openingTicketSelection' },
+				{ target: 'routeState', actions: 'advanceOpeningSelection' },
+			],
 		},
 		turnReady: {
 			on: {
-				'draw-destination-tickets': { target: 'routeState', actions: 'applyRuleAction' },
-				'draw-face-up': { target: 'routeState', actions: 'applyRuleAction' },
-				'draw-train-deck': { target: 'routeState', actions: 'applyRuleAction' },
-				'claim-route': { target: 'routeState', actions: 'applyRuleAction' },
+				'draw-destination-tickets': { target: 'routeState', actions: 'drawDestinationTickets' },
+				'draw-face-up': { target: 'resolveDraw', actions: 'drawFaceUp' },
+				'draw-train-deck': { target: 'resolveDraw', actions: 'drawTrainDeck' },
+				'claim-route': { target: 'resolveTurn', actions: 'claimRoute' },
 			},
 		},
 		turnSecondDraw: {
 			on: {
-				'draw-face-up': { target: 'routeState', actions: 'applyRuleAction' },
-				'draw-train-deck': { target: 'routeState', actions: 'applyRuleAction' },
+				'draw-face-up': { target: 'resolveDraw', actions: 'drawFaceUp' },
+				'draw-train-deck': { target: 'resolveDraw', actions: 'drawTrainDeck' },
 			},
 		},
+		resolveDraw: {
+			always: [
+				{ guard: 'actionFailed', target: 'routeState' },
+				{ guard: 'drawEndsTurn', target: 'routeState', actions: 'endTurn' },
+				{ target: 'turnSecondDraw', actions: 'prepareSecondDraw' },
+			],
+		},
 		destinationTicketSelection: {
-			on: {
-				'keep-tickets': { target: 'routeState', actions: 'applyRuleAction' },
-			},
+			on: { 'keep-tickets': { target: 'resolveTurn', actions: 'keepTickets' } },
+		},
+		resolveTurn: {
+			always: [
+				{ guard: 'actionFailed', target: 'routeState' },
+				{ target: 'routeState', actions: 'endTurn' },
+			],
 		},
 		gameOver: {},
 	},
@@ -851,7 +899,7 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 	const machineState = getGameMachineState(state);
 	const snapshot = gameMachine.resolveState({
 		value: machineState,
-		context: { game: state, lastResult: null },
+		context: { game: state, lastResult: null, drewFaceUpLocomotive: false },
 	});
 	const [nextSnapshot] = transition(gameMachine, snapshot, action);
 	return nextSnapshot.context.lastResult ?? fail(state, disallowedActionError(machineState, action));

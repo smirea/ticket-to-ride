@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/state';
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import {
 		applyGameAction,
@@ -21,13 +23,20 @@
 	let botTimer: ReturnType<typeof setTimeout> | undefined;
 
 	onMount(() => {
-		const saved = localStorage.getItem(savedGameKey);
-		if (saved && !data.startFresh) {
-			try {
+		try {
+			const saved = localStorage.getItem(savedGameKey);
+			if (saved && !data.startFresh) {
 				game = restoreGameState(JSON.parse(saved));
-			} catch {
-				localStorage.removeItem(savedGameKey);
+			} else {
+				game = createConfiguredGame(`single-player-${Date.now()}`);
 			}
+		} catch {
+			error = 'Your saved game could not be loaded. A new journey is ready.';
+		}
+		if (data.startFresh) {
+			const url = new URL(window.location.href);
+			url.searchParams.delete('new');
+			replaceState(url, page.state);
 		}
 		loaded = true;
 		scheduleBotAction();
@@ -37,7 +46,11 @@
 
 	$effect(() => {
 		if (typeof localStorage === 'undefined' || !loaded) return;
-		localStorage.setItem(savedGameKey, JSON.stringify(game));
+		try {
+			localStorage.setItem(savedGameKey, JSON.stringify(game));
+		} catch {
+			error = 'This browser could not save your journey. Keep this tab open to continue playing.';
+		}
 	});
 
 	function send(action: GameAction) {
@@ -56,6 +69,7 @@
 		clearTimeout(botTimer);
 		error = '';
 		game = createConfiguredGame(`single-player-${Date.now()}`);
+		scheduleBotAction();
 	}
 
 	function scheduleBotAction() {
@@ -86,7 +100,7 @@
 </script>
 
 <svelte:head>
-	<title>Single Player — Railbound</title>
+	<title>Single Player — Ticket to Travel</title>
 </svelte:head>
 
 <div class="game-page">
@@ -102,9 +116,8 @@
 
 <style>
 	.game-page {
-		height: 100svh;
-		overflow: hidden;
-		background: #07151b;
+		min-height: 100svh;
+		background: #f4eee2;
 	}
 
 	.game-message {
