@@ -842,8 +842,10 @@
 			class="ticket-summary"
 			aria-label={`${completedIds.size} completed tickets, ${heldTickets.length - completedIds.size} unfinished tickets`}
 		>
-			<span><strong>{completedIds.size}</strong><TicketCountIcon complete /></span>
-			<span><strong>{heldTickets.length - completedIds.size}</strong><TicketCountIcon /></span>
+			{#if completedIds.size > 0}<span><strong>{completedIds.size}</strong><TicketCountIcon complete /></span>{/if}
+			{#if heldTickets.length > completedIds.size}<span
+					><strong>{heldTickets.length - completedIds.size}</strong><TicketCountIcon /></span
+				>{/if}
 		</div>
 		<div
 			class="ticket-collection"
@@ -945,7 +947,6 @@
 			onselect={selectRoute}
 			onhover={route => (hoveredRoute = route)}
 			{eligibleRouteIds}
-			cardColor={activeCard}
 			{routeHints}
 			{routeHover}
 			highlightedRouteId={journalPreview?.routeId}
@@ -1289,8 +1290,12 @@
 		margin: 12px 18px 0;
 		color: #68644d;
 		font:
-			700 16px Georgia,
+			700 16px/1 Georgia,
 			serif;
+	}
+	.ticket-summary strong {
+		font-variant-numeric: lining-nums tabular-nums;
+		transform: translateY(-0.04em);
 	}
 	.ticket-summary > span {
 		display: inline-flex;

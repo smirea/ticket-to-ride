@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
+	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { onMount, tick, untrack } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import RouteHintToken, { routeHintWidth, type RouteHint } from './RouteHintToken.svelte';
+	import { routeHintWidth, type RouteHint } from './RouteHintToken.svelte';
+	import RouteHintLayer from './RouteHintLayer.svelte';
 	import ColorSymbol from './ColorSymbol.svelte';
 	import {
 		carriageFrame,
@@ -52,7 +53,6 @@
 		routeHover?: { routeId: string; hints: RouteHint[] };
 		highlightedRouteId?: string;
 		eligibleRouteIds?: string[];
-		cardColor?: TrainCard;
 	};
 	let {
 		state: gameState,
@@ -71,7 +71,6 @@
 		routeHover,
 		highlightedRouteId,
 		eligibleRouteIds,
-		cardColor,
 	}: Props = $props();
 	let viewport = $state<HTMLDivElement>();
 	let viewportWidth = $state(1000);
@@ -98,9 +97,8 @@
 			: [],
 	);
 
-	let zoom = $state(1);
-	const mapWidth = $derived(viewportWidth * zoom);
-	const mapHeight = $derived(viewportHeight * zoom);
+	const mapWidth = $derived(viewportWidth);
+	const mapHeight = $derived(viewportHeight);
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
 	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
 
@@ -224,12 +222,12 @@
 			sy = (620 * labelFactor) / mapHeight;
 		const anchor = point(route, 0.5);
 		const width = Math.max(...routeHover.hints.map(routeHintWidth));
-		const height = (routeHover.hints.length - 1) * 36;
+		const height = (routeHover.hints.length - 1) * 32;
 		const below = anchor.y < (height + 68) * sy;
 		const x = Math.max((width / 2 + 4) * sx, Math.min(1000 - (width / 2 + 4) * sx, anchor.x));
 		const preferredY = below ? anchor.y + 23 * sy : anchor.y - (height + 23) * sy;
 		const y = Math.max(48 * sy, Math.min(620 - (height + 18) * sy, preferredY));
-		return { x, y, below, hints: routeHover.hints };
+		return { id: route.id, x, y: y + (height / 2) * sy, below, hints: routeHover.hints };
 	});
 
 	const selectableRoutes = $derived(routes.filter(route => !owner(route) && !blocked(route) && !disabled));
@@ -426,11 +424,7 @@
 									height={ROUTE_MARKER_WIDTH}
 									rx="0.8"
 									transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-									fill={routeOwner
-										? 'transparent'
-										: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
-											? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
-											: routeColors[route.color]}
+									fill={routeOwner ? 'transparent' : routeColors[route.color]}
 									class="marker-anchor"
 									class:fallback-segment={!routeOwner}
 								/>
@@ -536,42 +530,6 @@
 						</text>
 					</g>
 				{/each}
-				{#each hintRoutes as placement (placement.route.id)}
-					{@const { hint, x, y, anchor, tipY } = placement}
-					{#if Math.abs(tipY - anchor.y) > 1 || Math.abs(x - anchor.x) > 1}
-						<path
-							class="hint-leader"
-							d={`M ${x} ${tipY} L ${anchor.x} ${anchor.y}`}
-							transition:fade={{ duration: motionEnabled ? 170 : 0 }}
-						/>
-					{/if}
-					<g class="route-hint" transform={`translate(${x} ${y}) ${labelScale}`} aria-hidden="true">
-						<RouteHintToken {hint} pointer={tipY < y ? 'up' : 'down'} {motionEnabled} />
-					</g>
-				{/each}
-				{#if hoverStack}
-					<g
-						class="route-hover-stack"
-						transform={`translate(${hoverStack.x} ${hoverStack.y}) ${labelScale}`}
-						aria-hidden="true"
-					>
-						{#each hoverStack.hints as hint, i (`${hint.color ?? 'unavailable'}-${hint.wilds ?? 0}`)}
-							<g transform={`translate(0 ${i * 36})`}>
-								<RouteHintToken
-									{hint}
-									{motionEnabled}
-									pointer={hoverStack.below
-										? i === 0
-											? 'up'
-											: 'none'
-										: i === hoverStack.hints.length - 1
-											? 'down'
-											: 'none'}
-								/>
-							</g>
-						{/each}
-					</g>
-				{/if}
 				{#if highlightedRouteId}
 					{@const highlightedRoute = routes.find(route => route.id === highlightedRouteId)}
 					{#if highlightedRoute}
@@ -620,26 +578,21 @@
 				} catch {}
 			}}>Reload carriage artwork</button
 		>{/if}
-	<div class="map-tools" aria-label="Map view controls">
-		<button type="button" aria-label="Zoom out" disabled={zoom <= 1} onclick={() => (zoom = Math.max(1, zoom - 0.25))}
-			>−</button
-		><button
-			type="button"
-			class="fit-control"
-			onclick={() => {
-				zoom = 1;
-				viewport?.scrollTo({ left: 0, top: 0 });
-			}}>Fit map</button
-		><button type="button" aria-label="Zoom in" disabled={zoom >= 2} onclick={() => (zoom = Math.min(2, zoom + 0.25))}
-			>+</button
-		>
-	</div>
 	<p id="board-help" class="board-help">
 		Use arrow keys to move between open routes, then Enter or Space to select one. {highlightedTickets
 			.map(ticket => `Previewing ${cityById.get(ticket.cityA)!.name} to ${cityById.get(ticket.cityB)!.name}.`)
 			.join(' ')}
 	</p>
 </div>
+
+<RouteHintLayer
+	board={viewport}
+	factor={labelFactor}
+	{motionEnabled}
+	placements={hoverStack
+		? [hoverStack]
+		: hintRoutes.map(p => ({ id: p.route.id, x: p.x, y: p.y, hints: [p.hint], below: p.tipY < p.y, anchor: p.anchor }))}
+/>
 
 <style>
 	.route-color-symbol {
@@ -699,46 +652,6 @@
 		color: #384847;
 		border: 1px solid #b19a70;
 		border-radius: 5px;
-	}
-	.map-tools {
-		position: absolute;
-		left: 10px;
-		bottom: 10px;
-		display: flex;
-		border: 1px solid #7d7c5c55;
-		border-radius: 8px;
-		overflow: hidden;
-		box-shadow: 0 2px 5px #48595122;
-	}
-	.map-tools button {
-		border: 0;
-		background: #fff9ebeb;
-		color: #314951;
-		height: 36px;
-		min-width: 36px;
-		font-size: 18px;
-		cursor: pointer;
-	}
-	.map-tools button:hover {
-		background: #fff;
-	}
-	.map-tools button:disabled {
-		opacity: 0.5;
-		cursor: default;
-	}
-	.map-tools .fit-control {
-		font: 600 11px system-ui;
-		padding: 0 9px;
-		border-inline: 1px solid #7d7c5c33;
-	}
-	@media (max-width: 1100px) and (orientation: portrait) {
-		.map-tools {
-			bottom: 0;
-		}
-		.map-tools button {
-			height: 28px;
-			min-width: 28px;
-		}
 	}
 	.motion-paused .endpoint-ring,
 	.motion-paused .ticket-trace,
@@ -962,17 +875,6 @@
 		overflow: hidden;
 		clip-path: inset(50%);
 		white-space: nowrap;
-	}
-	.route-hint,
-	.route-hover-stack {
-		pointer-events: none;
-	}
-	.hint-leader {
-		fill: none;
-		stroke: #b09a6c;
-		stroke-width: 1.5;
-		pointer-events: none;
-		vector-effect: non-scaling-stroke;
 	}
 	.journal-route-highlight {
 		pointer-events: none;

@@ -30,13 +30,15 @@
 		pointer-events: none;
 	}
 	strong {
-		position: relative;
-		padding-bottom: 2%;
+		position: absolute;
+		left: 50%;
+		top: 48%;
+		transform: translate(-50%, -50%);
 		color: #fff3d8;
 		font:
 			600 var(--seal-number-size, 24px)/1 Georgia,
 			serif;
-		font-variant-numeric: lining-nums;
+		font-variant-numeric: lining-nums tabular-nums;
 		text-shadow:
 			0 1px 1px #481411,
 			0 -1px #ffd39a44;
