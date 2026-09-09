@@ -2,11 +2,12 @@ import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { CLIENT_ID_HEADER, chooseBotAction, type RoomState } from '@repo/shared';
+import { CLIENT_ID_HEADER, chooseBotAction, USA_TICKETS, type RoomState } from '@repo/shared';
 import { createRequestHandler } from './app';
 import { RoomService } from './room-service';
 import { RoomStore } from './room-store';
 import { RoomStreams } from './room-streams';
+import { projectRoomForViewer } from './room-projection';
 
 interface TestContext {
 	store: RoomStore;
@@ -240,6 +241,27 @@ describe('authoritative game actions', () => {
 		expect(reopenedService.getRoom('alice', room.code)).toEqual(expectedRoom);
 		expect(reopenedService.getCurrentRoom('bob')).toEqual(expectedRoom);
 		expect(reopenedStore.listAcceptedActions(room.code)).toEqual(expectedActions);
+	});
+
+	test('shares completed ticket counts without exposing opponent destinations', async () => {
+		const context = setup();
+		const started = await startTwoPlayerRoom(context);
+		const room = context.store.getRoom(started.code)!;
+		const game = room.game!;
+		const bob = game.players.find(player => player.id === 'bob')!;
+		const completed = USA_TICKETS.find(ticket => ticket.cityA === 'denver' && ticket.cityB === 'el-paso')!;
+		const unfinished = USA_TICKETS.find(ticket => ticket.cityA === 'portland' && ticket.cityB === 'phoenix')!;
+		bob.tickets = [completed.id, unfinished.id];
+		game.claimedRoutes['denver-santa-fe-gray'] = bob.id;
+		game.claimedRoutes['santa-fe-el-paso-gray'] = bob.id;
+		const hidden = projectRoomForViewer(room, 'alice').game!.players.find(player => player.id === bob.id)!;
+		expect(hidden.completedTicketCount).toBe(1);
+		expect(hidden.tickets).toEqual(['private-player-1', 'private-player-2']);
+		expect(bob.tickets).toEqual([completed.id, unfinished.id]);
+		expect(bob.completedTicketCount).toBeUndefined();
+		const own = projectRoomForViewer(room, 'bob').game!.players.find(player => player.id === bob.id)!;
+		expect(own.completedTicketCount).toBe(1);
+		expect(own.tickets).toEqual(bob.tickets);
 	});
 
 	test('projects private game state for each HTTP viewer', async () => {

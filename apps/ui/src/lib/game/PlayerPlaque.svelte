@@ -3,45 +3,119 @@
 	import { playerPortraitAssets } from './assets';
 	import PointsSeal from './PointsSeal.svelte';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
-	import GearSixIcon from 'phosphor-svelte/lib/GearSixIcon';
 	let {
 		player,
 		viewerId,
 		active,
 		color,
 		index = 0,
-	}: { player: Player; viewerId: string; active: boolean; color: string; index?: number } = $props();
+		completedTickets,
+	}: {
+		player: Player;
+		viewerId: string;
+		active: boolean;
+		color: string;
+		index?: number;
+		completedTickets?: number;
+	} = $props();
+	const handCount = $derived(Object.values(player.hand).reduce((sum, count) => sum + count, 0));
+	const completed = $derived(
+		completedTickets === undefined ? undefined : Math.max(0, Math.min(player.tickets.length, completedTickets)),
+	);
+	const unfinished = $derived(completed === undefined ? undefined : player.tickets.length - completed);
 </script>
+
+{#snippet ticketIcon(done: boolean = false)}
+	<svg width="17" height="14" viewBox="0 0 24 18" aria-hidden="true">
+		<path d="M2 2h20v4a3 3 0 0 0 0 6v4H2v-4a3 3 0 0 0 0-6Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+		{#if done}<path d="m8 9 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2" />
+		{:else}<path
+				d="M9 5v8M14 6h4M14 10h4"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.2"
+				stroke-dasharray="2 1"
+			/>{/if}
+	</svg>
+{/snippet}
 
 <div
 	class="player-plaque"
 	class:active
 	style:--player-color={color}
 	style:--rest-angle={`${[-0.7, 0.6, -0.4, 0.8, -0.6][index % 5]}deg`}
-	aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${Object.values(player.hand).reduce((sum, count) => sum + count, 0)} cards, ${player.tickets.length} tickets`}
+	aria-label={`${player.name}: ${player.score} points, ${player.trains} trains, ${handCount} cards, ${player.tickets.length} tickets${completed === undefined ? '' : `, ${completed} completed, ${unfinished} unfinished`}`}
 	aria-current={active ? 'true' : undefined}
 >
 	<div class="portrait">
 		<img src={playerPortraitAssets[player.color]} alt="" draggable="false" />
 	</div>
 	<div class="ledger">
-		<strong class="name" title={player.name}>{player.id === viewerId ? 'You' : player.name}</strong>
 		<div class="score"><span class="points-icon"><PointsSeal /></span><strong>{player.score}</strong></div>
-		<div class="trains">
-			<TrainPieceIcon color="currentColor" width={24} height={21} /><strong>{player.trains}</strong>
+		<div class="ticket-counts">
+			{#if unfinished === undefined}
+				{#if player.tickets.length > 0}<span aria-label={`${player.tickets.length} tickets`}
+						><strong>{player.tickets.length}</strong>{@render ticketIcon()}</span
+					>{/if}
+			{:else}
+				{#if unfinished > 0}<span aria-label={`${unfinished} unfinished tickets`}
+						><strong>{unfinished}</strong>{@render ticketIcon()}</span
+					>{/if}
+				{#if completed && completed > 0}<span aria-label={`${completed} completed tickets`}
+						><strong>{completed}</strong>{@render ticketIcon(true)}</span
+					>{/if}
+			{/if}
+		</div>
+		<div class="supplies">
+			<span aria-label={`${player.trains} remaining carriages`}
+				><strong>{player.trains}</strong><TrainPieceIcon color="currentColor" width={15} height={14} /></span
+			>
+			<span aria-label={`${handCount} train cards`}
+				><strong>{handCount}</strong><svg width="11" height="15" viewBox="0 0 16 20" aria-hidden="true"
+					><path d="m3 3 9-2 3 15-9 2Z" fill="none" stroke="currentColor" /><rect
+						x="1"
+						y="4"
+						width="10"
+						height="15"
+						rx="1.5"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.4"
+					/><path d="M3 7h6M3 15h6" stroke="currentColor" /></svg
+				></span
+			>
 		</div>
 	</div>
-	<span class="turn-gear" class:turning={active} aria-hidden="true"><GearSixIcon size={15} weight="duotone" /></span>
+	<strong class="name" title={player.name}>{player.id === viewerId ? 'You' : player.name}</strong>
+	<span class="turn-gear" class:turning={active} aria-hidden="true">
+		<svg width="30" height="30" viewBox="0 0 40 40">
+			<g fill="#b88a42" stroke="#62451f" stroke-width="1">
+				{#each Array(12) as _, tooth}<rect
+						x="17"
+						y="1"
+						width="6"
+						height="8"
+						rx="1"
+						transform={`rotate(${tooth * 30} 20 20)`}
+					/>{/each}
+				<circle cx="20" cy="20" r="14.5" />
+			</g>
+			<circle cx="20" cy="20" r="11" fill="#40372c" stroke="#f5d798" stroke-width="2" />
+			<path d="M20 9v22M9 20h22m-19-8 16 16m0-16L12 28" stroke="#ca9f57" stroke-width="3" />
+			<circle cx="20" cy="20" r="5" fill="#e9c37a" stroke="#674a24" stroke-width="1.5" />
+			<circle cx="20" cy="20" r="1.5" fill="#56412c" />
+		</svg>
+	</span>
 </div>
 
 <style>
 	.player-plaque {
 		position: relative;
 		display: grid;
-		grid-template-columns: 42% minmax(0, 1fr);
-		gap: 8px;
+		grid-template-columns: 30% minmax(0, 1fr) 14px;
+		gap: 3px;
 		flex: 0 1 174px;
-		width: clamp(128px, 11.2vw, 174px);
+		width: clamp(138px, 11.2vw, 174px);
 		min-width: 0;
 		height: 112px;
 		padding: 7px 8px 7px 7px;
@@ -110,54 +184,69 @@
 	.ledger {
 		min-width: 0;
 		display: grid;
-		grid-template-rows: 23px 1fr 29px;
+		grid-template-rows: 1.25fr 1fr 1fr;
+		font-variant-numeric: tabular-nums;
 	}
 	.name {
+		writing-mode: vertical-rl;
+		text-orientation: mixed;
+		text-align: center;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		font:
-			700 15px/22px Georgia,
+			700 14px/17px Georgia,
 			serif;
-		border-bottom: 1px solid #ead5a33d;
-	}
-	.active .name {
-		border-color: #ead5a33d;
+		border-left: 1px solid #ead5a33d;
 	}
 	.score,
-	.trains {
+	.ticket-counts,
+	.supplies,
+	.ticket-counts span,
+	.supplies span {
 		display: flex;
 		align-items: center;
-		gap: 6px;
+	}
+	.score {
+		gap: 5px;
 	}
 	.score > strong {
 		font:
-			600 clamp(20px, 2vw, 29px)/1 Georgia,
+			600 26px/1 Georgia,
 			serif;
-		font-variant-numeric: lining-nums;
 	}
 	.points-icon {
-		width: 23px;
-		height: 23px;
+		width: 20px;
+		height: 20px;
 		flex-shrink: 0;
 	}
-	.trains {
+	.ticket-counts,
+	.supplies {
+		gap: 6px;
 		border-top: 1px solid #ead5a32e;
 	}
-	.active .trains {
-		border-color: #ead5a32e;
+	.ticket-counts span,
+	.supplies span {
+		gap: 2px;
+		white-space: nowrap;
 	}
-	.trains strong {
+	.ticket-counts strong,
+	.supplies strong {
 		font:
-			600 20px/1 Georgia,
+			600 15px/1 Georgia,
 			serif;
+	}
+	.ticket-counts svg,
+	.supplies svg {
+		flex-shrink: 0;
 	}
 	.turn-gear {
 		position: absolute;
-		right: 7px;
-		bottom: 7px;
-		width: 15px;
-		height: 15px;
+		left: -9px;
+		bottom: -10px;
+		width: 30px;
+		height: 30px;
+		filter: drop-shadow(1px 2px 1px #34271d88);
 		color: #f5d99e;
 		opacity: 0;
 		pointer-events: none;
@@ -183,18 +272,31 @@
 			gap: 5px;
 			padding: 6px;
 		}
-		.ledger {
-			grid-template-rows: 21px 1fr 24px;
+		.player-plaque {
+			grid-template-columns: 32% minmax(0, 1fr) 14px;
+			gap: 3px;
 		}
 		.name {
-			font-size: 13px;
+			font-size: 12px;
+			line-height: 14px;
+		}
+		.score {
+			gap: 3px;
+		}
+		.score > strong {
+			font-size: 23px;
 		}
 		.points-icon {
-			width: 20px;
-			height: 20px;
+			width: 17px;
+			height: 17px;
 		}
-		.trains strong {
-			font-size: 18px;
+		.ticket-counts,
+		.supplies {
+			gap: 3px;
+		}
+		.ticket-counts strong,
+		.supplies strong {
+			font-size: 13px;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

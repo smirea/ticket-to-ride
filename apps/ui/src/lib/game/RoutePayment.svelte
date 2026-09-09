@@ -98,37 +98,48 @@
 		}
 	});
 	onMount(() => {
+		const trigger = document.activeElement;
 		position();
 		void tick().then(() =>
 			container?.querySelector<HTMLButtonElement>('.payment-option')?.focus({ preventScroll: true }),
 		);
-		const outside = (event: PointerEvent) => {
-			const target = event.target as Node;
-			if (!container?.contains(target) && !(target instanceof Element && target.closest('.route.available'))) onclose();
-		};
+
 		const keyboard = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
 				event.preventDefault();
+				event.stopPropagation();
 				onclose();
 			}
+			if (event.key === 'Tab') {
+				const buttons = Array.from(container?.querySelectorAll<HTMLButtonElement>('button') ?? []);
+				const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
+				event.preventDefault();
+				buttons[(index + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length]?.focus();
+			}
 		};
-		window.addEventListener('pointerdown', outside);
 		window.addEventListener('keydown', keyboard);
 		window.addEventListener('resize', position);
 		window.addEventListener('scroll', position, true);
 		return () => {
 			onpreview(undefined);
-			window.removeEventListener('pointerdown', outside);
 			window.removeEventListener('keydown', keyboard);
 			window.removeEventListener('resize', position);
 			window.removeEventListener('scroll', position, true);
+			void tick().then(() => {
+				if (trigger instanceof HTMLElement || trigger instanceof SVGElement) {
+					if (trigger.isConnected && trigger.getAttribute('aria-disabled') !== 'true')
+						trigger.focus({ preventScroll: true });
+				}
+			});
 		};
 	});
 </script>
 
+<div class="payment-shield" aria-hidden="true" onpointerdown={event => event.preventDefault()}></div>
 <div
 	class="route-payment"
 	role="dialog"
+	aria-modal="true"
 	aria-label={`Choose route payment, ${points} point${points === 1 ? '' : 's'}`}
 	bind:this={container}
 	style:left={`${x}px`}
@@ -179,6 +190,12 @@
 </div>
 
 <style>
+	.payment-shield {
+		position: fixed;
+		inset: 0;
+		z-index: 79;
+		background: transparent;
+	}
 	.route-payment {
 		position: fixed;
 		z-index: 80;

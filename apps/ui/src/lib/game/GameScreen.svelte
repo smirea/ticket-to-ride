@@ -7,6 +7,7 @@
 		USA_CITIES,
 		USA_ROUTES,
 		USA_TICKETS,
+		type DestinationTicket,
 		type GameAction,
 		type GameState,
 		type Route,
@@ -16,7 +17,7 @@
 	} from '@repo/shared';
 	import TrophyIcon from 'phosphor-svelte/lib/TrophyIcon';
 	import GearSixIcon from 'phosphor-svelte/lib/GearSixIcon';
-	import ClockCounterClockwiseIcon from 'phosphor-svelte/lib/ClockCounterClockwiseIcon';
+	import BookOpenIcon from 'phosphor-svelte/lib/BookOpenIcon';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
 	import TicketIcon from 'phosphor-svelte/lib/TicketIcon';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
@@ -29,6 +30,7 @@
 	import GameBoard from './GameBoard.svelte';
 	import TrainCard from './TrainCard.svelte';
 	import RoutePayment from './RoutePayment.svelte';
+	import TravelJournal from './TravelJournal.svelte';
 	import { routePayments, type RoutePayment as Payment } from './route-payments';
 	import CardFlight from './CardFlight.svelte';
 	import { paperPose, type PaperPose } from './paper-pose';
@@ -72,6 +74,7 @@
 	let activeOfferKey = $state('');
 	let settingsOpen = $state(false);
 	let historyOpen = $state(false);
+	let journalPreview = $state<{ routeId?: string; ticket?: DestinationTicket }>();
 	let reduceMotion = $state(false);
 	let gameSpeed = $state(1);
 	let preferencesLoaded = $state(false);
@@ -103,8 +106,6 @@
 	let hoveredRoute = $state<Route>();
 	let hoveredCard = $state<CardColor>();
 	let pinnedCard = $state<CardColor>();
-	let rejectedRouteId = $state<string>();
-	let rejectionKey = $state(0);
 	let incomingCard = $state<CardColor>();
 	let handReflowing = $state(false);
 	let heldHand = $state<Partial<Record<CardColor, number>>>();
@@ -137,7 +138,7 @@
 	const turnReady = $derived(
 		!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 0,
 	);
-	const activeCard = $derived(hoveredCard ?? pinnedCard);
+	const activeCard = $derived(paymentRoute ? undefined : (hoveredCard ?? pinnedCard));
 	const displayHand = $derived(heldHand ?? viewer?.hand);
 	const activePlayer = $derived(
 		gameState.phase.type === 'ticket-selection'
@@ -157,7 +158,9 @@
 	const visibleTickets = $derived(
 		ticketFilter === 'all' ? heldTickets : heldTickets.filter(ticket => !completedIds.has(ticket.id)),
 	);
-	const highlightedTicket = $derived(previewTicketId ? ticketById.get(previewTicketId) : undefined);
+	const highlightedTicket = $derived(
+		journalPreview?.ticket ?? (previewTicketId ? ticketById.get(previewTicketId) : undefined),
+	);
 	const handColors = $derived(TRAIN_CARDS.filter(color => (displayHand?.[color] ?? 0) > 0 || incomingCard === color));
 	const handMargin = $derived(
 		Math.max(
@@ -170,7 +173,6 @@
 	const panel = $derived(settingsOpen ? 'settings' : showResults ? 'results' : null);
 	let visiblePanel = $state<'settings' | 'results' | null>(null);
 	let panelClosing = $state(false);
-	const recentLog = $derived(gameState.log.slice(-20).toReversed());
 	const motionDuration = $derived(reduceMotion ? 0 : 260);
 	const ticketStep = $derived(
 		Math.max(
@@ -407,11 +409,18 @@
 			: {},
 	);
 	const hoverInfo = $derived(hoveredRoute ? claimInfo(hoveredRoute, pinnedCard) : undefined);
-	const handNotice = $derived(
-		hoverInfo
-			? `${!hoverInfo.ok ? 'not enough to claim · ' : hoverInfo.wilds ? `claim with ${hoverInfo.wilds} locomotive${hoverInfo.wilds > 1 ? 's' : ''} · ` : ''}${hoverInfo.points} points`
-			: '',
-	);
+	const routeHover = $derived.by(() => {
+		const route = hoveredRoute;
+		if (!route || paymentRoute || busy || historyOpen) return undefined;
+		const options = paymentsByRoute.get(route.id) ?? [];
+		const points = ROUTE_SCORES[route.length] ?? 0;
+		return {
+			routeId: route.id,
+			hints:
+				turnReady && options.length ? options.map(option => ({ ...option, points })) : [{ points, unavailable: true }],
+		};
+	});
+
 	function cardRelevant(card: CardColor) {
 		if (previewPayment)
 			return (
@@ -449,16 +458,16 @@
 		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
 	}
 	function selectRoute(route: Route) {
-		if (!turnReady) return;
+		if (!turnReady || paymentRoute) return;
 		previewTicketId = undefined;
 		const options = paymentsByRoute.get(route.id) ?? [];
-		if (!options.length) {
-			rejectedRouteId = route.id;
-			rejectionKey++;
-			return;
-		}
+		if (!options.length) return;
 		if (options.length > 1) {
-			paymentRoute = paymentRoute?.id === route.id ? undefined : route;
+			paymentRoute = route;
+			hoveredRoute = undefined;
+			hoveredCard = undefined;
+			historyOpen = false;
+			journalPreview = undefined;
 			selectedRouteId = paymentRoute?.id;
 			return;
 		}
@@ -620,7 +629,7 @@
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
 	class:reduced-motion={reduceMotion}
 >
-	<header class="table-header">
+	<header class="table-header" inert={Boolean(paymentRoute)}>
 		<div class="identity"><Brand compact /><span class="map-edition">Classic USA</span></div>
 		<div class="players" aria-label="Players" style:--players={gameState.players.length}>
 			{#each gameState.players as player, index (player.id)}
@@ -630,6 +639,10 @@
 					{index}
 					active={player.id === activePlayer?.id && gameState.phase.type !== 'game-over'}
 					color={playerColors[player.color]}
+					completedTickets={player.completedTicketCount ??
+						(player.tickets.every(id => ticketById.has(id))
+							? player.tickets.filter(id => isTicketComplete(gameState, player.id, id)).length
+							: undefined)}
 				/>
 			{/each}
 		</div>
@@ -645,15 +658,18 @@
 			{/if}
 			<button
 				class:active={historyOpen}
-				onclick={() => (historyOpen = !historyOpen)}
-				aria-label="Show turn history"
-				aria-expanded={historyOpen}><ClockCounterClockwiseIcon size={21} /></button
+				onclick={() => {
+					historyOpen = !historyOpen;
+					journalPreview = undefined;
+				}}
+				aria-label="Open logbook"
+				aria-expanded={historyOpen}><BookOpenIcon size={21} /></button
 			>
 			<button onclick={showSettings} aria-label="Open settings"><GearSixIcon size={21} /></button>
 		</nav>
 	</header>
 
-	<aside class="journey-sidebar" aria-label="Destination tickets">
+	<aside class="journey-sidebar" aria-label="Destination tickets" inert={Boolean(paymentRoute)}>
 		<TableStatus
 			player={gameState.phase.type === 'game-over' ? undefined : activePlayer}
 			{viewerId}
@@ -749,7 +765,7 @@
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
 
-	<section class="board-stage" aria-label="Game board">
+	<section class="board-stage" aria-label="Game board" inert={Boolean(paymentRoute)}>
 		<GameBoard
 			bind:this={board}
 			state={gameState}
@@ -758,19 +774,13 @@
 			{highlightedTicket}
 			motionEnabled={!reduceMotion}
 			disabled={!turnReady}
-			disabledReason={!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 1
-				? 'Draw one more card first'
-				: undefined}
 			onselect={selectRoute}
 			onhover={route => (hoveredRoute = route)}
 			{eligibleRouteIds}
 			cardColor={activeCard}
 			{routeHints}
-			routeNotice={turnReady && !paymentRoute && hoveredRoute && handNotice
-				? { routeId: hoveredRoute.id, text: handNotice, insufficient: !hoverInfo?.ok }
-				: undefined}
-			{rejectedRouteId}
-			{rejectionKey}
+			{routeHover}
+			highlightedRouteId={journalPreview?.routeId}
 		/>
 	</section>
 
@@ -791,7 +801,7 @@
 		/>
 	{/if}
 
-	<footer class="play-tray">
+	<footer class="play-tray" inert={Boolean(paymentRoute)}>
 		<section class="hand-panel" aria-label="Your train cards">
 			<div class="hand-scroll" bind:this={handScroll}>
 				<div class="hand-cards" class:reflowing={handReflowing} style:--hand-count={handColors.length}>
@@ -858,19 +868,18 @@
 		</section>
 	</footer>
 
-	{#if historyOpen}<aside
-			class="history-popover"
-			aria-label="Recent turns"
-			transition:fly={{ y: -6, duration: motionDuration }}
-		>
-			<header>
-				<h2>Travel journal</h2>
-				<button onclick={() => (historyOpen = false)} aria-label="Close history"><XIcon size={20} /></button>
-			</header>
-			<div>
-				{#each recentLog as entry}<p><GameText text={entry} /></p>{:else}<p>No turns yet.</p>{/each}
-			</div>
-		</aside>{/if}
+	{#if historyOpen && !paymentRoute}
+		<TravelJournal
+			state={gameState}
+			{viewerId}
+			{reduceMotion}
+			onclose={() => {
+				historyOpen = false;
+				journalPreview = undefined;
+			}}
+			onpreview={preview => (journalPreview = preview)}
+		/>
+	{/if}
 
 	<dialog
 		bind:this={dialog}
@@ -1051,7 +1060,6 @@
 		gap: 5px;
 	}
 	.game-controls button,
-	.history-popover header button,
 	.dialog-heading > button {
 		display: grid;
 		place-items: center;
@@ -1366,35 +1374,6 @@
 		transform: rotate(-1deg);
 	}
 
-	.history-popover {
-		position: absolute;
-		top: 69px;
-		right: 22px;
-		z-index: 40;
-		width: min(350px, calc(100% - 32px));
-		max-height: 70%;
-		padding: 18px;
-		border: 1px solid var(--rule);
-		background: #fffaf0;
-		border-radius: 9px;
-		box-shadow: 0 10px 30px #26343529;
-	}
-	.history-popover header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 10px;
-	}
-	.history-popover > div {
-		max-height: 360px;
-		overflow: auto;
-	}
-	.history-popover p {
-		padding: 9px 0;
-		border-bottom: 1px solid #e7decd;
-		font-size: 12px;
-		line-height: 1.5;
-	}
 	.decision-dialog {
 		position: fixed;
 		margin: auto 24px auto auto;
@@ -1754,9 +1733,6 @@
 			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 150px minmax(330px, 1fr) 170px;
 			min-height: 768px;
-		}
-		.history-popover {
-			top: 104px;
 		}
 		.play-tray {
 			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);

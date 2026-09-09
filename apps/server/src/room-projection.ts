@@ -1,4 +1,11 @@
-import { TRAIN_CARDS, type GameAction, type GameState, type RoomState, type TicketId } from '@repo/shared';
+import {
+	isTicketComplete,
+	TRAIN_CARDS,
+	type GameAction,
+	type GameState,
+	type RoomState,
+	type TicketId,
+} from '@repo/shared';
 
 export function projectRoomForViewer(room: RoomState, viewerId: string): RoomState {
 	const projected = structuredClone(room);
@@ -15,6 +22,7 @@ export function projectRoomForViewer(room: RoomState, viewerId: string): RoomSta
 function projectGame(game: GameState, viewerId: string): GameState {
 	const projected = structuredClone(game);
 	for (const player of projected.players) {
+		player.completedTicketCount = player.tickets.filter(id => isTicketComplete(game, player.id, id)).length;
 		if (player.id === viewerId) continue;
 		const handCount = Object.values(player.hand).reduce((sum, count) => sum + count, 0);
 		for (const card of TRAIN_CARDS) player.hand[card] = 0;
