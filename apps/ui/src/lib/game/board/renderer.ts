@@ -8,7 +8,8 @@ import {
 } from './carriage';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import type { GameState, RouteId } from '@repo/shared';
+import type { GameState, RouteId, Route, Player } from '@repo/shared';
+import { captureCarriageSprites, type BoardCarriageSprite } from './carriage-sprites';
 import { cities, cityPoint, isLand, playerColors, routeGeometry, routePoint, routes, terrainHeight } from './layout';
 
 export function makeCamera() {
@@ -40,7 +41,10 @@ function convexHull(points: HullPoint[]) {
 	return [...half(points), ...half([...points].reverse())];
 }
 
-export function claimedCarriageHulls(state: GameState): { id: string; points: string }[] {
+export function claimedCarriageHulls(
+	state: GameState,
+	arriving: ReadonlySet<string> = new Set(),
+): { id: string; points: string }[] {
 	const players = new Map(state.players.map(player => [player.id, player]));
 	const hulls: { id: string; points: string }[] = [];
 	for (const route of routes) {
@@ -52,7 +56,7 @@ export function claimedCarriageHulls(state: GameState): { id: string; points: st
 			const corners: HullPoint[] = [];
 			for (const x of [bounds.min.x, bounds.max.x])
 				for (const y of [bounds.min.y, bounds.max.y])
-					for (const z of [bounds.min.z, bounds.max.z]) {
+					for (const z of [bounds.min.z, bounds.max.z + (arriving.has(route.id) ? 0.3 : 0)]) {
 						const point = new THREE.Vector3(x, y, z).applyMatrix4(matrix);
 						point.x *= -1;
 						point.project(layoutCamera);
@@ -255,14 +259,20 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	type CarriageBatch = {
 		mesh: THREE.InstancedMesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
 		rejections: THREE.InstancedBufferAttribute;
+		arrivals: THREE.InstancedBufferAttribute;
 		count: number;
 	};
 	const batches = new Map<string, CarriageBatch>();
+	let compiling: Promise<unknown> | undefined;
 	let currentState: GameState | undefined;
+	let renderedRoutes = '';
+	let routeBuilds = 0;
+	const spriteCache = new Map<string, BoardCarriageSprite[]>();
+	const arrivalTimes = new Map<string, number>();
 	let lastRejectionKey: number | undefined;
 	let rejectedRoute: string | undefined,
 		rejectedAt = -100;
-	const modelsReady = loadCarriageModels().then(models => {
+	const modelsReady = loadCarriageModels().then(async models => {
 		if (disposed) return;
 		for (const [color, modelId] of Object.entries(carriageModelForColor)) {
 			const model = models.find(candidate => candidate.id === modelId);
@@ -271,19 +281,32 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			const rejections = new THREE.InstancedBufferAttribute(new Float32Array(45).fill(-100), 1);
 			rejections.setUsage(THREE.DynamicDrawUsage);
 			geometry.setAttribute('aRejectAt', rejections);
+			const arrivals = new THREE.InstancedBufferAttribute(new Float32Array(45).fill(-100), 1);
+			arrivals.setUsage(THREE.DynamicDrawUsage);
+			geometry.setAttribute('aArriveAt', arrivals);
 			const material = makeCarriageMaterial();
+			material.transparent = true;
 			material.onBeforeCompile = shader => {
 				shader.uniforms.uTime = time;
 				shader.uniforms.uInteractionMotion = interactionMotion;
 				shader.vertexShader =
-					'attribute float aRejectAt;uniform float uTime;uniform float uInteractionMotion;\n' + shader.vertexShader;
+					'attribute float aRejectAt;attribute float aArriveAt;varying float vArrival;uniform float uTime;uniform float uInteractionMotion;\n' +
+					shader.vertexShader;
 				shader.vertexShader = shader.vertexShader.replace(
 					'#include <begin_vertex>',
 					`#include <begin_vertex>
+				float arrival=clamp((uTime-aArriveAt)/.38,0.,1.);
+				vArrival=mix(1.,smoothstep(0.,.45,arrival),uInteractionMotion);
+				transformed.z+=.3*pow(1.-arrival,3.)*uInteractionMotion;
 				float age=uTime-aRejectAt;transformed.x+=sin(age*48.)*pow(1.-clamp(age/.5,0.,1.),2.)*.006*step(0.,age)*uInteractionMotion;`,
 				);
+				shader.fragmentShader = 'varying float vArrival;\n' + shader.fragmentShader;
+				shader.fragmentShader = shader.fragmentShader.replace(
+					'#include <opaque_fragment>',
+					'diffuseColor.a *= vArrival;\n#include <opaque_fragment>',
+				);
 			};
-			material.customProgramCacheKey = () => 'printables-carriage-reject-v1';
+			material.customProgramCacheKey = () => 'printables-carriage-arrival-v2';
 			const mesh = new THREE.InstancedMesh(geometry, material, 45);
 			mesh.count = 0;
 			mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -291,13 +314,17 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			mesh.receiveShadow = true;
 			mesh.frustumCulled = false;
 			scene.add(mesh);
-			batches.set(color, { mesh, rejections, count: 0 });
+			batches.set(color, { mesh, rejections, arrivals, count: 0 });
 		}
-		updateRoutes();
+		compiling = renderer.compileAsync(scene, camera);
+		await compiling;
+		compiling = undefined;
+		if (!disposed) updateRoutes();
 	});
 	const ready = Promise.all([textureReady, modelsReady]).then(() => undefined);
 	function updateRoutes() {
 		if (!currentState || !batches.size) return;
+		if (import.meta.env.DEV) canvas.dataset.routeBuilds = String(++routeBuilds);
 		const players = new Map(currentState.players.map(player => [player.id, player]));
 		for (const batch of batches.values()) batch.count = 0;
 		for (const route of routes) {
@@ -309,12 +336,14 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 				batch.mesh.setMatrixAt(index, carriageMatrix(route, i));
 
 				batch.rejections.setX(index, route.id === rejectedRoute ? rejectedAt : -100);
+				batch.arrivals.setX(index, (arrivalTimes.get(route.id) ?? -100) + i * 0.045);
 			}
 		}
-		for (const { mesh, count, rejections } of batches.values()) {
+		for (const { mesh, count, rejections, arrivals } of batches.values()) {
 			mesh.count = count;
 			mesh.instanceMatrix.needsUpdate = true;
 			rejections.needsUpdate = true;
+			arrivals.needsUpdate = true;
 		}
 		renderer.shadowMap.needsUpdate = true;
 		render();
@@ -389,6 +418,22 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	syncAnimation();
 	return {
 		ready,
+		async sprites(route: Route, color: Player['color']) {
+			await ready;
+			if (disposed) return [];
+			const key = `${color}:${route.id}`;
+			let sprites = spriteCache.get(key);
+			if (!sprites) {
+				const started = performance.now();
+				const capture = captureCarriageSprites(renderer, scene, batches.get(color)!.mesh, camera, route);
+				if (import.meta.env.DEV) canvas.dataset.spriteEnqueueMs = (performance.now() - started).toFixed(1);
+				sprites = await capture;
+				if (disposed) return [];
+				spriteCache.set(key, sprites);
+				if (import.meta.env.DEV) canvas.dataset.spriteCaptureMs = (performance.now() - started).toFixed(1);
+			}
+			return sprites;
+		},
 		update(
 			state: GameState,
 			_selectedId?: RouteId,
@@ -396,15 +441,31 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			_eligibleRouteIds?: string[],
 			rejectedRouteId?: string,
 			rejectionKey?: number,
+			viewerId?: string,
 		) {
-			if (rejectedRouteId && rejectionKey !== lastRejectionKey) {
+			const newRejection = Boolean(rejectedRouteId && rejectionKey !== lastRejectionKey);
+			if (newRejection) {
 				lastRejectionKey = rejectionKey;
 				rejectedRoute = rejectedRouteId;
 				rejectedAt = performance.now() * 0.001;
 				interactionUntil = performance.now() + 550;
 			}
+			if (currentState) {
+				for (const [id, owner] of Object.entries(state.claimedRoutes)) {
+					if (owner !== viewerId && !currentState.claimedRoutes[id]) {
+						arrivalTimes.set(id, performance.now() * 0.001);
+						interactionUntil = performance.now() + 700;
+					}
+				}
+			}
+			time.value = performance.now() * 0.001;
 			currentState = state;
-			updateRoutes();
+			const routeKey =
+				JSON.stringify(state.claimedRoutes) + state.players.map(player => `${player.id}:${player.color}`).join('|');
+			if (newRejection || routeKey !== renderedRoutes) {
+				renderedRoutes = routeKey;
+				updateRoutes();
+			}
 			if (!frame && performance.now() < interactionUntil) syncAnimation();
 		},
 		pointer(x: number, y: number) {
@@ -416,27 +477,32 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		},
 		destroy() {
 			disposed = true;
+			spriteCache.clear();
 			cancelAnimationFrame(frame);
 			resize.disconnect();
 			intersection.disconnect();
 			document.removeEventListener('visibilitychange', syncAnimation);
 			reduced.removeEventListener('change', syncAnimation);
-			const geometries = new Set<THREE.BufferGeometry>(),
-				materials = new Set<THREE.Material>();
-			scene.traverse(object => {
-				if (object instanceof THREE.InstancedMesh) object.dispose();
-				if (object instanceof THREE.Mesh || object instanceof THREE.Line) {
-					geometries.add(object.geometry);
-					for (const material of Array.isArray(object.material) ? object.material : [object.material])
-						materials.add(material);
-				}
-			});
-			geometries.forEach(geometry => geometry.dispose());
-			materials.forEach(material => material.dispose());
-			sun.shadow.dispose();
-			atlasTexture.dispose();
-			environmentTarget.dispose();
-			renderer.dispose();
+			const release = () => {
+				const geometries = new Set<THREE.BufferGeometry>(),
+					materials = new Set<THREE.Material>();
+				scene.traverse(object => {
+					if (object instanceof THREE.InstancedMesh) object.dispose();
+					if (object instanceof THREE.Mesh || object instanceof THREE.Line) {
+						geometries.add(object.geometry);
+						for (const material of Array.isArray(object.material) ? object.material : [object.material])
+							materials.add(material);
+					}
+				});
+				geometries.forEach(geometry => geometry.dispose());
+				materials.forEach(material => material.dispose());
+				sun.shadow.dispose();
+				atlasTexture.dispose();
+				environmentTarget.dispose();
+				renderer.dispose();
+			};
+			if (compiling) void compiling.then(release, release);
+			else release();
 		},
 	};
 }

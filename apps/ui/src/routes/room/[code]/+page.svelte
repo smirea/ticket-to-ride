@@ -3,6 +3,8 @@
 	import { page } from '$app/state';
 	import Brand from '$lib/game/Brand.svelte';
 	import GameScreen from '$lib/game/GameScreen.svelte';
+	import { playerPortraitAssets } from '$lib/game/assets';
+	import { fly } from 'svelte/transition';
 	import {
 		abandonRoom,
 		getClientId,
@@ -37,7 +39,8 @@
 	let notice = $state('');
 	let settingsMaxPlayers = $state<number>(5);
 	let settingsSeed = $state('');
-	let lastSnapshotAt = $state<Date | null>(null);
+	let copied = $state(false);
+	let slowAction = $state(false);
 	let eventSource: EventSource | null = null;
 	let disposed = false;
 
@@ -125,8 +128,14 @@
 
 	function applySnapshot(nextRoom: RoomState) {
 		if (room && nextRoom.revision < room.revision) return;
+		const wasReady = viewer?.ready;
 		room = nextRoom;
-		lastSnapshotAt = new Date();
+		if (
+			wasReady &&
+			nextRoom.phase === 'lobby' &&
+			!nextRoom.players.find(player => player.id === identity?.clientId)?.ready
+		)
+			notice = 'The table changed. Please ready up again.';
 		const roomProfile = identity ? nextRoom.players.find(player => player.id === identity?.clientId) : undefined;
 		const savedProfile = loadPlayerProfile();
 		if (roomProfile && (savedProfile?.name !== roomProfile.name || savedProfile.color !== roomProfile.color)) {
@@ -138,6 +147,20 @@
 		}
 	}
 
+	$effect(() => {
+		slowAction = false;
+		if (pending !== 'action') return;
+		const timer = setTimeout(() => (slowAction = true), 700);
+		return () => clearTimeout(timer);
+	});
+	async function copyCode() {
+		try {
+			await navigator.clipboard.writeText(roomCode);
+			copied = true;
+		} catch {
+			notice = 'Select the room code to copy it.';
+		}
+	}
 	function reconnect() {
 		if (!identity) return;
 		error = '';
@@ -169,8 +192,8 @@
 	async function toggleReady() {
 		if (!viewer) return;
 		const nextReady = !viewer.ready;
-		const next = await runCommand('ready', () => setRoomReady(roomCode, nextReady));
-		if (next) notice = nextReady ? 'You are ready to play.' : 'You are no longer marked ready.';
+		await runCommand('ready', () => setRoomReady(roomCode, nextReady));
+		notice = '';
 	}
 
 	async function saveSettings(event: SubmitEvent) {
@@ -266,7 +289,6 @@
 				>
 					<i></i>
 					<span>{connectionLabel()}</span>
-					<small>revision {room.revision}</small>
 				</div>
 				<div class="game-room-actions">
 					<a href={lobbyHref}>Lobby</a>
@@ -285,11 +307,17 @@
 				</div>
 			</div>
 		</details>
-		{#if error || pending === 'action' || connection !== 'live'}
-			<div class:error={Boolean(error)} class="game-message" role="status" aria-live="polite">
+		{#if error || slowAction || connection !== 'live'}
+			<div
+				class:error={Boolean(error)}
+				class="game-message"
+				role="status"
+				aria-live="polite"
+				transition:fly={{ y: -8, duration: 180 }}
+			>
 				{error ||
 					(pending === 'action'
-						? notice || 'Submitting move…'
+						? 'Sending your move…'
 						: connection === 'closed'
 							? notice || 'This room has closed.'
 							: `${connectionLabel()}…`)}
@@ -311,7 +339,6 @@
 			>
 				<i></i>
 				<span>{connectionLabel()}</span>
-				{#if room}<small>revision {room.revision}</small>{/if}
 			</div>
 		</nav>
 
@@ -320,7 +347,7 @@
 				<div class="signal" class:warning={connection !== 'connecting'} aria-hidden="true"></div>
 				<p>{connection === 'connecting' ? 'Joining room' : 'Room unavailable'}</p>
 				<h1>{roomCode}</h1>
-				<span>{error || 'Waiting for the authoritative room snapshot…'}</span>
+				<span>{error || 'Preparing your table…'}</span>
 				<div class="loading-actions">
 					<button type="button" onclick={reconnect} disabled={!identity}>Try again</button>
 					<a href={lobbyHref}>Return to lobby</a>
@@ -329,9 +356,9 @@
 		{:else if room.phase === 'lobby'}
 			<header class="room-heading">
 				<div>
-					<p>Multiplayer room</p>
+					<p>Your table</p>
 					<h1>{room.code}</h1>
-					<span>Share this code with your fellow conductors.</span>
+					<button class="copy-code" onclick={copyCode}>{copied ? 'Copied' : 'Copy room code'}</button>
 				</div>
 				<div class="occupancy">
 					<strong>{activePlayers.length}/{room.settings.maxPlayers}</strong>
@@ -349,34 +376,36 @@
 				<div class="roster panel">
 					<div class="panel-heading">
 						<div>
-							<p>Passengers</p>
-							<h2>Player roster</h2>
+							<h2>Fellow travelers</h2>
 						</div>
 						<span>{activePlayers.filter(player => player.ready).length} ready</span>
 					</div>
 
 					<div class="player-list">
-						{#each room.players as player, index (player.id)}
-							<article class:inactive={player.status !== 'active'} class="room-player">
-								<span class="player-number" style:background={playerColor(player)}>{index + 1}</span>
+						{#each room.players as player (player.id)}
+							<article
+								class:inactive={player.status !== 'active'}
+								class="room-player"
+								style:--traveler-color={playerColor(player)}
+							>
+								<img class="player-portrait" src={playerPortraitAssets[player.color]} alt="" draggable="false" />
 								<div>
 									<strong>{player.name}</strong>
 									<span
-										>{player.id === identity?.clientId
-											? 'You'
-											: player.id === room.hostId
-												? 'Room host'
-												: 'Player'}</span
+										>{player.id === identity?.clientId ? 'You' : ''}{player.id === room.hostId
+											? player.id === identity?.clientId
+												? ' · Host'
+												: 'Host'
+											: ''}</span
 									>
 								</div>
-								{#if player.id === room.hostId}<span class="host-badge">Host</span>{/if}
 								<span class:ready={player.ready} class:inactive-badge={player.status !== 'active'} class="ready-badge">
 									{player.status !== 'active' ? player.status : player.ready ? 'Ready' : 'Waiting'}
 								</span>
 							</article>
 						{/each}
 						{#each Array(Math.max(0, room.settings.maxPlayers - activePlayers.length)) as _, index}
-							<div class="empty-seat"><span>{activePlayers.length + index + 1}</span> Waiting for a player…</div>
+							<div class="empty-seat"><span>{activePlayers.length + index + 1}</span> An open seat</div>
 						{/each}
 					</div>
 
@@ -405,16 +434,14 @@
 				<aside class="settings panel">
 					<div class="panel-heading">
 						<div>
-							<p>Classic USA</p>
-							<h2>Room settings</h2>
+							<h2>Classic USA</h2>
 						</div>
-						{#if isHost}<span>Host controls</span>{/if}
 					</div>
 
 					{#if isHost}
 						<form onsubmit={saveSettings}>
 							<label>
-								<span>Maximum players</span>
+								<span>Seats at the table</span>
 								<select bind:value={settingsMaxPlayers} disabled={Boolean(pending)}>
 									<option value={2}>2 players</option>
 									<option value={3}>3 players</option>
@@ -422,10 +449,16 @@
 									<option value={5}>5 players</option>
 								</select>
 							</label>
-							<label>
-								<span>Game seed</span>
-								<input bind:value={settingsSeed} maxlength="80" required disabled={Boolean(pending)} />
-							</label>
+							<details class="advanced-settings">
+								<summary>Advanced</summary><label>
+									<span>Game seed</span><input
+										bind:value={settingsSeed}
+										maxlength="80"
+										required
+										disabled={Boolean(pending)}
+									/>
+								</label>
+							</details>
 							<button type="submit" disabled={Boolean(pending) || settingsSeed.trim().length === 0}>
 								{pending === 'settings' ? 'Saving…' : 'Save settings'}
 							</button>
@@ -440,31 +473,14 @@
 								<dt>Player limit</dt>
 								<dd>{room.settings.maxPlayers}</dd>
 							</div>
-							<div>
-								<dt>Game seed</dt>
-								<dd>{room.settings.seed}</dd>
-							</div>
 						</dl>
 						<p class="settings-help">Only the room host can change settings.</p>
 					{/if}
-
-					<div class="room-meta">
-						<span
-							>Created {new Date(room.createdAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</span
-						>
-						<span
-							>Snapshot {lastSnapshotAt?.toLocaleTimeString([], {
-								hour: 'numeric',
-								minute: '2-digit',
-								second: '2-digit',
-							})}</span
-						>
-					</div>
 				</aside>
 			</section>
 
 			<footer class="room-footer">
-				<span>Leaving before the game starts transfers host control when needed.</span>
+				<span>45 trains · A continent to explore</span>
 				<button type="button" class="leave" disabled={Boolean(pending)} onclick={leaveRoom}>
 					{pending === 'leave' ? 'Leaving…' : 'Leave room'}
 				</button>
@@ -498,7 +514,7 @@
 	.room-page {
 		min-height: 100svh;
 		padding: 1.3rem clamp(1rem, 4vw, 4rem) 2rem;
-		background: #f7f3e9;
+		background: radial-gradient(ellipse at 45% 35%, #fffdf5, #eee8d9);
 		color: #142d3e;
 	}
 	.room-page > nav,
@@ -560,17 +576,26 @@
 	.connection.warning i {
 		animation: pulse 1.3s ease-in-out infinite;
 	}
-	.connection small {
-		color: #788185;
-		font-weight: 400;
-	}
 	.room-heading {
-		align-items: end;
+		position: relative;
+		z-index: 1;
+		width: min(440px, 100%);
+		margin-left: max(0px, calc((100% - 74rem) / 2 + 22px));
+		margin-right: auto;
+		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 1.5rem;
+		margin-bottom: -6px;
+		padding: 16px 24px;
+		border: 1px solid #bca77b;
+		background: #f8efd7;
+		box-shadow:
+			inset 0 0 0 4px #fff7e5,
+			1px 3px #b6a07a,
+			2px 8px 13px #43311f1c;
+		transform: rotate(-0.3deg);
+		animation: paper-arrive 400ms ease both;
 	}
 	.room-heading p,
-	.panel-heading p,
 	.finished-card > p,
 	.loading-card > p {
 		margin: 0 0 0.6rem;
@@ -583,7 +608,7 @@
 	.room-heading h1 {
 		margin: 0;
 		font-family: Georgia, serif;
-		font-size: clamp(3rem, 7vw, 5rem);
+		font-size: clamp(2.3rem, 4vw, 3.4rem);
 		font-weight: 400;
 		letter-spacing: 0.06em;
 		line-height: 1;
@@ -597,7 +622,9 @@
 		line-height: 1.6;
 	}
 	.occupancy {
-		text-align: right;
+		text-align: center;
+		border-left: 1px dashed #bfa779;
+		padding: 20px 0 20px 24px;
 	}
 	.occupancy strong,
 	.occupancy span {
@@ -633,15 +660,20 @@
 	}
 	.lobby-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
-		gap: 1.25rem;
+		grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+		align-items: start;
+		gap: 12px;
 	}
 	.panel {
-		border: 1px solid #d8d0bf;
-		border-radius: 0.6rem;
+		border: 1px solid #b49b72;
+		border-radius: 4px 8px 3px 6px;
 		padding: clamp(1rem, 3vw, 1.6rem);
-		background: #fffcf5;
-		box-shadow: 0 7px 25px #75613f0d;
+		background: #f6edda;
+		box-shadow:
+			inset 0 0 0 3px #fff7e7,
+			0 3px #b8a17b,
+			4px 12px 18px #47372526;
+		animation: paper-arrive 440ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 	}
 	.panel-heading {
 		justify-content: space-between;
@@ -664,7 +696,8 @@
 	}
 	.player-list {
 		display: grid;
-		gap: 0.6rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.7rem;
 	}
 	.room-player,
 	.empty-seat {
@@ -676,22 +709,67 @@
 	}
 	.room-player {
 		gap: 0.7rem;
+		padding: 7px 13px 7px 7px;
+		border: 1px solid #9f8253;
+		border-radius: 7px 3px 7px 4px;
+		background: color-mix(in srgb, var(--traveler-color) 74%, #302922);
+		color: #fff0d1;
+		box-shadow:
+			inset 0 0 0 2px #e1c99a,
+			1px 3px #a68f69,
+			2px 6px 9px #36291d22;
+		transition: filter 200ms;
+	}
+	.player-portrait {
+		width: 58px;
+		height: 76px;
+		object-fit: cover;
+		border: 1px solid #ceb584;
+		border-radius: 3px;
+	}
+	.room-player strong {
+		font:
+			700 22px/1.2 Georgia,
+			serif;
+	}
+	.roster {
+		transform: rotate(-0.45deg);
+	}
+	.settings {
+		transform: rotate(0.6deg);
+		margin-top: 14px;
+	}
+	.copy-code {
+		margin-top: 10px;
+		border: 0;
+		border-bottom: 1px solid #a88d63;
+		padding: 2px 0;
+		background: none;
+		color: #625e4f;
+		font-size: 12px;
+	}
+	.advanced-settings {
+		font-size: 12px;
+		color: #726b5b;
+	}
+	.advanced-settings summary {
+		cursor: pointer;
+	}
+	.advanced-settings label {
+		margin-top: 12px;
+	}
+	@keyframes paper-arrive {
+		from {
+			opacity: 0;
+			translate: 0 22px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
 	}
 	.room-player.inactive {
 		opacity: 0.55;
-	}
-	.player-number {
-		display: grid;
-		width: 2.3rem;
-		height: 2.3rem;
-		flex: 0 0 auto;
-		place-items: center;
-		border: 2px solid #fffefa;
-		border-radius: 50%;
-		color: white;
-		font-size: 0.75rem;
-		font-weight: 800;
-		text-shadow: 0 1px 2px #0009;
 	}
 	.room-player > div {
 		min-width: 0;
@@ -704,10 +782,9 @@
 	}
 	.room-player > div span {
 		margin-top: 0.2rem;
-		color: #647077;
+		color: #efe0bb;
 		font-size: 0.67rem;
 	}
-	.host-badge,
 	.ready-badge {
 		border-radius: 999px;
 		padding: 0.3rem 0.5rem;
@@ -715,17 +792,15 @@
 		font-weight: 800;
 		text-transform: uppercase;
 	}
-	.host-badge {
-		background: #f0e4c7;
-		color: #846324;
-	}
 	.ready-badge {
-		background: #e9e6dd;
-		color: #647077;
+		background: #f5e8c51c;
+		color: #f4e6c4;
+		border: 1px solid #e4cea55c;
 	}
 	.ready-badge.ready {
-		background: #e1eddc;
-		color: #406b46;
+		background: #f1e7c5;
+		color: #3b6444;
+		transform: rotate(-4deg);
 	}
 	.ready-badge.inactive-badge {
 		color: #976453;
@@ -850,15 +925,6 @@
 		text-align: right;
 		word-break: break-word;
 	}
-	.room-meta {
-		display: grid;
-		gap: 0.3rem;
-		margin-top: 1.4rem;
-		border-top: 1px solid #e1dacb;
-		padding-top: 1rem;
-		color: #7b827f;
-		font-size: 0.63rem;
-	}
 	.room-footer {
 		justify-content: space-between;
 		gap: 1rem;
@@ -921,7 +987,7 @@
 	}
 	.live-room {
 		min-height: 100svh;
-		background: #f7f3e9;
+		background: radial-gradient(ellipse at 45% 35%, #fffdf5, #eee8d9);
 	}
 	.game-room-menu {
 		position: fixed;
@@ -1029,8 +1095,18 @@
 		.lobby-grid {
 			grid-template-columns: 1fr;
 		}
+		.room-heading {
+			margin-left: 10px;
+		}
+		.room-player {
+			min-height: 94px;
+		}
 	}
 	@media (prefers-reduced-motion: reduce) {
+		.panel,
+		.room-heading {
+			animation: none;
+		}
 		button {
 			transition: none;
 		}

@@ -4,6 +4,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
 	import ColorSymbol from './ColorSymbol.svelte';
+	import type { CarriageSprite } from './board/carriage-sprites';
 	import {
 		cities,
 		cityById,
@@ -58,7 +59,25 @@
 	let atlas = $state.raw<ReturnType<typeof createAtlasRenderer> | undefined>();
 	let ready = $state(false);
 	const carriageMaskId = $props.id();
-	const carriageHulls = $derived(ready ? claimedCarriageHulls(gameState) : []);
+	let arrivingRoutes = $state<Set<string>>(new Set());
+	let previousClaims: GameState['claimedRoutes'] | undefined;
+	let arrivalTimer: ReturnType<typeof setTimeout> | undefined;
+	$effect(() => {
+		const claims = gameState.claimedRoutes;
+		if (previousClaims) {
+			const added = Object.entries(claims)
+				.filter(([id, owner]) => owner !== viewerId && !previousClaims![id])
+				.map(([id]) => id);
+			if (added.length) {
+				arrivingRoutes = new Set(added);
+				clearTimeout(arrivalTimer);
+				arrivalTimer = setTimeout(() => (arrivingRoutes = new Set()), 700);
+			}
+		}
+		previousClaims = claims;
+	});
+	onDestroy(() => clearTimeout(arrivalTimer));
+	const carriageHulls = $derived(ready ? claimedCarriageHulls(gameState, arrivingRoutes) : []);
 	let zoom = $state(1);
 	const mapWidth = $derived(viewportWidth * zoom);
 	const mapHeight = $derived(viewportHeight * zoom);
@@ -84,6 +103,17 @@
 			noticeTimer = setTimeout(() => (unavailableNotice = undefined), 1800);
 		}
 	}
+	export async function claimSprites(route: Route, color: Player['color']): Promise<CarriageSprite[]> {
+		const svg = viewport?.querySelector<SVGSVGElement>('svg.board');
+		const screen = svg?.getScreenCTM();
+		if (!screen || !atlas) return [];
+		const sprites = await atlas.sprites(route, color);
+		return sprites.map(sprite => {
+			const origin = new DOMPoint(sprite.x, sprite.y).matrixTransform(screen);
+			return { ...sprite, matrix: [screen.a, screen.b, screen.c, screen.d, origin.x, origin.y] };
+		});
+	}
+
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
@@ -189,7 +219,15 @@
 		measure.observe(viewport);
 		try {
 			atlas = createAtlasRenderer(canvas);
-			atlas.update(gameState, selectedRouteId, hoveredRouteId, eligibleRouteIds, rejectedRouteId, rejectionKey);
+			atlas.update(
+				gameState,
+				selectedRouteId,
+				hoveredRouteId,
+				eligibleRouteIds,
+				rejectedRouteId,
+				rejectionKey,
+				viewerId,
+			);
 			atlas.setAmbientMotion(ambientMotion);
 			void atlas.ready
 				.then(() => {
@@ -207,7 +245,15 @@
 		};
 	});
 	$effect(() => {
-		atlas?.update(gameState, selectedRouteId, hoveredRouteId, eligibleRouteIds, rejectedRouteId, rejectionKey);
+		atlas?.update(
+			gameState,
+			selectedRouteId,
+			hoveredRouteId,
+			eligibleRouteIds,
+			rejectedRouteId,
+			rejectionKey,
+			viewerId,
+		);
 	});
 	$effect(() => {
 		atlas?.setAmbientMotion(ambientMotion);

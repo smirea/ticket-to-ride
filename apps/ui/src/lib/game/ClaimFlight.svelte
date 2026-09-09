@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import type { TrainCard as CardColor } from '@repo/shared';
 	import TrainCard from './TrainCard.svelte';
 	import type { PaperPose } from './paper-pose';
@@ -7,62 +7,85 @@
 
 	let {
 		cards,
+		loadSprites,
 		settled = false,
 		onfinish,
 	}: {
-		cards: { color: CardColor; from: PaperPose; train: CarriageSprite }[];
+		cards: { color: CardColor; from: PaperPose }[];
+		loadSprites: () => Promise<CarriageSprite[]>;
 		settled?: boolean;
 		onfinish: () => void;
 	} = $props();
 	let papers = $state<HTMLDivElement[]>([]);
 	let trains = $state<HTMLDivElement[]>([]);
+	let sprites = $state<CarriageSprite[]>([]);
 	onMount(() => {
+		let cancelled = false;
 		const motions: Animation[] = [];
 		const center = cards.reduce((sum, card) => sum + card.from.x + card.from.width / 2, 0) / cards.length;
 		const top = Math.min(...cards.map(card => card.from.y)) - 100;
-		for (const [i, card] of cards.entries()) {
-			const paper = papers[i],
-				train = trains[i];
-			if (!paper || !train) continue;
-			const x = center + (i - (cards.length - 1) / 2) * 48;
-			const options: KeyframeAnimationOptions = {
-				duration: 1160,
-				delay: i * 70,
-				easing: 'cubic-bezier(.3,.65,.2,1)',
-				fill: 'both',
-			};
-			motions.push(
-				paper.animate(
-					[
-						{
-							transform: `translate(${card.from.x}px,${card.from.y}px) rotate(${card.from.angle ?? 0}deg)`,
-							opacity: 1,
-						},
-						{ transform: `translate(${x - card.from.width * 0.325}px,${top}px) scale(.65)`, opacity: 1, offset: 0.34 },
-						{ transform: `translate(${x - card.from.width * 0.325}px,${top}px) scale(.65)`, opacity: 0, offset: 0.56 },
-						{ transform: `translate(${x - card.from.width * 0.325}px,${top}px) scale(.65)`, opacity: 0 },
-					],
-					options,
+		const positions = cards.map((_, i) => center + (i - (cards.length - 1) / 2) * 48);
+		const gathers = cards.map((card, i) => {
+			const motion = papers[i]!.animate(
+				[
+					{ transform: `translate(${card.from.x}px,${card.from.y}px) rotate(${card.from.angle ?? 0}deg)` },
+					{ transform: `translate(${positions[i]! - card.from.width * 0.325}px,${top}px) scale(.65)` },
+				],
+				{ duration: 360, delay: i * 45, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'both' },
+			);
+			motions.push(motion);
+			return motion.finished;
+		});
+		async function place() {
+			const [loaded] = await Promise.all([loadSprites(), Promise.all(gathers)]);
+			if (cancelled) return;
+			sprites = loaded;
+			await tick();
+			await Promise.all(
+				trains.map(train =>
+					train
+						.querySelector('img')
+						?.decode()
+						.catch(() => {}),
 				),
 			);
-			const scale = 44 / Math.max(card.train.width, card.train.height);
-			const start = `matrix(${scale},0,0,${scale},${x - (card.train.width * scale) / 2},${top + 18})`;
-			motions.push(
-				train.animate(
+			if (cancelled) return;
+			const arrivals: Promise<Animation>[] = [];
+			for (let i = 0; i < cards.length; i++) {
+				const fade = papers[i]!.animate([{ opacity: 1 }, { opacity: 0 }], {
+					duration: 200,
+					delay: i * 45,
+					fill: 'forwards',
+					easing: 'ease-in-out',
+				});
+				motions.push(fade);
+				arrivals.push(fade.finished);
+				const sprite = sprites[i],
+					train = trains[i];
+				if (!sprite || !train) continue;
+				const scale = 44 / Math.max(sprite.width, sprite.height);
+				const start = `matrix(${scale},0,0,${scale},${positions[i]! - (sprite.width * scale) / 2},${top + 18})`;
+				const motion = train.animate(
 					[
 						{ transform: start, opacity: 0 },
-						{ transform: start, opacity: 0, offset: 0.34 },
-						{ transform: start, opacity: 1, offset: 0.56 },
-						{ transform: `matrix(${card.train.matrix.join(',')})`, opacity: 1 },
+						{ transform: start, opacity: 1, offset: 0.24 },
+						{ transform: `matrix(${sprite.matrix.join(',')})`, opacity: 1 },
 					],
-					options,
-				),
-			);
+					{ duration: 800, delay: i * 45, fill: 'both', easing: 'cubic-bezier(.3,.65,.2,1)' },
+				);
+				motions.push(motion);
+				arrivals.push(motion.finished);
+			}
+			await Promise.all(arrivals);
+			if (!cancelled) onfinish();
 		}
-		void Promise.all(motions.map(motion => motion.finished))
-			.then(onfinish)
-			.catch(() => {});
-		return () => motions.forEach(motion => motion.cancel());
+		void place().catch(() => {
+			if (!cancelled) onfinish();
+		});
+		return () => {
+			cancelled = true;
+			motions.forEach(motion => motion.cancel());
+		};
 	});
 </script>
 
@@ -76,13 +99,10 @@
 		>
 			<TrainCard color={card.color} />
 		</div>
-		<div
-			class="train"
-			bind:this={trains[i]}
-			style:width={`${card.train.width}px`}
-			style:height={`${card.train.height}px`}
-		>
-			<img src={card.train.src} alt="" />
+	{/each}
+	{#each sprites as sprite, i}
+		<div class="train" bind:this={trains[i]} style:width={`${sprite.width}px`} style:height={`${sprite.height}px`}>
+			<img src={sprite.src} alt="" />
 		</div>
 	{/each}
 </div>
@@ -110,6 +130,7 @@
 		filter: drop-shadow(5px 16px 8px #35281766);
 	}
 	.train {
+		opacity: 0;
 		filter: drop-shadow(1px 2px 1px #35281755);
 	}
 	.train img {
