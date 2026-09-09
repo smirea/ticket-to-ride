@@ -1,4 +1,5 @@
 import {
+	carriageBounds,
 	carriageMatrix,
 	carriageModelForColor,
 	loadCarriageModels,
@@ -23,6 +24,53 @@ export function projectPoint(point: { x: number; y: number }, lift = 6) {
 	const p = new THREE.Vector3(-point.x, point.y, terrainHeight(point.x, point.y) + lift).project(layoutCamera);
 	return { x: (p.x + 1) * 500, y: (1 - p.y) * 310 };
 }
+type HullPoint = { x: number; y: number };
+function convexHull(points: HullPoint[]) {
+	points.sort((a, b) => a.x - b.x || a.y - b.y);
+	const cross = (a: HullPoint, b: HullPoint, c: HullPoint) => (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+	const half = (ordered: HullPoint[]) => {
+		const result: HullPoint[] = [];
+		for (const point of ordered) {
+			while (result.length >= 2 && cross(result[result.length - 2]!, result[result.length - 1]!, point) <= 0)
+				result.pop();
+			result.push(point);
+		}
+		return result.slice(0, -1);
+	};
+	return [...half(points), ...half([...points].reverse())];
+}
+
+export function claimedCarriageHulls(state: GameState): { id: string; points: string }[] {
+	const players = new Map(state.players.map(player => [player.id, player]));
+	const hulls: { id: string; points: string }[] = [];
+	for (const route of routes) {
+		const owner = players.get(state.claimedRoutes[route.id]!);
+		const bounds = owner && carriageBounds(owner.color);
+		if (!bounds) continue;
+		for (let index = 0; index < route.length; index++) {
+			const matrix = carriageMatrix(route, index);
+			const corners: HullPoint[] = [];
+			for (const x of [bounds.min.x, bounds.max.x])
+				for (const y of [bounds.min.y, bounds.max.y])
+					for (const z of [bounds.min.z, bounds.max.z]) {
+						const point = new THREE.Vector3(x, y, z).applyMatrix4(matrix);
+						point.x *= -1;
+						point.project(layoutCamera);
+						for (const dx of [-1.25, 1.25])
+							for (const dy of [-1.25, 1.25])
+								corners.push({ x: (point.x + 1) * 500 + dx, y: (1 - point.y) * 310 + dy });
+					}
+			hulls.push({
+				id: `${route.id}-${index}`,
+				points: convexHull(corners)
+					.map(point => `${point.x.toFixed(2)},${point.y.toFixed(2)}`)
+					.join(' '),
+			});
+		}
+	}
+	return hulls;
+}
+
 function terrainGeometry() {
 	const geometry = new THREE.PlaneGeometry(1000, 620, 160, 100);
 	geometry.rotateX(Math.PI);

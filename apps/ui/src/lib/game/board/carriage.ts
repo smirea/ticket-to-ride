@@ -15,6 +15,10 @@ export const carriageModelForColor: Record<Player['color'], string> = {
 	yellow: 'boxcar',
 	black: 'coal',
 };
+const modelBounds = new Map<string, THREE.Box3>();
+export function carriageBounds(color: Player['color']) {
+	return modelBounds.get(carriageModelForColor[color]);
+}
 let modelsPromise: Promise<CarriageModel[]> | undefined;
 export function loadCarriageModels() {
 	return (modelsPromise ??= fetch('/game-assets/trains/printables-trains.json')
@@ -31,7 +35,7 @@ export function loadCarriageModels() {
 
 export function makeCarriageGeometry(model: CarriageModel, color: string) {
 	const body = new THREE.Color(color);
-	const palette = { body, trim: body.clone().lerp(new THREE.Color('#e5d2a4'), 0.32), dark: new THREE.Color('#303a3c') };
+	const palette = { body, trim: body, dark: new THREE.Color('#303a3c') };
 	const parts = model.parts.map(part => {
 		const source = new THREE.BufferGeometry();
 		source.setAttribute('position', new THREE.Float32BufferAttribute(part.positions, 3));
@@ -55,14 +59,14 @@ export function makeCarriageGeometry(model: CarriageModel, color: string) {
 	parts.forEach(part => part.dispose());
 	geometry.computeBoundingBox();
 	geometry.computeBoundingSphere();
+	modelBounds.set(model.id, geometry.boundingBox!.clone());
 	return geometry;
 }
 
 export function makeCarriageMaterial() {
-	return new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.5, metalness: 0.12, envMapIntensity: 0.35 });
+	return new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.68, metalness: 0.04, envMapIntensity: 0.2 });
 }
 
-const tilt = (-20 * Math.PI) / 180;
 export function carriageMatrix(route: Route, index: number, lift = 0) {
 	const t = routeMarkerT(route, index);
 	const p = routePoint(route, t),
@@ -75,12 +79,19 @@ export function carriageMatrix(route: Route, index: number, lift = 0) {
 	);
 	const scale = routeMarkerLength(route) - 1.2;
 	const rotation = new THREE.Matrix4()
-		.makeRotationX(tilt)
-		.multiply(new THREE.Matrix4().makeRotationZ(yaw))
-		.multiply(new THREE.Matrix4().makeRotationY(slope));
-	const clearance = scale * (Math.abs(rotation.elements[2]!) * 0.5 + Math.abs(rotation.elements[6]!) * 0.16);
+		.makeRotationZ(yaw)
+		.multiply(new THREE.Matrix4().makeRotationY(slope))
+		.multiply(new THREE.Matrix4().makeRotationX(((-12 * Math.PI) / 180) * Math.cos(yaw)));
+	let height = terrainHeight(p.x, p.y) + 0.5;
+	const foot = new THREE.Vector3();
+	for (const x of [-0.5, 0, 0.5]) {
+		for (const y of [-0.16, 0, 0.16]) {
+			foot.set(x * scale, y * scale, 0).applyMatrix4(rotation);
+			height = Math.max(height, terrainHeight(p.x + foot.x, p.y + foot.y) - foot.z + 0.45);
+		}
+	}
 	return new THREE.Matrix4()
-		.makeTranslation(p.x, p.y, terrainHeight(p.x, p.y) + 0.5 + clearance + lift)
+		.makeTranslation(p.x, p.y, height + lift)
 		.multiply(rotation)
 		.scale(new THREE.Vector3(scale, scale, scale));
 }

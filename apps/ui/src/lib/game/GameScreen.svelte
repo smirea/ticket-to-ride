@@ -65,6 +65,7 @@
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId>();
 	let paymentRoute = $state<Route>();
+	let previewPayment = $state<Payment>();
 	let previewTicketId = $state<TicketId>();
 	let activeOfferKey = $state('');
 	let settingsOpen = $state(false);
@@ -368,6 +369,11 @@
 			: '',
 	);
 	function cardRelevant(card: CardColor) {
+		if (previewPayment)
+			return (
+				(card === previewPayment.color && previewPayment.cars > 0) ||
+				(card === 'locomotive' && previewPayment.wilds > 0)
+			);
 		if (!hoveredRoute || !hoverInfo) return !activeCard || activeCard === card;
 		return card === hoverInfo.color || (card === 'locomotive' && hoverInfo.wilds > 0);
 	}
@@ -702,7 +708,7 @@
 			{eligibleRouteIds}
 			cardColor={activeCard}
 			{routeHints}
-			routeNotice={turnReady && hoveredRoute && handNotice
+			routeNotice={turnReady && !paymentRoute && hoveredRoute && handNotice
 				? { routeId: hoveredRoute.id, text: handNotice, insufficient: !hoverInfo?.ok }
 				: undefined}
 			{rejectedRouteId}
@@ -716,6 +722,7 @@
 			options={paymentOptions}
 			points={ROUTE_SCORES[paymentRoute.length] ?? 0}
 			{reduceMotion}
+			onpreview={payment => (previewPayment = payment)}
 			onchoose={payment => {
 				if (paymentRoute) void claimRoute(paymentRoute, payment);
 			}}
@@ -733,10 +740,13 @@
 					{#each handColors as card, index (card)}
 						<button
 							class="hand-card"
-							class:raised={!busy && ((Boolean(hoveredRoute) && cardRelevant(card)) || pinnedCard === card)}
+							class:raised={!busy &&
+								(previewPayment
+									? cardRelevant(card)
+									: (Boolean(hoveredRoute) && cardRelevant(card)) || pinnedCard === card)}
 							class:receiving={incomingCard === card && !displayHand?.[card]}
 							animate:flip={{ duration: motionDuration }}
-							class:dimmed={!busy && Boolean(hoveredRoute || activeCard) && !cardRelevant(card)}
+							class:dimmed={!busy && Boolean(previewPayment || hoveredRoute || activeCard) && !cardRelevant(card)}
 							aria-pressed={pinnedCard === card}
 							disabled={busy}
 							onpointerenter={() => (hoveredCard = card)}

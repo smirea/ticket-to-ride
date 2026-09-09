@@ -72,6 +72,7 @@
 		height: 100%;
 		object-fit: fill;
 		pointer-events: none;
+		transition: filter 500ms ease;
 	}
 	.ticket-stub {
 		position: absolute;
@@ -82,6 +83,9 @@
 		--seal-number-size: 23px;
 	}
 
+	.complete .ticket-paper > img {
+		filter: grayscale(0.48) saturate(0.7);
+	}
 	.complete .ticket-paper {
 		mask-image:
 			radial-gradient(circle at 0 50%, transparent 5px, #000 5.6px),
