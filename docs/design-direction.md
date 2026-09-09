@@ -52,9 +52,9 @@ Claiming a route: gather the spent cards above the hand, transform into the corr
 
 ## Status, players and supporting pieces
 
-One small functional action ticket above the destination tickets. Use the notched outer ticket silhouette with no busy background art. Center the action message. The vertical stub contains the current player's avatar and vertical Your turn / Name's turn text. Vibrant for the viewer's turn, muted for opponents. It should say what is currently happening, including draw two, ticket selection, final round and finished game, without stale messages.
+One small functional action ticket above the destination tickets. Use the notched outer ticket silhouette with no busy background art. Center the action message. The vertical stub contains only vertical Your turn / Name's turn text, without an avatar. Vibrant for the viewer's turn, muted for opponents. It should say what is currently happening, including draw two, ticket selection, final round and finished game, without stale messages.
 
-Player plaques lightly overlap the top board edge, with portrait, name, clay-seal points icon/count, carriage icon/trains count and little prose. The whole plaque uses that player's color, no tiny color strip below the portrait. Raise the active player's plaque. All five must fit.
+Player plaques lightly overlap the top board edge, with portrait, name, clay-seal points icon/count, carriage icon/trains count and little prose. The whole plaque uses that player's color, no tiny color strip below the portrait. Raise the active player's plaque and rotate a small brass gear at its bottom right. All five must fit.
 
 A small engraved scoring reference at the end of the ticket column, outside the map, shows route lengths 1–6 with carriage icons and scores 1,2,4,7,10,15. It must remain fitted around many tickets and tablet layouts.
 
@@ -79,3 +79,7 @@ Two independent browser players must play a real two-player game from entry/lobb
 Audit every surface encountered and supplement missing cases with separate labeled fixtures afterward: full five-player/many-ticket layout, market reset, all colors/shapes, tablet, reduced motion, and failures. For each finding log ID, severity, step/state, exact reproduction, screenshot, expected spirit, observed problem, timing evidence, and suggested smallest coherent fix. Do not call a tool automation limitation an app bug without evidence. Report serious blockers immediately; share cumulative prioritized findings while continuing the match.
 
 Root resolves every finding explicitly: fix and retest, combine a duplicate, reject with concrete design rationale, or identify a real blocker. Iterate with both critics on changed interactions and a final whole-table review. Satisfaction means no observed blocking/major usability defect, no reproducible endpoint jump or severe stutter left unresolved, and both critics accept the overall visual/motion coherence within documented tested coverage. It is not a promise of perfection on every device.
+
+## Icon and turn-indicator refinement
+
+Visible score, carriage and locomotive units use icons everywhere, including route notices, journal entries and rules. Keep descriptive screen-reader labels. Reuse the GPS payment pin's TrainPieceIcon for locomotive imagery and carriage units; do not introduce alternate train icons. The full visible payment-pin silhouette, including its stem, selects and previews that option. The central score seal is 50px with a 26px numeral (twice its original size). The status-ticket stub contains vertical turn text only, with no avatar. A small brass gear rotates in the active player plaque's bottom-right corner, fades between turns, and remains static under reduced motion.

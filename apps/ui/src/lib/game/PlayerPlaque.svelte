@@ -2,6 +2,8 @@
 	import type { Player } from '@repo/shared';
 	import { playerPortraitAssets } from './assets';
 	import PointsSeal from './PointsSeal.svelte';
+	import TrainPieceIcon from './TrainPieceIcon.svelte';
+	import GearSixIcon from 'phosphor-svelte/lib/GearSixIcon';
 	let {
 		player,
 		viewerId,
@@ -26,15 +28,10 @@
 		<strong class="name" title={player.name}>{player.id === viewerId ? 'You' : player.name}</strong>
 		<div class="score"><span class="points-icon"><PointsSeal /></span><strong>{player.score}</strong></div>
 		<div class="trains">
-			<svg viewBox="0 0 32 24" aria-hidden="true"
-				><path d="M3 4h26v14H3zM1 18h30M6 2h20M7 7v7m6-7v7m6-7v7m6-7v7M8 18v3m16-3v3" /><circle
-					cx="8"
-					cy="21"
-					r="2"
-				/><circle cx="24" cy="21" r="2" /></svg
-			><strong>{player.trains}</strong>
+			<TrainPieceIcon color="currentColor" width={24} height={21} /><strong>{player.trains}</strong>
 		</div>
 	</div>
+	<span class="turn-gear" class:turning={active} aria-hidden="true"><GearSixIcon size={15} weight="duotone" /></span>
 </div>
 
 <style>
@@ -150,20 +147,32 @@
 	.active .trains {
 		border-color: #ead5a32e;
 	}
-	.trains svg {
-		width: 24px;
-		height: 21px;
-		fill: none;
-		stroke: currentColor;
-		stroke-width: 1.6;
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		opacity: 0.85;
-	}
 	.trains strong {
 		font:
 			600 20px/1 Georgia,
 			serif;
+	}
+	.turn-gear {
+		position: absolute;
+		right: 7px;
+		bottom: 7px;
+		width: 15px;
+		height: 15px;
+		color: #f5d99e;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 240ms;
+		animation: clockwork 9s linear infinite;
+		animation-play-state: paused;
+	}
+	.turn-gear.turning {
+		opacity: 0.85;
+		animation-play-state: running;
+	}
+	@keyframes clockwork {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 	@media (max-width: 1100px) {
 		.player-plaque {
@@ -189,6 +198,10 @@
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
+		.turn-gear {
+			animation: none;
+			transition: none;
+		}
 		.player-plaque {
 			transition: none;
 		}

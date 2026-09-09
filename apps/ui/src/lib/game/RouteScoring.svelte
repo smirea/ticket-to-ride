@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ROUTE_SCORES } from '@repo/shared';
 	import PointsSeal from './PointsSeal.svelte';
+	import TrainPieceIcon from './TrainPieceIcon.svelte';
 </script>
 
 <div
@@ -13,13 +14,7 @@
 			<span class="length">{length}</span>
 			<div class="carriages">
 				{#each Array(length) as _}
-					<svg viewBox="0 0 26 20"
-						><path d="M3 5h20v10H3zM5 2h16l2 3H3zM1 15h24M7 7v5m6-5v5m6-5v5" /><circle cx="6" cy="17" r="2" /><circle
-							cx="20"
-							cy="17"
-							r="2"
-						/></svg
-					>
+					<TrainPieceIcon width={16} height={16} />
 				{/each}
 			</div>
 			<span class="arrow">›</span>
@@ -60,14 +55,6 @@
 	.carriages {
 		display: flex;
 		gap: 1px;
-	}
-	svg {
-		width: 16px;
-		height: 16px;
-		fill: #a38a5d22;
-		stroke: currentColor;
-		stroke-width: 1.3;
-		stroke-linejoin: round;
 	}
 	.arrow {
 		font:

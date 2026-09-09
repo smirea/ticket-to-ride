@@ -200,7 +200,7 @@
 				</label>
 
 				<fieldset>
-					<legend>Train color</legend>
+					<legend>Color</legend>
 					<div class="colors">
 						{#each PLAYER_COLORS as playerColor}
 							<label title={colorNames[playerColor]}>

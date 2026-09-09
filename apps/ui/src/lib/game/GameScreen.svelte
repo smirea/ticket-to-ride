@@ -24,6 +24,8 @@
 	import { flip } from 'svelte/animate';
 	import { fly } from 'svelte/transition';
 	import Brand from './Brand.svelte';
+	import GameText from './GameText.svelte';
+	import PointsSeal from './PointsSeal.svelte';
 	import GameBoard from './GameBoard.svelte';
 	import TrainCard from './TrainCard.svelte';
 	import RoutePayment from './RoutePayment.svelte';
@@ -865,7 +867,7 @@
 				<button onclick={() => (historyOpen = false)} aria-label="Close history"><XIcon size={20} /></button>
 			</header>
 			<div>
-				{#each recentLog as entry}<p>{entry}</p>{:else}<p>No turns yet.</p>{/each}
+				{#each recentLog as entry}<p><GameText text={entry} /></p>{:else}<p>No turns yet.</p>{/each}
 			</div>
 		</aside>{/if}
 
@@ -904,8 +906,9 @@
 							></label
 						>{/if}
 					<p class="rules-note">
-						On your turn, take two cards, claim one route, or draw destination tickets. A face-up locomotive uses both
-						draws.
+						<GameText
+							text="On your turn, take two cards, claim one route, or draw destination tickets. A face-up locomotive uses both draws."
+						/>
 					</p>
 				</div>
 				<footer class="dialog-footer">
@@ -929,7 +932,7 @@
 									>{result.completedTickets} tickets connected · longest path {result.longestPath}</small
 								>
 							</div>
-							<strong class="final-score">{result.finalScore}</strong>
+							<strong class="final-score"><span class="final-seal"><PointsSeal /></span>{result.finalScore}</strong>
 							<p>
 								Routes {result.routePoints}
 								<span>Tickets {result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</span><span
@@ -955,6 +958,16 @@
 <style>
 	:global(html) {
 		color-scheme: light;
+	}
+	.final-score {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.final-seal {
+		width: 25px;
+		height: 25px;
+		flex-shrink: 0;
 	}
 	.game-shell {
 		transition: grid-template-columns 320ms ease;

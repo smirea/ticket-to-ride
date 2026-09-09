@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Player } from '@repo/shared';
-	import { playerPortraitAssets } from './assets';
+	import GameText from './GameText.svelte';
 
 	let {
 		player,
@@ -24,11 +24,10 @@
 		<path class="perforation" d="M280 22V78" />
 	</svg>
 	<div class="message">
-		<strong>{message}</strong>
+		<strong><GameText text={message} /></strong>
 		{#if detail}<span>{detail}</span>{/if}
 	</div>
 	<div class="stub">
-		{#if player}<img src={playerPortraitAssets[player.color]} alt="" draggable="false" />{/if}
 		<span>{player?.id === viewerId ? 'Your turn' : player ? `${player.name}’s turn` : 'Journey complete'}</span>
 	</div>
 </div>
@@ -113,19 +112,6 @@
 		gap: 3px;
 		padding: 10px 5px 10px 3px;
 		text-align: center;
-	}
-	.stub img {
-		width: 26px;
-		height: 26px;
-		flex-shrink: 0;
-		border: 1px solid #8c7953;
-		border-radius: 50%;
-		object-fit: cover;
-		filter: saturate(0.55);
-		transition: filter 350ms;
-	}
-	.active .stub img {
-		filter: saturate(0.95);
 	}
 	.stub span {
 		writing-mode: vertical-rl;
