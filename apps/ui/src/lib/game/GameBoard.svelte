@@ -249,7 +249,7 @@
 		});
 		measure.observe(viewport);
 		const atlasImage = new Image();
-		atlasImage.src = '/game-assets/atlas/usa-relief-v3.webp';
+		atlasImage.src = '/game-assets/atlas/usa-relief-v4.webp';
 		void Promise.all([loadCarriageSprites(), atlasImage.decode()])
 			.then(([artwork]) => {
 				if (!cancelled) manifest = artwork;
@@ -288,7 +288,7 @@
 				onpointerleave={() => hoverRoute()}
 			>
 				<image
-					href="/game-assets/atlas/usa-relief-v3.webp"
+					href="/game-assets/atlas/usa-relief-v4.webp"
 					width="1000"
 					height="620"
 					preserveAspectRatio="none"
