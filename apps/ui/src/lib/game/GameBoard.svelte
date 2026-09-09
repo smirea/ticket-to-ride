@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard, TrainColor } from '@repo/shared';
-	import { onMount, onDestroy, tick, untrack } from 'svelte';
-	import { fade, scale, fly } from 'svelte/transition';
-	import TrainPieceIcon from './TrainPieceIcon.svelte';
-	import GameText from './GameText.svelte';
+	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
+	import { onMount, tick, untrack } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
+	import RouteHintToken, { routeHintWidth, type RouteHint } from './RouteHintToken.svelte';
 	import ColorSymbol from './ColorSymbol.svelte';
 	import {
 		carriageFrame,
@@ -29,16 +28,14 @@
 		selectedRouteId?: RouteId;
 		highlightedTicket?: DestinationTicket;
 		disabled?: boolean;
-		disabledReason?: string;
 		motionEnabled?: boolean;
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
-		routeNotice?: { routeId: string; text: string; insufficient: boolean };
-		routeHints?: Record<string, { points: number; cars: number; color: TrainColor; wilds: number }>;
+		routeHints?: Record<string, RouteHint>;
+		routeHover?: { routeId: string; hints: RouteHint[] };
+		highlightedRouteId?: string;
 		eligibleRouteIds?: string[];
 		cardColor?: TrainCard;
-		rejectedRouteId?: string;
-		rejectionKey?: number;
 	};
 	let {
 		state: gameState,
@@ -46,16 +43,14 @@
 		selectedRouteId,
 		highlightedTicket,
 		disabled = false,
-		disabledReason,
 		motionEnabled = true,
 		onselect,
 		onhover,
 		routeHints = {},
-		routeNotice,
+		routeHover,
+		highlightedRouteId,
 		eligibleRouteIds,
 		cardColor,
-		rejectedRouteId,
-		rejectionKey,
 	}: Props = $props();
 	let viewport = $state<HTMLDivElement>();
 	let viewportWidth = $state(1000);
@@ -88,25 +83,10 @@
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
 	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
 
-	let unavailableNotice = $state<{ routeId: string; text: string; insufficient: boolean }>();
-	let noticeTimer: ReturnType<typeof setTimeout> | undefined;
-	const visibleNotice = $derived(unavailableNotice ?? routeNotice);
-	onDestroy(() => clearTimeout(noticeTimer));
-	$effect(() => {
-		if (!disabledReason) unavailableNotice = undefined;
-	});
 	function clickRoute(route: Route) {
-		if (owner(route) || blocked(route)) return;
-		if (!disabled) {
-			onselect(route);
-			return;
-		}
-		if (disabledReason) {
-			unavailableNotice = { routeId: route.id, text: disabledReason, insufficient: false };
-			clearTimeout(noticeTimer);
-			noticeTimer = setTimeout(() => (unavailableNotice = undefined), 1800);
-		}
+		if (!owner(route) && !blocked(route) && !disabled) onselect(route);
 	}
+
 	export async function claimSprites(route: Route, color: Player['color']): Promise<CarriageSprite[]> {
 		const artwork = manifest ?? (await loadCarriageSprites());
 		const screen = viewport?.querySelector<SVGSVGElement>('svg.board')?.getScreenCTM();
@@ -122,6 +102,7 @@
 	let focusedRouteId = $state<RouteId | undefined>();
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
 	const hintRoutes = $derived.by(() => {
+		if (routeHover) return [];
 		const sx = (1000 * labelFactor) / mapWidth;
 		const sy = (620 * labelFactor) / mapHeight;
 		const placed: { x: number; y: number; width: number }[] = [];
@@ -133,7 +114,7 @@
 			)
 			.map(route => {
 				const hint = routeHints[route.id]!;
-				const width = 52 + (hint.cars ? 35 : 0) + (hint.wilds ? 35 : 0);
+				const width = routeHintWidth(hint);
 				const anchor = point(route, 0.5);
 				const preferredY = anchor.y - 23 * sy;
 				const candidates = [0, -1, 1, -2, 2, -3, 3]
@@ -163,6 +144,21 @@
 				return { route, hint, width, x, y, anchor, tipY: y + (anchor.y < y ? -23 : 23) * sy };
 			});
 	});
+	const hoverStack = $derived.by(() => {
+		const route = routeHover && routes.find(route => route.id === routeHover.routeId);
+		if (!route || !routeHover?.hints.length) return undefined;
+		const sx = (1000 * labelFactor) / mapWidth,
+			sy = (620 * labelFactor) / mapHeight;
+		const anchor = point(route, 0.5);
+		const width = Math.max(...routeHover.hints.map(routeHintWidth));
+		const height = (routeHover.hints.length - 1) * 36;
+		const below = anchor.y < (height + 68) * sy;
+		const x = Math.max((width / 2 + 4) * sx, Math.min(1000 - (width / 2 + 4) * sx, anchor.x));
+		const preferredY = below ? anchor.y + 23 * sy : anchor.y - (height + 23) * sy;
+		const y = Math.max(48 * sy, Math.min(620 - (height + 18) * sy, preferredY));
+		return { x, y, below, hints: routeHover.hints };
+	});
+
 	const selectableRoutes = $derived(routes.filter(route => !owner(route) && !blocked(route) && !disabled));
 	function owner(route: Route): Player | undefined {
 		const playerId = gameState.claimedRoutes[route.id];
@@ -331,7 +327,7 @@
 							aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
 							onclick={() => clickRoute(route)}
 							onpointerenter={() => {
-								if (!routeOwner && !unavailable && !disabled) hoverRoute(route);
+								if (!routeOwner && !unavailable) hoverRoute(route);
 							}}
 							onpointerleave={() => hoverRoute()}
 							onfocus={() => {
@@ -433,7 +429,7 @@
 					</g>
 				{/each}
 				{#each hintRoutes as placement (placement.route.id)}
-					{@const { hint, width, x, y, anchor, tipY } = placement}
+					{@const { hint, x, y, anchor, tipY } = placement}
 					{#if Math.abs(tipY - anchor.y) > 1 || Math.abs(x - anchor.x) > 1}
 						<path
 							class="hint-leader"
@@ -442,64 +438,45 @@
 						/>
 					{/if}
 					<g class="route-hint" transform={`translate(${x} ${y}) ${labelScale}`} aria-hidden="true">
-						<g class="hint-paper" transition:scale={{ start: 0.65, duration: motionEnabled ? 170 : 0 }}>
-							<path
-								d={`M ${-width / 2 + 9} -16 H ${width / 2 - 9} Q ${width / 2} -16 ${width / 2} -7 V 7 Q ${width / 2} 16 ${width / 2 - 9} 16 H 7 L 0 23 L -7 16 H ${-width / 2 + 9} Q ${-width / 2} 16 ${-width / 2} 7 V -7 Q ${-width / 2} -16 ${-width / 2 + 9} -16 Z`}
-								fill={hint.cars ? routeColors[hint.color] : '#405e65'}
-								transform={tipY < y ? 'scale(1 -1)' : undefined}
-							/>
-							<rect x={-width / 2 + 3} y="-13" width={width - 6} height="26" rx="6" />
-							<g transform={`translate(${-width / 2 + 7} 0)`}>
-								<text x="0" y="5">{hint.points}</text>
-								<image href="/game-assets/atlas/points-clay-seal.webp" x="18" y="-10" width="20" height="20" />
-								{#if hint.cars}
-									<text x="41" y="5">{hint.cars}</text>
-									<g transform="translate(52 -9)"
-										><TrainPieceIcon color={routeColors[hint.color]} width={22} height={18} /></g
-									>
-								{/if}
-								{#if hint.wilds}
-									{@const offset = hint.cars ? 76 : 41}
-									<text x={offset} y="5">{hint.wilds}</text>
-									<g transform={`translate(${offset + 11} -9)`}
-										><TrainPieceIcon color="#3c5159" locomotive width={22} height={18} /></g
-									>
-								{/if}
-							</g>
-						</g>
+						<RouteHintToken {hint} pointer={tipY < y ? 'up' : 'down'} {motionEnabled} />
 					</g>
 				{/each}
-				{#if visibleNotice}
-					{@const route = routes.find(route => route.id === visibleNotice.routeId)}
-					{#if route}{@const p = point(route, 0.5)}
-						<g
-							class="route-notice"
-							class:insufficient={visibleNotice.insufficient}
-							transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}
-							aria-label={visibleNotice.text}
-							transition:fade={{ duration: motionEnabled ? 120 : 0 }}
-						>
-							<foreignObject x="-200" y="-22" width="400" height="46"
-								><div class="notice-content"><GameText text={visibleNotice.text} /></div></foreignObject
-							>
+				{#if hoverStack}
+					<g
+						class="route-hover-stack"
+						transform={`translate(${hoverStack.x} ${hoverStack.y}) ${labelScale}`}
+						aria-hidden="true"
+					>
+						{#each hoverStack.hints as hint, i (`${hint.color ?? 'unavailable'}-${hint.wilds ?? 0}`)}
+							<g transform={`translate(0 ${i * 36})`}>
+								<RouteHintToken
+									{hint}
+									{motionEnabled}
+									pointer={hoverStack.below
+										? i === 0
+											? 'up'
+											: 'none'
+										: i === hoverStack.hints.length - 1
+											? 'down'
+											: 'none'}
+								/>
+							</g>
+						{/each}
+					</g>
+				{/if}
+				{#if highlightedRouteId}
+					{@const highlightedRoute = routes.find(route => route.id === highlightedRouteId)}
+					{#if highlightedRoute}
+						<g class="journal-route-highlight" transition:fade={{ duration: motionEnabled ? 150 : 0 }}>
+							<path class="journal-halo" d={path(highlightedRoute)} />
+							<path class="journal-line" d={path(highlightedRoute)} />
+							{#each [highlightedRoute.cityA, highlightedRoute.cityB] as id}
+								{@const city = cityPoint(cityById.get(id)!)}
+								<circle cx={city.x} cy={city.y} r="11" />
+							{/each}
 						</g>
 					{/if}
 				{/if}
-				{#key rejectionKey}
-					{#if rejectedRouteId}
-						{@const rejected = routes.find(route => route.id === rejectedRouteId)}
-						{#if rejected}
-							{@const p = point(rejected, 0.5)}
-							<g class="route-rejection" aria-hidden="true">
-								<path d={path(rejected)} />
-								<g transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}>
-									<rect x="-74" y="-13" width="148" height="24" rx="5" />
-									<text y="3">not enough to claim</text>
-								</g>
-							</g>
-						{/if}
-					{/if}
-				{/key}
 				<g class="compass" transform="translate(950 548)" aria-hidden="true"
 					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
 				>
@@ -682,30 +659,6 @@
 	.network-outline.filtering {
 		opacity: 0.06;
 	}
-	.route-notice {
-		pointer-events: none;
-		font-size: 13px;
-		font-weight: 650;
-		fill: #284e42;
-		color: #284e42;
-		paint-order: stroke;
-		stroke: #fff7e7;
-		stroke-width: 4px;
-		stroke-linejoin: round;
-	}
-	.route-notice.insufficient {
-		fill: #a03e31;
-		color: #a03e31;
-	}
-	.notice-content {
-		text-align: center;
-		padding: 5px 0;
-		text-shadow:
-			0 1px 2px #fff7e7,
-			0 -1px 2px #fff7e7,
-			1px 0 2px #fff7e7,
-			-1px 0 2px #fff7e7;
-	}
 	.network-outline path {
 		stroke: #101819;
 		stroke-width: 13;
@@ -857,12 +810,8 @@
 		white-space: nowrap;
 	}
 	.route-hint,
-	.route-rejection {
+	.route-hover-stack {
 		pointer-events: none;
-		text-anchor: middle;
-		font:
-			600 11px Barlow,
-			sans-serif;
 	}
 	.hint-leader {
 		fill: none;
@@ -871,49 +820,26 @@
 		pointer-events: none;
 		vector-effect: non-scaling-stroke;
 	}
-	.hint-paper {
-		transform-box: fill-box;
-		transform-origin: center bottom;
-		filter: drop-shadow(1px 3px 2px #33281855);
-	}
-	.route-hint {
-		animation: hint-in 180ms ease-out both;
-	}
-	.route-hint rect {
-		fill: #fff3d9;
-		stroke: #efdcaa;
-		stroke-width: 1;
-	}
-	.hint-paper > path {
-		stroke: #b09a6c;
-		stroke-width: 1.2;
-		stroke-linejoin: round;
-	}
-	.route-hint text {
-		fill: #263d42;
-		text-anchor: start;
-		font:
-			700 14px Georgia,
-			serif;
-	}
-	.route-rejection {
-		animation: rejection-out 1.8s ease both;
-	}
-	.route-rejection path {
+	.journal-route-highlight {
+		pointer-events: none;
 		fill: none;
-		stroke: #b63e30;
-		stroke-width: 13;
+	}
+	.journal-halo {
+		stroke: #fff4c5;
+		stroke-width: 17;
+		opacity: 0.8;
 		stroke-linecap: round;
-		opacity: 0.4;
-		animation: route-jiggle 480ms ease-out;
 	}
-	.route-rejection rect {
-		fill: #fff0e4f5;
-		stroke: #b63e3055;
+	.journal-line {
+		stroke: #a94c2f;
+		stroke-width: 3;
+		stroke-dasharray: 5 5;
+		animation: travel 5s linear infinite;
 	}
-	.route-rejection text {
-		fill: #a83328;
-		font-weight: 700;
+	.journal-route-highlight circle {
+		stroke: #a94c2f;
+		stroke-width: 3;
+		fill: #fff4c544;
 	}
 	@keyframes board-arrive {
 		from {
@@ -923,38 +849,6 @@
 		to {
 			opacity: 1;
 			translate: 0 0;
-		}
-	}
-	@keyframes hint-in {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-	@keyframes rejection-out {
-		0% {
-			opacity: 0;
-		}
-		10%,
-		65% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
-	@keyframes route-jiggle {
-		15%,
-		45%,
-		75% {
-			translate: -3px 0;
-		}
-		30%,
-		60%,
-		90% {
-			translate: 3px 0;
 		}
 	}
 	@keyframes selection-glow {

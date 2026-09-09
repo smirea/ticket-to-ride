@@ -47,6 +47,7 @@ export interface Player {
 	trains: number;
 	hand: TrainHand;
 	tickets: TicketId[];
+	completedTicketCount?: number;
 }
 
 export type GamePhase =
