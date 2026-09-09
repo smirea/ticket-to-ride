@@ -447,23 +447,6 @@
 						</g>
 					{/each}
 				</g>
-				{#each celebratingTicket ? [] : highlightedTickets as highlightedTicket (highlightedTicket.id)}
-					{@const a = cityPoint(cityById.get(highlightedTicket.cityA)!)}{@const b = cityPoint(
-						cityById.get(highlightedTicket.cityB)!,
-					)}
-					<path
-						class="ticket-trace-underlay"
-						transition:fade={{ duration: motionEnabled ? 180 : 0 }}
-						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
-						aria-hidden="true"
-					/>
-					<path
-						class="ticket-trace"
-						transition:fade={{ duration: motionEnabled ? 180 : 0 }}
-						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
-						aria-hidden="true"
-					/>
-				{/each}
 				<g class="completion-trace" aria-hidden="true">
 					{#each completionMarkers as marker (marker.key)}
 						{@const t = routeMarkerT(marker.route, marker.index)}
@@ -544,11 +527,7 @@
 							}
 						}}
 					>
-						{#if endpoint}<circle
-								class="endpoint-ring"
-								r="21"
-								transition:fade={{ duration: motionEnabled ? 180 : 0 }}
-							/>{/if}<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
+						<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
 							class="city-center"
 							r="5.4"
 						/>
@@ -609,6 +588,26 @@
 				<g class="compass" transform="translate(950 548)" aria-hidden="true"
 					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
 				>
+				<g class="ticket-preview-layer" aria-hidden="true">
+					{#each ['ticket-trace-underlay', 'ticket-trace'] as layer}
+						{#each celebratingTicket ? [] : highlightedTickets as ticket (ticket.id)}
+							{@const a = cityPoint(cityById.get(ticket.cityA)!)}
+							{@const b = cityPoint(cityById.get(ticket.cityB)!)}
+							<path
+								class={layer}
+								transition:fade={{ duration: motionEnabled ? 180 : 0 }}
+								d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
+							/>
+						{/each}
+					{/each}
+					{#each cities.filter( city => highlightedTickets.some(ticket => ticket.cityA === city.id || ticket.cityB === city.id), ) as city (city.id)}
+						{@const p = cityPoint(city)}
+						<g class="ticket-endpoint" transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
+							<circle class="endpoint-ring" r="21" transition:fade={{ duration: motionEnabled ? 180 : 0 }} />
+							<circle class="city-hub" r="9.2" /><circle class="city-center" r="5.4" />
+						</g>
+					{/each}
+				</g>
 			</svg>
 		</div>
 	</div>
@@ -881,7 +880,7 @@
 		stroke: #2b6d78;
 		stroke-width: 3;
 	}
-	.city .endpoint-ring {
+	.ticket-preview-layer {
 		pointer-events: none;
 	}
 	.city-shadow {
