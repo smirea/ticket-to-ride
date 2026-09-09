@@ -6,15 +6,15 @@ export const cities = USA_CITIES;
 export const routes = USA_ROUTES;
 export const cityById = new Map(cities.map(city => [city.id, city]));
 export const routeColors = {
-	red: '#b75c53',
-	orange: '#be8751',
-	yellow: '#c8ad59',
-	green: '#658576',
-	blue: '#638ca5',
-	purple: '#947e9c',
-	black: '#4e5554',
-	white: '#e9e3d1',
-	gray: '#8a8c80',
+	red: '#d4483d',
+	orange: '#dc8831',
+	yellow: '#e0be32',
+	green: '#359267',
+	blue: '#318fc4',
+	purple: '#a362ba',
+	black: '#343e43',
+	white: '#f4edd9',
+	gray: '#9b9f94',
 };
 export const playerColors = { red: '#cf201e', blue: '#047ac1', green: '#19854b', yellow: '#efb900', black: '#343c43' };
 export const mainland = [

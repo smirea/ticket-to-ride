@@ -10,17 +10,13 @@ function scenario() {
 	return state;
 }
 
-test('payment chooser enumerates affordable mixes, sorts by wilds, and deduplicates all-wild payment', () => {
+test('payment chooser keeps only the least-wild payment per color, sorted by wilds', () => {
 	const state = scenario();
 	const options = routePayments(state, 'player', route);
 	expect(options.map(option => `${option.cars}:${option.color}:${option.wilds}`)).toEqual([
 		'3:red:0',
-		'2:red:1',
 		'2:green:1',
-		'1:red:2',
-		'1:green:2',
 		'1:blue:2',
-		'0:red:3',
 	]);
 	for (const option of options) {
 		const result = applyGameAction(state, {
@@ -53,4 +49,12 @@ test('explicit invalid or unaffordable payments cannot mutate the game', () => {
 	});
 	expect(result.ok).toBe(false);
 	expect(result.state).toEqual(state);
+});
+
+test('all-wild payment appears once when no ordinary cards can contribute', () => {
+	const state = scenario();
+	for (const color of TRAIN_CARDS) if (color !== 'locomotive') state.players[0]!.hand[color] = 0;
+	const options = routePayments(state, 'player', route);
+	expect(options).toHaveLength(1);
+	expect(options[0]!.wilds).toBe(3);
 });

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
+	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
 	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
@@ -25,8 +25,10 @@
 		ambientMotion?: boolean;
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
+		routeNotice?: { routeId: string; text: string; insufficient: boolean };
 		routeHints?: Record<string, { points: number; wilds: number }>;
 		eligibleRouteIds?: string[];
+		cardColor?: TrainCard;
 		rejectedRouteId?: string;
 		rejectionKey?: number;
 	};
@@ -40,7 +42,9 @@
 		onselect,
 		onhover,
 		routeHints = {},
+		routeNotice,
 		eligibleRouteIds,
+		cardColor,
 		rejectedRouteId,
 		rejectionKey,
 	}: Props = $props();
@@ -227,7 +231,7 @@
 						transform="rotate(8 41 508)">PACIFIC</text
 					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
 				>
-				<g class="network-outline" aria-hidden="true">
+				<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
 					{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
 					{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
 						<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
@@ -280,7 +284,9 @@
 									? 'transparent'
 									: routeOwner
 										? playerColors[routeOwner.color]
-										: routeColors[route.color]}
+										: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
+											? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
+											: routeColors[route.color]}
 								class="marker-anchor"
 								class:fallback-segment={!routeOwner || !ready}
 							/>
@@ -339,6 +345,20 @@
 							>{/if}
 					</g>
 				{/each}
+				{#if routeNotice}
+					{@const route = routes.find(route => route.id === routeNotice.routeId)}
+					{#if route}{@const p = point(route, 0.5)}
+						<g
+							class="route-notice"
+							class:insufficient={routeNotice.insufficient}
+							transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}
+							aria-label={routeNotice.text}
+							transition:fade={{ duration: ambientMotion ? 120 : 0 }}
+						>
+							<text text-anchor="middle">{routeNotice.text}</text>
+						</g>
+					{/if}
+				{/if}
 				{#key rejectionKey}
 					{#if rejectedRouteId}
 						{@const rejected = routes.find(route => route.id === rejectedRouteId)}
@@ -505,8 +525,25 @@
 		letter-spacing: 4px;
 	}
 	.network-outline {
+		transition: opacity 180ms;
 		opacity: 0.48;
 		pointer-events: none;
+	}
+	.network-outline.filtering {
+		opacity: 0.06;
+	}
+	.route-notice {
+		pointer-events: none;
+		font-size: 13px;
+		font-weight: 650;
+		fill: #284e42;
+		paint-order: stroke;
+		stroke: #fff7e7;
+		stroke-width: 4px;
+		stroke-linejoin: round;
+	}
+	.route-notice.insufficient {
+		fill: #a03e31;
 	}
 	.network-outline path {
 		stroke: #101819;
@@ -568,6 +605,10 @@
 		opacity: 0.5;
 	}
 	.fallback-segment {
+		transition:
+			fill 180ms,
+			opacity 180ms,
+			filter 180ms;
 		stroke: #fff4d9a6;
 		stroke-width: 0.7;
 		pointer-events: none;

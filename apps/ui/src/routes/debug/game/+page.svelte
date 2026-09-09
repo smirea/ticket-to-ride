@@ -10,6 +10,7 @@
 		USA_TICKETS,
 		USA_ROUTES,
 		TRAIN_CARDS,
+		ROUTE_SCORES,
 		type GameAction,
 		type GameState,
 	} from '@repo/shared';
@@ -51,6 +52,46 @@
 		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
 		next.destinationDeck = next.destinationDeck.filter(id => !next.players.some(player => player.tickets.includes(id)));
 		for (const color of TRAIN_CARDS) next.players[0].hand[color] = color === 'locomotive' ? 2 : 4;
+		loadScenario(next);
+	}
+
+	function loadTrainFleet() {
+		loadFullTable();
+		const next = structuredClone($state.snapshot(game));
+		const paths = [
+			[
+				['portland', 'san-francisco'],
+				['san-francisco', 'los-angeles'],
+				['los-angeles', 'phoenix'],
+			],
+			[
+				['helena', 'duluth'],
+				['duluth', 'chicago'],
+			],
+			[
+				['el-paso', 'houston'],
+				['houston', 'new-orleans'],
+			],
+			[
+				['chicago', 'pittsburgh'],
+				['pittsburgh', 'new-york'],
+			],
+			[
+				['new-orleans', 'miami'],
+				['atlanta', 'miami'],
+			],
+		];
+		paths.forEach((pairs, playerIndex) => {
+			for (const [a, b] of pairs) {
+				const route = USA_ROUTES.find(
+					route => (route.cityA === a && route.cityB === b) || (route.cityA === b && route.cityB === a),
+				)!;
+				next.claimedRoutes[route.id] = next.players[playerIndex]!.id;
+				next.players[playerIndex]!.trains -= route.length;
+				next.players[playerIndex]!.score += ROUTE_SCORES[route.length]!;
+			}
+		});
+		next.players[0].tickets = ['portland-phoenix', 'chicago-santa-fe'];
 		loadScenario(next);
 	}
 
@@ -127,6 +168,7 @@
 				</label>
 				<button type="button" onclick={loadAtlasScenario}>Atlas preview</button>
 				<button type="button" onclick={loadFullTable}>Full table</button>
+				<button type="button" onclick={loadTrainFleet}>Train fleet</button>
 				<button type="button" onclick={resetClaimScenario}>Claim scenario</button>
 				<button type="button" onclick={loadStampScenario}>Ticket stamp</button>
 				<button type="button" onclick={loadMarketReset}>Market reset</button>

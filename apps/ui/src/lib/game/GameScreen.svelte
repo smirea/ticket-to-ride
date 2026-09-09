@@ -29,11 +29,13 @@
 	import RoutePayment from './RoutePayment.svelte';
 	import { routePayments, type RoutePayment as Payment } from './route-payments';
 	import CardFlight from './CardFlight.svelte';
+	import { paperPose, type PaperPose } from './paper-pose';
 	import DestinationCard from './DestinationCard.svelte';
 	import TableStatus from './TableStatus.svelte';
 	import PlayerPlaque from './PlayerPlaque.svelte';
 	import TicketSelection from './TicketSelection.svelte';
 	import ClaimFlight from './ClaimFlight.svelte';
+	import { carriageSprites, type CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
 
 	type Props = {
@@ -80,8 +82,16 @@
 	let handScroll = $state<HTMLDivElement>();
 	let handSpace = $state(450);
 	let handCardWidth = $state(92);
-	type CardRect = { x: number; y: number; width: number; height: number };
-	type Flight = { id: number; color: CardColor; from: CardRect; to: CardRect; blind?: boolean; delay?: number };
+	type CardRect = PaperPose;
+	type Flight = {
+		id: number;
+		color?: CardColor;
+		ticket?: (typeof USA_TICKETS)[number];
+		from: CardRect;
+		to: CardRect;
+		blind?: boolean;
+		delay?: number;
+	};
 	let flights = $state<Flight[]>([]);
 	let nextFlightId = 0;
 	let busy = $state(false);
@@ -90,6 +100,8 @@
 	let pinnedCard = $state<CardColor>();
 	let rejectedRouteId = $state<string>();
 	let rejectionKey = $state(0);
+	let incomingCard = $state<CardColor>();
+	let handReflowing = $state(false);
 	let heldHand = $state<Partial<Record<CardColor, number>>>();
 	let keptTicketIds = $state<TicketId[]>([]);
 	let closingTickets = $state(false);
@@ -100,7 +112,10 @@
 	let marketReady = false;
 	let marketAnimating = $state(false);
 	let departingMarketId = $state<number>();
-	let claimFlight = $state<{ cards: { color: CardColor; from: CardRect; to: CardRect }[]; playerColor: string }>();
+	let claimFlight = $state<{
+		cards: { color: CardColor; from: CardRect; train: CarriageSprite }[];
+		settled: boolean;
+	}>();
 	let finishClaimFlight: (() => void) | undefined;
 	const flightResolvers = new Map<number, () => void>();
 	const pause = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, reduceMotion ? 0 : ms));
@@ -136,7 +151,7 @@
 		ticketFilter === 'all' ? heldTickets : heldTickets.filter(ticket => !completedIds.has(ticket.id)),
 	);
 	const highlightedTicket = $derived(previewTicketId ? ticketById.get(previewTicketId) : undefined);
-	const handColors = $derived(TRAIN_CARDS.filter(color => (displayHand?.[color] ?? 0) > 0));
+	const handColors = $derived(TRAIN_CARDS.filter(color => (displayHand?.[color] ?? 0) > 0 || incomingCard === color));
 	const handMargin = $derived(
 		Math.max(
 			20 - handCardWidth,
@@ -149,7 +164,10 @@
 	const recentLog = $derived(gameState.log.slice(-20).toReversed());
 	const motionDuration = $derived(reduceMotion ? 0 : 260);
 	const ticketStep = $derived(
-		Math.max(ticketSelection ? 8 : 30, Math.min(92, (ticketAreaHeight - 100) / Math.max(1, visibleTickets.length - 1))),
+		Math.max(
+			ticketSelection && !closingTickets ? 8 : 30,
+			Math.min(92, (ticketAreaHeight - 100) / Math.max(1, visibleTickets.length - 1)),
+		),
 	);
 
 	onMount(() => {
@@ -227,7 +245,6 @@
 		return new Promise<void>(resolve => flightResolvers.set(id, resolve));
 	}
 	function finishFlight(id: number) {
-		flights = flights.filter(item => item.id !== id);
 		flightResolvers.get(id)?.();
 		flightResolvers.delete(id);
 	}
@@ -280,7 +297,7 @@
 		if (busy || marketAnimating || !viewer || !isViewerTurn) return;
 		busy = true;
 		const before = { ...viewer.hand };
-		const origin = cardRect(event.currentTarget as Element);
+		const origin = paperPose(event.currentTarget as HTMLElement);
 		const replacement = gameState.trainDeck.at(-1);
 		heldHand = before;
 		if (index !== undefined) departingMarketId = marketCards[index]?.id;
@@ -291,22 +308,27 @@
 			const color = TRAIN_CARDS.find(card => (viewer?.hand[card] ?? 0) > before[card]);
 			if (!color) return;
 			const nextMarket = [...gameState.faceUpTrainCards];
-			const handBounds = cardRect(handScroll ?? null);
-			const destination =
-				cardRect(document.querySelector('[data-hand-color="' + color + '"]')) ??
-				(handBounds
-					? {
-							x: handBounds.x + handBounds.width / 2 - handCardWidth / 2,
-							y: handBounds.y + 24,
-							width: handCardWidth,
-							height: handCardWidth / 0.7,
-						}
-					: undefined);
-			if (origin && destination) await launchCard(color, origin, destination, index === undefined);
+			incomingCard = color;
+			handReflowing = true;
+			await tick();
+			await pause(280);
+			handReflowing = false;
+			const button = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
+			if (origin && button) {
+				const destination = { ...paperPose(button), count: viewer.hand[color] };
+				await launchCard(color, origin, destination, index === undefined);
+			}
 			heldHand = undefined;
+			incomingCard = undefined;
+			await tick();
+			flights = [];
+
 			if (index !== undefined) await settleMarket(nextMarket, index, replacement);
 		} finally {
 			departingMarketId = undefined;
+			incomingCard = undefined;
+			handReflowing = false;
+			flights = [];
 			heldHand = undefined;
 			busy = false;
 		}
@@ -399,19 +421,20 @@
 			...Array<CardColor>(payment.cars).fill(payment.color),
 			...Array<CardColor>(payment.wilds).fill('locomotive'),
 		];
-		const anchors = [...document.querySelectorAll(`[data-route-marker="${route.id}"]`)];
-		const routeBounds = cardRect(document.getElementById(`route-${route.id}`));
-		const cards = colors.flatMap((color, i) => {
-			const from = cardRect(document.querySelector(`[data-hand-color="${color}"]`));
-			const to = cardRect(anchors[i] ?? null) ?? routeBounds;
-			return from && to ? [{ color, from, to }] : [];
-		});
 		try {
-			if (!reduceMotion && cards.length) {
-				claimFlight = { cards, playerColor: playerColors[viewer!.color] };
-				await new Promise<void>(resolve => {
-					finishClaimFlight = resolve;
+			if (!reduceMotion) {
+				const svg = document.querySelector<SVGSVGElement>('svg.board');
+				const sprites = svg ? await carriageSprites(route, viewer!.color, svg) : [];
+				const cards = colors.flatMap((color, i) => {
+					const element = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
+					return element && sprites[i] ? [{ color, from: paperPose(element), train: sprites[i]! }] : [];
 				});
+				if (cards.length) {
+					claimFlight = { cards, settled: false };
+					await new Promise<void>(resolve => {
+						finishClaimFlight = resolve;
+					});
+				}
 			}
 			if (
 				(await send({
@@ -423,6 +446,10 @@
 			)
 				return;
 			await tick();
+			if (claimFlight) {
+				claimFlight.settled = true;
+				await pause(240);
+			}
 			pinnedCard = undefined;
 			hoveredCard = undefined;
 			hoveredRoute = undefined;
@@ -464,32 +491,30 @@
 		const ids = [...selectedTickets];
 		const sheet = document.querySelector<HTMLElement>('.ticket-selection-sheet');
 		if (sheet) frozenTicketSheet = { top: sheet.offsetTop, left: sheet.offsetLeft, width: sheet.offsetWidth };
+		const sources = ids.map(id => {
+			const element = document.querySelector<HTMLElement>(`[data-offer-ticket="${id}"]`);
+			return { id, element, from: element ? paperPose(element) : undefined };
+		});
+		closingTickets = true;
+		previewTicketId = undefined;
 		keptTicketIds = ids;
 		ticketsLanded = false;
 		await tick();
+		await pause(360);
 		if (ticketCollection) ticketAreaHeight = ticketCollection.clientHeight;
 		await tick();
 		const destination = cardRect(ticketCollection ?? null);
 		try {
 			if (!reduceMotion && destination) {
 				await Promise.all(
-					ids.map(async (id, i) => {
-						const element = document.querySelector<HTMLElement>(`[data-offer-ticket="${id}"]`);
-						if (!element) return;
-						const from = element.getBoundingClientRect();
-						const target = cardRect(document.querySelector(`[data-held-ticket="${id}"]`)) ?? destination;
-						const y = target.y;
-						const motion = element.animate(
-							[
-								{ transform: 'translate(0,0) rotate(0)', opacity: 1 },
-								{
-									transform: `translate(${target.x - from.x}px,${y - from.y}px) rotate(-2deg) scale(${target.width / from.width},${target.height / from.height})`,
-									opacity: 1,
-								},
-							],
-							{ duration: 500, delay: i * 120, easing: 'cubic-bezier(.22,.7,.25,1)', fill: 'forwards' },
-						);
-						await motion.finished;
+					sources.map(async ({ id, element, from }, i) => {
+						const target = document.querySelector<HTMLElement>(`[data-held-ticket="${id}"]`);
+						const ticket = ticketById.get(id);
+						if (!element || !from || !target || !ticket) return;
+						const flightId = ++nextFlightId;
+						flights = [...flights, { id: flightId, ticket, from, to: paperPose(target), delay: i * 120 }];
+						element.style.visibility = 'hidden';
+						await new Promise<void>(resolve => flightResolvers.set(flightId, resolve));
 					}),
 				);
 			}
@@ -499,6 +524,7 @@
 				if (element) element.style.visibility = 'hidden';
 			}
 			await tick();
+			flights = [];
 			await pause(100);
 			if ((await send({ type: 'keep-tickets', ticketIds: ids })) === false) {
 				for (const id of ids) {
@@ -514,6 +540,7 @@
 			closingTickets = true;
 			await pause(320);
 		} finally {
+			flights = [];
 			closingTickets = false;
 			frozenTicketSheet = undefined;
 			keptTicketIds = [];
@@ -524,7 +551,11 @@
 	}
 </script>
 
-<main class="game-shell" class:choosing-tickets={Boolean(ticketSelection)} class:reduced-motion={reduceMotion}>
+<main
+	class="game-shell"
+	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
+	class:reduced-motion={reduceMotion}
+>
 	<header class="table-header">
 		<div class="identity"><Brand compact /><span class="map-edition">Classic USA</span></div>
 		<div class="players" aria-label="Players" style:--players={gameState.players.length}>
@@ -570,13 +601,16 @@
 					? `${gameState.finalRound.turnsRemaining} ${gameState.finalRound.turnsRemaining === 1 ? 'turn' : 'turns'} remaining`
 					: undefined}
 		/>
-		{#if completedIds.size > 0}<button
-				class="ticket-filter"
-				aria-label={ticketFilter === 'all' ? 'Show unfinished tickets' : 'Show all tickets'}
-				aria-pressed={ticketFilter === 'unfinished'}
-				onclick={() => (ticketFilter = ticketFilter === 'all' ? 'unfinished' : 'all')}
-				>{ticketFilter === 'all' ? 'Unfinished' : 'All tickets'}</button
-			>{/if}
+		<button
+			style:visibility={completedIds.size ? undefined : 'hidden'}
+			aria-hidden={!completedIds.size}
+			disabled={!completedIds.size}
+			class="ticket-filter"
+			aria-label={ticketFilter === 'all' ? 'Show unfinished tickets' : 'Show all tickets'}
+			aria-pressed={ticketFilter === 'unfinished'}
+			onclick={() => (ticketFilter = ticketFilter === 'all' ? 'unfinished' : 'all')}
+			>{ticketFilter === 'all' ? 'Unfinished' : 'All tickets'}</button
+		>
 		<div
 			class="ticket-collection"
 			class:empty={visibleTickets.length === 0}
@@ -661,7 +695,11 @@
 			onselect={selectRoute}
 			onhover={route => (hoveredRoute = route)}
 			{eligibleRouteIds}
+			cardColor={activeCard}
 			{routeHints}
+			routeNotice={turnReady && hoveredRoute && handNotice
+				? { routeId: hoveredRoute.id, text: handNotice, insufficient: !hoverInfo?.ok }
+				: undefined}
 			{rejectedRouteId}
 			{rejectionKey}
 		/>
@@ -685,24 +723,15 @@
 
 	<footer class="play-tray">
 		<section class="hand-panel" aria-label="Your train cards">
-			{#if handNotice}<svg
-					class="hand-notice"
-					viewBox="0 0 500 64"
-					aria-label={handNotice}
-					in:fly={{ y: 8, duration: motionDuration }}
-				>
-					<defs><path id="hand-notice-arc" d="M15,54 Q250,-12 485,54" /></defs>
-					<text class:insufficient={!hoverInfo?.ok}
-						><textPath href="#hand-notice-arc" startOffset="50%" text-anchor="middle">{handNotice}</textPath></text
-					>
-				</svg>{/if}
 			<div class="hand-scroll" bind:this={handScroll}>
-				<div class="hand-cards" style:--hand-count={handColors.length}>
+				<div class="hand-cards" class:reflowing={handReflowing} style:--hand-count={handColors.length}>
 					{#each handColors as card, index (card)}
 						<button
 							class="hand-card"
-							class:raised={(Boolean(hoveredRoute) && cardRelevant(card)) || pinnedCard === card}
-							class:dimmed={Boolean(hoveredRoute || activeCard) && !cardRelevant(card)}
+							class:raised={!busy && ((Boolean(hoveredRoute) && cardRelevant(card)) || pinnedCard === card)}
+							class:receiving={incomingCard === card && !displayHand?.[card]}
+							animate:flip={{ duration: motionDuration }}
+							class:dimmed={!busy && Boolean(hoveredRoute || activeCard) && !cardRelevant(card)}
 							aria-pressed={pinnedCard === card}
 							disabled={busy}
 							onpointerenter={() => (hoveredCard = card)}
@@ -718,7 +747,7 @@
 							tabindex="0"
 							aria-label={`${displayHand?.[card]} ${cardLabels[card]} ${card === 'locomotive' ? 'cards' : 'carriage cards'}`}
 							title={`${displayHand?.[card]} ${cardLabels[card]} cards`}
-							in:fly={{ y: 18, duration: motionDuration }}
+							in:fly={{ y: incomingCard === card ? 0 : 18, duration: incomingCard === card ? 0 : motionDuration }}
 						>
 							<TrainCard color={card} count={displayHand?.[card]} />
 						</button>
@@ -853,6 +882,7 @@
 		color-scheme: light;
 	}
 	.game-shell {
+		transition: grid-template-columns 320ms ease;
 		--ink: #20333d;
 		--muted: #787d71;
 		--paper: #f3efe4;
@@ -1122,6 +1152,12 @@
 			transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
 			filter 220ms;
 	}
+	.hand-card.receiving {
+		visibility: hidden;
+	}
+	.hand-cards.reflowing .hand-card {
+		transition: filter 220ms;
+	}
 	.hand-card:first-child {
 		margin-left: 0;
 	}
@@ -1129,12 +1165,12 @@
 		pointer-events: none;
 		transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	}
-	.hand-card:hover :global(.card-face),
+	.hand-card:not(:disabled):hover :global(.card-face),
 	.hand-card:focus-visible :global(.card-face),
 	.hand-card.raised :global(.card-face) {
 		transform: translateY(-18px) rotate(calc(-1 * var(--fan-angle))) scale(1.04);
 	}
-	.hand-card:hover,
+	.hand-card:not(:disabled):hover,
 	.hand-card:focus-visible {
 		filter: drop-shadow(6px 20px 11px #352b2260);
 		z-index: 20 !important;
@@ -1459,27 +1495,6 @@
 	.hand-card.dimmed {
 		filter: grayscale(0.9) saturate(0.2) brightness(0.7) drop-shadow(2px 8px 5px #352b2240);
 	}
-	.hand-notice {
-		position: absolute;
-		z-index: 30;
-		width: 100%;
-		height: 64px;
-		left: 0;
-		top: -38px;
-		overflow: visible;
-		pointer-events: none;
-	}
-	.hand-notice text {
-		font-size: 15px;
-		font-weight: 600;
-		fill: #314a43;
-		paint-order: stroke;
-		stroke: #fff7e7;
-		stroke-width: 4px;
-	}
-	.hand-notice .insufficient {
-		fill: #9c4337;
-	}
 	.market-card.departing {
 		visibility: hidden;
 	}
@@ -1559,6 +1574,7 @@
 
 	@media (min-width: 1400px) {
 		.game-shell {
+			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 108px minmax(380px, 1fr) 190px;
 		}
 		.hand-card {
@@ -1584,6 +1600,7 @@
 			gap: 12px;
 		}
 		.game-shell {
+			transition: grid-template-columns 320ms ease;
 			grid-template-columns: 224px minmax(0, 1fr);
 			padding-right: 16px;
 		}
@@ -1632,6 +1649,7 @@
 			padding-top: 20px;
 		}
 		.game-shell {
+			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 150px minmax(330px, 1fr) 170px;
 			min-height: 768px;
 		}
@@ -1650,6 +1668,7 @@
 	}
 	@media (max-width: 1100px) and (orientation: portrait) {
 		.game-shell {
+			transition: grid-template-columns 320ms ease;
 			grid-template-columns: 242px minmax(0, 1fr);
 			grid-template-rows: 150px 430px minmax(300px, 1fr);
 			min-height: 1024px;
