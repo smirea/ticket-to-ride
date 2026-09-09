@@ -20,10 +20,7 @@
 	aria-current={active ? 'true' : undefined}
 >
 	<div class="portrait">
-		<img src={playerPortraitAssets[player.color]} alt="" draggable="false" /><span
-			class="color-inlay"
-			aria-hidden="true"
-		></span>
+		<img src={playerPortraitAssets[player.color]} alt="" draggable="false" />
 	</div>
 	<div class="ledger">
 		<strong class="name" title={player.name}>{player.id === viewerId ? 'You' : player.name}</strong>
@@ -53,8 +50,12 @@
 		padding: 7px 8px 7px 7px;
 		border: 1px solid #9c8257;
 		border-radius: 10px 5px 9px 5px;
-		background: linear-gradient(115deg, #fff8e6, #e6d8b9);
-		color: #253b45;
+		background: linear-gradient(
+			115deg,
+			color-mix(in srgb, var(--player-color) 78%, #342d28),
+			color-mix(in srgb, var(--player-color) 65%, #231e20)
+		);
+		color: #fff3d6;
 		box-shadow:
 			inset 0 0 0 2px #e9d2a6,
 			inset 0 0 0 3px #96774988,
@@ -109,13 +110,6 @@
 		object-position: 50% 32%;
 		transform: scale(1.08);
 	}
-	.color-inlay {
-		position: absolute;
-		inset: auto 0 0;
-		height: 5px;
-		background: var(--player-color);
-		box-shadow: 0 -1px #f2dbac;
-	}
 	.ledger {
 		min-width: 0;
 		display: grid;
@@ -128,7 +122,7 @@
 		font:
 			700 15px/22px Georgia,
 			serif;
-		border-bottom: 1px solid #96794d4d;
+		border-bottom: 1px solid #ead5a33d;
 	}
 	.active .name {
 		border-color: #ead5a33d;
@@ -151,7 +145,7 @@
 		flex-shrink: 0;
 	}
 	.trains {
-		border-top: 1px solid #96794d33;
+		border-top: 1px solid #ead5a32e;
 	}
 	.active .trains {
 		border-color: #ead5a32e;

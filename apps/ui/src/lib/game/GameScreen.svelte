@@ -32,6 +32,7 @@
 	import { paperPose, type PaperPose } from './paper-pose';
 	import DestinationCard from './DestinationCard.svelte';
 	import TableStatus from './TableStatus.svelte';
+	import RouteScoring from './RouteScoring.svelte';
 	import PlayerPlaque from './PlayerPlaque.svelte';
 	import TicketSelection from './TicketSelection.svelte';
 	import ClaimFlight from './ClaimFlight.svelte';
@@ -682,6 +683,7 @@
 				><TicketIcon size={25} /><span>Draw tickets</span></button
 			>
 		{/if}
+		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
 
 	<section class="board-stage" aria-label="Game board">
@@ -692,6 +694,9 @@
 			{highlightedTicket}
 			ambientMotion={ambientMotion && !reduceMotion}
 			disabled={!turnReady}
+			disabledReason={!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 1
+				? 'Draw one more card first'
+				: undefined}
 			onselect={selectRoute}
 			onhover={route => (hoveredRoute = route)}
 			{eligibleRouteIds}
@@ -746,7 +751,6 @@
 							style:z-index={index + 1}
 							tabindex="0"
 							aria-label={`${displayHand?.[card]} ${cardLabels[card]} ${card === 'locomotive' ? 'cards' : 'carriage cards'}`}
-							title={`${displayHand?.[card]} ${cardLabels[card]} cards`}
 							in:fly={{ y: incomingCard === card ? 0 : 18, duration: incomingCard === card ? 0 : motionDuration }}
 						>
 							<TrainCard color={card} count={displayHand?.[card]} />
@@ -1002,6 +1006,13 @@
 	.journey-sidebar > * {
 		pointer-events: auto;
 	}
+	.route-scoring-reference {
+		width: 196px;
+		max-width: calc(100% - 40px);
+		margin: auto 0 0 16px;
+		padding-top: 20px;
+		flex-shrink: 0;
+	}
 	.ticket-filter {
 		align-self: start;
 		margin: 10px 0 0 25px;
@@ -1073,6 +1084,7 @@
 		clip-path: inset(50%);
 	}
 	.draw-tickets {
+		flex-shrink: 0;
 		align-self: start;
 		display: flex;
 		align-items: center;
@@ -1110,6 +1122,7 @@
 		overflow: visible;
 	}
 	.play-tray {
+		pointer-events: none;
 		grid-column: 2;
 		grid-row: 3;
 		display: grid;
@@ -1126,8 +1139,7 @@
 		margin-top: -18px;
 	}
 	.hand-scroll {
-		overflow-x: auto;
-		overflow-y: hidden;
+		overflow: visible;
 		padding: 40px 12px 30px;
 		scrollbar-width: thin;
 		scrollbar-color: #99876c55 transparent;
@@ -1140,6 +1152,7 @@
 		padding: 4px 20px 0 24px;
 	}
 	.hand-card {
+		pointer-events: auto;
 		position: relative;
 		width: 92px;
 		height: 132px;
@@ -1176,6 +1189,7 @@
 		z-index: 20 !important;
 	}
 	.market {
+		pointer-events: auto;
 		position: relative;
 		min-width: 0;
 		padding: 10px 11px 12px;

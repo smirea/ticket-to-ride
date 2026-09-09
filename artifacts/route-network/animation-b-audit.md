@@ -20,3 +20,21 @@ Browser-only Ticket stamp fixture, SF–LA three purple. Captured 27 consecutive
 Two findings sent to root: cream roofs dominated both flying and preexisting claimed train models, weakening player color; a stale “not enough to claim” hint remained after the claim during Maya’s turn. Root reports the hint fixed and model tilt/material correction underway; these evidence frames precede those follow-up corrections. HMR subsequently reset the debug fixture.
 
 Evidence: animation-b-claim-model-morph.png, animation-b-claim-model-landing.png, animation-b-claim-model-handoff.png, animation-b-claim-model-final.png.
+
+## Actual pointer route audit
+
+Current dev6090, all route activations below used actual tab.click coordinates, not keyboard. Claim scenario SF–LA purple center [380,732], SF-end [342,683], and LA-end [434,773] each succeeded after fixture reset: 0→4 points,45→42 trains,purple3→0. Full table LA–Phoenix gray center [595,789] opened payment chooser.
+
+Regular new single-player: Vancouver–Seattle [401,255] opened chooser; switching to Seattle–Portland [375,326] first only dismissed old chooser, second same click opened new chooser. Reported to root as concrete two-click switching issue. Pinning Black hand card first did not prevent gray chooser opening. After first Yellow draw, banner “Draw one more card” and routes disabled; [401,255] correctly did nothing but no supplementary feedback. Evidence pointer-b-draw-one-gated.png. Browser inventory contained only QA game tabs, so user’s exact session was unavailable.
+
+Zoom attempts were inconclusive during active HMR/layout edits; no reliable zoomed-route assertion yet.
+
+## Pointer fixes retest
+
+One-click route switching now passes: Vancouver–Seattle [401,265] then Seattle–Portland [375,337], choose black, claims Seattle–Portland and deducts Black4→3,45→44 trains,0→1 points. First-draw route click now shows “Draw one more card first”; evidence pointer-b-draw-notice-fixed.png.
+
+Confirmed separate zoom bug using read-only DOM geometry: Zoom in rect x334.53,y871.67,w39.65,h38.52. elementFromPoint at its center returns .hand-scroll, not button. Hand-scroll starts y870.27 with40px transparent top padding (hand-cards starts910.27); map toolbar y870.34–912.70. Pointer-events:auto on padding intercepts entire toolbar. Reported root; awaiting fix to verify zoomed routes.
+
+## Hand padding fix verified
+
+After HMR, zoom center elementFromPoint returns button. Actual [354,891] increases board width2015.55→2519.43px and enables Zoom out. With full hand and1.25x zoom, lower-edge LA–Phoenix [685,889] opens chooser; SF–LA center [424,803] switches chooser. Independent Full table reset then SF–LA first marker [370,755] completes claim (4pt,42trains,31cards). Read-only DOM confirms endpoint hits marker-anchor rect. Evidence pointer-b-zoom-fixed.png. No remaining failure in requested pointer set.
