@@ -19,6 +19,8 @@
 		savePlayerProfile,
 	} from '$lib/multiplayer-client';
 	import { onMount } from 'svelte';
+	import { slide } from 'svelte/transition';
+	let reduceMotion = $state(false);
 
 	type Mode = 'create' | 'join';
 
@@ -41,6 +43,7 @@
 	let error = $state('');
 
 	onMount(async () => {
+		reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const profile = loadPlayerProfile();
 		if (profile) {
 			name = profile.name;
@@ -111,14 +114,7 @@
 	<section class="intro" aria-labelledby="lobby-title">
 		<p class="eyebrow">Private multiplayer</p>
 		<h1 id="lobby-title">Meet at the station.</h1>
-		<p class="intro-copy">
-			Start a private room, send the code to your friends, and race across the same classic USA board together.
-		</p>
-		<ul aria-label="Multiplayer features">
-			<li><strong>2–5</strong><span>players</span></li>
-			<li><strong>Live</strong><span>turns</span></li>
-			<li><strong>Private</strong><span>room code</span></li>
-		</ul>
+		<p class="intro-copy">A private table for 2–5 travelers. Share the code and set off together.</p>
 		<img
 			class="travel-art"
 			src="/game-assets/atlas/tickets/chicago-santa-fe.webp"
@@ -136,7 +132,7 @@
 				<div>
 					<span>Your current journey</span>
 					<strong>Room {currentRoom.code}</strong>
-					<small>{currentRoom.players.length} players · {currentRoom.phase}</small>
+					<small>{currentRoom.players.length} {currentRoom.players.length === 1 ? 'player' : 'players'}</small>
 				</div>
 				<a href={roomPageUrl(currentRoom.code)}>Resume <span aria-hidden="true">→</span></a>
 			</div>
@@ -174,7 +170,7 @@
 				</div>
 
 				{#if mode === 'join'}
-					<label class="field code-field">
+					<label class="field code-field" transition:slide={{ duration: reduceMotion ? 0 : 220 }}>
 						<span>Room code</span>
 						<input
 							type="text"
@@ -217,7 +213,7 @@
 				</fieldset>
 
 				{#if mode === 'create'}
-					<label class="field">
+					<label class="field" transition:slide={{ duration: reduceMotion ? 0 : 220 }}>
 						<span>Table size</span>
 						<select bind:value={maxPlayers} name="max-players">
 							<option value={2}>2 players</option>
@@ -228,7 +224,9 @@
 					</label>
 				{/if}
 
-				{#if error}<p class="error" role="alert">{error}</p>{/if}
+				{#if error}<p class="error" role="alert" transition:slide={{ duration: reduceMotion ? 0 : 160 }}>
+						{error}
+					</p>{/if}
 
 				<button class="submit" type="submit" disabled={busy || Boolean(currentRoom)}>
 					{busy ? 'Contacting station…' : mode === 'create' ? 'Create private room' : 'Join room'}
@@ -248,7 +246,7 @@
 		display: grid;
 		grid-template: auto 1fr / minmax(0, 1fr) minmax(0, 1fr);
 		min-height: 100svh;
-		background: #f7f3e9;
+		background: radial-gradient(ellipse at 45% 35%, #fffdf5, #eee8d9);
 		color: #142d3e;
 	}
 	header {
@@ -299,27 +297,6 @@
 		font-size: 0.93rem;
 		line-height: 1.75;
 	}
-	.intro ul {
-		display: flex;
-		gap: 2.5rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-	.intro li {
-		display: grid;
-		gap: 0.3rem;
-	}
-	.intro li strong {
-		font-family: Georgia, serif;
-		font-size: 1.2rem;
-	}
-	.intro li span {
-		color: #647077;
-		font-size: 0.62rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
 	.travel-art {
 		display: block;
 		width: 100%;
@@ -327,7 +304,12 @@
 		object-fit: cover;
 		margin-top: 2rem;
 		border: 6px solid #fffdf7;
-		box-shadow: 0 4px 18px #75613f1a;
+		transform: rotate(-2deg);
+		box-shadow:
+			0 2px 0 #c4b28e,
+			0 7px 9px #57401f24,
+			0 20px 28px #57401f12;
+		animation: paper-arrive 600ms ease-out both;
 	}
 	.entry {
 		align-self: center;
@@ -342,10 +324,15 @@
 		gap: 1rem;
 		min-height: 5.4rem;
 		margin-bottom: 1rem;
-		border: 1px solid #c7d2c5;
+		border: 1px solid #bca67c;
 		border-radius: 0.5rem;
 		padding: 1rem;
-		background: #edf2e8;
+		background: #f5edcf;
+		transform: rotate(-0.7deg);
+		box-shadow:
+			inset 0 0 0 3px #fff9e780,
+			0 3px 0 #b7a17b,
+			0 8px 12px #57401f20;
 	}
 	.resume div {
 		display: grid;
@@ -372,10 +359,15 @@
 		background: #eee8dc;
 	}
 	.entry-card {
-		border: 1px solid #d8d0bf;
-		border-radius: 0.6rem;
-		background: #fffcf5;
-		box-shadow: 0 12px 35px #75613f12;
+		border: 1px solid #bca67c;
+		border-radius: 4px 7px 5px 3px;
+		background: #f7eed9;
+		box-shadow:
+			inset 0 0 0 3px #fff9e780,
+			0 3px 0 #b7a17b,
+			0 9px 13px #57401f20,
+			0 25px 35px #57401f0d;
+		animation: paper-arrive 550ms ease-out both;
 	}
 	.mode-tabs {
 		display: grid;
@@ -564,7 +556,21 @@
 		color: #647077;
 		text-align: center;
 	}
+	@keyframes paper-arrive {
+		from {
+			opacity: 0;
+			translate: 0 28px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
 	@media (prefers-reduced-motion: reduce) {
+		.entry-card,
+		.travel-art {
+			animation: none;
+		}
 		.submit {
 			transition: none;
 		}

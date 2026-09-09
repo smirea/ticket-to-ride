@@ -1,15 +1,16 @@
 export type PaperPose = { x: number; y: number; width: number; height: number; angle?: number; count?: number };
 
 export function paperPose(element: HTMLElement): PaperPose {
-	let angle = 0;
+	let matrix = new DOMMatrixReadOnly();
 	for (let node: HTMLElement | null = element; node; node = node.parentElement) {
 		const transform = getComputedStyle(node).transform;
 		if (transform !== 'none') {
-			const matrix = new DOMMatrixReadOnly(transform);
-			angle += Math.atan2(matrix.b, matrix.a);
+			matrix = new DOMMatrixReadOnly(transform).multiply(matrix);
 		}
 	}
-	const { width, height } = { width: element.offsetWidth, height: element.offsetHeight };
+	const angle = Math.atan2(matrix.b, matrix.a);
+	const width = element.offsetWidth * Math.hypot(matrix.a, matrix.b);
+	const height = element.offsetHeight * Math.hypot(matrix.c, matrix.d);
 	const bounds = element.getBoundingClientRect();
 	const corners = [
 		[0, 0],

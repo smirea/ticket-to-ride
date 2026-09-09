@@ -36,7 +36,7 @@
 	import PlayerPlaque from './PlayerPlaque.svelte';
 	import TicketSelection from './TicketSelection.svelte';
 	import ClaimFlight from './ClaimFlight.svelte';
-	import { carriageSprites, type CarriageSprite } from './board/carriage-sprites';
+	import type { CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
 
 	type Props = {
@@ -76,6 +76,7 @@
 	let preferencesLoaded = $state(false);
 	const preferencesKey = 'ticket-to-travel:preferences:v1';
 	let dialog = $state<HTMLDialogElement>();
+	let board = $state<ReturnType<typeof GameBoard>>();
 	let dialogTrigger: HTMLElement | null = null;
 	let resultsDismissed = $state(false);
 	let ticketFilter = $state<'all' | 'unfinished'>('all');
@@ -97,6 +98,7 @@
 	let flights = $state<Flight[]>([]);
 	let nextFlightId = 0;
 	let busy = $state(false);
+	let actionInFlight = $state<string>();
 	let hoveredRoute = $state<Route>();
 	let hoveredCard = $state<CardColor>();
 	let pinnedCard = $state<CardColor>();
@@ -112,10 +114,12 @@
 	let marketCards = $state<{ id: number; color: CardColor }[]>([]);
 	let marketSerial = 0;
 	let marketReady = false;
+	let marketHistoryLength = 0;
 	let marketAnimating = $state(false);
 	let departingMarketId = $state<number>();
 	let claimFlight = $state<{
-		cards: { color: CardColor; from: CardRect; train: CarriageSprite }[];
+		cards: { color: CardColor; from: CardRect }[];
+		loadSprites: () => Promise<CarriageSprite[]>;
 		settled: boolean;
 	}>();
 	let finishClaimFlight: (() => void) | undefined;
@@ -163,11 +167,13 @@
 	const finalResults = $derived(gameState.finalResults ?? []);
 	const showResults = $derived(gameState.phase.type === 'game-over' && !resultsDismissed);
 	const panel = $derived(settingsOpen ? 'settings' : showResults ? 'results' : null);
+	let visiblePanel = $state<'settings' | 'results' | null>(null);
+	let panelClosing = $state(false);
 	const recentLog = $derived(gameState.log.slice(-20).toReversed());
 	const motionDuration = $derived(reduceMotion ? 0 : 260);
 	const ticketStep = $derived(
 		Math.max(
-			ticketSelection && !closingTickets ? 8 : 30,
+			ticketSelection && !closingTickets ? 26 : 30,
 			Math.min(92, (ticketAreaHeight - 100) / Math.max(1, visibleTickets.length - 1)),
 		),
 	);
@@ -226,13 +232,41 @@
 	});
 	$effect(() => {
 		if (!dialog) return;
-		if (panel && !dialog.open) {
-			dialogTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-			dialog.showModal();
-		} else if (!panel && dialog.open) {
-			dialog.close();
-			dialogTrigger?.focus();
+		const element = dialog;
+		let motion: Animation | undefined;
+		if (panel) {
+			visiblePanel = panel;
+			panelClosing = false;
+			if (!element.open) {
+				dialogTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+				element.showModal();
+				motion = element.animate(
+					[
+						{ opacity: 0, transform: 'translateX(50px) rotate(1deg)' },
+						{ opacity: 1, transform: 'translateX(0) rotate(-.4deg)' },
+					],
+					{ duration: motionDuration, easing: 'cubic-bezier(.2,.8,.2,1)' },
+				);
+			}
+		} else if (element.open) {
+			panelClosing = true;
+			motion = element.animate(
+				[
+					{ opacity: 1, transform: 'translateX(0) rotate(-.4deg)' },
+					{ opacity: 0, transform: 'translateX(35px) rotate(.5deg)' },
+				],
+				{ duration: reduceMotion ? 0 : 180, easing: 'ease-in', fill: 'forwards' },
+			);
+			void motion.finished
+				.then(() => {
+					element.close();
+					visiblePanel = null;
+					panelClosing = false;
+					dialogTrigger?.focus();
+				})
+				.catch(() => {});
 		}
+		return () => motion?.cancel();
 	});
 
 	function cardRect(element: Element | null): CardRect | undefined {
@@ -250,7 +284,7 @@
 		flightResolvers.get(id)?.();
 		flightResolvers.delete(id);
 	}
-	async function settleMarket(target: CardColor[], removedIndex?: number, replacement?: CardColor) {
+	async function settleMarket(target: CardColor[], removedIndex?: number) {
 		marketAnimating = true;
 		try {
 			if (removedIndex === undefined && marketCards.length === 5) {
@@ -266,8 +300,8 @@
 			const survivors = marketCards.map(card => card.color);
 			const samePrefix = survivors.every((color, i) => color === target[i]);
 			if (!samePrefix) {
-				if (replacement === 'locomotive' && survivors.filter(color => color === 'locomotive').length >= 2) {
-					marketCards = [...marketCards, { id: ++marketSerial, color: replacement }];
+				if (survivors.length === 4 && survivors.filter(color => color === 'locomotive').length === 2) {
+					marketCards = [...marketCards, { id: ++marketSerial, color: 'locomotive' }];
 					await pause(320);
 				}
 				marketCards = [];
@@ -285,22 +319,28 @@
 	}
 	$effect(() => {
 		const target = [...gameState.faceUpTrainCards];
+		const history = gameState.history;
 		const locked = busy || marketAnimating;
 		untrack(() => {
 			if (!marketReady) {
 				marketReady = true;
+				marketHistoryLength = history.length;
 				marketCards = target.map(color => ({ id: ++marketSerial, color }));
-			} else if (!locked && !marketAnimating && target.join() !== marketCards.map(card => card.color).join()) {
-				void settleMarket(target);
+			} else if (!locked) {
+				const action = history.length === marketHistoryLength + 1 ? history.at(-1) : undefined;
+				marketHistoryLength = history.length;
+				if (target.join() !== marketCards.map(card => card.color).join()) {
+					void settleMarket(target, action?.type === 'draw-face-up' ? action.index : undefined);
+				}
 			}
 		});
 	});
 	async function drawCard(event: MouseEvent, index?: number) {
 		if (busy || marketAnimating || !viewer || !isViewerTurn) return;
 		busy = true;
+		actionInFlight = 'Drawing a card';
 		const before = { ...viewer.hand };
 		const origin = paperPose(event.currentTarget as HTMLElement);
-		const replacement = gameState.trainDeck.at(-1);
 		heldHand = before;
 		if (index !== undefined) departingMarketId = marketCards[index]?.id;
 		try {
@@ -325,7 +365,7 @@
 			await tick();
 			flights = [];
 
-			if (index !== undefined) await settleMarket(nextMarket, index, replacement);
+			if (index !== undefined) await settleMarket(nextMarket, index);
 		} finally {
 			departingMarketId = undefined;
 			incomingCard = undefined;
@@ -333,6 +373,7 @@
 			flights = [];
 			heldHand = undefined;
 			busy = false;
+			actionInFlight = undefined;
 		}
 	}
 
@@ -393,6 +434,7 @@
 	}
 	function describeTurn() {
 		if (gameState.phase.type === 'game-over') return 'Journey complete';
+		if (actionInFlight && activePlayer?.id === viewerId) return actionInFlight;
 		if (ticketSelection) return 'Choose your tickets';
 		if (gameState.phase.type === 'ticket-selection') {
 			const choosing = gameState.players.find(
@@ -422,6 +464,7 @@
 	async function claimRoute(route: Route, payment: Payment) {
 		if (!turnReady || !canClaimRoute(gameState, viewerId, route.id, payment.color, payment.wilds).ok) return;
 		busy = true;
+		actionInFlight = 'Placing trains';
 		paymentRoute = undefined;
 		selectedRouteId = route.id;
 		const colors: CardColor[] = [
@@ -430,14 +473,21 @@
 		];
 		try {
 			if (!reduceMotion) {
-				const svg = document.querySelector<SVGSVGElement>('svg.board');
-				const sprites = svg ? await carriageSprites(route, viewer!.color, svg) : [];
-				const cards = colors.flatMap((color, i) => {
+				const playerColor = viewer!.color;
+				const cards = colors.flatMap(color => {
 					const element = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
-					return element && sprites[i] ? [{ color, from: paperPose(element), train: sprites[i]! }] : [];
+					return element
+						? [{ color, from: paperPose(element.querySelector<HTMLElement>('.card-face') ?? element) }]
+						: [];
 				});
 				if (cards.length) {
-					claimFlight = { cards, settled: false };
+					heldHand = { ...viewer!.hand };
+					for (const color of colors) heldHand[color] = (heldHand[color] ?? 0) - 1;
+					claimFlight = {
+						cards,
+						loadSprites: async () => (await board?.claimSprites(route, playerColor)) ?? [],
+						settled: false,
+					};
 					await new Promise<void>(resolve => {
 						finishClaimFlight = resolve;
 					});
@@ -462,7 +512,9 @@
 			hoveredRoute = undefined;
 		} finally {
 			claimFlight = undefined;
+			heldHand = undefined;
 			busy = false;
+			actionInFlight = undefined;
 			selectedRouteId = undefined;
 		}
 	}
@@ -495,6 +547,7 @@
 	async function keepTickets() {
 		if (!ticketSelection || selectedTickets.length < ticketSelection.minimum || busy) return;
 		busy = true;
+		actionInFlight = 'Keeping tickets';
 		const ids = [...selectedTickets];
 		const sheet = document.querySelector<HTMLElement>('.ticket-selection-sheet');
 		if (sheet) frozenTicketSheet = { top: sheet.offsetTop, left: sheet.offsetLeft, width: sheet.offsetWidth };
@@ -554,6 +607,7 @@
 			ticketsLanded = false;
 			previewTicketId = undefined;
 			busy = false;
+			actionInFlight = undefined;
 		}
 	}
 </script>
@@ -694,6 +748,7 @@
 
 	<section class="board-stage" aria-label="Game board">
 		<GameBoard
+			bind:this={board}
 			state={gameState}
 			{viewerId}
 			{selectedRouteId}
@@ -814,17 +869,23 @@
 			</div>
 		</aside>{/if}
 
-	<dialog bind:this={dialog} oncancel={cancelDialog} class="decision-dialog" aria-labelledby="decision-title">
-		{#if panel}
+	<dialog
+		bind:this={dialog}
+		oncancel={cancelDialog}
+		class="decision-dialog"
+		class:closing={panelClosing}
+		aria-labelledby="decision-title"
+	>
+		{#if visiblePanel}
 			<header class="dialog-heading">
 				<div>
 					<h2 id="decision-title">
-						{panel === 'results' ? 'The final standings' : 'Settings'}
+						{visiblePanel === 'results' ? 'The final standings' : 'Settings'}
 					</h2>
 				</div>
 				<button onclick={closePanel} aria-label="Close panel"><XIcon size={22} /></button>
 			</header>
-			{#if panel === 'settings'}
+			{#if visiblePanel === 'settings'}
 				<div class="settings-list">
 					<label
 						><span><strong>Living atlas</strong><small>Gentle water and wind in the trees</small></span><input
@@ -853,7 +914,7 @@
 						onclick={closePanel}>Resume</button
 					>
 				</footer>
-			{:else if panel === 'results'}
+			{:else if visiblePanel === 'results'}
 				<div class="standings">
 					{#each finalResults as result}{@const player = gameState.players.find(
 							player => player.id === result.playerId,
@@ -1334,14 +1395,28 @@
 		max-height: calc(100svh - 32px);
 		overflow-y: auto;
 		padding: 25px;
-		border: 1px solid #cfc3a9;
-		border-radius: 12px;
-		background: #faf6eb;
+		border: 1px solid #b09b71;
+		border-radius: 5px 8px 4px 5px;
+		background: #f7eed9;
+		transform: rotate(-0.4deg);
 		color: var(--ink);
-		box-shadow: 0 16px 70px #12262c47;
+		box-shadow:
+			inset 0 0 0 3px #fff9e799,
+			0 3px 0 #a99168,
+			0 10px 18px #3b2c2540,
+			0 30px 55px #3b2c2526;
 	}
 	.decision-dialog::backdrop {
 		background: #182f3724;
+		transition: background 180ms;
+	}
+	.decision-dialog.closing::backdrop {
+		background: transparent;
+	}
+	@starting-style {
+		.decision-dialog[open]::backdrop {
+			background: transparent;
+		}
 	}
 	.dialog-heading {
 		display: flex;
