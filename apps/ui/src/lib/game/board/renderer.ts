@@ -1,22 +1,17 @@
-import { carriageGeometries } from './carriage';
+import {
+	carriageMatrix,
+	carriageModelForColor,
+	loadCarriageModels,
+	makeCarriageGeometry,
+	makeCarriageMaterial,
+} from './carriage';
 import { atlasPoint } from './atlas-warp';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { GameState, RouteId } from '@repo/shared';
-import {
-	cities,
-	cityPoint,
-	isLand,
-	playerColors,
-	routeGeometry,
-	routePoint,
-	routeMarkerT,
-	routeMarkerLength,
-	routes,
-	terrainHeight,
-} from './layout';
+import { cities, cityPoint, isLand, playerColors, routeGeometry, routePoint, routes, terrainHeight } from './layout';
 
-function makeCamera() {
+export function makeCamera() {
 	const camera = new THREE.OrthographicCamera(-500, 500, 298, -298, 0.1, 3000);
 	camera.position.set(-500, -130, 1500);
 	camera.up.set(0, -1, 0);
@@ -90,7 +85,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		interactionMotion = { value: 1 };
 	let resolveTexture!: () => void;
 	let rejectTexture!: (error: unknown) => void;
-	const ready = new Promise<void>((resolve, reject) => {
+	const textureReady = new Promise<void>((resolve, reject) => {
 		resolveTexture = resolve;
 		rejectTexture = reject;
 	});
@@ -211,107 +206,70 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 	});
 	trees.castShadow = true;
 	scene.add(trees);
-	const segmentCount = routes.reduce((count, route) => count + route.length, 0);
-	const carriage = carriageGeometries();
-	const segments = new THREE.InstancedMesh(
-		carriage.paint,
-		new THREE.MeshStandardMaterial({
-			roughness: 0.38,
-			metalness: 0.15,
-			envMapIntensity: 0.35,
-		}),
-		segmentCount,
-	);
-	const roofs = new THREE.InstancedMesh(
-		carriage.ivory,
-		new THREE.MeshStandardMaterial({
-			color: '#f5dfad',
-			roughness: 0.55,
-			metalness: 0.18,
-		}),
-		segmentCount,
-	);
-	const ironwork = new THREE.InstancedMesh(
-		carriage.iron,
-		new THREE.MeshStandardMaterial({
-			color: '#202c30',
-			roughness: 0.6,
-			metalness: 0.25,
-		}),
-		segmentCount,
-	);
-	const carriageMeshes = [segments, roofs, ironwork];
-	for (const mesh of carriageMeshes) {
-		mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-		mesh.castShadow = true;
-		mesh.receiveShadow = true;
-		scene.add(mesh);
-	}
-	const rejectionStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
-	rejectionStarts.setUsage(THREE.DynamicDrawUsage);
-	for (const mesh of carriageMeshes) mesh.geometry.setAttribute('aRejectAt', rejectionStarts);
-	const claimStarts = new THREE.InstancedBufferAttribute(new Float32Array(segmentCount).fill(-100), 1);
-	claimStarts.setUsage(THREE.DynamicDrawUsage);
-	for (const mesh of carriageMeshes) mesh.geometry.setAttribute('aClaimAt', claimStarts);
-	for (const material of carriageMeshes.map(mesh => mesh.material))
-		material.onBeforeCompile = shader => {
-			shader.uniforms.uTime = time;
-			shader.uniforms.uInteractionMotion = interactionMotion;
-			shader.vertexShader =
-				'attribute float aClaimAt;attribute float aRejectAt;uniform float uTime;uniform float uInteractionMotion;\n' +
-				shader.vertexShader;
-			shader.vertexShader = shader.vertexShader.replace(
-				'#include <begin_vertex>',
-				`#include <begin_vertex>
-   float age=uTime-aClaimAt;float settle=clamp(age/.65,0.0,1.0);float lift=pow(1.0-settle,3.0)*1.6+sin(settle*9.0)*pow(1.0-settle,2.0)*.12;transformed.z+=lift*step(0.0,age)*step(age,.65)*uInteractionMotion;float rejectAge=uTime-aRejectAt;transformed.x+=sin(rejectAge*48.)*pow(1.-clamp(rejectAge/.5,0.,1.),2.)*.16*step(0.,rejectAge)*uInteractionMotion;`,
-			);
-		};
-
-	for (const mesh of carriageMeshes) mesh.material.customProgramCacheKey = () => 'atlas-carriage-settle-v1';
-	const routeIndexes = new Map<RouteId, number[]>();
-	let nextIndex = 0;
-	for (const route of routes) {
-		const indices: number[] = [];
-		for (let i = 0; i < route.length; i++) indices.push(nextIndex++);
-		routeIndexes.set(route.id, indices);
-	}
-	let currentState: GameState | undefined, selected: RouteId | undefined, hovered: RouteId | undefined;
-	let eligibleRoutes: Set<string> | undefined;
+	type CarriageBatch = {
+		mesh: THREE.InstancedMesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
+		rejections: THREE.InstancedBufferAttribute;
+		count: number;
+	};
+	const batches = new Map<string, CarriageBatch>();
+	let currentState: GameState | undefined;
 	let lastRejectionKey: number | undefined;
+	let rejectedRoute: string | undefined,
+		rejectedAt = -100;
+	const modelsReady = loadCarriageModels().then(models => {
+		if (disposed) return;
+		for (const [color, modelId] of Object.entries(carriageModelForColor)) {
+			const model = models.find(candidate => candidate.id === modelId);
+			if (!model) throw new Error(`Missing train model: ${modelId}`);
+			const geometry = makeCarriageGeometry(model, playerColors[color as keyof typeof playerColors]);
+			const rejections = new THREE.InstancedBufferAttribute(new Float32Array(45).fill(-100), 1);
+			rejections.setUsage(THREE.DynamicDrawUsage);
+			geometry.setAttribute('aRejectAt', rejections);
+			const material = makeCarriageMaterial();
+			material.onBeforeCompile = shader => {
+				shader.uniforms.uTime = time;
+				shader.uniforms.uInteractionMotion = interactionMotion;
+				shader.vertexShader =
+					'attribute float aRejectAt;uniform float uTime;uniform float uInteractionMotion;\n' + shader.vertexShader;
+				shader.vertexShader = shader.vertexShader.replace(
+					'#include <begin_vertex>',
+					`#include <begin_vertex>
+				float age=uTime-aRejectAt;transformed.x+=sin(age*48.)*pow(1.-clamp(age/.5,0.,1.),2.)*.006*step(0.,age)*uInteractionMotion;`,
+				);
+			};
+			material.customProgramCacheKey = () => 'printables-carriage-reject-v1';
+			const mesh = new THREE.InstancedMesh(geometry, material, 45);
+			mesh.count = 0;
+			mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+			mesh.frustumCulled = false;
+			scene.add(mesh);
+			batches.set(color, { mesh, rejections, count: 0 });
+		}
+		updateRoutes();
+	});
+	const ready = Promise.all([textureReady, modelsReady]).then(() => undefined);
 	function updateRoutes() {
-		if (!currentState) return;
+		if (!currentState || !batches.size) return;
 		const players = new Map(currentState.players.map(player => [player.id, player]));
+		for (const batch of batches.values()) batch.count = 0;
 		for (const route of routes) {
 			const owner = players.get(currentState.claimedRoutes[route.id]!);
-			const color = new THREE.Color(owner ? playerColors[owner.color] : '#888888');
-			if (!owner && eligibleRoutes && !eligibleRoutes.has(route.id)) color.lerp(new THREE.Color('#a9a397'), 0.86);
-			const active = route.id === selected || route.id === hovered;
-			const length = routeMarkerLength(route);
-			routeIndexes.get(route.id)!.forEach((index, i) => {
-				const t = routeMarkerT(route, i),
-					p = routePoint(route, t),
-					before = routePoint(route, Math.max(0, t - 0.01)),
-					after = routePoint(route, Math.min(1, t + 0.01));
-				const angle = Math.atan2(after.y - before.y, after.x - before.x);
-				const height = terrainHeight(p.x, p.y) + 0.8 + (active ? 0.4 : 0);
-				dummy.position.set(p.x, p.y, height);
-				dummy.rotation.set(
-					0,
-					-Math.atan2(
-						terrainHeight(after.x, after.y) - terrainHeight(before.x, before.y),
-						Math.hypot(after.x - before.x, after.y - before.y),
-					),
-					angle,
-					'ZYX',
-				);
-				dummy.scale.set(owner ? (length - 1.8) / 30 : 0, owner ? 1 : 0, owner ? 1 : 0);
-				dummy.updateMatrix();
-				for (const mesh of carriageMeshes) mesh.setMatrixAt(index, dummy.matrix);
-				segments.setColorAt(index, color.clone().lerp(new THREE.Color('#fff6c9'), active ? 0.15 : 0));
-			});
+			if (!owner) continue;
+			const batch = batches.get(owner.color)!;
+			for (let i = 0; i < route.length; i++) {
+				const index = batch.count++;
+				batch.mesh.setMatrixAt(index, carriageMatrix(route, i));
+
+				batch.rejections.setX(index, route.id === rejectedRoute ? rejectedAt : -100);
+			}
 		}
-		for (const mesh of carriageMeshes) mesh.instanceMatrix.needsUpdate = true;
-		segments.instanceColor!.needsUpdate = true;
+		for (const { mesh, count, rejections } of batches.values()) {
+			mesh.count = count;
+			mesh.instanceMatrix.needsUpdate = true;
+			rejections.needsUpdate = true;
+		}
 		renderer.shadowMap.needsUpdate = true;
 		render();
 	}
@@ -387,33 +345,19 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		ready,
 		update(
 			state: GameState,
-			selectedId?: RouteId,
-			hoveredId?: RouteId,
-			eligibleRouteIds?: string[],
+			_selectedId?: RouteId,
+			_hoveredId?: RouteId,
+			_eligibleRouteIds?: string[],
 			rejectedRouteId?: string,
 			rejectionKey?: number,
 		) {
-			eligibleRoutes = eligibleRouteIds ? new Set(eligibleRouteIds) : undefined;
 			if (rejectedRouteId && rejectionKey !== lastRejectionKey) {
 				lastRejectionKey = rejectionKey;
-				routeIndexes.get(rejectedRouteId)?.forEach(index => rejectionStarts.setX(index, performance.now() * 0.001));
-				rejectionStarts.needsUpdate = true;
+				rejectedRoute = rejectedRouteId;
+				rejectedAt = performance.now() * 0.001;
 				interactionUntil = performance.now() + 550;
 			}
-			if (currentState) {
-				for (const route of routes) {
-					if (state.claimedRoutes[route.id] && !currentState.claimedRoutes[route.id]) {
-						routeIndexes
-							.get(route.id)!
-							.forEach((index, i) => claimStarts.setX(index, performance.now() * 0.001 + i * 0.055));
-						claimStarts.needsUpdate = true;
-						interactionUntil = performance.now() + 1100;
-					}
-				}
-			}
 			currentState = state;
-			selected = selectedId;
-			hovered = hoveredId;
 			updateRoutes();
 			if (!frame && performance.now() < interactionUntil) syncAnimation();
 		},
@@ -434,6 +378,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 			const geometries = new Set<THREE.BufferGeometry>(),
 				materials = new Set<THREE.Material>();
 			scene.traverse(object => {
+				if (object instanceof THREE.InstancedMesh) object.dispose();
 				if (object instanceof THREE.Mesh || object instanceof THREE.Line) {
 					geometries.add(object.geometry);
 					for (const material of Array.isArray(object.material) ? object.material : [object.material])
