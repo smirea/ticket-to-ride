@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Brand from '$lib/game/Brand.svelte';
+	import GameText from '$lib/game/GameText.svelte';
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import { playerPortraitAssets } from '$lib/game/assets';
 	import { fly } from 'svelte/transition';
@@ -315,12 +316,14 @@
 				aria-live="polite"
 				transition:fly={{ y: -8, duration: 180 }}
 			>
-				{error ||
-					(pending === 'action'
-						? 'Sending your move…'
-						: connection === 'closed'
-							? notice || 'This room has closed.'
-							: `${connectionLabel()}…`)}
+				<GameText
+					text={error ||
+						(pending === 'action'
+							? 'Sending your move…'
+							: connection === 'closed'
+								? notice || 'This room has closed.'
+								: `${connectionLabel()}…`)}
+				/>
 			</div>
 		{/if}
 		<GameScreen state={game} viewerId={identity.clientId} {send} />

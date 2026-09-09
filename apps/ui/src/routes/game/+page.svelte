@@ -2,6 +2,7 @@
 	import { afterNavigate, replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import GameScreen from '$lib/game/GameScreen.svelte';
+	import GameText from '$lib/game/GameText.svelte';
 	import {
 		applyGameAction,
 		chooseBotAction,
@@ -116,7 +117,7 @@
 		onrestart={restart}
 		ongamespeedchange={speed => (botSpeed = speed)}
 	/>
-	{#if error}<p class="game-message error" role="alert">{error}</p>{/if}
+	{#if error}<p class="game-message error" role="alert"><GameText text={error} /></p>{/if}
 </div>
 
 <style>

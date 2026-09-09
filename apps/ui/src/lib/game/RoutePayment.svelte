@@ -31,7 +31,7 @@
 		viewportHeight = $state(1000);
 	let active = $state<number>();
 	const radius = 36;
-	function pinPath(hx: number, hy: number) {
+	function pinPath(hx: number, hy: number, ox = 0, oy = 0) {
 		const distance = Math.hypot(hx, hy);
 		const ux = hx / distance,
 			uy = hy / distance;
@@ -41,7 +41,7 @@
 			ay = hy - uy * along + ux * side;
 		const bx = hx - ux * along + uy * side,
 			by = hy - uy * along - ux * side;
-		return `M0 0 L${ax} ${ay} A${radius} ${radius} 0 1 0 ${bx} ${by} Z`;
+		return `M${ox} ${oy} L${ax + ox} ${ay + oy} A${radius} ${radius} 0 1 0 ${bx + ox} ${by + oy} Z`;
 	}
 	function position() {
 		const path = document.querySelector<SVGPathElement>(`#route-${routeId} .route-hitbox`);
@@ -70,7 +70,22 @@
 		const maxY = Math.max(...centers.map(p => y + p.y + radius));
 		const dx = minX < 16 ? 16 - minX : maxX > viewportWidth - 16 ? viewportWidth - 16 - maxX : 0;
 		const dy = minY < 16 ? 16 - minY : maxY > viewportHeight - 16 ? viewportHeight - 16 - maxY : 0;
-		return centers.map(p => ({ x: p.x + dx, y: p.y + dy, path: pinPath(p.x + dx, p.y + dy) }));
+		return centers.map(p => {
+			const hx = p.x + dx,
+				hy = p.y + dy;
+			const left = Math.min(0, hx - radius),
+				top = Math.min(0, hy - radius);
+			return {
+				x: hx,
+				y: hy,
+				left,
+				top,
+				width: Math.max(0, hx + radius) - left,
+				height: Math.max(0, hy + radius) - top,
+				path: pinPath(hx, hy),
+				hitPath: pinPath(hx, hy, -left, -top),
+			};
+		});
 	});
 	function preview(index?: number) {
 		active = index;
@@ -133,8 +148,11 @@
 		{@const payment = options[i]!}
 		<button
 			class="payment-option"
-			style:left={`${head.x - radius}px`}
-			style:top={`${head.y - radius}px`}
+			style:left={`${head.left}px`}
+			style:top={`${head.top}px`}
+			style:width={`${head.width}px`}
+			style:height={`${head.height}px`}
+			style:clip-path={`path('${head.hitPath}')`}
 			onpointerenter={() => preview(i)}
 			onpointerleave={() => preview()}
 			onfocus={() => preview(i)}
@@ -142,7 +160,11 @@
 			onclick={() => onchoose(payment)}
 			aria-label={`Claim with ${payment.cars ? `${payment.cars} ${payment.color} car${payment.cars === 1 ? '' : 's'}` : ''}${payment.cars && payment.wilds ? ' and ' : ''}${payment.wilds ? `${payment.wilds} locomotive${payment.wilds === 1 ? '' : 's'}` : ''}`}
 		>
-			<span class="pin-cost">
+			<span
+				class="pin-cost"
+				style:left={`${head.x - radius - head.left}px`}
+				style:top={`${head.y - radius - head.top}px`}
+			>
 				{#if payment.cars}<span class="cost"
 						><strong>{payment.cars}</strong><TrainPieceIcon color={routeColors[payment.color]} /></span
 					>{/if}
@@ -193,7 +215,6 @@
 		position: absolute;
 		width: 72px;
 		height: 72px;
-		border-radius: 50%;
 		border: 0;
 		padding: 0;
 		background: none;
@@ -202,8 +223,10 @@
 		cursor: pointer;
 	}
 	.pin-cost {
+		position: absolute;
+		width: 72px;
+		height: 72px;
 		display: flex;
-		height: 100%;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -230,15 +253,15 @@
 	}
 	.anchor {
 		position: absolute;
-		width: 25px;
-		height: 25px;
-		left: -12.5px;
-		top: -12.5px;
-		--seal-number-size: 13px;
+		width: 50px;
+		height: 50px;
+		left: -25px;
+		top: -25px;
+		--seal-number-size: 26px;
 	}
 	.close {
 		position: absolute;
-		left: 18px;
+		left: 32px;
 		top: -10px;
 		width: 22px;
 		height: 22px;

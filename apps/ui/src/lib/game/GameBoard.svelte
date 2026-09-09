@@ -2,7 +2,8 @@
 	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
 	import { onMount, onDestroy, tick } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
-	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
+	import TrainPieceIcon from './TrainPieceIcon.svelte';
+	import GameText from './GameText.svelte';
 	import ColorSymbol from './ColorSymbol.svelte';
 	import type { CarriageSprite } from './board/carriage-sprites';
 	import {
@@ -424,7 +425,7 @@
 							<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
 							<text x={-width / 2 + 25} y="3">{hint.points}</text>
 							{#if hint.wilds}<text x="9" y="3">+{hint.wilds}</text><g transform="translate(22 -8)"
-									><TrainIcon size={15} weight="fill" /></g
+									><TrainPieceIcon locomotive width={17} height={14} /></g
 								>{/if}
 						</g>
 					</g>
@@ -439,7 +440,9 @@
 							aria-label={visibleNotice.text}
 							transition:fade={{ duration: ambientMotion ? 120 : 0 }}
 						>
-							<text text-anchor="middle">{visibleNotice.text}</text>
+							<foreignObject x="-200" y="-22" width="400" height="46"
+								><div class="notice-content"><GameText text={visibleNotice.text} /></div></foreignObject
+							>
 						</g>
 					{/if}
 				{/if}
@@ -627,6 +630,7 @@
 		font-size: 13px;
 		font-weight: 650;
 		fill: #284e42;
+		color: #284e42;
 		paint-order: stroke;
 		stroke: #fff7e7;
 		stroke-width: 4px;
@@ -634,6 +638,16 @@
 	}
 	.route-notice.insufficient {
 		fill: #a03e31;
+		color: #a03e31;
+	}
+	.notice-content {
+		text-align: center;
+		padding: 5px 0;
+		text-shadow:
+			0 1px 2px #fff7e7,
+			0 -1px 2px #fff7e7,
+			1px 0 2px #fff7e7,
+			-1px 0 2px #fff7e7;
 	}
 	.network-outline path {
 		stroke: #101819;
