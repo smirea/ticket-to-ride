@@ -518,7 +518,8 @@ export const routeTrace: Record<string, RouteTrace> = {
 
 export function normalizeTracePoint([x, y]: TracePoint) {
 	return {
-		x: ((x - referenceBounds.x) / referenceBounds.width) * 1000,
+		// Landmark registration from the original atlas to its ocean-extended painting.
+		x: 15.744 + ((x - referenceBounds.x) / referenceBounds.width) * 969.32,
 		y: ((y - referenceBounds.y) / referenceBounds.height) * 620,
 	};
 }
