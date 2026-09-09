@@ -35,6 +35,9 @@
 	import CardFlight from './CardFlight.svelte';
 	import { paperPose, type PaperPose } from './paper-pose';
 	import DestinationCard from './DestinationCard.svelte';
+	import TicketCelebration from './TicketCelebration.svelte';
+	import TicketCountIcon from './TicketCountIcon.svelte';
+	import { shortestTicketConnection } from './ticket-connection';
 	import TableStatus from './TableStatus.svelte';
 	import RouteScoring from './RouteScoring.svelte';
 	import PlayerPlaque from './PlayerPlaque.svelte';
@@ -83,7 +86,14 @@
 	let board = $state<ReturnType<typeof GameBoard>>();
 	let dialogTrigger: HTMLElement | null = null;
 	let resultsDismissed = $state(false);
-	let ticketFilter = $state<'all' | 'unfinished'>('all');
+	let completedOrder = $state<TicketId[]>([]);
+	let completionQueue = $state<TicketId[]>([]);
+	let ticketReordering = $state(false);
+	let completionTicket = $state<{ ticket: DestinationTicket; from: PaperPose }>();
+	let completionContext = '';
+	let completionHistoryLength = 0;
+	let playTray = $state<HTMLElement>();
+	let trainCardWidth = $state(92);
 	let ticketCollection = $state<HTMLDivElement>();
 	let ticketAreaHeight = $state(480);
 	let handScroll = $state<HTMLDivElement>();
@@ -156,10 +166,16 @@
 		new Set(heldTickets.filter(ticket => isTicketComplete(gameState, viewerId, ticket.id)).map(ticket => ticket.id)),
 	);
 	const visibleTickets = $derived(
-		ticketFilter === 'all' ? heldTickets : heldTickets.filter(ticket => !completedIds.has(ticket.id)),
+		[...heldTickets].sort((a, b) => {
+			const ai = completedOrder.indexOf(a.id),
+				bi = completedOrder.indexOf(b.id);
+			return (ai < 0 ? Infinity : ai) - (bi < 0 ? Infinity : bi);
+		}),
 	);
 	const highlightedTicket = $derived(
-		journalPreview?.ticket ?? (previewTicketId ? ticketById.get(previewTicketId) : undefined),
+		completionTicket?.ticket ??
+			journalPreview?.ticket ??
+			(previewTicketId ? ticketById.get(previewTicketId) : undefined),
 	);
 	const handColors = $derived(TRAIN_CARDS.filter(color => (displayHand?.[color] ?? 0) > 0 || incomingCard === color));
 	const handMargin = $derived(
@@ -169,7 +185,9 @@
 		),
 	);
 	const finalResults = $derived(gameState.finalResults ?? []);
-	const showResults = $derived(gameState.phase.type === 'game-over' && !resultsDismissed);
+	const showResults = $derived(
+		gameState.phase.type === 'game-over' && !resultsDismissed && !busy && !completionTicket && !completionQueue.length,
+	);
 	const panel = $derived(settingsOpen ? 'settings' : showResults ? 'results' : null);
 	let visiblePanel = $state<'settings' | 'results' | null>(null);
 	let panelClosing = $state(false);
@@ -203,12 +221,93 @@
 			handCardWidth = handScroll?.querySelector<HTMLElement>('.hand-card')?.offsetWidth ?? 92;
 		});
 		if (handScroll) measureHand.observe(handScroll);
+		const measureCards = new ResizeObserver(([entry]) => {
+			if (!entry) return;
+			const portrait = matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
+			trainCardWidth = Math.max(
+				42,
+				Math.min(120, Math.floor((entry.contentRect.width - (portrait ? 78 : 160)) / (portrait ? 6 : 10.6))),
+			);
+			handCardWidth = trainCardWidth;
+		});
+		if (playTray) measureCards.observe(playTray);
 		return () => {
 			preference.removeEventListener('change', update);
 			measureTickets.disconnect();
 			measureHand.disconnect();
+			measureCards.disconnect();
 		};
 	});
+
+	$effect(() => {
+		const context = `${gameState.seed}:${viewerId}`;
+		const ids = [...completedIds].filter(id => viewer?.tickets.includes(id));
+		const historyLength = gameState.history.length;
+		untrack(() => {
+			if (context !== completionContext || historyLength < completionHistoryLength) {
+				completionContext = context;
+				completedOrder = ids;
+				completionQueue = [];
+				if (completionTicket) {
+					busy = false;
+					actionInFlight = undefined;
+				}
+				completionTicket = undefined;
+			} else {
+				completionQueue = [
+					...completionQueue,
+					...ids.filter(
+						id => !completedOrder.includes(id) && !completionQueue.includes(id) && completionTicket?.ticket.id !== id,
+					),
+				];
+			}
+			completionHistoryLength = historyLength;
+		});
+	});
+	$effect(() => {
+		if (!busy && !paymentRoute && !ticketSelection && !completionTicket && completionQueue.length)
+			untrack(beginTicketCompletion);
+	});
+	function beginTicketCompletion() {
+		const id = completionQueue[0]!;
+		completionQueue = completionQueue.slice(1);
+		const ticket = heldTickets.find(ticket => ticket.id === id);
+		if (!ticket || !completedIds.has(id)) return;
+		const element = document.querySelector<HTMLElement>(`[data-held-ticket="${id}"] .destination-card`);
+		if (reduceMotion || !element) {
+			completedOrder = [id, ...completedOrder.filter(other => other !== id)];
+			return;
+		}
+		busy = true;
+		actionInFlight = 'Journey complete';
+		historyOpen = false;
+		previewTicketId = undefined;
+		hoveredCard = undefined;
+		hoveredRoute = undefined;
+		completionTicket = { ticket, from: paperPose(element) };
+	}
+	async function insertCompletedTicket() {
+		const celebration = completionTicket!;
+		ticketReordering = true;
+		completedOrder = [celebration.ticket.id, ...completedOrder.filter(id => id !== celebration.ticket.id)];
+		await tick();
+		ticketCollection?.scrollTo({ top: 0, behavior: 'instant' });
+		await pause(motionDuration + 30);
+		const target = document.querySelector<HTMLElement>(
+			`[data-held-ticket="${celebration.ticket.id}"] .destination-card`,
+		);
+		if (!target) return celebration.from;
+		await Promise.allSettled((target.parentElement?.getAnimations() ?? []).map(animation => animation.finished));
+		return paperPose(target);
+	}
+	function finishTicketCompletion() {
+		ticketReordering = false;
+		if (completionTicket && !completedOrder.includes(completionTicket.ticket.id))
+			completedOrder = [completionTicket.ticket.id, ...completedOrder];
+		completionTicket = undefined;
+		busy = false;
+		actionInFlight = undefined;
+	}
 
 	$effect(() => {
 		if (!preferencesLoaded) return;
@@ -445,8 +544,9 @@
 		);
 	}
 	function describeTurn() {
+		if (completionTicket) return 'Connected';
 		if (gameState.phase.type === 'game-over') return 'Journey complete';
-		if (actionInFlight && activePlayer?.id === viewerId) return actionInFlight;
+		if (actionInFlight) return actionInFlight;
 		if (ticketSelection) return 'Choose your tickets';
 		if (gameState.phase.type === 'ticket-selection') {
 			const choosing = gameState.players.find(
@@ -628,8 +728,9 @@
 	class="game-shell"
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
 	class:reduced-motion={reduceMotion}
+	style:--train-card-width={`${trainCardWidth}px`}
 >
-	<header class="table-header" inert={Boolean(paymentRoute)}>
+	<header class="table-header" inert={Boolean(paymentRoute || completionTicket)}>
 		<div class="identity"><Brand compact /><span class="map-edition">Classic USA</span></div>
 		<div class="players" aria-label="Players" style:--players={gameState.players.length}>
 			{#each gameState.players as player, index (player.id)}
@@ -669,11 +770,11 @@
 		</nav>
 	</header>
 
-	<aside class="journey-sidebar" aria-label="Destination tickets" inert={Boolean(paymentRoute)}>
+	<aside class="journey-sidebar" aria-label="Destination tickets" inert={Boolean(paymentRoute || completionTicket)}>
 		<TableStatus
-			player={gameState.phase.type === 'game-over' ? undefined : activePlayer}
+			player={busy && actionInFlight ? viewer : gameState.phase.type === 'game-over' ? undefined : activePlayer}
 			{viewerId}
-			active={gameState.phase.type !== 'game-over' && (isViewerTurn || Boolean(ticketSelection))}
+			active={busy || (gameState.phase.type !== 'game-over' && (isViewerTurn || Boolean(ticketSelection)))}
 			message={describeTurn()}
 			detail={ticketSelection
 				? `Keep at least ${ticketSelection.minimum}`
@@ -681,18 +782,16 @@
 					? `${gameState.finalRound.turnsRemaining} ${gameState.finalRound.turnsRemaining === 1 ? 'turn' : 'turns'} remaining`
 					: undefined}
 		/>
-		<button
-			style:visibility={completedIds.size ? undefined : 'hidden'}
-			aria-hidden={!completedIds.size}
-			disabled={!completedIds.size}
-			class="ticket-filter"
-			aria-label={ticketFilter === 'all' ? 'Show unfinished tickets' : 'Show all tickets'}
-			aria-pressed={ticketFilter === 'unfinished'}
-			onclick={() => (ticketFilter = ticketFilter === 'all' ? 'unfinished' : 'all')}
-			>{ticketFilter === 'all' ? 'Unfinished' : 'All tickets'}</button
+		<div
+			class="ticket-summary"
+			aria-label={`${completedIds.size} completed tickets, ${heldTickets.length - completedIds.size} unfinished tickets`}
 		>
+			<span><strong>{completedIds.size}</strong><TicketCountIcon complete /></span>
+			<span><strong>{heldTickets.length - completedIds.size}</strong><TicketCountIcon /></span>
+		</div>
 		<div
 			class="ticket-collection"
+			class:reordering={ticketReordering}
 			class:empty={visibleTickets.length === 0}
 			class:stacked={visibleTickets.length > 1 && ticketStep < 100}
 			style:height={visibleTickets.length ? `${114 + Math.max(0, visibleTickets.length - 1) * 92}px` : '0px'}
@@ -707,7 +806,10 @@
 					class="ticket-button"
 					animate:flip={{ duration: motionDuration }}
 					data-held-ticket={ticket.id}
-					style:visibility={keptTicketIds.includes(ticket.id) && !ticketsLanded ? 'hidden' : undefined}
+					style:visibility={(keptTicketIds.includes(ticket.id) && !ticketsLanded) ||
+					completionTicket?.ticket.id === ticket.id
+						? 'hidden'
+						: undefined}
 					style:--ticket-angle={`${[-2.4, 1.5, -1.2, 2][index % 4]}deg`}
 					style:--ticket-layer={index + 1}
 					class:previewed={previewTicketId === ticket.id}
@@ -725,7 +827,12 @@
 					onfocus={() => (previewTicketId = ticket.id)}
 					onclick={() => (previewTicketId = ticket.id)}
 				>
-					<DestinationCard {ticket} selected={previewTicketId === ticket.id} complete={completedIds.has(ticket.id)} />
+					<DestinationCard
+						{ticket}
+						selected={previewTicketId === ticket.id}
+						complete={completedOrder.includes(ticket.id)}
+						animateCompletion={false}
+					/>
 				</button>
 			{:else}<p class="empty-tickets">
 					{heldTickets.length ? 'All connected' : 'No tickets yet'}
@@ -765,13 +872,14 @@
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
 
-	<section class="board-stage" aria-label="Game board" inert={Boolean(paymentRoute)}>
+	<section class="board-stage" aria-label="Game board" inert={Boolean(paymentRoute || completionTicket)}>
 		<GameBoard
 			bind:this={board}
 			state={gameState}
 			{viewerId}
 			{selectedRouteId}
 			{highlightedTicket}
+			celebratingTicket={Boolean(completionTicket)}
 			motionEnabled={!reduceMotion}
 			disabled={!turnReady}
 			onselect={selectRoute}
@@ -801,7 +909,7 @@
 		/>
 	{/if}
 
-	<footer class="play-tray" inert={Boolean(paymentRoute)}>
+	<footer bind:this={playTray} class="play-tray" inert={Boolean(paymentRoute || completionTicket)}>
 		<section class="hand-panel" aria-label="Your train cards">
 			<div class="hand-scroll" bind:this={handScroll}>
 				<div class="hand-cards" class:reflowing={handReflowing} style:--hand-count={handColors.length}>
@@ -867,6 +975,19 @@
 			</div>
 		</section>
 	</footer>
+
+	{#if completionTicket}
+		<TicketCelebration
+			ticket={completionTicket.ticket}
+			from={completionTicket.from}
+			ontrace={async () => {
+				if (completionTicket)
+					await board?.celebrateTicket(shortestTicketConnection(gameState, viewerId, completionTicket.ticket));
+			}}
+			oninsert={insertCompletedTicket}
+			ondone={finishTicketCompletion}
+		/>
+	{/if}
 
 	{#if historyOpen && !paymentRoute}
 		<TravelJournal
@@ -1100,17 +1221,23 @@
 		padding-top: 20px;
 		flex-shrink: 0;
 	}
-	.ticket-filter {
-		align-self: start;
-		margin: 10px 0 0 25px;
-		padding: 0;
-		border: 0;
-		background: none;
-		font-size: 11px;
-		color: #7b745f;
-		text-decoration: underline;
-		text-underline-offset: 3px;
+	.ticket-summary {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 18px;
+		margin: 12px 18px 0;
+		color: #68644d;
+		font:
+			700 16px Georgia,
+			serif;
 	}
+	.ticket-summary > span {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+	}
+
 	.ticket-collection {
 		position: relative;
 		min-height: 0;
@@ -1141,6 +1268,9 @@
 		transition:
 			transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
 			filter 220ms;
+	}
+	.ticket-collection.reordering .ticket-button {
+		transition: none;
 	}
 	.ticket-button + .ticket-button {
 		margin-top: calc(var(--ticket-step) - 82px);
@@ -1213,7 +1343,7 @@
 		grid-column: 2;
 		grid-row: 3;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+		grid-template-columns: minmax(0, 1fr) max-content;
 		gap: 12px;
 		min-width: 0;
 		margin: -30px 0 0 -14px;
@@ -1241,8 +1371,8 @@
 	.hand-card {
 		pointer-events: auto;
 		position: relative;
-		width: 92px;
-		height: 132px;
+		width: var(--train-card-width);
+		height: calc(var(--train-card-width) / 0.7);
 		flex-shrink: 0;
 		margin-left: -27px;
 		transform: translateY(var(--fan-rise)) rotate(var(--fan-angle));
@@ -1276,6 +1406,7 @@
 		z-index: 20 !important;
 	}
 	.market {
+		justify-self: end;
 		pointer-events: auto;
 		position: relative;
 		min-width: 0;
@@ -1297,7 +1428,7 @@
 	}
 	.face-up {
 		display: grid;
-		grid-template-columns: repeat(5, minmax(0, 1fr));
+		grid-template-columns: repeat(5, var(--train-card-width));
 		flex: 1;
 		min-width: 0;
 		gap: 8px;
@@ -1322,6 +1453,8 @@
 			filter 190ms ease;
 	}
 	.market-card {
+		width: var(--train-card-width);
+		height: calc(var(--train-card-width) / 0.7);
 		flex: 1;
 		min-width: 0;
 		max-width: none;
@@ -1334,7 +1467,7 @@
 		filter: saturate(0.78);
 	}
 	.blind-deck {
-		width: 75px;
+		width: var(--train-card-width);
 		flex-shrink: 0;
 		transform: rotate(-3deg);
 		box-shadow:
@@ -1658,19 +1791,11 @@
 			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 108px minmax(380px, 1fr) 190px;
 		}
-		.hand-card {
-			width: 108px;
-			height: 154px;
-			margin-left: -33px;
-		}
 		.market {
 			padding: 12px 13px 14px;
 		}
 		.market-card {
 			max-width: none;
-		}
-		.blind-deck {
-			width: 88px;
 		}
 	}
 	@media (max-width: 1250px) {
@@ -1688,11 +1813,6 @@
 		.journey-sidebar {
 			width: 254px;
 		}
-		.hand-card {
-			width: 79px;
-			height: 114px;
-			margin-left: -27px;
-		}
 		.market {
 			padding: 9px 10px 11px;
 		}
@@ -1702,9 +1822,6 @@
 		.face-up {
 			gap: 5px;
 			padding: 4px;
-		}
-		.blind-deck {
-			width: 59px;
 		}
 	}
 	@media (max-width: 1100px) {
@@ -1735,13 +1852,8 @@
 			min-height: 768px;
 		}
 		.play-tray {
-			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+			grid-template-columns: minmax(0, 1fr) max-content;
 			margin-top: -20px;
-		}
-		.hand-card {
-			width: 72px;
-			height: 104px;
-			margin-left: -28px;
 		}
 	}
 	@media (max-width: 1100px) and (orientation: portrait) {
@@ -1771,10 +1883,6 @@
 			margin: -20px 0 0;
 			gap: 4px;
 		}
-		.hand-card {
-			width: 85px;
-			height: 122px;
-		}
 		.market {
 			padding: 9px;
 		}
@@ -1784,9 +1892,6 @@
 		.face-up {
 			gap: 4px;
 			padding: 3px;
-		}
-		.blind-deck {
-			width: 49px;
 		}
 	}
 

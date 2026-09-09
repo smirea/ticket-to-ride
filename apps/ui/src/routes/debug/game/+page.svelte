@@ -104,7 +104,7 @@
 
 	function loadStampScenario() {
 		const next = createDebugClaimScenario();
-		next.players[0].tickets = ['portland-phoenix'];
+		next.players[0].tickets = ['chicago-santa-fe', 'portland-phoenix'];
 		for (const [a, b] of [
 			['portland', 'san-francisco'],
 			['los-angeles', 'phoenix'],
