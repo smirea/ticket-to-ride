@@ -1,0 +1,29 @@
+{
+	"version": 1,
+	"frameSize": 192,
+	"columns": 6,
+	"rows": 6,
+	"anchor": {
+		"x": 96.0,
+		"y": 96.0
+	},
+	"pixelsPerModelUnit": 128,
+	"headings": 36,
+	"headingStep": 10,
+	"inclinationDegrees": 28,
+	"sheets": {
+		"red": "/game-assets/trains/carriage-red.webp",
+		"blue": "/game-assets/trains/carriage-blue.webp",
+		"green": "/game-assets/trains/carriage-green.webp",
+		"yellow": "/game-assets/trains/carriage-yellow.webp",
+		"black": "/game-assets/trains/carriage-black.webp"
+	},
+	"models": {
+		"red": "carriage",
+		"blue": "passenger",
+		"green": "flatbed",
+		"yellow": "boxcar",
+		"black": "coal"
+	},
+	"sourceSha256": "038137a5800c785dcf36ff0b1aaecadee8d3cbd5a5d4944f3f69086cdac99db2"
+}

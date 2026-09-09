@@ -1,16 +1,21 @@
 <script lang="ts">
 	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
-	import { onMount, onDestroy, tick } from 'svelte';
-	import { fade, scale } from 'svelte/transition';
+	import { onMount, onDestroy, tick, untrack } from 'svelte';
+	import { fade, scale, fly } from 'svelte/transition';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
 	import GameText from './GameText.svelte';
 	import ColorSymbol from './ColorSymbol.svelte';
-	import type { CarriageSprite } from './board/carriage-sprites';
+	import {
+		carriageFrame,
+		loadCarriageSprites,
+		type CarriageManifest,
+		type CarriageSprite,
+	} from './board/carriage-sprites';
+	import CarriageImage from './CarriageImage.svelte';
 	import {
 		cities,
 		cityById,
 		cityPoint,
-		playerColors,
 		routeColors,
 		routePoint,
 		routeMarkerT,
@@ -18,7 +23,6 @@
 		ROUTE_MARKER_WIDTH,
 		routes,
 	} from './board/layout';
-	import { claimedCarriageHulls, createAtlasRenderer, projectPoint } from './board/renderer';
 	type Props = {
 		state: GameState;
 		viewerId: string;
@@ -26,7 +30,7 @@
 		highlightedTicket?: DestinationTicket;
 		disabled?: boolean;
 		disabledReason?: string;
-		ambientMotion?: boolean;
+		motionEnabled?: boolean;
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
 		routeNotice?: { routeId: string; text: string; insufficient: boolean };
@@ -43,7 +47,7 @@
 		highlightedTicket,
 		disabled = false,
 		disabledReason,
-		ambientMotion = true,
+		motionEnabled = true,
 		onselect,
 		onhover,
 		routeHints = {},
@@ -53,32 +57,31 @@
 		rejectedRouteId,
 		rejectionKey,
 	}: Props = $props();
-	let canvas = $state<HTMLCanvasElement>();
 	let viewport = $state<HTMLDivElement>();
 	let viewportWidth = $state(1000);
 	let viewportHeight = $state(620);
-	let atlas = $state.raw<ReturnType<typeof createAtlasRenderer> | undefined>();
-	let ready = $state(false);
-	const carriageMaskId = $props.id();
-	let arrivingRoutes = $state<Set<string>>(new Set());
-	let previousClaims: GameState['claimedRoutes'] | undefined;
-	let arrivalTimer: ReturnType<typeof setTimeout> | undefined;
-	$effect(() => {
-		const claims = gameState.claimedRoutes;
-		if (previousClaims) {
-			const added = Object.entries(claims)
-				.filter(([id, owner]) => owner !== viewerId && !previousClaims![id])
-				.map(([id]) => id);
-			if (added.length) {
-				arrivingRoutes = new Set(added);
-				clearTimeout(arrivalTimer);
-				arrivalTimer = setTimeout(() => (arrivingRoutes = new Set()), 700);
-			}
-		}
-		previousClaims = claims;
-	});
-	onDestroy(() => clearTimeout(arrivalTimer));
-	const carriageHulls = $derived(ready ? claimedCarriageHulls(gameState, arrivingRoutes) : []);
+	let manifest = $state<CarriageManifest>();
+	let artworkError = $state(false);
+	const initialClaims = untrack(() => new Set(Object.keys(gameState.claimedRoutes)));
+	const carriages = $derived(
+		manifest
+			? routes
+					.flatMap(route => {
+						const player = owner(route);
+						return player
+							? Array.from({ length: route.length }, (_, index) => ({
+									id: `${route.id}-${index}`,
+									routeId: route.id,
+									index,
+									arrive: player.id !== viewerId && !initialClaims.has(route.id),
+									frame: carriageFrame(manifest!, route, index, player.color),
+								}))
+							: [];
+					})
+					.sort((a, b) => a.frame.y - b.frame.y)
+			: [],
+	);
+
 	let zoom = $state(1);
 	const mapWidth = $derived(viewportWidth * zoom);
 	const mapHeight = $derived(viewportHeight * zoom);
@@ -105,13 +108,13 @@
 		}
 	}
 	export async function claimSprites(route: Route, color: Player['color']): Promise<CarriageSprite[]> {
-		const svg = viewport?.querySelector<SVGSVGElement>('svg.board');
-		const screen = svg?.getScreenCTM();
-		if (!screen || !atlas) return [];
-		const sprites = await atlas.sprites(route, color);
-		return sprites.map(sprite => {
-			const origin = new DOMPoint(sprite.x, sprite.y).matrixTransform(screen);
-			return { ...sprite, matrix: [screen.a, screen.b, screen.c, screen.d, origin.x, origin.y] };
+		const artwork = manifest ?? (await loadCarriageSprites());
+		const screen = viewport?.querySelector<SVGSVGElement>('svg.board')?.getScreenCTM();
+		if (!screen) return [];
+		return Array.from({ length: route.length }, (_, index) => {
+			const frame = carriageFrame(artwork, route, index, color);
+			const matrix = screen.translate(frame.x, frame.y).rotate(frame.angle).translate(-frame.anchorX, -frame.anchorY);
+			return { ...frame, matrix: [matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f] };
 		});
 	}
 
@@ -144,7 +147,7 @@
 		);
 	}
 	function point(route: Route, t: number) {
-		return projectPoint(routePoint(route, t), 1.6);
+		return routePoint(route, t);
 	}
 	function path(route: Route) {
 		return Array.from({ length: 49 }, (_, i) => {
@@ -153,8 +156,8 @@
 		}).join(' ');
 	}
 	function outline(route: Route) {
-		const start = projectPoint(cityPoint(cityById.get(route.cityA)!), 1.6);
-		const end = projectPoint(cityPoint(cityById.get(route.cityB)!), 1.6);
+		const start = cityPoint(cityById.get(route.cityA)!);
+		const end = cityPoint(cityById.get(route.cityB)!);
 		return `M${start.x},${start.y} L${path(route).slice(1)} L${end.x},${end.y}`;
 	}
 	function hoverRoute(route?: Route) {
@@ -201,16 +204,9 @@
 			moveFocus(route, event.key);
 		}
 	}
-	function pointerMove(event: PointerEvent) {
-		const bounds = event.currentTarget instanceof Element ? event.currentTarget.getBoundingClientRect() : undefined;
-		if (bounds)
-			atlas?.pointer(
-				((event.clientX - bounds.left) / bounds.width) * 1000,
-				((event.clientY - bounds.top) / bounds.height) * 620,
-			);
-	}
 	onMount(() => {
-		if (!canvas || !viewport) return;
+		if (!viewport) return;
+		let cancelled = false;
 		const measure = new ResizeObserver(([entry]) => {
 			if (entry) {
 				viewportWidth = entry.contentRect.width;
@@ -218,85 +214,53 @@
 			}
 		});
 		measure.observe(viewport);
-		try {
-			atlas = createAtlasRenderer(canvas);
-			atlas.update(
-				gameState,
-				selectedRouteId,
-				hoveredRouteId,
-				eligibleRouteIds,
-				rejectedRouteId,
-				rejectionKey,
-				viewerId,
-			);
-			atlas.setAmbientMotion(ambientMotion);
-			void atlas.ready
-				.then(() => {
-					ready = true;
-				})
-				.catch(() => {
-					ready = false;
-				});
-		} catch {
-			ready = false;
-		}
+		const atlasImage = new Image();
+		atlasImage.src = '/game-assets/atlas/usa-relief-v3.webp';
+		void Promise.all([loadCarriageSprites(), atlasImage.decode()])
+			.then(([artwork]) => {
+				if (!cancelled) manifest = artwork;
+			})
+			.catch(() => {
+				if (!cancelled) artworkError = true;
+			});
 		return () => {
+			cancelled = true;
 			measure.disconnect();
-			atlas?.destroy();
 		};
 	});
-	$effect(() => {
-		atlas?.update(
-			gameState,
-			selectedRouteId,
-			hoveredRouteId,
-			eligibleRouteIds,
-			rejectedRouteId,
-			rejectionKey,
-			viewerId,
-		);
-	});
-	$effect(() => {
-		atlas?.setAmbientMotion(ambientMotion);
-	});
+
 	$effect(() => {
 		if (!selectableRoutes.some(route => route.id === focusedRouteId))
 			focusedRouteId = selectableRoutes.find(route => route.id === selectedRouteId)?.id ?? selectableRoutes[0]?.id;
 	});
 </script>
 
-<div class="board-frame" class:ready data-renderer-ready={ready} class:motion-paused={!ambientMotion}>
+<div
+	class="board-frame"
+	data-renderer="svg"
+	data-renderer-ready={Boolean(manifest)}
+	class:motion-paused={!motionEnabled}
+>
 	<div class="board-viewport" bind:this={viewport}>
 		<div class="board-stage" style:width={`${mapWidth}px`} style:height={`${mapHeight}px`}>
-			<canvas bind:this={canvas} aria-hidden="true"></canvas>
 			<svg
 				class="board"
+				class:ready={Boolean(manifest) || artworkError}
 				viewBox="0 0 1000 620"
 				preserveAspectRatio="none"
 				role="group"
 				aria-label="Ticket to Travel North America board"
 				aria-describedby="board-help"
-				onpointermove={pointerMove}
-				onpointerleave={() => {
-					hoverRoute();
-					atlas?.pointer(-2000, -2000);
-				}}
+				onpointerleave={() => hoverRoute()}
 			>
-				<defs>
-					<mask id={carriageMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="620">
-						<rect width="1000" height="620" fill="white" />
-						{#each carriageHulls as hull (hull.id)}<polygon points={hull.points} fill="black" />{/each}
-					</mask>
-				</defs>
-				{#if !ready}
-					<image
-						href="/game-assets/atlas/usa-relief-v3.webp"
-						width="1000"
-						height="620"
-						preserveAspectRatio="none"
-						aria-hidden="true"
-					/>
-				{/if}
+				<image
+					href="/game-assets/atlas/usa-relief-v3.webp"
+					width="1000"
+					height="620"
+					preserveAspectRatio="none"
+					aria-hidden="true"
+				/>
+
 				<g class="geography" aria-hidden="true"
 					><text x="415" y="32">C A N A D A</text><text x="243" y="597">M E X I C O</text><text
 						x="918"
@@ -308,10 +272,10 @@
 						transform="rotate(8 41 508)">PACIFIC</text
 					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
 				>
-				<g mask={`url(#${carriageMaskId})`}>
+				<g>
 					<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
 						{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
-						{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
+						{#each cities as city (city.id)}{@const p = cityPoint(city)}
 							<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
 						{/each}
 					</g>
@@ -358,15 +322,13 @@
 									height={ROUTE_MARKER_WIDTH}
 									rx="0.8"
 									transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-									fill={routeOwner && ready
+									fill={routeOwner
 										? 'transparent'
-										: routeOwner
-											? playerColors[routeOwner.color]
-											: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
-												? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
-												: routeColors[route.color]}
+										: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
+											? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
+											: routeColors[route.color]}
 									class="marker-anchor"
-									class:fallback-segment={!routeOwner || !ready}
+									class:fallback-segment={!routeOwner}
 								/>
 								{#if !routeOwner && route.color !== 'gray'}
 									<g
@@ -382,30 +344,49 @@
 					{/each}
 				</g>
 				{#if highlightedTicket}
-					{@const a = projectPoint(cityPoint(cityById.get(highlightedTicket.cityA)!))}{@const b = projectPoint(
-						cityPoint(cityById.get(highlightedTicket.cityB)!),
+					{@const a = cityPoint(cityById.get(highlightedTicket.cityA)!)}{@const b = cityPoint(
+						cityById.get(highlightedTicket.cityB)!,
 					)}
 					<path
 						class="ticket-trace-underlay"
-						transition:fade={{ duration: ambientMotion ? 180 : 0 }}
+						transition:fade={{ duration: motionEnabled ? 180 : 0 }}
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
 					/>
 					<path
 						class="ticket-trace"
-						transition:fade={{ duration: ambientMotion ? 180 : 0 }}
+						transition:fade={{ duration: motionEnabled ? 180 : 0 }}
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
 					/>
 				{/if}
+				<g class="claimed-carriages" aria-hidden="true">
+					{#each carriages as carriage (carriage.id)}
+						<g
+							data-carriage={carriage.id}
+							transform={`translate(${carriage.frame.x} ${carriage.frame.y}) rotate(${carriage.frame.angle}) translate(${-carriage.frame.anchorX} ${-carriage.frame.anchorY})`}
+						>
+							<g
+								in:fly={{
+									y: -8,
+									duration: motionEnabled && carriage.arrive ? 380 : 0,
+									delay: motionEnabled && carriage.arrive ? carriage.index * 45 : 0,
+								}}
+							>
+								<CarriageImage frame={carriage.frame} />
+							</g>
+						</g>
+					{/each}
+				</g>
+
 				{#each cities as city (city.id)}
-					{@const p = projectPoint(cityPoint(city))}{@const endpoint =
+					{@const p = cityPoint(city)}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
 					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
 						{#if endpoint}<circle
 								class="endpoint-ring"
 								r="21"
-								transition:fade={{ duration: ambientMotion ? 180 : 0 }}
+								transition:fade={{ duration: motionEnabled ? 180 : 0 }}
 							/>{/if}<circle class="city-shadow" cy="1.8" r="9.5" /><circle class="city-hub" r="8.2" /><circle
 							class="city-center"
 							r="4.8"
@@ -420,7 +401,7 @@
 				{#each hintRoutes as route (route.id)}
 					{@const p = point(route, 0.5)}{@const hint = routeHints[route.id]!}{@const width = hint.wilds ? 78 : 39}
 					<g class="route-hint" transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`} aria-hidden="true">
-						<g class="hint-paper" transition:scale={{ start: 0.65, duration: ambientMotion ? 170 : 0 }}>
+						<g class="hint-paper" transition:scale={{ start: 0.65, duration: motionEnabled ? 170 : 0 }}>
 							<rect x={-width / 2} y="-11" {width} height="21" rx="5" />
 							<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
 							<text x={-width / 2 + 25} y="3">{hint.points}</text>
@@ -438,7 +419,7 @@
 							class:insufficient={visibleNotice.insufficient}
 							transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}
 							aria-label={visibleNotice.text}
-							transition:fade={{ duration: ambientMotion ? 120 : 0 }}
+							transition:fade={{ duration: motionEnabled ? 120 : 0 }}
 						>
 							<foreignObject x="-200" y="-22" width="400" height="46"
 								><div class="notice-content"><GameText text={visibleNotice.text} /></div></foreignObject
@@ -467,6 +448,15 @@
 			</svg>
 		</div>
 	</div>
+	{#if artworkError}<button
+			class="artwork-retry"
+			onclick={async () => {
+				try {
+					manifest = await loadCarriageSprites();
+					artworkError = false;
+				} catch {}
+			}}>Reload carriage artwork</button
+		>{/if}
 	<div class="map-tools" aria-label="Map view controls">
 		<button type="button" aria-label="Zoom out" disabled={zoom <= 1} onclick={() => (zoom = Math.max(1, zoom - 0.25))}
 			>−</button
@@ -509,7 +499,7 @@
 		border: 1px solid #687d7277;
 		border-radius: 10px;
 		background: #68a4ac;
-		transform: perspective(1900px) rotateX(9deg) rotateZ(-0.65deg);
+		transform: rotateX(9deg) rotateZ(-0.65deg);
 		transform-origin: center;
 		animation: board-arrive 760ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 		box-shadow:
@@ -536,6 +526,16 @@
 		aspect-ratio: 1000/620;
 		flex-shrink: 0;
 		margin: auto;
+	}
+	.artwork-retry {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		padding: 8px 12px;
+		background: #fff3d9;
+		color: #384847;
+		border: 1px solid #b19a70;
+		border-radius: 5px;
 	}
 	.map-tools {
 		position: absolute;
@@ -582,24 +582,23 @@
 	.motion-paused .selected .route-aura {
 		animation: none;
 	}
-	canvas {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		display: block;
-		opacity: 0;
-		transition: opacity 0.35s;
+	.claimed-carriages {
+		pointer-events: none;
 	}
-	.ready canvas {
-		opacity: 1;
-	}
+
 	.board {
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 300ms;
 		position: relative;
 		display: block;
 		width: 100%;
 		height: 100%;
 		touch-action: manipulation;
+	}
+	.board.ready {
+		opacity: 1;
+		visibility: visible;
 	}
 	.geography {
 		fill: #3d676da1;
