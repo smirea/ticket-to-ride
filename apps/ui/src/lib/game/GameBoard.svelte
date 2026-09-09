@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
+	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard, TrainColor } from '@repo/shared';
 	import { onMount, onDestroy, tick, untrack } from 'svelte';
 	import { fade, scale, fly } from 'svelte/transition';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
@@ -34,7 +34,7 @@
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
 		routeNotice?: { routeId: string; text: string; insufficient: boolean };
-		routeHints?: Record<string, { points: number; wilds: number }>;
+		routeHints?: Record<string, { points: number; cars: number; color: TrainColor; wilds: number }>;
 		eligibleRouteIds?: string[];
 		cardColor?: TrainCard;
 		rejectedRouteId?: string;
@@ -121,14 +121,48 @@
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
-	const hintRoutes = $derived(
-		routes
+	const hintRoutes = $derived.by(() => {
+		const sx = (1000 * labelFactor) / mapWidth;
+		const sy = (620 * labelFactor) / mapHeight;
+		const placed: { x: number; y: number; width: number }[] = [];
+		return routes
 			.filter(route => routeHints[route.id] && !owner(route))
 			.filter(
 				(route, index, list) =>
 					!route.parallelGroup || list.findIndex(other => other.parallelGroup === route.parallelGroup) === index,
-			),
-	);
+			)
+			.map(route => {
+				const hint = routeHints[route.id]!;
+				const width = 52 + (hint.cars ? 35 : 0) + (hint.wilds ? 35 : 0);
+				const anchor = point(route, 0.5);
+				const preferredY = anchor.y - 23 * sy;
+				const candidates = [0, -1, 1, -2, 2, -3, 3]
+					.flatMap(row =>
+						[0, -1, 1].map(column => ({
+							x: Math.max(
+								(width / 2 + 4) * sx,
+								Math.min(1000 - (width / 2 + 4) * sx, anchor.x + column * (width + 8) * sx),
+							),
+							y: Math.max(48 * sy, Math.min(620 - 18 * sy, preferredY + row * 40 * sy)),
+						})),
+					)
+					.sort(
+						(a, b) =>
+							Math.hypot((a.x - anchor.x) / sx, (a.y - preferredY) / sy) -
+							Math.hypot((b.x - anchor.x) / sx, (b.y - preferredY) / sy),
+					);
+				const { x, y } =
+					candidates.find(candidate =>
+						placed.every(
+							other =>
+								Math.abs(candidate.x - other.x) >= ((width + other.width) / 2 + 5) * sx ||
+								Math.abs(candidate.y - other.y) >= 37 * sy,
+						),
+					) ?? candidates[0]!;
+				placed.push({ x, y, width });
+				return { route, hint, width, x, y, anchor, tipY: y + (anchor.y < y ? -23 : 23) * sy };
+			});
+	});
 	const selectableRoutes = $derived(routes.filter(route => !owner(route) && !blocked(route) && !disabled));
 	function owner(route: Route): Player | undefined {
 		const playerId = gameState.claimedRoutes[route.id];
@@ -398,16 +432,40 @@
 						>
 					</g>
 				{/each}
-				{#each hintRoutes as route (route.id)}
-					{@const p = point(route, 0.5)}{@const hint = routeHints[route.id]!}{@const width = hint.wilds ? 78 : 39}
-					<g class="route-hint" transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`} aria-hidden="true">
+				{#each hintRoutes as placement (placement.route.id)}
+					{@const { hint, width, x, y, anchor, tipY } = placement}
+					{#if Math.abs(tipY - anchor.y) > 1 || Math.abs(x - anchor.x) > 1}
+						<path
+							class="hint-leader"
+							d={`M ${x} ${tipY} L ${anchor.x} ${anchor.y}`}
+							transition:fade={{ duration: motionEnabled ? 170 : 0 }}
+						/>
+					{/if}
+					<g class="route-hint" transform={`translate(${x} ${y}) ${labelScale}`} aria-hidden="true">
 						<g class="hint-paper" transition:scale={{ start: 0.65, duration: motionEnabled ? 170 : 0 }}>
-							<rect x={-width / 2} y="-11" {width} height="21" rx="5" />
-							<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
-							<text x={-width / 2 + 25} y="3">{hint.points}</text>
-							{#if hint.wilds}<text x="9" y="3">+{hint.wilds}</text><g transform="translate(22 -8)"
-									><TrainPieceIcon locomotive width={17} height={14} /></g
-								>{/if}
+							<path
+								d={`M ${-width / 2 + 9} -16 H ${width / 2 - 9} Q ${width / 2} -16 ${width / 2} -7 V 7 Q ${width / 2} 16 ${width / 2 - 9} 16 H 7 L 0 23 L -7 16 H ${-width / 2 + 9} Q ${-width / 2} 16 ${-width / 2} 7 V -7 Q ${-width / 2} -16 ${-width / 2 + 9} -16 Z`}
+								fill={hint.cars ? routeColors[hint.color] : '#405e65'}
+								transform={tipY < y ? 'scale(1 -1)' : undefined}
+							/>
+							<rect x={-width / 2 + 3} y="-13" width={width - 6} height="26" rx="6" />
+							<g transform={`translate(${-width / 2 + 7} 0)`}>
+								<text x="0" y="5">{hint.points}</text>
+								<image href="/game-assets/atlas/points-clay-seal.webp" x="18" y="-10" width="20" height="20" />
+								{#if hint.cars}
+									<text x="41" y="5">{hint.cars}</text>
+									<g transform="translate(52 -9)"
+										><TrainPieceIcon color={routeColors[hint.color]} width={22} height={18} /></g
+									>
+								{/if}
+								{#if hint.wilds}
+									{@const offset = hint.cars ? 76 : 41}
+									<text x={offset} y="5">{hint.wilds}</text>
+									<g transform={`translate(${offset + 11} -9)`}
+										><TrainPieceIcon color="#3c5159" locomotive width={22} height={18} /></g
+									>
+								{/if}
+							</g>
 						</g>
 					</g>
 				{/each}
@@ -806,20 +864,37 @@
 			600 11px Barlow,
 			sans-serif;
 	}
+	.hint-leader {
+		fill: none;
+		stroke: #b09a6c;
+		stroke-width: 1.5;
+		pointer-events: none;
+		vector-effect: non-scaling-stroke;
+	}
 	.hint-paper {
 		transform-box: fill-box;
-		transform-origin: center;
+		transform-origin: center bottom;
+		filter: drop-shadow(1px 3px 2px #33281855);
 	}
 	.route-hint {
 		animation: hint-in 180ms ease-out both;
 	}
 	.route-hint rect {
-		fill: #fff8e9ee;
-		stroke: #8f80675c;
-		stroke-width: 0.6;
+		fill: #fff3d9;
+		stroke: #efdcaa;
+		stroke-width: 1;
+	}
+	.hint-paper > path {
+		stroke: #b09a6c;
+		stroke-width: 1.2;
+		stroke-linejoin: round;
 	}
 	.route-hint text {
-		fill: #394847;
+		fill: #263d42;
+		text-anchor: start;
+		font:
+			700 14px Georgia,
+			serif;
 	}
 	.route-rejection {
 		animation: rejection-out 1.8s ease both;

@@ -386,6 +386,7 @@
 		return {
 			color,
 			wilds: choice?.wilds ?? 0,
+			cars: choice?.cars ?? 0,
 			ok: Boolean(choice),
 			points: ROUTE_SCORES[route.length] ?? route.length,
 		};
@@ -396,9 +397,11 @@
 	const routeHints = $derived(
 		activeCard
 			? Object.fromEntries(
-					USA_ROUTES.filter(route => claimInfo(route, activeCard).ok).map(route => {
+					USA_ROUTES.flatMap(route => {
 						const info = claimInfo(route, activeCard);
-						return [route.id, { points: info.points, wilds: info.wilds }];
+						return info.ok && info.color
+							? [[route.id, { points: info.points, cars: info.cars, color: info.color, wilds: info.wilds }]]
+							: [];
 					}),
 				)
 			: {},
