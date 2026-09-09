@@ -143,7 +143,17 @@
 	});
 </script>
 
-<div class="payment-shield" aria-hidden="true" onpointerdown={event => event.preventDefault()}></div>
+<button
+	class="payment-shield"
+	type="button"
+	tabindex="-1"
+	aria-label="Dismiss route payment"
+	onpointerdown={event => event.preventDefault()}
+	onclick={event => {
+		event.stopPropagation();
+		onclose();
+	}}
+></button>
 <div
 	class="route-payment"
 	role="dialog"
@@ -207,6 +217,11 @@
 	.payment-shield {
 		position: fixed;
 		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		border: 0;
 		z-index: 79;
 		background: transparent;
 	}
@@ -283,6 +298,8 @@
 			serif;
 	}
 	.anchor {
+		pointer-events: auto;
+		clip-path: circle(50%);
 		position: absolute;
 		width: 50px;
 		height: 50px;
