@@ -1,0 +1,62 @@
+[
+	{
+		"phase": "enter",
+		"delay": 20,
+		"count": 1,
+		"transform": "matrix(0.65, 0, 0, 0.65, 0, 0)",
+		"opacity": "0"
+	},
+	{
+		"phase": "enter",
+		"delay": 65,
+		"count": 1,
+		"transform": "matrix(0.920466, 0, 0, 0.920466, 0, 0)",
+		"opacity": "0.772761"
+	},
+	{
+		"phase": "enter",
+		"delay": 150,
+		"count": 1,
+		"transform": "none",
+		"opacity": "1"
+	},
+	{
+		"phase": "exit",
+		"delay": 20,
+		"count": 1,
+		"transform": "matrix(1, 0, 0, 1, 0, 0)",
+		"opacity": "1"
+	},
+	{
+		"phase": "exit",
+		"delay": 65,
+		"count": 1,
+		"transform": "matrix(0.729534, 0, 0, 0.729534, 0, 0)",
+		"opacity": "0.227239"
+	},
+	{
+		"phase": "exit",
+		"delay": 150,
+		"count": 0,
+		"transform": null,
+		"opacity": null
+	},
+	{
+		"tablet": {
+			"viewport": [900, 1200],
+			"layer": [900, 1200],
+			"tooltip": {
+				"x": 442.6064147949219,
+				"y": 287.0404357910156,
+				"width": 58.5,
+				"height": 170.29998779296875,
+				"top": 287.0404357910156,
+				"right": 501.1064147949219,
+				"bottom": 457.3404235839844,
+				"left": 442.6064147949219
+			},
+			"parent": "BODY",
+			"z": "1000"
+		}
+	}
+]
