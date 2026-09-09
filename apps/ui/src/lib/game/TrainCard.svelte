@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { TrainCard } from '@repo/shared';
+	import ColorSymbol from './ColorSymbol.svelte';
 	let { color, count, back = false }: { color?: TrainCard; count?: number; back?: boolean } = $props();
 	const hues = {
 		red: '#c13f36',
@@ -11,16 +12,6 @@
 		black: '#424340',
 		white: '#eee5cc',
 		locomotive: '#354b55',
-	};
-	const symbols = {
-		red: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z',
-		orange: 'M12 3 22 21H2L12 3Z',
-		yellow: 'm12 2 2.7 6.5 7 .6-5.3 4.6 1.6 6.8-6-3.6-6 3.6 1.6-6.8-5.3-4.6 7-.6L12 2Z',
-		green: 'M20 3C8 2 2 7 4 14c2 7 9 8 13 3 3-4 3-9 3-14ZM5 19l9-9',
-		blue: 'M2 7c3-5 7 5 10 0s7 5 10 0M2 12c3-5 7 5 10 0s7 5 10 0M2 17c3-5 7 5 10 0s7 5 10 0',
-		purple: 'm12 2 9 10-9 10L3 12 12 2Z',
-		black: 'M8 2h8v6h6v8h-6v6H8v-6H2V8h6V2Z',
-		white: 'M4 4h16v16H4V4Z',
 	};
 </script>
 
@@ -44,9 +35,7 @@
 			draggable="false"
 		/>
 		{#if color !== 'locomotive'}
-			<svg class="color-symbol" viewBox="0 0 24 24" aria-hidden="true">
-				<path d={symbols[color]} />
-			</svg>
+			<span class="color-symbol"><ColorSymbol {color} /></span>
 		{/if}
 		{#if count !== undefined}<strong class="card-count">{count}</strong>{/if}
 	{/if}
@@ -101,7 +90,8 @@
 		left: 8%;
 		bottom: 6%;
 		width: 22%;
-		height: auto;
+		aspect-ratio: 1;
+		color: #f1e8cf;
 		fill: none;
 		stroke: #fffbee;
 		stroke-width: 2.4;

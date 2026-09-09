@@ -3,6 +3,7 @@
 	import { onMount, onDestroy, tick } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
 	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
+	import ColorSymbol from './ColorSymbol.svelte';
 	import {
 		cities,
 		cityById,
@@ -15,7 +16,7 @@
 		ROUTE_MARKER_WIDTH,
 		routes,
 	} from './board/layout';
-	import { createAtlasRenderer, projectPoint } from './board/renderer';
+	import { claimedCarriageHulls, createAtlasRenderer, projectPoint } from './board/renderer';
 	type Props = {
 		state: GameState;
 		viewerId: string;
@@ -56,6 +57,8 @@
 	let viewportHeight = $state(620);
 	let atlas = $state.raw<ReturnType<typeof createAtlasRenderer> | undefined>();
 	let ready = $state(false);
+	const carriageMaskId = $props.id();
+	const carriageHulls = $derived(ready ? claimedCarriageHulls(gameState) : []);
 	let zoom = $state(1);
 	const mapWidth = $derived(viewportWidth * zoom);
 	const mapHeight = $derived(viewportHeight * zoom);
@@ -232,6 +235,12 @@
 					atlas?.pointer(-2000, -2000);
 				}}
 			>
+				<defs>
+					<mask id={carriageMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="620">
+						<rect width="1000" height="620" fill="white" />
+						{#each carriageHulls as hull (hull.id)}<polygon points={hull.points} fill="black" />{/each}
+					</mask>
+				</defs>
 				{#if !ready}
 					<image
 						href="/game-assets/atlas/usa-relief-v3.webp"
@@ -252,68 +261,79 @@
 						transform="rotate(8 41 508)">PACIFIC</text
 					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
 				>
-				<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
-					{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
-					{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
-						<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
-					{/each}
-				</g>
-				{#each routes as route (route.id)}
-					{@const routeOwner = owner(route)}{@const unavailable = blocked(route)}{@const selected =
-						selectedRouteId === route.id}
-					<g
-						id={`route-${route.id}`}
-						class="route"
-						class:available={!routeOwner && !unavailable && !disabled}
-						class:blocked={unavailable}
-						class:selected
-						class:claimed={Boolean(routeOwner)}
-						class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
-						role="button"
-						tabindex={routeOwner || unavailable || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
-						aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
-						aria-disabled={Boolean(routeOwner) || unavailable || disabled}
-						aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
-						onclick={() => clickRoute(route)}
-						onpointerenter={() => {
-							if (!routeOwner && !unavailable && !disabled) hoverRoute(route);
-						}}
-						onpointerleave={() => hoverRoute()}
-						onfocus={() => {
-							focusedRouteId = route.id;
-							hoverRoute(route);
-						}}
-						onblur={() => hoverRoute()}
-						onkeydown={event => !routeOwner && !unavailable && !disabled && keySelect(event, route)}
-					>
-						<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
-						{#each Array(route.length) as _, i}
-							{@const t = routeMarkerT(route, i)}
-							{@const p = point(route, t)}
-							{@const a = point(route, Math.max(0, t - 0.002))}
-							{@const b = point(route, Math.min(1, t + 0.002))}
-							<rect
-								data-route-marker={route.id}
-								data-marker-index={i}
-								x={p.x - routeMarkerLength(route) / 2}
-								y={p.y - ROUTE_MARKER_WIDTH / 2}
-								width={routeMarkerLength(route)}
-								height={ROUTE_MARKER_WIDTH}
-								rx="0.8"
-								transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-								fill={routeOwner && ready
-									? 'transparent'
-									: routeOwner
-										? playerColors[routeOwner.color]
-										: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
-											? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
-											: routeColors[route.color]}
-								class="marker-anchor"
-								class:fallback-segment={!routeOwner || !ready}
-							/>
+				<g mask={`url(#${carriageMaskId})`}>
+					<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
+						{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
+						{#each cities as city (city.id)}{@const p = projectPoint(cityPoint(city))}
+							<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
 						{/each}
 					</g>
-				{/each}
+					{#each routes as route (route.id)}
+						{@const routeOwner = owner(route)}{@const unavailable = blocked(route)}{@const selected =
+							selectedRouteId === route.id}
+						<g
+							id={`route-${route.id}`}
+							class="route"
+							class:available={!routeOwner && !unavailable && !disabled}
+							class:blocked={unavailable}
+							class:selected
+							class:claimed={Boolean(routeOwner)}
+							class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
+							role="button"
+							tabindex={routeOwner || unavailable || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
+							aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
+							aria-disabled={Boolean(routeOwner) || unavailable || disabled}
+							aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
+							onclick={() => clickRoute(route)}
+							onpointerenter={() => {
+								if (!routeOwner && !unavailable && !disabled) hoverRoute(route);
+							}}
+							onpointerleave={() => hoverRoute()}
+							onfocus={() => {
+								focusedRouteId = route.id;
+								hoverRoute(route);
+							}}
+							onblur={() => hoverRoute()}
+							onkeydown={event => !routeOwner && !unavailable && !disabled && keySelect(event, route)}
+						>
+							<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
+							{#each Array(route.length) as _, i}
+								{@const t = routeMarkerT(route, i)}
+								{@const p = point(route, t)}
+								{@const a = point(route, Math.max(0, t - 0.002))}
+								{@const b = point(route, Math.min(1, t + 0.002))}
+								<rect
+									data-route-marker={route.id}
+									data-marker-index={i}
+									x={p.x - routeMarkerLength(route) / 2}
+									y={p.y - ROUTE_MARKER_WIDTH / 2}
+									width={routeMarkerLength(route)}
+									height={ROUTE_MARKER_WIDTH}
+									rx="0.8"
+									transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
+									fill={routeOwner && ready
+										? 'transparent'
+										: routeOwner
+											? playerColors[routeOwner.color]
+											: route.color === 'gray' && cardColor && eligibleRouteIds?.includes(route.id)
+												? routeColors[cardColor === 'locomotive' ? 'yellow' : cardColor]
+												: routeColors[route.color]}
+									class="marker-anchor"
+									class:fallback-segment={!routeOwner || !ready}
+								/>
+								{#if !routeOwner && route.color !== 'gray'}
+									<g
+										class="route-color-symbol"
+										transform={`translate(${p.x} ${p.y}) rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI})`}
+										aria-hidden="true"
+									>
+										<ColorSymbol color={route.color} x={-3.6} y={-3.6} size={7.2} />
+									</g>
+								{/if}
+							{/each}
+						</g>
+					{/each}
+				</g>
 				{#if highlightedTicket}
 					{@const a = projectPoint(cityPoint(cityById.get(highlightedTicket.cityA)!))}{@const b = projectPoint(
 						cityPoint(cityById.get(highlightedTicket.cityB)!),
@@ -420,6 +440,12 @@
 </div>
 
 <style>
+	.route-color-symbol {
+		color: #f1e8cf;
+		opacity: 0.76;
+		filter: drop-shadow(0 0.5px 0.45px #27251f);
+		pointer-events: none;
+	}
 	.board-frame {
 		user-select: none;
 		-webkit-user-select: none;

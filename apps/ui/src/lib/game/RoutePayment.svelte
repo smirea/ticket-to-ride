@@ -2,7 +2,9 @@
 	import { onMount, tick } from 'svelte';
 	import { scale } from 'svelte/transition';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
-	import TrainCard from './TrainCard.svelte';
+	import TrainPieceIcon from './TrainPieceIcon.svelte';
+	import PointsSeal from './PointsSeal.svelte';
+	import { routeColors } from './board/layout';
 	import type { RoutePayment } from './route-payments';
 	let {
 		routeId,
@@ -11,6 +13,7 @@
 		reduceMotion,
 		onchoose,
 		onclose,
+		onpreview,
 	}: {
 		routeId: string;
 		options: RoutePayment[];
@@ -18,23 +21,66 @@
 		reduceMotion: boolean;
 		onchoose: (payment: RoutePayment) => void;
 		onclose: () => void;
+		onpreview: (payment: RoutePayment | undefined) => void;
 	} = $props();
 	let container = $state<HTMLDivElement>();
 	let x = $state(0),
 		y = $state(0),
 		placed = $state(false);
+	let viewportWidth = $state(1600),
+		viewportHeight = $state(1000);
+	let active = $state<number>();
+	const radius = 36;
+	function pinPath(hx: number, hy: number) {
+		const distance = Math.hypot(hx, hy);
+		const ux = hx / distance,
+			uy = hy / distance;
+		const along = (radius * radius) / distance;
+		const side = radius * Math.sqrt(1 - (radius / distance) ** 2);
+		const ax = hx - ux * along - uy * side,
+			ay = hy - uy * along + ux * side;
+		const bx = hx - ux * along + uy * side,
+			by = hy - uy * along - ux * side;
+		return `M0 0 L${ax} ${ay} A${radius} ${radius} 0 1 0 ${bx} ${by} Z`;
+	}
 	function position() {
-		const anchor = document.getElementById(`route-${routeId}`)?.getBoundingClientRect();
-		if (!anchor || !container) return;
-		x = Math.max(
-			12,
-			Math.min(innerWidth - container.offsetWidth - 12, anchor.x + anchor.width / 2 - container.offsetWidth / 2),
-		);
-		y = Math.max(12, anchor.y - container.offsetHeight - 12);
+		const path = document.querySelector<SVGPathElement>(`#route-${routeId} .route-hitbox`);
+		const matrix = path?.getScreenCTM();
+		if (!path || !matrix || !container) return;
+		const midpoint = path.getPointAtLength(path.getTotalLength() / 2);
+		const anchor = new DOMPoint(midpoint.x, midpoint.y).matrixTransform(matrix);
+		x = anchor.x;
+		y = anchor.y;
+		viewportWidth = innerWidth;
+		viewportHeight = innerHeight;
 		placed = true;
 	}
+	const heads = $derived.by(() => {
+		if (!placed) return [];
+		const spread = (Math.min(154, Math.max(44, (options.length - 1) * 32)) * Math.PI) / 180;
+		const reach = Math.max(100, 82 / (2 * Math.sin(spread / (2 * Math.max(1, options.length - 1)))));
+		const below = y < reach + radius + 18 && viewportHeight - y > y;
+		const centers = options.map((_, i) => {
+			const angle = (below ? Math.PI / 2 : -Math.PI / 2) + (i / Math.max(1, options.length - 1) - 0.5) * spread;
+			return { x: Math.cos(angle) * reach, y: Math.sin(angle) * reach };
+		});
+		const minX = Math.min(...centers.map(p => x + p.x - radius));
+		const maxX = Math.max(...centers.map(p => x + p.x + radius));
+		const minY = Math.min(...centers.map(p => y + p.y - radius));
+		const maxY = Math.max(...centers.map(p => y + p.y + radius));
+		const dx = minX < 16 ? 16 - minX : maxX > viewportWidth - 16 ? viewportWidth - 16 - maxX : 0;
+		const dy = minY < 16 ? 16 - minY : maxY > viewportHeight - 16 ? viewportHeight - 16 - maxY : 0;
+		return centers.map(p => ({ x: p.x + dx, y: p.y + dy, path: pinPath(p.x + dx, p.y + dy) }));
+	});
+	function preview(index?: number) {
+		active = index;
+		onpreview(index === undefined ? undefined : options[index]);
+	}
 	$effect(() => {
-		if (routeId && options.length) void tick().then(position);
+		if (routeId && options.length) {
+			preview();
+			void tick().then(position);
+		}
 	});
 	onMount(() => {
 		position();
@@ -56,6 +102,7 @@
 		window.addEventListener('resize', position);
 		window.addEventListener('scroll', position, true);
 		return () => {
+			onpreview(undefined);
 			window.removeEventListener('pointerdown', outside);
 			window.removeEventListener('keydown', keyboard);
 			window.removeEventListener('resize', position);
@@ -67,115 +114,148 @@
 <div
 	class="route-payment"
 	role="dialog"
-	aria-label="Choose route payment"
+	aria-label={`Choose route payment, ${points} point${points === 1 ? '' : 's'}`}
 	bind:this={container}
 	style:left={`${x}px`}
 	style:top={`${y}px`}
 	style:visibility={placed ? 'visible' : 'hidden'}
-	transition:scale={{ start: 0.9, duration: reduceMotion ? 0 : 180 }}
+	transition:scale={{ start: 0.15, duration: reduceMotion ? 0 : 220 }}
 >
-	<header>
-		<strong>{points} points</strong><button class="close" aria-label="Cancel route payment" onclick={onclose}
-			><XIcon size={15} /></button
-		>
-	</header>
-	<div class="payment-options">
-		{#each options as payment (`${payment.color}-${payment.wilds}`)}
-			<button
-				class="payment-option"
-				onclick={() => onchoose(payment)}
-				aria-label={`Claim with ${payment.cars ? `${payment.cars} ${payment.color} car${payment.cars === 1 ? '' : 's'}` : ''}${payment.cars && payment.wilds ? ' and ' : ''}${payment.wilds ? `${payment.wilds} locomotive${payment.wilds === 1 ? '' : 's'}` : ''}`}
-			>
-				{#if payment.cars}<strong>{payment.cars}</strong><span class="mini-card"
-						><TrainCard color={payment.color} /></span
-					>{/if}
-				{#if payment.wilds}<strong>{payment.wilds}</strong><span class="mini-card"
-						><TrainCard color="locomotive" /></span
-					>{/if}
-			</button>
+	<svg class="pin-shapes" width="1" height="1" aria-hidden="true">
+		{#each heads as head, i}
+			<g class:active={active === i}>
+				<path d={head.path} fill={options[i]!.cars ? routeColors[options[i]!.color] : '#405e65'} />
+				<circle cx={head.x} cy={head.y} r="29" />
+			</g>
 		{/each}
-	</div>
+	</svg>
+	{#each heads as head, i}
+		{@const payment = options[i]!}
+		<button
+			class="payment-option"
+			style:left={`${head.x - radius}px`}
+			style:top={`${head.y - radius}px`}
+			onpointerenter={() => preview(i)}
+			onpointerleave={() => preview()}
+			onfocus={() => preview(i)}
+			onblur={() => preview()}
+			onclick={() => onchoose(payment)}
+			aria-label={`Claim with ${payment.cars ? `${payment.cars} ${payment.color} car${payment.cars === 1 ? '' : 's'}` : ''}${payment.cars && payment.wilds ? ' and ' : ''}${payment.wilds ? `${payment.wilds} locomotive${payment.wilds === 1 ? '' : 's'}` : ''}`}
+		>
+			<span class="pin-cost">
+				{#if payment.cars}<span class="cost"
+						><strong>{payment.cars}</strong><TrainPieceIcon color={routeColors[payment.color]} /></span
+					>{/if}
+				{#if payment.wilds}<span class="cost"
+						><strong>{payment.wilds}</strong><TrainPieceIcon color="#3c5159" locomotive /></span
+					>{/if}
+			</span>
+		</button>
+	{/each}
+	<div class="anchor"><PointsSeal value={points} /></div>
+	<button class="close" aria-label="Cancel route payment" onclick={onclose}><XIcon size={14} /></button>
 </div>
 
 <style>
 	.route-payment {
-		transform-origin: center bottom;
 		position: fixed;
 		z-index: 80;
-		width: 314px;
-		padding: 8px;
-		border: 1px solid #a88e60;
-		border-radius: 7px;
-		background: #f5ecd6;
-		box-shadow:
-			0 2px #bba579,
-			0 10px 22px #271e294a;
-		color: #243b42;
+		width: 0;
+		height: 0;
+		transform-origin: 0 0;
+		color: #263d42;
+		pointer-events: none;
 	}
-	header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 3px 6px;
-		font:
-			600 13px Georgia,
-			serif;
+	.pin-shapes {
+		position: absolute;
+		inset: 0;
+		overflow: visible;
+		pointer-events: none;
+		filter: drop-shadow(1px 3px 2px #33281855);
 	}
-	button {
-		color: inherit;
-		cursor: pointer;
+	.pin-shapes path {
+		stroke: #b09a6c;
+		stroke-width: 1.8;
+		stroke-linejoin: round;
 	}
-	.close {
-		display: grid;
-		place-items: center;
-		width: 24px;
-		height: 24px;
-		padding: 0;
-		background: none;
-		border: 0;
+	.pin-shapes circle {
+		fill: #fff3d9;
+		stroke: #efdcaa;
+		stroke-width: 1;
 	}
-	.payment-options {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 5px;
-		max-height: 232px;
-		overflow-y: auto;
-		padding: 2px;
+	.pin-shapes g {
+		transition: filter 130ms;
+	}
+	.pin-shapes .active {
+		filter: brightness(1.12) drop-shadow(0 0 3px #fff0c2);
 	}
 	.payment-option {
+		position: absolute;
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		border: 0;
+		padding: 0;
+		background: none;
+		color: inherit;
+		pointer-events: auto;
+		cursor: pointer;
+	}
+	.pin-cost {
 		display: flex;
+		height: 100%;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 7px;
-		min-height: 56px;
-		padding: 5px;
-		border: 1px solid #b7a58077;
-		border-radius: 4px;
-		background: #fff9e9;
-		transition:
-			transform 140ms,
-			background 140ms;
+		transition: transform 130ms;
 	}
-	.payment-option:hover {
-		background: #e3ebd5;
-		transform: translateY(-1px);
+	.payment-option:hover .pin-cost,
+	.payment-option:focus-visible .pin-cost {
+		transform: translateY(-2px);
 	}
 	.payment-option:focus-visible {
-		outline: 2px solid #53776b;
-		outline-offset: 0;
+		outline: 2px solid #fff6d4;
+		outline-offset: 3px;
 	}
-	.payment-option > strong {
+	.cost {
+		display: flex;
+		align-items: center;
+		gap: 3px;
+		height: 23px;
+	}
+	strong {
 		font:
-			600 20px Georgia,
+			700 19px/1 Georgia,
 			serif;
 	}
-	.mini-card {
-		display: block;
-		width: 27px;
-		height: 38px;
+	.anchor {
+		position: absolute;
+		width: 25px;
+		height: 25px;
+		left: -12.5px;
+		top: -12.5px;
+		--seal-number-size: 13px;
 	}
-	.mini-card :global(.card-face) {
-		border-width: 1px;
-		border-radius: 2px;
+	.close {
+		position: absolute;
+		left: 18px;
+		top: -10px;
+		width: 22px;
+		height: 22px;
+		display: grid;
+		place-items: center;
+		border: 1px solid #b19a70;
+		border-radius: 50%;
+		background: #fff3d9;
+		color: #384847;
+		pointer-events: auto;
+		cursor: pointer;
+		box-shadow: 0 2px 4px #382d2733;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.pin-shapes g,
+		.pin-cost {
+			transition: none;
+		}
 	}
 </style>

@@ -13,14 +13,14 @@ import fast_simplification
 import numpy as np
 
 MODELS = [
-    ("carriage", "Panelled carriage", 43, [(1, "dark", 800), (5, "body", 1100)]),
-    ("passenger", "Passenger coach", 43, [(2, "dark", 800), (6, "body", 1100)]),
-    ("boxcar", "Box wagon", 43, [(3, "dark", 800), (4, "body", 1100)]),
-    ("flatbed", "Open flatbed", 36, [(38, "body", 1900)]),
-    ("coal", "Coal wagon", 56, [(82, "dark", 750), (83, "body", 250), (84, "dark", 900)]),
-    ("caboose", "Raised-roof caboose", 50, [(45, "dark", 750), (49, "body", 1150)]),
-    ("hopper", "Covered hopper", 50, [(46, "dark", 750), (50, "body", 1150)]),
-    ("tanker", "Tank wagon", 50, [(47, "dark", 750), (48, "body", 1150)]),
+    ("carriage", "Panelled carriage", 43, [(1, "dark", 800), (5, "body", 2600)]),
+    ("passenger", "Passenger coach", 43, [(2, "dark", 800), (6, "body", 2600)]),
+    ("boxcar", "Box wagon", 43, [(3, "dark", 800), (4, "body", 2800)]),
+    ("flatbed", "Open flatbed", 36, [(38, "body", 2800)]),
+    ("coal", "Coal wagon", 56, [(82, "dark", 750), (83, "body", 600), (84, "dark", 2400)]),
+    ("caboose", "Raised-roof caboose", 50, [(45, "dark", 750), (49, "body", 2600)]),
+    ("hopper", "Covered hopper", 50, [(46, "dark", 750), (50, "body", 2600)]),
+    ("tanker", "Tank wagon", 50, [(47, "dark", 750), (48, "body", 2600)]),
 ]
 
 
@@ -49,18 +49,15 @@ def convert(source, destination):
         minimum, maximum = all_vertices.min(axis=0), all_vertices.max(axis=0)
         origin = np.array([(minimum[0] + maximum[0]) / 2, (minimum[1] + maximum[1]) / 2, minimum[2]])
         length = maximum[0] - minimum[0]
-        height = (maximum[2] - minimum[2]) / length
         parts = []
         for source_id, material, budget, vertices, faces in originals:
-            vertices, faces = fast_simplification.simplify(vertices, faces, target_count=budget, agg=7)
+            if len(faces) > budget:
+                vertices, faces = fast_simplification.simplify(vertices, faces, target_count=budget, agg=7)
             vertices = (vertices - origin) / length
             triangles = vertices[faces]
-            normals = np.cross(triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0])
             centers = triangles.mean(axis=1)
-            # Material accents partition original faces; no decorative replacement geometry is introduced.
-            trim = (centers[:, 2] > height - 0.035) & (normals[:, 2] > np.linalg.norm(normals, axis=1) * 0.45) if material == "body" else np.zeros(len(faces), dtype=bool)
             chassis = (centers[:, 2] < 0.075) if model_id == "flatbed" else np.zeros(len(faces), dtype=bool)
-            for role, mask in [("trim", trim & ~chassis), ("dark", chassis), (material, ~trim & ~chassis)]:
+            for role, mask in [("dark", chassis), (material, ~chassis)]:
                 if mask.any():
                     parts.append(pack(vertices, faces[mask], role, source_id))
         reduced = np.concatenate([np.array(part["positions"]).reshape(-1, 3) for part in parts])
