@@ -74,6 +74,10 @@
 	let paymentRoute = $state<Route>();
 	let previewPayment = $state<Payment>();
 	let previewTicketId = $state<TicketId>();
+	let hoveredCityId = $state<string>();
+	let cityPreviewScrollTop: number | undefined;
+	let cityPreviewVersion = 0;
+	let cityReordering = $state(false);
 	let activeOfferKey = $state('');
 	let settingsOpen = $state(false);
 	let historyOpen = $state(false);
@@ -148,7 +152,7 @@
 	const turnReady = $derived(
 		!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 0,
 	);
-	const activeCard = $derived(paymentRoute ? undefined : (hoveredCard ?? pinnedCard));
+	const activeCard = $derived(paymentRoute || hoveredCityId ? undefined : (hoveredCard ?? pinnedCard));
 	const displayHand = $derived(heldHand ?? viewer?.hand);
 	const activePlayer = $derived(
 		gameState.phase.type === 'ticket-selection'
@@ -165,18 +169,46 @@
 	const completedIds = $derived(
 		new Set(heldTickets.filter(ticket => isTicketComplete(gameState, viewerId, ticket.id)).map(ticket => ticket.id)),
 	);
-	const visibleTickets = $derived(
+	const orderedTickets = $derived(
 		[...heldTickets].sort((a, b) => {
 			const ai = completedOrder.indexOf(a.id),
 				bi = completedOrder.indexOf(b.id);
 			return (ai < 0 ? Infinity : ai) - (bi < 0 ? Infinity : bi);
 		}),
 	);
+	const cityTickets = $derived(
+		orderedTickets.filter(ticket => ticket.cityA === hoveredCityId || ticket.cityB === hoveredCityId),
+	);
+	const cityTicketIds = $derived(new Set(cityTickets.map(ticket => ticket.id)));
+	const ticketCityCounts = $derived(
+		Object.fromEntries(
+			USA_CITIES.map(city => [
+				city.id,
+				heldTickets.filter(ticket => ticket.cityA === city.id || ticket.cityB === city.id).length,
+			]),
+		),
+	);
+	const visibleTickets = $derived(
+		cityTickets.length
+			? [...cityTickets, ...orderedTickets.filter(ticket => !cityTicketIds.has(ticket.id))]
+			: orderedTickets,
+	);
+
 	const highlightedTicket = $derived(
 		completionTicket?.ticket ??
 			journalPreview?.ticket ??
 			(previewTicketId ? ticketById.get(previewTicketId) : undefined),
 	);
+	const highlightedTickets = $derived(
+		completionTicket
+			? [completionTicket.ticket]
+			: cityTickets.length
+				? cityTickets
+				: highlightedTicket
+					? [highlightedTicket]
+					: [],
+	);
+
 	const handColors = $derived(TRAIN_CARDS.filter(color => (displayHand?.[color] ?? 0) > 0 || incomingCard === color));
 	const handMargin = $derived(
 		Math.max(
@@ -195,7 +227,7 @@
 	const ticketStep = $derived(
 		Math.max(
 			ticketSelection && !closingTickets ? 26 : 30,
-			Math.min(92, (ticketAreaHeight - 100) / Math.max(1, visibleTickets.length - 1)),
+			Math.min(92, (ticketAreaHeight - 100) / Math.max(1, (cityTickets.length || visibleTickets.length) - 1)),
 		),
 	);
 
@@ -268,6 +300,30 @@
 		if (!busy && !paymentRoute && !ticketSelection && !completionTicket && completionQueue.length)
 			untrack(beginTicketCompletion);
 	});
+	$effect(() => {
+		if (busy || paymentRoute)
+			untrack(() => {
+				if (hoveredCityId) void previewCity();
+			});
+	});
+	async function previewCity(cityId?: string) {
+		if (cityId && (busy || paymentRoute || !ticketCityCounts[cityId])) return;
+		const version = ++cityPreviewVersion;
+		cityReordering = true;
+		if (cityId && cityPreviewScrollTop === undefined) cityPreviewScrollTop = ticketCollection?.scrollTop ?? 0;
+		hoveredCityId = cityId;
+		if (cityId) {
+			previewTicketId = undefined;
+			hoveredRoute = undefined;
+		}
+		await tick();
+		if (version !== cityPreviewVersion) return;
+		ticketCollection?.scrollTo({ top: cityId ? 0 : (cityPreviewScrollTop ?? 0), behavior: 'instant' });
+		if (!cityId) cityPreviewScrollTop = undefined;
+		await pause(motionDuration + 30);
+		if (version === cityPreviewVersion) cityReordering = false;
+	}
+
 	function beginTicketCompletion() {
 		const id = completionQueue[0]!;
 		completionQueue = completionQueue.slice(1);
@@ -510,7 +566,7 @@
 	const hoverInfo = $derived(hoveredRoute ? claimInfo(hoveredRoute, pinnedCard) : undefined);
 	const routeHover = $derived.by(() => {
 		const route = hoveredRoute;
-		if (!route || paymentRoute || busy || historyOpen) return undefined;
+		if (!route || paymentRoute || busy || historyOpen || hoveredCityId) return undefined;
 		const options = paymentsByRoute.get(route.id) ?? [];
 		const points = ROUTE_SCORES[route.length] ?? 0;
 		return {
@@ -791,7 +847,7 @@
 		</div>
 		<div
 			class="ticket-collection"
-			class:reordering={ticketReordering}
+			class:reordering={ticketReordering || cityReordering || Boolean(hoveredCityId)}
 			class:empty={visibleTickets.length === 0}
 			class:stacked={visibleTickets.length > 1 && ticketStep < 100}
 			style:height={visibleTickets.length ? `${114 + Math.max(0, visibleTickets.length - 1) * 92}px` : '0px'}
@@ -812,7 +868,8 @@
 						: undefined}
 					style:--ticket-angle={`${[-2.4, 1.5, -1.2, 2][index % 4]}deg`}
 					style:--ticket-layer={index + 1}
-					class:previewed={previewTicketId === ticket.id}
+					class:previewed={previewTicketId === ticket.id || cityTicketIds.has(ticket.id)}
+					class:city-muted={Boolean(hoveredCityId) && !cityTicketIds.has(ticket.id)}
 					in:fly={{
 						x: 100,
 						y: -8,
@@ -829,7 +886,7 @@
 				>
 					<DestinationCard
 						{ticket}
-						selected={previewTicketId === ticket.id}
+						selected={previewTicketId === ticket.id || cityTicketIds.has(ticket.id)}
 						complete={completedOrder.includes(ticket.id)}
 						animateCompletion={false}
 					/>
@@ -878,7 +935,10 @@
 			state={gameState}
 			{viewerId}
 			{selectedRouteId}
-			{highlightedTicket}
+			{highlightedTickets}
+			{ticketCityCounts}
+			previewedCityId={hoveredCityId}
+			oncityhover={previewCity}
 			celebratingTicket={Boolean(completionTicket)}
 			motionEnabled={!reduceMotion}
 			disabled={!turnReady}
@@ -1239,6 +1299,7 @@
 	}
 
 	.ticket-collection {
+		overflow-anchor: none;
 		position: relative;
 		min-height: 0;
 		flex: 0 1 auto;
@@ -1267,10 +1328,14 @@
 		z-index: var(--ticket-layer);
 		transition:
 			transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-			filter 220ms;
+			filter 220ms,
+			opacity 180ms;
 	}
 	.ticket-collection.reordering .ticket-button {
-		transition: none;
+		transition: opacity 180ms;
+	}
+	.ticket-button.city-muted {
+		opacity: 0.28;
 	}
 	.ticket-button + .ticket-button {
 		margin-top: calc(var(--ticket-step) - 82px);

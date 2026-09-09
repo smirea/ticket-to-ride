@@ -39,7 +39,10 @@
 		state: GameState;
 		viewerId: string;
 		selectedRouteId?: RouteId;
-		highlightedTicket?: DestinationTicket;
+		highlightedTickets?: DestinationTicket[];
+		ticketCityCounts?: Record<string, number>;
+		previewedCityId?: string;
+		oncityhover?: (cityId?: string) => void;
 		celebratingTicket?: boolean;
 		disabled?: boolean;
 		motionEnabled?: boolean;
@@ -55,7 +58,10 @@
 		state: gameState,
 		viewerId,
 		selectedRouteId,
-		highlightedTicket,
+		highlightedTickets = [],
+		ticketCityCounts = {},
+		previewedCityId,
+		oncityhover,
 		celebratingTicket = false,
 		disabled = false,
 		motionEnabled = true,
@@ -441,7 +447,7 @@
 						</g>
 					{/each}
 				</g>
-				{#if highlightedTicket && !celebratingTicket}
+				{#each celebratingTicket ? [] : highlightedTickets as highlightedTicket (highlightedTicket.id)}
 					{@const a = cityPoint(cityById.get(highlightedTicket.cityA)!)}{@const b = cityPoint(
 						cityById.get(highlightedTicket.cityB)!,
 					)}
@@ -457,7 +463,7 @@
 						d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
 						aria-hidden="true"
 					/>
-				{/if}
+				{/each}
 				<g class="completion-trace" aria-hidden="true">
 					{#each completionMarkers as marker (marker.key)}
 						{@const t = routeMarkerT(marker.route, marker.index)}
@@ -507,9 +513,37 @@
 						'charleston',
 						'houston',
 						'little-rock',
-					].includes(city.id)}{@const endpoint =
-						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
-					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
+					].includes(city.id)}{@const endpoint = highlightedTickets.some(
+						ticket => ticket.cityA === city.id || ticket.cityB === city.id,
+					)}
+					<g
+						class="city"
+						class:ticket-endpoint={endpoint}
+						class:has-tickets={Boolean(ticketCityCounts[city.id])}
+						data-city={city.id}
+						transform={`translate(${p.x} ${p.y}) ${labelScale}`}
+						role={ticketCityCounts[city.id] ? 'button' : undefined}
+						tabindex={ticketCityCounts[city.id] ? 0 : undefined}
+						aria-label={ticketCityCounts[city.id]
+							? `${city.name}: preview ${ticketCityCounts[city.id]} destination ticket${ticketCityCounts[city.id] === 1 ? '' : 's'}`
+							: undefined}
+						aria-pressed={ticketCityCounts[city.id] ? previewedCityId === city.id : undefined}
+						onpointerenter={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+						onpointerleave={() => ticketCityCounts[city.id] && oncityhover?.()}
+						onfocus={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+						onblur={() => ticketCityCounts[city.id] && oncityhover?.()}
+						onclick={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+						onkeydown={event => {
+							if (event.key === 'Escape') {
+								event.preventDefault();
+								oncityhover?.();
+							}
+							if (event.key === 'Enter' || event.key === ' ') {
+								event.preventDefault();
+								oncityhover?.(city.id);
+							}
+						}}
+					>
 						{#if endpoint}<circle
 								class="endpoint-ring"
 								r="21"
@@ -602,9 +636,9 @@
 		>
 	</div>
 	<p id="board-help" class="board-help">
-		Use arrow keys to move between open routes, then Enter or Space to select one. {highlightedTicket
-			? `Previewing ${cityById.get(highlightedTicket.cityA)!.name} to ${cityById.get(highlightedTicket.cityB)!.name}.`
-			: ''}
+		Use arrow keys to move between open routes, then Enter or Space to select one. {highlightedTickets
+			.map(ticket => `Previewing ${cityById.get(ticket.cityA)!.name} to ${cityById.get(ticket.cityB)!.name}.`)
+			.join(' ')}
 	</p>
 </div>
 
@@ -836,6 +870,18 @@
 		filter: drop-shadow(0 0 5px #efb43e);
 	}
 	.city {
+		pointer-events: none;
+	}
+	.city.has-tickets {
+		outline: none;
+		pointer-events: auto;
+		cursor: pointer;
+	}
+	.city.has-tickets:focus-visible .city-hub {
+		stroke: #2b6d78;
+		stroke-width: 3;
+	}
+	.city .endpoint-ring {
 		pointer-events: none;
 	}
 	.city-shadow {
