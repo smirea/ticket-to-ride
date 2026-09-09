@@ -7,13 +7,14 @@
 		ticket,
 		complete = false,
 		selected = false,
-	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean } = $props();
+		animateCompletion = true,
+	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean; animateCompletion?: boolean } = $props();
 	let punching = $state(false);
 	let initialized = false;
 	let wasComplete = false;
 
 	$effect(() => {
-		if (initialized && complete && !wasComplete) punching = true;
+		if (animateCompletion && initialized && complete && !wasComplete) punching = true;
 		wasComplete = complete;
 		initialized = true;
 	});

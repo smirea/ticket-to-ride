@@ -2,6 +2,7 @@
 	import type { Player } from '@repo/shared';
 	import { playerPortraitAssets } from './assets';
 	import PointsSeal from './PointsSeal.svelte';
+	import TicketCountIcon from './TicketCountIcon.svelte';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
 	let {
 		player,
@@ -25,20 +26,6 @@
 	const unfinished = $derived(completed === undefined ? undefined : player.tickets.length - completed);
 </script>
 
-{#snippet ticketIcon(done: boolean = false)}
-	<svg width="17" height="14" viewBox="0 0 24 18" aria-hidden="true">
-		<path d="M2 2h20v4a3 3 0 0 0 0 6v4H2v-4a3 3 0 0 0 0-6Z" fill="none" stroke="currentColor" stroke-width="1.5" />
-		{#if done}<path d="m8 9 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2" />
-		{:else}<path
-				d="M9 5v8M14 6h4M14 10h4"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="1.2"
-				stroke-dasharray="2 1"
-			/>{/if}
-	</svg>
-{/snippet}
-
 <div
 	class="player-plaque"
 	class:active
@@ -55,14 +42,14 @@
 		<div class="ticket-counts">
 			{#if unfinished === undefined}
 				{#if player.tickets.length > 0}<span aria-label={`${player.tickets.length} tickets`}
-						><strong>{player.tickets.length}</strong>{@render ticketIcon()}</span
+						><strong>{player.tickets.length}</strong><TicketCountIcon width={17} height={14} /></span
 					>{/if}
 			{:else}
 				{#if unfinished > 0}<span aria-label={`${unfinished} unfinished tickets`}
-						><strong>{unfinished}</strong>{@render ticketIcon()}</span
+						><strong>{unfinished}</strong><TicketCountIcon width={17} height={14} /></span
 					>{/if}
 				{#if completed && completed > 0}<span aria-label={`${completed} completed tickets`}
-						><strong>{completed}</strong>{@render ticketIcon(true)}</span
+						><strong>{completed}</strong><TicketCountIcon complete width={17} height={14} /></span
 					>{/if}
 			{/if}
 		</div>
@@ -236,7 +223,7 @@
 			600 15px/1 Georgia,
 			serif;
 	}
-	.ticket-counts svg,
+	.ticket-counts :global(svg),
 	.supplies svg {
 		flex-shrink: 0;
 	}

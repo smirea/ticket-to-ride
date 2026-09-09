@@ -22,11 +22,25 @@
 		ROUTE_MARKER_WIDTH,
 		routes,
 	} from './board/layout';
+	function cityLabelLines(name: string) {
+		const words = name.split(' ');
+		if (name.length < 10 || words.length < 2) return [name];
+		let split = 1;
+		for (let i = 2; i < words.length; i++) {
+			if (
+				Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length) <
+				Math.abs(words.slice(0, split).join(' ').length - words.slice(split).join(' ').length)
+			)
+				split = i;
+		}
+		return [words.slice(0, split).join(' '), words.slice(split).join(' ')];
+	}
 	type Props = {
 		state: GameState;
 		viewerId: string;
 		selectedRouteId?: RouteId;
 		highlightedTicket?: DestinationTicket;
+		celebratingTicket?: boolean;
 		disabled?: boolean;
 		motionEnabled?: boolean;
 		onselect: (route: Route) => void;
@@ -42,6 +56,7 @@
 		viewerId,
 		selectedRouteId,
 		highlightedTicket,
+		celebratingTicket = false,
 		disabled = false,
 		motionEnabled = true,
 		onselect,
@@ -97,6 +112,58 @@
 			return { ...frame, matrix: [matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f] };
 		});
 	}
+
+	let completionMarkers = $state<{ route: Route; index: number; key: string }[]>([]);
+	let celebrationRun = 0;
+	let celebrationAnimations: Animation[] = [];
+
+	function stopCelebration() {
+		celebrationRun++;
+		for (const animation of celebrationAnimations) animation.cancel();
+		celebrationAnimations = [];
+		completionMarkers = [];
+	}
+
+	export async function celebrateTicket(steps: { routeId: string; reverse: boolean }[]): Promise<void> {
+		stopCelebration();
+		if (!motionEnabled || !viewport?.isConnected) return;
+		const run = celebrationRun;
+		completionMarkers = steps.flatMap(step => {
+			const route = routes.find(candidate => candidate.id === step.routeId);
+			if (!route || !owner(route)) return [];
+			const indices = Array.from({ length: route.length }, (_, index) => index);
+			if (step.reverse) indices.reverse();
+			return indices.map(index => ({ route, index, key: `${route.id}-${index}` }));
+		});
+		await tick();
+		if (run !== celebrationRun || !viewport?.isConnected) return;
+		for (const [order, marker] of completionMarkers.entries()) {
+			const piece = viewport.querySelector<SVGGElement>(`[data-carriage="${marker.key}"] .carriage-piece`);
+			const highlight = viewport.querySelector<SVGRectElement>(`[data-completion-marker="${marker.key}"]`);
+			if (piece)
+				celebrationAnimations.push(
+					piece.animate(
+						[{ transform: 'scale(1)' }, { transform: 'scale(1.32)', offset: 0.45 }, { transform: 'scale(1)' }],
+						{ duration: 300, delay: order * 65, easing: 'ease-in-out' },
+					),
+				);
+			if (highlight)
+				celebrationAnimations.push(
+					highlight.animate([{ opacity: 0 }, { opacity: 1 }], {
+						duration: 180,
+						delay: order * 65,
+						fill: 'forwards',
+						easing: 'ease-out',
+					}),
+				);
+		}
+		await Promise.allSettled(celebrationAnimations.map(animation => animation.finished));
+		if (run === celebrationRun) stopCelebration();
+	}
+
+	$effect(() => {
+		if (!motionEnabled) stopCelebration();
+	});
 
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
@@ -256,6 +323,7 @@
 		return () => {
 			cancelled = true;
 			measure.disconnect();
+			stopCelebration();
 		};
 	});
 
@@ -373,7 +441,7 @@
 						</g>
 					{/each}
 				</g>
-				{#if highlightedTicket}
+				{#if highlightedTicket && !celebratingTicket}
 					{@const a = cityPoint(cityById.get(highlightedTicket.cityA)!)}{@const b = cityPoint(
 						cityById.get(highlightedTicket.cityB)!,
 					)}
@@ -390,42 +458,69 @@
 						aria-hidden="true"
 					/>
 				{/if}
+				<g class="completion-trace" aria-hidden="true">
+					{#each completionMarkers as marker (marker.key)}
+						{@const t = routeMarkerT(marker.route, marker.index)}
+						{@const p = point(marker.route, t)}
+						{@const a = point(marker.route, Math.max(0, t - 0.002))}
+						{@const b = point(marker.route, Math.min(1, t + 0.002))}
+						<rect
+							data-completion-marker={marker.key}
+							x={p.x - routeMarkerLength(marker.route) / 2}
+							y={p.y - ROUTE_MARKER_WIDTH / 2}
+							width={routeMarkerLength(marker.route)}
+							height={ROUTE_MARKER_WIDTH}
+							rx="2"
+							transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
+						/>
+					{/each}
+				</g>
 				<g class="claimed-carriages" aria-hidden="true">
 					{#each carriages as carriage (carriage.id)}
 						<g
 							data-carriage={carriage.id}
-							transform={`translate(${carriage.frame.x} ${carriage.frame.y}) rotate(${carriage.frame.angle}) translate(${-carriage.frame.anchorX} ${-carriage.frame.anchorY})`}
+							transform={`translate(${carriage.frame.x} ${carriage.frame.y}) rotate(${carriage.frame.angle})`}
 						>
-							<g
-								in:fly={{
-									y: -8,
-									duration: motionEnabled && carriage.arrive ? 380 : 0,
-									delay: motionEnabled && carriage.arrive ? carriage.index * 45 : 0,
-								}}
-							>
-								<CarriageImage frame={carriage.frame} />
+							<g class="carriage-piece">
+								<g transform={`translate(${-carriage.frame.anchorX} ${-carriage.frame.anchorY})`}>
+									<g
+										in:fly={{
+											y: -8,
+											duration: motionEnabled && carriage.arrive ? 380 : 0,
+											delay: motionEnabled && carriage.arrive ? carriage.index * 45 : 0,
+										}}
+									>
+										<CarriageImage frame={carriage.frame} />
+									</g>
+								</g>
 							</g>
 						</g>
 					{/each}
 				</g>
 
 				{#each cities as city (city.id)}
-					{@const p = cityPoint(city)}{@const endpoint =
+					{@const p = cityPoint(city)}{@const labelLines = cityLabelLines(city.name)}{@const labelBelow = [
+						'calgary',
+						'winnipeg',
+						'montreal',
+						'boston',
+						'charleston',
+						'houston',
+						'little-rock',
+					].includes(city.id)}{@const endpoint =
 						highlightedTicket?.cityA === city.id || highlightedTicket?.cityB === city.id}
 					<g class="city" class:ticket-endpoint={endpoint} transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
 						{#if endpoint}<circle
 								class="endpoint-ring"
 								r="21"
 								transition:fade={{ duration: motionEnabled ? 180 : 0 }}
-							/>{/if}<circle class="city-shadow" cy="1.8" r="9.5" /><circle class="city-hub" r="8.2" /><circle
+							/>{/if}<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
 							class="city-center"
-							r="4.8"
+							r="5.4"
 						/>
-						<text
-							y={['winnipeg', 'montreal', 'boston', 'kansas-city', 'little-rock'].includes(city.id) ? 22 : -13}
-							x={city.id === 'boston' ? -2 : 0}
-							text-anchor={city.x > 90 ? 'end' : city.x < 10 ? 'start' : 'middle'}>{city.name}</text
-						>
+						<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
+							{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
+						</text>
 					</g>
 				{/each}
 				{#each hintRoutes as placement (placement.route.id)}
@@ -726,6 +821,20 @@
 		stroke: #fff4d9a6;
 		stroke-width: 0.7;
 	}
+	.carriage-piece {
+		transform-box: view-box;
+		transform-origin: 0 0;
+	}
+	.completion-trace {
+		pointer-events: none;
+	}
+	.completion-trace rect {
+		fill: #ffe8a0;
+		stroke: #fff5ca;
+		stroke-width: 5;
+		opacity: 0;
+		filter: drop-shadow(0 0 5px #efb43e);
+	}
 	.city {
 		pointer-events: none;
 	}
@@ -742,14 +851,14 @@
 	}
 	.city text {
 		fill: #21323a;
-		font-family: Barlow, sans-serif;
-		font-size: 14px;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 15.5px;
 		font-weight: 700;
 		paint-order: stroke;
 		stroke: #fff7e4;
 		stroke-width: 2.6;
 		stroke-linejoin: round;
-		letter-spacing: -0.25px;
+		letter-spacing: -0.15px;
 	}
 	.endpoint-ring {
 		fill: #fff4b45c;

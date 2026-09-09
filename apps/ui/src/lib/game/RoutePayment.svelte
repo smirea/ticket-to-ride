@@ -87,6 +87,14 @@
 			};
 		});
 	});
+	const closePosition = $derived.by(() => {
+		const centroidY = heads.reduce((sum, head) => sum + head.y, 0) / Math.max(1, heads.length);
+		const centerY =
+			centroidY < 0
+				? Math.max(46, ...heads.map(head => head.y + radius + 22))
+				: Math.min(-46, ...heads.map(head => head.y - radius - 22));
+		return { x: Math.max(16 - x, Math.min(0, viewportWidth - 16 - x)), y: centerY };
+	});
 	function preview(index?: number) {
 		active = index;
 		onpreview(index === undefined ? undefined : options[index]);
@@ -186,7 +194,13 @@
 		</button>
 	{/each}
 	<div class="anchor"><PointsSeal value={points} /></div>
-	<button class="close" aria-label="Cancel route payment" onclick={onclose}><XIcon size={14} /></button>
+	<button
+		class="close"
+		style:left={`${closePosition.x - 11}px`}
+		style:top={`${closePosition.y - 11}px`}
+		aria-label="Cancel route payment"
+		onclick={onclose}><XIcon size={14} /></button
+	>
 </div>
 
 <style>
@@ -278,8 +292,6 @@
 	}
 	.close {
 		position: absolute;
-		left: 32px;
-		top: -10px;
 		width: 22px;
 		height: 22px;
 		display: grid;

@@ -4,7 +4,6 @@
 
 	let {
 		player,
-		viewerId,
 		active,
 		message,
 		detail,
@@ -28,7 +27,7 @@
 		{#if detail}<span>{detail}</span>{/if}
 	</div>
 	<div class="stub">
-		<span>{player?.id === viewerId ? 'Your turn' : player ? `${player.name}’s turn` : 'Journey complete'}</span>
+		<span aria-label={player?.name}>{player?.name ?? ''}</span>
 	</div>
 </div>
 
@@ -120,7 +119,8 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		font-size: 10px;
+		font-family: 'Barlow Condensed', sans-serif;
+		font-size: clamp(20px, 1.6vw, 25px);
 		font-weight: 650;
 		line-height: 1.1;
 	}
