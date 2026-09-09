@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { scale } from 'svelte/transition';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
 	import TrainCard from './TrainCard.svelte';
 	import type { RoutePayment } from './route-payments';
@@ -33,6 +33,9 @@
 		y = Math.max(12, anchor.y - container.offsetHeight - 12);
 		placed = true;
 	}
+	$effect(() => {
+		if (routeId && options.length) void tick().then(position);
+	});
 	onMount(() => {
 		position();
 		void tick().then(() =>
@@ -40,7 +43,7 @@
 		);
 		const outside = (event: PointerEvent) => {
 			const target = event.target as Node;
-			if (!container?.contains(target) && !document.getElementById(`route-${routeId}`)?.contains(target)) onclose();
+			if (!container?.contains(target) && !(target instanceof Element && target.closest('.route.available'))) onclose();
 		};
 		const keyboard = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
@@ -69,7 +72,7 @@
 	style:left={`${x}px`}
 	style:top={`${y}px`}
 	style:visibility={placed ? 'visible' : 'hidden'}
-	transition:fly={{ y: 8, duration: reduceMotion ? 0 : 160 }}
+	transition:scale={{ start: 0.9, duration: reduceMotion ? 0 : 180 }}
 >
 	<header>
 		<strong>{points} points</strong><button class="close" aria-label="Cancel route payment" onclick={onclose}
@@ -96,6 +99,7 @@
 
 <style>
 	.route-payment {
+		transform-origin: center bottom;
 		position: fixed;
 		z-index: 80;
 		width: 314px;

@@ -41,7 +41,7 @@
 		display: grid;
 		grid-template-columns: 77.8% 22.2%;
 		width: 100%;
-		min-height: 82px;
+		min-height: 94px;
 		color: var(--ink);
 		filter: drop-shadow(0 1px 0 #967c53) drop-shadow(1px 5px 5px #3e2d282b);
 		transform: rotate(-1.1deg);
@@ -90,7 +90,9 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 5px;
-		padding: 16px 15px 16px 18px;
+		align-items: center;
+		text-align: center;
+		padding: 14px 12px;
 	}
 	.message strong {
 		font-family: 'Barlow Condensed', sans-serif;
@@ -105,16 +107,17 @@
 	}
 	.stub {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		gap: 5px;
-		padding: 13px 8px 13px 4px;
+		gap: 3px;
+		padding: 10px 5px 10px 3px;
 		text-align: center;
 	}
 	.stub img {
-		width: 31px;
-		height: 31px;
+		width: 26px;
+		height: 26px;
+		flex-shrink: 0;
 		border: 1px solid #8c7953;
 		border-radius: 50%;
 		object-fit: cover;
@@ -125,7 +128,12 @@
 		filter: saturate(0.95);
 	}
 	.stub span {
-		overflow-wrap: anywhere;
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		max-height: 74px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		font-size: 10px;
 		font-weight: 650;
 		line-height: 1.1;

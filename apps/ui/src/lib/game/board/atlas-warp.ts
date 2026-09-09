@@ -67,7 +67,7 @@ const triangles = triangulate().map(indices => {
 	return { a: a!, b: b!, c: c!, area: cross(a!.source, b!.source, c!.source) };
 });
 
-// The same static warp drives texture UVs and terrain sampling so coastlines, relief, and vegetation stay registered.
+// Only legacy relief/land sampling uses this mapping; the newly painted atlas is already registered and must use direct UVs.
 export function atlasPoint(point: Point): Point {
 	for (const { a, b, c, area } of triangles) {
 		const wa = cross(b.source, c.source, point) / area;

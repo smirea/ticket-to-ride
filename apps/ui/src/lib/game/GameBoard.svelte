@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { DestinationTicket, GameState, Player, Route, RouteId, TrainCard } from '@repo/shared';
-	import { onMount, tick } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { onMount, onDestroy, tick } from 'svelte';
+	import { fade, scale } from 'svelte/transition';
 	import TrainIcon from 'phosphor-svelte/lib/TrainIcon';
 	import {
 		cities,
@@ -22,6 +22,7 @@
 		selectedRouteId?: RouteId;
 		highlightedTicket?: DestinationTicket;
 		disabled?: boolean;
+		disabledReason?: string;
 		ambientMotion?: boolean;
 		onselect: (route: Route) => void;
 		onhover?: (route: Route | undefined) => void;
@@ -38,6 +39,7 @@
 		selectedRouteId,
 		highlightedTicket,
 		disabled = false,
+		disabledReason,
 		ambientMotion = true,
 		onselect,
 		onhover,
@@ -60,6 +62,25 @@
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
 	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
 
+	let unavailableNotice = $state<{ routeId: string; text: string; insufficient: boolean }>();
+	let noticeTimer: ReturnType<typeof setTimeout> | undefined;
+	const visibleNotice = $derived(unavailableNotice ?? routeNotice);
+	onDestroy(() => clearTimeout(noticeTimer));
+	$effect(() => {
+		if (!disabledReason) unavailableNotice = undefined;
+	});
+	function clickRoute(route: Route) {
+		if (owner(route) || blocked(route)) return;
+		if (!disabled) {
+			onselect(route);
+			return;
+		}
+		if (disabledReason) {
+			unavailableNotice = { routeId: route.id, text: disabledReason, insufficient: false };
+			clearTimeout(noticeTimer);
+			noticeTimer = setTimeout(() => (unavailableNotice = undefined), 1800);
+		}
+	}
 	let hoveredRouteId = $state<RouteId | undefined>();
 	let focusedRouteId = $state<RouteId | undefined>();
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
@@ -213,7 +234,7 @@
 			>
 				{#if !ready}
 					<image
-						href="/game-assets/atlas/usa-relief-v2.webp"
+						href="/game-assets/atlas/usa-relief-v3.webp"
 						width="1000"
 						height="620"
 						preserveAspectRatio="none"
@@ -253,7 +274,7 @@
 						aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
 						aria-disabled={Boolean(routeOwner) || unavailable || disabled}
 						aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
-						onclick={() => !routeOwner && !unavailable && !disabled && onselect(route)}
+						onclick={() => clickRoute(route)}
 						onpointerenter={() => {
 							if (!routeOwner && !unavailable && !disabled) hoverRoute(route);
 						}}
@@ -331,31 +352,28 @@
 				{/each}
 				{#each hintRoutes as route (route.id)}
 					{@const p = point(route, 0.5)}{@const hint = routeHints[route.id]!}{@const width = hint.wilds ? 78 : 39}
-					<g
-						transition:fade={{ duration: ambientMotion ? 160 : 0 }}
-						class="route-hint"
-						transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`}
-						aria-hidden="true"
-					>
-						<rect x={-width / 2} y="-11" {width} height="21" rx="5" />
-						<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
-						<text x={-width / 2 + 25} y="3">{hint.points}</text>
-						{#if hint.wilds}<text x="9" y="3">+{hint.wilds}</text><g transform="translate(22 -8)"
-								><TrainIcon size={15} weight="fill" /></g
-							>{/if}
+					<g class="route-hint" transform={`translate(${p.x} ${p.y - 16}) ${labelScale}`} aria-hidden="true">
+						<g class="hint-paper" transition:scale={{ start: 0.65, duration: ambientMotion ? 170 : 0 }}>
+							<rect x={-width / 2} y="-11" {width} height="21" rx="5" />
+							<image href="/game-assets/atlas/points-clay-seal.webp" x={-width / 2 + 3} y="-9" width="17" height="17" />
+							<text x={-width / 2 + 25} y="3">{hint.points}</text>
+							{#if hint.wilds}<text x="9" y="3">+{hint.wilds}</text><g transform="translate(22 -8)"
+									><TrainIcon size={15} weight="fill" /></g
+								>{/if}
+						</g>
 					</g>
 				{/each}
-				{#if routeNotice}
-					{@const route = routes.find(route => route.id === routeNotice.routeId)}
+				{#if visibleNotice}
+					{@const route = routes.find(route => route.id === visibleNotice.routeId)}
 					{#if route}{@const p = point(route, 0.5)}
 						<g
 							class="route-notice"
-							class:insufficient={routeNotice.insufficient}
+							class:insufficient={visibleNotice.insufficient}
 							transform={`translate(${p.x} ${p.y - 22}) ${labelScale}`}
-							aria-label={routeNotice.text}
+							aria-label={visibleNotice.text}
 							transition:fade={{ duration: ambientMotion ? 120 : 0 }}
 						>
-							<text text-anchor="middle">{routeNotice.text}</text>
+							<text text-anchor="middle">{visibleNotice.text}</text>
 						</g>
 					{/if}
 				{/if}
@@ -595,7 +613,7 @@
 		opacity: 0.9;
 	}
 	.marker-anchor {
-		pointer-events: none;
+		pointer-events: all;
 	}
 	.route:not(.available) {
 		pointer-events: none;
@@ -611,7 +629,6 @@
 			filter 180ms;
 		stroke: #fff4d9a6;
 		stroke-width: 0.7;
-		pointer-events: none;
 	}
 	.city {
 		pointer-events: none;
@@ -703,6 +720,10 @@
 		font:
 			600 11px Barlow,
 			sans-serif;
+	}
+	.hint-paper {
+		transform-box: fill-box;
+		transform-origin: center;
 	}
 	.route-hint {
 		animation: hint-in 180ms ease-out both;

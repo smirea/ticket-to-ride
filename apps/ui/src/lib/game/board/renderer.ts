@@ -5,7 +5,6 @@ import {
 	makeCarriageGeometry,
 	makeCarriageMaterial,
 } from './carriage';
-import { atlasPoint } from './atlas-warp';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { GameState, RouteId } from '@repo/shared';
@@ -32,8 +31,7 @@ function terrainGeometry() {
 	const uvs = geometry.attributes.uv!;
 	for (let i = 0; i < positions.count; i++) {
 		positions.setZ(i, terrainHeight(positions.getX(i), positions.getY(i)));
-		const source = atlasPoint({ x: positions.getX(i), y: positions.getY(i) });
-		uvs.setXY(i, source.x / 1000, 1 - source.y / 620);
+		uvs.setXY(i, positions.getX(i) / 1000, 1 - positions.getY(i) / 620);
 	}
 	geometry.computeVertexNormals();
 	return geometry;
@@ -90,7 +88,7 @@ export function createAtlasRenderer(canvas: HTMLCanvasElement) {
 		rejectTexture = reject;
 	});
 	const atlasTexture = new THREE.TextureLoader().load(
-		'/game-assets/atlas/usa-relief-v2.webp',
+		'/game-assets/atlas/usa-relief-v3.webp',
 		() => {
 			if (!disposed) render();
 			resolveTexture();
