@@ -27,9 +27,9 @@ Entry, join, ready, opening ticket selection, market draws, mixed payment select
 Room 6X5XJK finished through legal UI turns, with no state fixtures or API moves. Bert triggered the final round at two remaining trains, then used the last green card on Vancouver–Seattle and finished with one train. Ada finished with five. The action ticket correctly counted two remaining turns, then one, then Journey complete. Final standings opened automatically; closing and reopening them preserved the finished table.
 
 | Player | Route points | Completed tickets | Longest bonus | Total |
-| --- | ---: | ---: | ---: | ---: |
-| Ada | 52 | 54 | 10 | 116 |
-| Bert | 62 | 41 | 10 | 113 |
+| ------ | -----------: | ----------------: | ------------: | ----: |
+| Ada    |           52 |                54 |            10 |   116 |
+| Bert   |           62 |                41 |            10 |   113 |
 
 Both displayed longest paths were 28, so both received the bonus. Bert's ticket values reconcile as 13 + 17 + 11 = 41. Ada's reconcile as 21 + 12 + 16 + 5 = 54. The visible totals reconcile exactly. Evidence: final-round.png, results.png, finished-table.png. Browser warning and error log was empty at completion.
 

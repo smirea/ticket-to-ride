@@ -11,9 +11,9 @@ Two independent critics played Ada (red) and Bert (blue) in room `6X5XJK`, start
 ## Completed full game
 
 | Player | Route points | Completed ticket points | Longest bonus | Total | Trains left |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Ada | 52 | 54 | 10 | 116 | 5 |
-| Bert | 62 | 41 | 10 | 113 | 1 |
+| ------ | -----------: | ----------------------: | ------------: | ----: | ----------: |
+| Ada    |           52 |                      54 |            10 |   116 |           5 |
+| Bert   |           62 |                      41 |            10 |   113 |           1 |
 
 All seven destination tickets completed. Both longest paths were 28 and both received the bonus. The final-round countdown, automatic results opening, results close/reopen and both clients' scores agreed. No gameplay blocker or scoring mismatch was observed. Browser warning/error logs were empty at completion.
 

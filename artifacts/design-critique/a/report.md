@@ -39,9 +39,9 @@ Winnipeg–Houston completed after the Winnipeg–Duluth claim, at 32 route poin
 The real 45-train match finished normally. Bert's Vancouver–Calgary claim left two trains and triggered a clear two-turn countdown. Ada took the next turn, the countdown became one, and Bert's final Vancouver–Seattle claim ended the game.
 
 | Player | Route points | Ticket points | Longest bonus | Total |
-| --- | ---: | ---: | ---: | ---: |
-| Ada | 52 | 54 | 10 | 116 |
-| Bert | 62 | 41 | 10 | 113 |
+| ------ | -----------: | ------------: | ------------: | ----: |
+| Ada    |           52 |            54 |            10 |   116 |
+| Bert   |           62 |            41 |            10 |   113 |
 
 Both players had a longest path of 28 and correctly received the bonus. Ada's four completed tickets total 21 + 12 + 16 + 5 = 54. Bert's three completed tickets total 13 + 17 + 11 = 41. Evidence: `final-round.png`, `final-standings.png`, `final-table.png`.
 
