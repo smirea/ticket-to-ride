@@ -7,7 +7,15 @@
 	}: { color?: string; locomotive?: boolean; width?: number; height?: number } = $props();
 </script>
 
-<svg viewBox="0 0 32 24" aria-hidden="true" style:color style:width={`${width}px`} style:height={`${height}px`}>
+<svg
+	{width}
+	{height}
+	viewBox="0 0 32 24"
+	aria-hidden="true"
+	style:color
+	style:width={`${width}px`}
+	style:height={`${height}px`}
+>
 	{#if locomotive}
 		<path d="M3 17V8h8v5h3V9h3V4h4v9h4l3 6H3Z" />
 		<path class="window" d="M5 10h4v5H5Z" />

@@ -72,7 +72,6 @@
 	let activeOfferKey = $state('');
 	let settingsOpen = $state(false);
 	let historyOpen = $state(false);
-	let ambientMotion = $state(true);
 	let reduceMotion = $state(false);
 	let gameSpeed = $state(1);
 	let preferencesLoaded = $state(false);
@@ -183,7 +182,6 @@
 	onMount(() => {
 		try {
 			const saved = JSON.parse(localStorage.getItem(preferencesKey) ?? 'null');
-			if (typeof saved?.ambientMotion === 'boolean') ambientMotion = saved.ambientMotion;
 			if ([0, 1, 2].includes(saved?.gameSpeed)) gameSpeed = saved.gameSpeed;
 		} catch {}
 		preferencesLoaded = true;
@@ -213,7 +211,7 @@
 	$effect(() => {
 		if (!preferencesLoaded) return;
 		try {
-			localStorage.setItem(preferencesKey, JSON.stringify({ ambientMotion, gameSpeed }));
+			localStorage.setItem(preferencesKey, JSON.stringify({ gameSpeed }));
 		} catch {}
 	});
 
@@ -755,7 +753,7 @@
 			{viewerId}
 			{selectedRouteId}
 			{highlightedTicket}
-			ambientMotion={ambientMotion && !reduceMotion}
+			motionEnabled={!reduceMotion}
 			disabled={!turnReady}
 			disabledReason={!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 1
 				? 'Draw one more card first'
@@ -889,13 +887,7 @@
 			</header>
 			{#if visiblePanel === 'settings'}
 				<div class="settings-list">
-					<label
-						><span><strong>Living atlas</strong><small>Gentle water and wind in the trees</small></span><input
-							type="checkbox"
-							bind:checked={ambientMotion}
-							disabled={reduceMotion}
-						/></label
-					>{#if reduceMotion}<p class="dialog-description">
+					{#if reduceMotion}<p class="dialog-description">
 							Your system’s reduced-motion preference is enabled.
 						</p>{/if}{#if ongamespeedchange}<label
 							><span><strong>Game pace</strong><small>Time between rival moves</small></span><select
@@ -1513,11 +1505,6 @@
 		font-size: 11px;
 		line-height: 1.4;
 		color: var(--muted);
-	}
-	.settings-list input {
-		width: 20px;
-		height: 20px;
-		accent-color: #386c6e;
 	}
 	.settings-list select {
 		padding: 8px;

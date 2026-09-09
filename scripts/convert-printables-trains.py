@@ -83,6 +83,6 @@ def convert(source, destination):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
-    parser.add_argument("--output", type=Path, default=Path("apps/ui/static/game-assets/trains/printables-trains.json"))
+    parser.add_argument("--output", type=Path, default=Path("scripts/assets/printables-trains.json"))
     arguments = parser.parse_args()
     convert(arguments.source, arguments.output)

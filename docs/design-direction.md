@@ -12,15 +12,15 @@ Desktop and tablets only, including portrait tablets, minimum layout width 768px
 
 ## Board and routes
 
-Three.js terrain with a consistent painted atlas, restrained dimensional height, no warped corners, readable coastline and city registration. Keep the established exact physical-board city coordinates and route arcs, uniform carriage/marker lengths, near-touching route segments, and clear gaps at city hubs. Double and triple lanes must remain individually legible and clickable along their full lengths.
+Use the existing static painted atlas image directly, without terrain distortion or animated water/trees. CSS rotateX/rotateZ provides the slight physical tilt and layered shadows give the board thickness. No Three.js or runtime 3D engine. Keep the established exact physical-board city coordinates and route arcs, uniform carriage/marker lengths, near-touching route segments, and clear gaps at city hubs. Double and triple lanes must remain individually legible and clickable along their full lengths.
 
 Unclaimed routes are flat printed placeholders, clearly saturated and distinguishable against the terrain. A translucent dark backing connects visually with city halos into one network. The backing fades when filtering by a hand card. Selected-card filtering retains the colors of useful routes and dims only irrelevant routes; usable gray routes can take the selected card's color.
 
 Use the latest reference's color symbols consistently on cards and in route-marker centers: red flame, orange ring, yellow hourglass/bowtie, green clover, blue spiral, purple droplet, black diamond, white asterisk. Symbols share subtle ivory/white treatment with a faint dark edge. Gray routes have no color symbol. No written color tags on cards.
 
-Claimed routes must be unmistakably physical 3D carriages, colored by owner and using distinct player shapes from the imported Printables models. Coherent roofs, windows, wheel geometry and shadows; no white roof patches, end-up train poses, clipped/submerged geometry, or paths drawing over trains. Terrain alignment must look plausible without impairing recognition. Reuse instancing and shared materials.
+Claimed routes must look like unmistakably physical carriages, colored by owner and using distinct player shapes baked from the imported Printables models. Coherent roofs, windows, wheel geometry and shadows; no white roof patches, end-up train poses, clipped/submerged geometry, or paths drawing over trains. Align their anchors to the printed routes. Reuse directional sprite sheets with consistent scale, lighting and baked shadows.
 
-No boats: earlier animated-boat requests were explicitly withdrawn. Ambient water and trees may move slowly; pointer response should feel like a gentle breeze, never distract from route selection. Board/city text must not be selectable.
+No boats, animated water, wind-reactive trees or Living atlas setting. The user explicitly withdrew those effects and asked for the image as-is. Board/city text must not be selectable.
 
 ## Route selection and payment
 
@@ -48,7 +48,7 @@ The market tray has a thin crafted rim, exact space for five cards, no conspicuo
 
 Drawing a card: reserve the hand's exact final shape first (including a new-color slot), fly the card into that position at its final scale and angle, then settle seamlessly. For a face-up draw, remove the chosen card into the hand, slide remaining market cards, then deal the replacement at the end. No duplicate flashes, extra phantom cards or abrupt reordering. A three-locomotive reset removes all five cards, then deals five replacements in order, with the final count correct.
 
-Claiming a route: gather the spent cards above the hand, transform into the correct player's actual carriage models, fly/place those cars onto the route, and blend into the permanent meshes without position, angle, size, color or visibility jumps. The hand's final remaining fan must be prepared too.
+Claiming a route: gather the spent cards above the hand, transform into sprites of the correct player's actual carriage models, fly/place those cars onto the route, and blend into the identical permanent sprites without position, angle, size, color or visibility jumps. The hand's final remaining fan must be prepared too.
 
 ## Status, players and supporting pieces
 
@@ -66,11 +66,11 @@ Every entrance and interaction is intentional. Board, selector, cards, tickets, 
 
 No pop-ins at animation endpoints. Receiving elements must already have their final geometry. Keep flying elements until the real element is rendered, without duplicates. Interrupted, rapid, rejected, remote and repeated actions must unwind cleanly. Remote opponent actions should read as coherent turns, not unexplained jumps or stale availability. Preserve hover/focus across sensible updates; clear it when no longer relevant.
 
-Use Svelte/CSS transforms for paper and simple motions, shaders/instanced Three.js where that improves actual performance. Avoid unnecessary WebGL contexts, per-frame DOM layout, redundant rerenders and expensive unbounded visual effects. Pause ambient work when hidden; respect reduced motion. Distinguish intentional animation time, network latency, layout shift, and frame stutter. Do not declare smoothness from a screenshot or a startup FPS sample alone.
+Use SVG, Svelte, CSS transforms and browser animations. Bake models offline; do not load meshes, create canvas/WebGL contexts, capture carriage images at runtime or run an ambient frame loop. Use the same sprite frame and affine transform for flight and settled placement; the CSS tilt should not introduce a projective endpoint mismatch. Avoid per-frame DOM layout, redundant rerenders and expensive unbounded effects. Respect reduced motion. Distinguish intentional animation time, network latency, layout shift, and frame stutter. Do not declare smoothness from a screenshot or a startup FPS sample alone.
 
 ## Superseded directions
 
-Do not reopen the four initial visual concepts (modern, futuristic, two Victorian) or restore Railbound branding. The selected atlas/tabletop is established. Do not add phone UX, written train-color tags, boats, rectangular payment dialogs, arbitrary all-wild/wasteful payment options, hand-positioned error copy, pale train roof triangles, old color symbols, or section-heading prose. The earlier generic no-route-popups request now allows only the latest fanned pins for genuinely multiple payment choices.
+The former Three.js, elevated-terrain and living-map requirements are superseded by a static atlas and CSS tilt. Do not reopen the four initial visual concepts (modern, futuristic, two Victorian) or restore Railbound branding. The selected atlas/tabletop is established. Do not add phone UX, written train-color tags, boats, rectangular payment dialogs, arbitrary all-wild/wasteful payment options, hand-positioned error copy, pale train roof triangles, old color symbols, or section-heading prose. The earlier generic no-route-popups request now allows only the latest fanned pins for genuinely multiple payment choices.
 
 ## Critic protocol for the current pass
 

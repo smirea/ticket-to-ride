@@ -2,6 +2,7 @@
 	import { onMount, tick } from 'svelte';
 	import type { TrainCard as CardColor } from '@repo/shared';
 	import TrainCard from './TrainCard.svelte';
+	import CarriageImage from './CarriageImage.svelte';
 	import type { PaperPose } from './paper-pose';
 	import type { CarriageSprite } from './board/carriage-sprites';
 
@@ -41,14 +42,6 @@
 			if (cancelled) return;
 			sprites = loaded;
 			await tick();
-			await Promise.all(
-				trains.map(train =>
-					train
-						.querySelector('img')
-						?.decode()
-						.catch(() => {}),
-				),
-			);
 			if (cancelled) return;
 			const arrivals: Promise<Animation>[] = [];
 			for (let i = 0; i < cards.length; i++) {
@@ -102,7 +95,7 @@
 	{/each}
 	{#each sprites as sprite, i}
 		<div class="train" bind:this={trains[i]} style:width={`${sprite.width}px`} style:height={`${sprite.height}px`}>
-			<img src={sprite.src} alt="" />
+			<CarriageImage frame={sprite} />
 		</div>
 	{/each}
 </div>
@@ -131,11 +124,5 @@
 	}
 	.train {
 		opacity: 0;
-		filter: drop-shadow(1px 2px 1px #35281755);
-	}
-	.train img {
-		display: block;
-		width: 100%;
-		height: 100%;
 	}
 </style>
