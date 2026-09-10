@@ -721,3 +721,20 @@ describe('persistence and full simulation', () => {
 		expect(first).toEqual(second);
 	});
 });
+
+test('bots keep playing when train piles are exhausted, with ordinary cards or locomotives on display', () => {
+	for (const locomotive of [false, true]) {
+		const state = createDebugClaimScenario();
+		state.currentPlayerIndex = 1;
+		const bot = state.players[1]!;
+		for (const color of TRAIN_CARDS) bot.hand[color] = 0;
+		state.trainDeck = [];
+		state.trainDiscard = [];
+		state.faceUpTrainCards = ['red', 'blue', 'green', 'yellow', locomotive ? 'locomotive' : 'white'];
+		const action = chooseBotAction(state)!;
+		expect(action.type).toBe('draw-destination-tickets');
+		const result = applyGameAction(state, action);
+		expect(result.ok).toBe(true);
+		expect(playBotTurns(result.state).currentPlayerIndex).toBe(0);
+	}
+});
