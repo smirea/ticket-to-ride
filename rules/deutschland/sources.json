@@ -1,0 +1,59 @@
+{
+	"id": "deutschland",
+	"name": "Deutschland",
+	"group": "Standalone and edition variants",
+	"bgg": {
+		"id": "119637",
+		"name": "Zug um Zug: Deutschland",
+		"canonical_link": "https://boardgamegeek.com/boardgame/119637/zug-um-zug-deutschland",
+		"yearpublished": "2012",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://mieze-merle.de/Gesellschaftsspiele/files/Zug%20um%20Zug%20Deutschland/Anleitung%20-%20Zug%20um%20Zug%20Deutschland.pdf",
+		"pages": 2,
+		"language": "de",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "deutschland-map.png",
+		"source_url": "https://mieze-merle.de/Gesellschaftsspiele/files/Zug%20um%20Zug%20Deutschland/Anleitung%20-%20Zug%20um%20Zug%20Deutschland.pdf",
+		"size": [299, 466],
+		"type": "extracted-rulebook-image-crop",
+		"pdf_image_xref": 273,
+		"crop_normalized": [0.21, 0.135, 0.78, 0.855],
+		"quality": "Complete board illustration from original German rulebook; verify fine labels in the PDF."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"deutschland-map.png": {
+			"bytes": 327111,
+			"sha256": "cf985e536fe21fef18c1c7374ba8c0aa2cbdb63c3cbc02883f823eb488fe4763"
+		},
+		"rules.md": {
+			"bytes": 976,
+			"sha256": "6a0080a8ea49ab6a9eddb667530acdd4c052bb057239e3e4ec41e59ab3c07e6a"
+		},
+		"rules.pdf": {
+			"bytes": 2280168,
+			"sha256": "7f295075d2806316882061af069f855aceaf9b6703d0da908c274c2f46b45f1d"
+		}
+	}
+}

@@ -1,0 +1,60 @@
+{
+	"id": "italia-milite-ignoto",
+	"name": "Italia: Milite Ignoto 1921–2021",
+	"group": "Rare and demo maps",
+	"bgg": {
+		"id": "360549",
+		"name": "Ticket To Ride: Italia – Commemorazione Per il Centenario del Milite Ignoto 1921 - 2021",
+		"canonical_link": "https://boardgamegeek.com/boardgame/360549/ticket-to-ride-italia-commemorazione-per-il-centen",
+		"yearpublished": "2021",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "missing-rules-pdf",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["italy"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": null,
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "italia-milite-ignoto-map.png",
+		"source_url": "https://cf.geekdo-images.com/vW0jg0DEGseUS8W_pk52NA__original/img/vyi-nEYpfafpQ20gNziRItQgSSo=/0x0/filters:format(jpeg)/pic6905153.jpg",
+		"source_page": "https://boardgamegeek.com/image/6905153/ticket-to-ride-italia-commemorazione-per-il-centen",
+		"bgg_image_id": 6905153,
+		"caption": "ticket to ride milite Ignoto 07",
+		"type": "board-photograph",
+		"size": [1069, 1900],
+		"quality": "Photographic reference; verify route labels at source."
+	},
+	"supplemental": {
+		"rules-reference.png": "https://boardgamegeek.com/image/6905150"
+	},
+	"implementation_gaps": [
+		"Only photographed rule leaflet located; no downloadable publisher PDF.",
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": {
+		"reason": "Only photographed rule leaflet located; no downloadable publisher PDF.",
+		"candidate_urls": ["https://boardgamegeek.com/image/6905150"]
+	},
+	"files": {
+		"italia-milite-ignoto-map.png": {
+			"bytes": 2192449,
+			"sha256": "a435f53f2389d8b2347e0ac91b4be27d4ee4a1c618255da0052e6dca822ae1db"
+		},
+		"rules-reference.png": {
+			"bytes": 1718368,
+			"sha256": "342dfccaa08f6b4a37ef516751675862395e6505decf38fb56d9bbd5226f5e42"
+		},
+		"rules.md": {
+			"bytes": 1195,
+			"sha256": "f762c45446cc4fcda13cb05bc0fbeb08b12e8858b27380b4c45c7527ff8b82e2"
+		}
+	}
+}

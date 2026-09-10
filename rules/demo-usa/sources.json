@@ -1,0 +1,54 @@
+{
+	"id": "demo-usa",
+	"name": "Retailer Demo: USA",
+	"group": "Rare and demo maps",
+	"bgg": {
+		"id": "244525",
+		"name": "Ticket to Ride Demo",
+		"canonical_link": "https://boardgamegeek.com/boardgame/244525/ticket-to-ride-demo",
+		"yearpublished": "2017",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "missing-rules-pdf",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": null,
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "demo-usa-map.png",
+		"source_url": "https://cf.geekdo-images.com/d8UKhDVNAdAwjKvVn48gAA__original/img/LQUZovtD8SEOoeQ-DlE3z-9grG4=/0x0/filters:format(jpeg)/pic4492238.jpg",
+		"source_page": "https://boardgamegeek.com/image/4492238/ticket-to-ride-demo",
+		"caption": "End of a 2 player game on the US map.",
+		"original_size": [3264, 2448],
+		"size": [2600, 1950],
+		"type": "board-image",
+		"bgg_image_id": 4492238,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules.",
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": {
+		"reason": "No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules."
+	},
+	"files": {
+		"demo-usa-map.png": {
+			"bytes": 6949552,
+			"sha256": "832ccc995f384b449bd77769936b5f39f982a1209afac500ba18ba56c668fdc9"
+		},
+		"rules.md": {
+			"bytes": 1049,
+			"sha256": "9ebae0e5f9c8a14a34c70675af72e4a42f67c8b50422f5ecb84a6a82a4e16c9a"
+		}
+	}
+}

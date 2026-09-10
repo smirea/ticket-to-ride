@@ -1,0 +1,56 @@
+{
+	"id": "stay-at-home",
+	"name": "Stay At Home",
+	"group": "Map expansions",
+	"bgg": {
+		"id": "310711",
+		"name": "Ticket to Ride: Stay at Home",
+		"canonical_link": "https://boardgamegeek.com/boardgame/310711/ticket-to-ride-stay-at-home",
+		"yearpublished": "2020",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://www.riseher.cz/wp-content/uploads/2021/12/Ticket-to-Ride-Stay-at-Home-A4_en.pdf",
+		"pages": 13,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "stay-at-home-map.png",
+		"size": [1839, 2600],
+		"source_url": "https://www.riseher.cz/wp-content/uploads/2021/12/Ticket-to-Ride-Stay-at-Home-A4_en.pdf",
+		"type": "assembled-printable-board",
+		"pdf_pages": [3, 4, 5, 6],
+		"quality": "Four printable sheets assembled in reading order; print margins retained."
+	},
+	"supplemental": {},
+	"implementation_gaps": [],
+	"missing_assets": null,
+	"files": {
+		"rules.md": {
+			"bytes": 937,
+			"sha256": "53232f91df4dde2eae535352493e59d6df090270373147800ad90ebea7590db4"
+		},
+		"rules.pdf": {
+			"bytes": 26734239,
+			"sha256": "909c8fd5a0a76fd51e9950f86cd66eb33ed74e76154b03e35d4ecb06dee2d356"
+		},
+		"stay-at-home-map.png": {
+			"bytes": 4844755,
+			"sha256": "5f5a9161ea9872e32fba66605824424334e2f811562fd615ba66c65cfae23337"
+		}
+	}
+}

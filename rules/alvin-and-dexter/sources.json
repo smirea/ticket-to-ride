@@ -1,0 +1,58 @@
+{
+	"id": "alvin-and-dexter",
+	"name": "Alvin And Dexter",
+	"group": "Modules and promos",
+	"bgg": {
+		"id": "89848",
+		"name": "Ticket to Ride: Alvin & Dexter",
+		"canonical_link": "https://boardgamegeek.com/boardgame/89848/ticket-to-ride-alvin-and-dexter",
+		"yearpublished": "2011",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.daysofwonder.com/tickettoride/en/img/tt_monster_rules.pdf",
+		"pages": 24,
+		"language": "multilingual-including-en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "alvin-and-dexter-map.png",
+		"size": [1024, 683],
+		"type": "shared-base-map",
+		"reuses_map": "usa-classic",
+		"source_url": "https://cf.geekdo-images.com/U2eaeOCVGYFDhPgaIY6CmQ__original/img/HbB8LneSsfjCiXK-jhs3fx7hi0o=/0x0/filters:format(jpeg)/pic38674.jpg",
+		"quality": "Expansion has no separate geographic board. See base entry provenance."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"alvin-and-dexter-map.png": {
+			"bytes": 1785149,
+			"sha256": "2853759d2337d4fe59fe7bc4d73ad7807aa0dddbc647cbb96c97acc8cadadb04"
+		},
+		"rules.md": {
+			"bytes": 993,
+			"sha256": "f52d1673ec4988614f18c31d54ddb6de75e28ceb1481756ddf17db21f0246355"
+		},
+		"rules.pdf": {
+			"bytes": 1937334,
+			"sha256": "186765505e01707d72a204e83623a06651b4b377efb08e5829153f72459f16d0"
+		}
+	}
+}

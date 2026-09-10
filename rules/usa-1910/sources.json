@@ -1,0 +1,58 @@
+{
+	"id": "usa-1910",
+	"name": "USA 1910",
+	"group": "Modules and promos",
+	"bgg": {
+		"id": "24439",
+		"name": "Ticket to Ride: USA 1910",
+		"canonical_link": "https://boardgamegeek.com/boardgame/24439/ticket-to-ride-usa-1910",
+		"yearpublished": "2006",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/staging-daysofwonder/uploads/2024/07/7216-T2R1910-EN-2018-1.pdf",
+		"pages": 3,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "usa-1910-map.png",
+		"size": [1024, 683],
+		"type": "shared-base-map",
+		"reuses_map": "usa-classic",
+		"source_url": "https://cf.geekdo-images.com/U2eaeOCVGYFDhPgaIY6CmQ__original/img/HbB8LneSsfjCiXK-jhs3fx7hi0o=/0x0/filters:format(jpeg)/pic38674.jpg",
+		"quality": "Expansion has no separate geographic board. See base entry provenance."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"rules.md": {
+			"bytes": 979,
+			"sha256": "62a884904d63b387ce17f0f8eae7a312adabd35c97fafc8b5d0abfa047a3d70a"
+		},
+		"rules.pdf": {
+			"bytes": 872234,
+			"sha256": "70fb7ffda44aaef42031404a6072a00df34b5f548901445f10572a9106f4f6f0"
+		},
+		"usa-1910-map.png": {
+			"bytes": 1785149,
+			"sha256": "2853759d2337d4fe59fe7bc4d73ad7807aa0dddbc647cbb96c97acc8cadadb04"
+		}
+	}
+}
