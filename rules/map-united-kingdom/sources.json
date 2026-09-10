@@ -25,8 +25,106 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "198a228d850f55bb53888469468377de89346ae6864d2e2c4969a43decbe23ed",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 87,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 7068,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 7824,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 4,
+				"image_path": "images/rules-page-004.png",
+				"extracted_characters": 7748,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 5,
+				"image_path": "images/rules-page-005.png",
+				"extracted_characters": 8450,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 6,
+				"image_path": "images/rules-page-006.png",
+				"extracted_characters": 8590,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 7,
+				"image_path": "images/rules-page-007.png",
+				"extracted_characters": 8258,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 8,
+				"image_path": "images/rules-page-008.png",
+				"extracted_characters": 6343,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 9,
+				"image_path": "images/rules-page-009.png",
+				"extracted_characters": 7484,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 10,
+				"image_path": "images/rules-page-010.png",
+				"extracted_characters": 6943,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 11,
+				"image_path": "images/rules-page-011.png",
+				"extracted_characters": 6980,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 12,
+				"image_path": "images/rules-page-012.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 13,
+				"image_path": "images/rules-page-013.png",
+				"extracted_characters": 773,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "united-kingdom-map.png",
@@ -45,9 +143,61 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 6924499,
+			"sha256": "e14707f13ebbe0190c43d5096b21288ed31144fe5c15e7948295e52082c1d1ab"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 3523430,
+			"sha256": "4940fb37683b05a8f2f87786ebd0e02b593696c18c4df5b78fd20111167eda4a"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 3602803,
+			"sha256": "afb8b9e683e0db2d14a550090cba81a95ddbcf24cb43a417cbd54b1ab35a2590"
+		},
+		"images/rules-page-004.png": {
+			"bytes": 3566474,
+			"sha256": "f72befe35073d3ba777d13f0cd0d2132eba1ba32ae63c836fd00446502c625df"
+		},
+		"images/rules-page-005.png": {
+			"bytes": 3628371,
+			"sha256": "647a380cfcc92b1a56b95d91145797fac6b0d563e697fa36ffcbd2a585bdf06c"
+		},
+		"images/rules-page-006.png": {
+			"bytes": 3609039,
+			"sha256": "571396bebb9a048b0684c7c7fd60942a3c8859eb372c24126e92f40c5eb531a4"
+		},
+		"images/rules-page-007.png": {
+			"bytes": 3590828,
+			"sha256": "b8a63d7cc05ed60cc48ba5aaecff35d5dc653958ac3cfb39fcf76fb7da74be98"
+		},
+		"images/rules-page-008.png": {
+			"bytes": 3460157,
+			"sha256": "653c83a1dceb70e965f8f1e3ddaab14e3d2e6e6f429503ee7f280ef654d40e47"
+		},
+		"images/rules-page-009.png": {
+			"bytes": 3575358,
+			"sha256": "b510d7e6139d30193828b83c4b8017e4f80708f1ecd70807b37caede21b30461"
+		},
+		"images/rules-page-010.png": {
+			"bytes": 3517356,
+			"sha256": "d1181eb8b3d3c8a891f002caac9ef950b1b97d389a1e7538c763861d7f35fca9"
+		},
+		"images/rules-page-011.png": {
+			"bytes": 3531056,
+			"sha256": "7ebc067c17ea5f694f6511c58c3fdd2c3ad14275c6cd4c31460ac7f9864403a3"
+		},
+		"images/rules-page-012.png": {
+			"bytes": 6537106,
+			"sha256": "6f2a3531280414eef0a12feafb6c940c5af6a1835b3605d5868997f033f45c03"
+		},
+		"images/rules-page-013.png": {
+			"bytes": 4026639,
+			"sha256": "e9944c9c7ddf137e19d6fce39133a64d596023433172e0b93c1d0386b2dd7b34"
+		},
 		"rules.md": {
-			"bytes": 1083,
-			"sha256": "c60340f8dc9259e94f9dc98725efaf02352c18875148c40bd133ad898c3d3718"
+			"bytes": 79572,
+			"sha256": "89c48cc9e48790be0d471645b7f2f2ee39f2b26397f2b4f5c9c8af1485b831ba"
 		},
 		"rules.pdf": {
 			"bytes": 7351537,

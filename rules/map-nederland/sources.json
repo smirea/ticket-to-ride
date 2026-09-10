@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "5484985cd0e675633cc91ff148bb7d1c9f4b3396fb225d6d230c99cdfed763b8",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 8716,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 875,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "nederland-map.png",
@@ -42,13 +70,25 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 7139141,
+			"sha256": "411aa1e748b5bbba7761fafea69f1c5be626a2429a6bfe1f32a0b562976a37ac"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 4782732,
+			"sha256": "7c1e448a8248ae0ad81775d0982b71942a6797c13d785e5d575d8986490818f7"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4857693,
+			"sha256": "5d955fec52619cf37912c6cea913072fd4acb897cf2c88994ef95e3e260a0db9"
+		},
 		"nederland-map.png": {
 			"bytes": 868526,
 			"sha256": "3a456f0ced43451891c03f46ee59fc41ba9cf2a42f5587a0c58a52fc7c22c07e"
 		},
 		"rules.md": {
-			"bytes": 994,
-			"sha256": "055cec52f23f74176923e66891b23a8220da4bf2b87deb39dca740fd98e6ba1b"
+			"bytes": 10241,
+			"sha256": "286e5105c71da312fa323a3ae8148c73c95d6a8dc77d9e9b0f690e629fb1eb98"
 		},
 		"rules.pdf": {
 			"bytes": 3347265,

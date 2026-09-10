@@ -25,8 +25,29 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "ade760ff3d1a89b0114c3b3ed349a9bbf0d9bd3ed8191086aec801dab3b1a0e1",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 1622,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 2879,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "first-journey-usa-map.png",
@@ -49,9 +70,17 @@
 			"bytes": 6739081,
 			"sha256": "df9ff7c27ae4c09acb9abf30cc51c0c284eab42d93e1b913769ecc736d337961"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 4599951,
+			"sha256": "59a94c86b61aaba652d73aebca59ba0e1f6b9b1f4069e49bd6d14811b42aed7b"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 3985784,
+			"sha256": "c2a7cc2f316dd2cfdcf7f18620d46b6d365adee44a7fc91aa6fce4399532a1b6"
+		},
 		"rules.md": {
-			"bytes": 984,
-			"sha256": "d96a82099f496d0ef01b1d2078c8f2ff4edde6cbc355feae0a4b114c0d7e81bc"
+			"bytes": 4979,
+			"sha256": "e41217b9fd25a910db3f3abd6a99be915f5b3e17d085282185997533471202b8"
 		},
 		"rules.pdf": {
 			"bytes": 1272560,

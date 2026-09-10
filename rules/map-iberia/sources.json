@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "855957ec255d13b5868d33a475b36d6d2ca0dc8de72b329b16d33d0c09681bbc",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 3623,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 3392,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "iberia-map.png",
@@ -49,9 +77,21 @@
 			"bytes": 2135845,
 			"sha256": "34f482a076c5ba9dee14eb7451cce0a880f6c922c2eaa69dec8c1c7a26398280"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 6069916,
+			"sha256": "f93d83f01429c92abb10c03b2f29cefa62b60bb9e356f5fd5121d8c345b8d8cc"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 2883696,
+			"sha256": "6be75b1ec73fa9c5d2f1c9c971986a271ee90b2dd542fef45996572c1bd61263"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 2957773,
+			"sha256": "a04342e3a01cb4ede3fe8bde76238a0813fb19d59caa541a096ed2825d239cd3"
+		},
 		"rules.md": {
-			"bytes": 1015,
-			"sha256": "1b4aef85be85b50d4c641446d46c719092d6935a490621b3122e09ea5b202ee7"
+			"bytes": 7605,
+			"sha256": "f617e96f0d253e78cc95b52741bd30304c7f393337ca77c20eb7346055e9237b"
 		},
 		"rules.pdf": {
 			"bytes": 3706587,

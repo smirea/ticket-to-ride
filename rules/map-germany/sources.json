@@ -25,8 +25,43 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "f20a9f91f909a19a16d4b4c3e06155650aa972733f5986af0b2b16892ab3341d",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 645,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 2213,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 5957,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 4,
+				"image_path": "images/rules-page-004.png",
+				"extracted_characters": 4747,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "germany-map.png",
@@ -53,9 +88,25 @@
 			"bytes": 2181933,
 			"sha256": "9e28af823f9859615c48714783046b99a1dd173f1af292cdbfe96f5c8dbf0d7f"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 8267621,
+			"sha256": "c95df4e2b9bea0c29808ec38f9579813fbc153cbdeab9f3208e5354dc809b033"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 5045156,
+			"sha256": "ec4a83a751b0a5ebf1c5785a54d2f519caff44b3e15219e40bf0c4e0ce53b5c7"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4362892,
+			"sha256": "48ce504cd1af116beebbff9fc7e6d792d848f8d5d278b7b93563245e6b1335ee"
+		},
+		"images/rules-page-004.png": {
+			"bytes": 4834771,
+			"sha256": "a7e35bff8ff2352758b12430f3575d679735ff788e497594d35e128682469577"
+		},
 		"rules.md": {
-			"bytes": 1096,
-			"sha256": "17628832aadfcbeb072a64abf3a5c5f4bdd508fe0b74b38aeba889e8c146bc08"
+			"bytes": 14237,
+			"sha256": "fe6cb485bf9bd6d077124249aa26feec63763eb1da9f8e484fc17f19d6bc4722"
 		},
 		"rules.pdf": {
 			"bytes": 3735690,

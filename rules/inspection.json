@@ -3,7 +3,7 @@
 	"pymupdf_version": "1.28.2",
 	"ocr_enabled": false,
 	"notes": [
-		"Parser output was measured but is not persisted as full rulebook text.",
+		"This report measures parser output; parse_rulebooks.py stores page-level extracted text and image links in each rules.md.",
 		"OCR recommendations are heuristics; illustrated covers and board/ticket sheets may legitimately lack text.",
 		"Passing checks means files decode and match their manifest, not that rule semantics or reading order are verified.",
 		"Duplicate PDF bytes reuse the same inspection result and timing."
@@ -12,7 +12,7 @@
 	"missing_rules_pdf": [],
 	"pdf_file_count": 40,
 	"unique_pdf_count": 40,
-	"verified_png_count": 34,
+	"verified_png_count": 178,
 	"documents": [
 		{
 			"path": "map-amsterdam/rules.pdf",
@@ -42,7 +42,7 @@
 			"pages_needing_ocr": [1],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 80912,
-			"processing_time_ms": 141
+			"processing_time_ms": 131
 		},
 		{
 			"path": "map-berlin/rules.pdf",
@@ -52,7 +52,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 8333,
-			"processing_time_ms": 65
+			"processing_time_ms": 42
 		},
 		{
 			"path": "map-europe/europe-15th-anniversary-rules.pdf",
@@ -62,7 +62,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 23826,
-			"processing_time_ms": 36
+			"processing_time_ms": 35
 		},
 		{
 			"path": "map-europe/europe-classic-rules.pdf",
@@ -82,7 +82,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 9592,
-			"processing_time_ms": 44
+			"processing_time_ms": 45
 		},
 		{
 			"path": "map-first-journey-europe/rules.pdf",
@@ -172,7 +172,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5426,
-			"processing_time_ms": 17
+			"processing_time_ms": 18
 		},
 		{
 			"path": "map-japan/rules.pdf",
@@ -182,7 +182,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 6998,
-			"processing_time_ms": 10
+			"processing_time_ms": 11
 		},
 		{
 			"path": "map-legendary-asia/rules.pdf",
@@ -202,7 +202,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 7833,
-			"processing_time_ms": 35
+			"processing_time_ms": 36
 		},
 		{
 			"path": "map-marklin/rules.pdf",
@@ -212,7 +212,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 15468,
-			"processing_time_ms": 24
+			"processing_time_ms": 25
 		},
 		{
 			"path": "map-nederland/rules.pdf",
@@ -252,7 +252,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 12374,
-			"processing_time_ms": 150
+			"processing_time_ms": 143
 		},
 		{
 			"path": "map-old-west/rules.pdf",
@@ -272,7 +272,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 9395,
-			"processing_time_ms": 86
+			"processing_time_ms": 89
 		},
 		{
 			"path": "map-pennsylvania/rules.pdf",
@@ -302,7 +302,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 13681,
-			"processing_time_ms": 17
+			"processing_time_ms": 18
 		},
 		{
 			"path": "map-rails-and-sails-world/rules.pdf",
@@ -342,7 +342,7 @@
 			"pages_needing_ocr": [3, 4, 5, 6, 13],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5606,
-			"processing_time_ms": 245
+			"processing_time_ms": 244
 		},
 		{
 			"path": "map-switzerland/rules.pdf",
@@ -382,7 +382,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 77069,
-			"processing_time_ms": 51
+			"processing_time_ms": 52
 		},
 		{
 			"path": "map-usa/rules.pdf",
@@ -392,7 +392,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 10377,
-			"processing_time_ms": 84
+			"processing_time_ms": 86
 		},
 		{
 			"path": "map-usa/usa-10th-anniversary-rules.pdf",
@@ -402,7 +402,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 10230,
-			"processing_time_ms": 10
+			"processing_time_ms": 11
 		},
 		{
 			"path": "map-usa/usa-classic-rules.pdf",

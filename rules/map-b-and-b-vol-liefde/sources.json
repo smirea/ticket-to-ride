@@ -25,8 +25,29 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "627b8228033951ab460f9ce1bab899d39089199f2893eaa6330c7412d72f6cf0",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 39096,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 7451,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "b-and-b-vol-liefde-map.png",
@@ -46,9 +67,17 @@
 			"bytes": 905527,
 			"sha256": "8f286b14286ab28019dcf52a30aee7b1bc795383e57bbcf7bd13162f78bd2bff"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 2624457,
+			"sha256": "c4be3fde6e765f1938bb1c785350401c1057f2f5587bd72d40afb96087f0ea6f"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 1522091,
+			"sha256": "50227b8a2ed881fd31e31816fdcbf50b96e16a0f5b233d2125817b79b3879579"
+		},
 		"rules.md": {
-			"bytes": 1019,
-			"sha256": "99792856b53a5df7f4aec83942e8ecbe702cbeeabd0a09abc62020467aa515ba"
+			"bytes": 47173,
+			"sha256": "d3eb3df670e1909b214c66ccf861d94679198481937e348d323e7e5adb63b2e7"
 		},
 		"rules.pdf": {
 			"bytes": 1316118,

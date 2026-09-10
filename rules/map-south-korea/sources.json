@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "0ace6b0eb34317309bcd0737b5cf803834889bf681b9411fbf8dd4d9c66fec5b",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 4106,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 2538,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "south-korea-map.png",
@@ -45,9 +73,21 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 5527848,
+			"sha256": "dc70e642fed03c27cbf3db603ab0524f0c1b18558f8d496404ba30a62579663f"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 2010558,
+			"sha256": "196d6f4ba02c8e6ce75abd744bc656147323e0f5563178cee72561874323312a"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 2874779,
+			"sha256": "cd341649a37333e6788850bbeb69ceefe0b1c6eb0b3f9022766d21e538e828c2"
+		},
 		"rules.md": {
-			"bytes": 1038,
-			"sha256": "a85a24642a522e932e06ea5f989c9feee87a238cca562713b683924fc478b317"
+			"bytes": 7240,
+			"sha256": "fe869fa9ad53acc6359e86ef95f480af8127e4ff94a6aa2a1fe4802edfd00ae3"
 		},
 		"rules.pdf": {
 			"bytes": 2959187,

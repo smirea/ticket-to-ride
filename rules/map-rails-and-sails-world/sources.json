@@ -25,8 +25,50 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "06e375d8dedce08a5967fd921f2a74e03c2fb6354e5ae63dc5fc54bc176312b8",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 3842,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 6143,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 4,
+				"image_path": "images/rules-page-004.png",
+				"extracted_characters": 4030,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 5,
+				"image_path": "images/rules-page-005.png",
+				"extracted_characters": 1116,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "rails-and-sails-world-map.png",
@@ -45,13 +87,33 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 6706035,
+			"sha256": "520db8f5f5de2255367a73430aeb8487bcf4a2a4bc5f3d9f8708af804a441d55"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 5100375,
+			"sha256": "b3fa08452aa83bef81ac8a2e7adea6d8d1d36f84162e15bd7803838479ff624b"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4619896,
+			"sha256": "37370a90b4d07d33546d241bf9b720f32e397afa5724f76a32732fc94afdfaaf"
+		},
+		"images/rules-page-004.png": {
+			"bytes": 4544236,
+			"sha256": "26fa59652fbb805d657f5a60f53f5c6bda45c5f47ed5a2efda1f988b1bddabf7"
+		},
+		"images/rules-page-005.png": {
+			"bytes": 6209097,
+			"sha256": "61bb47e04e2589a318f195fd95cffdb8ad662ffc7923242466b3886b9b5eb89d"
+		},
 		"rails-and-sails-world-map.png": {
 			"bytes": 7591700,
 			"sha256": "31e0de56ae2ebbaba05815da8fd6abec50cc3e268b68ac5801cc41575e084868"
 		},
 		"rules.md": {
-			"bytes": 980,
-			"sha256": "87b9d0b0dd17d94436450458e0b19a1f6c8948aee5d948f8d0d3667db75f219a"
+			"bytes": 16019,
+			"sha256": "033a1401dfd08520cba33aeb33b7fb35c552736dd7e59f830dc6c65bc8f6e458"
 		},
 		"rules.pdf": {
 			"bytes": 8756882,

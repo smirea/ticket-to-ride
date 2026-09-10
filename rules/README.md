@@ -1,6 +1,6 @@
 # Ticket to Ride map/game-mode sources
 
-**34 canonical map/game-mode entries.** Every active folder has a published rulebook, an original Markdown brief, and a geographic board reference. There are no demo folders, missing-PDF placeholders, or separate classic/anniversary map targets.
+**34 canonical map/game-mode entries.** Every active folder has a published rulebook, parsed Markdown, and a geographic board reference. There are no demo folders, missing-PDF placeholders, or separate classic/anniversary map targets.
 
 Use [catalog.json](catalog.json) to select a map and [AGENTS.md](AGENTS.md) for implementation guidance. Each entry lives in `rules/map-<name>/` with `rules.pdf`, `rules.md`, `<name>-map.png`, and `sources.json`. Existing [default.md](default.md) remains a shared reference.
 
@@ -14,7 +14,7 @@ USA and Europe each have one canonical folder. Their classic and anniversary rul
 
 ## Completeness boundary
 
-`source-kit-present` means the published rules and board reference are available, not that the game is implementation-ready. Markdown files are short original briefs, not full transcriptions. Most ticket/card decks and machine-readable route graphs still need transcription and verification during implementation. Some board references contain pieces or printed annotations; consult their quality notes. The PDFs are preserved as published, including shared base rules where present.
+`source-kit-present` means the published rules and board reference are available, not that the game is implementation-ready. `rules.md` contains the page-by-page pdf-inspector output from the local `rules.pdf`, with linked page images preserving all diagrams and tables. Multilingual PDFs retain all their pages. Most ticket/card decks and machine-readable route graphs still need transcription and verification during implementation. Some board references contain pieces or printed annotations; consult their quality notes. The PDFs are preserved as published, including shared base rules where present.
 
 ## Deferred or excluded source collections
 
@@ -28,13 +28,16 @@ These records have no active asset folders. Express and Legacy are legitimate ga
 
 ## PDF parsing
 
-[Firecrawl pdf-inspector](https://github.com/firecrawl/pdf-inspector) 1.19.0 is installed locally in `.cache/rules-tools` and exercised against the archive. It extracts text without a cloud service. The inspection report records page counts, OCR recommendations, encoding flags, and extracted character counts; it does not contain full extracted rulebook text. Diagram semantics and multi-column reading order still require visual review.
+Run `parse_rulebooks.py` to regenerate all primary rulebook Markdown and `images/rules-page-*.png` references. It uses pdf-inspector for text and PyMuPDF for original page images, including vector diagrams. Supplemental edition PDFs remain separate source files. Pages without extracted text remain available as linked images; OCR is not enabled.
+
+[Firecrawl pdf-inspector](https://github.com/firecrawl/pdf-inspector) 1.19.0 is installed locally in `.cache/rules-tools` and exercised against the archive. It extracts text without a cloud service. The inspection report records page counts, OCR recommendations, encoding flags, and extracted character counts. Parsed text is stored separately in each map’s `rules.md`. Diagram semantics and multi-column reading order still require visual review.
 
 Recreate the isolated tools and run the inspection from the repository root:
 
 ```sh
 uv venv .cache/rules-tools
 uv pip install --python .cache/rules-tools/bin/python pdf-inspector==1.19.0 pymupdf==1.28.2 pillow==12.3.0
+.cache/rules-tools/bin/python rules/parse_rulebooks.py
 .cache/rules-tools/bin/python rules/inspect_assets.py
 ```
 
@@ -44,48 +47,48 @@ See [inspection.json](inspection.json) for the measured results. This is a local
 
 ### City games
 
-- [Amsterdam](map-amsterdam/rules.md)
-- [Berlin](map-berlin/rules.md)
-- [London](map-london/rules.md)
-- [New York](map-new-york/rules.md)
-- [Paris](map-paris/rules.md)
-- [San Francisco](map-san-francisco/rules.md)
+- [Amsterdam](map-amsterdam/rules.md) · [PDF](map-amsterdam/rules.pdf)
+- [Berlin](map-berlin/rules.md) · [PDF](map-berlin/rules.pdf)
+- [London](map-london/rules.md) · [PDF](map-london/rules.pdf)
+- [New York](map-new-york/rules.md) · [PDF](map-new-york/rules.pdf)
+- [Paris](map-paris/rules.md) · [PDF](map-paris/rules.pdf)
+- [San Francisco](map-san-francisco/rules.md) · [PDF](map-san-francisco/rules.pdf)
 
 ### Map expansions
 
-- [B&B Vol Liefde](map-b-and-b-vol-liefde/rules.md)
-- [France](map-france/rules.md)
-- [Iberia](map-iberia/rules.md)
-- [India](map-india/rules.md)
-- [Italy](map-italy/rules.md)
-- [Japan](map-japan/rules.md)
-- [Legendary Asia](map-legendary-asia/rules.md)
-- [Nederland](map-nederland/rules.md)
-- [Old West](map-old-west/rules.md)
-- [Pennsylvania](map-pennsylvania/rules.md)
-- [Poland](map-poland/rules.md)
-- [South Korea](map-south-korea/rules.md)
-- [Stay At Home](map-stay-at-home/rules.md)
-- [Switzerland](map-switzerland/rules.md)
-- [Team Asia](map-team-asia/rules.md)
-- [The Heart Of Africa](map-the-heart-of-africa/rules.md)
-- [United Kingdom](map-united-kingdom/rules.md)
+- [B&B Vol Liefde](map-b-and-b-vol-liefde/rules.md) · [PDF](map-b-and-b-vol-liefde/rules.pdf)
+- [France](map-france/rules.md) · [PDF](map-france/rules.pdf)
+- [Iberia](map-iberia/rules.md) · [PDF](map-iberia/rules.pdf)
+- [India](map-india/rules.md) · [PDF](map-india/rules.pdf)
+- [Italy](map-italy/rules.md) · [PDF](map-italy/rules.pdf)
+- [Japan](map-japan/rules.md) · [PDF](map-japan/rules.pdf)
+- [Legendary Asia](map-legendary-asia/rules.md) · [PDF](map-legendary-asia/rules.pdf)
+- [Nederland](map-nederland/rules.md) · [PDF](map-nederland/rules.pdf)
+- [Old West](map-old-west/rules.md) · [PDF](map-old-west/rules.pdf)
+- [Pennsylvania](map-pennsylvania/rules.md) · [PDF](map-pennsylvania/rules.pdf)
+- [Poland](map-poland/rules.md) · [PDF](map-poland/rules.pdf)
+- [South Korea](map-south-korea/rules.md) · [PDF](map-south-korea/rules.pdf)
+- [Stay At Home](map-stay-at-home/rules.md) · [PDF](map-stay-at-home/rules.pdf)
+- [Switzerland](map-switzerland/rules.md) · [PDF](map-switzerland/rules.pdf)
+- [Team Asia](map-team-asia/rules.md) · [PDF](map-team-asia/rules.pdf)
+- [The Heart Of Africa](map-the-heart-of-africa/rules.md) · [PDF](map-the-heart-of-africa/rules.pdf)
+- [United Kingdom](map-united-kingdom/rules.md) · [PDF](map-united-kingdom/rules.pdf)
 
 ### Standalone maps
 
-- [Europe](map-europe/rules.md)
-- [Germany](map-germany/rules.md)
-- [Märklin](map-marklin/rules.md)
-- [Nordic Countries](map-nordic-countries/rules.md)
-- [Northern Lights](map-northern-lights/rules.md)
-- [Rails & Sails: Great Lakes](map-rails-and-sails-great-lakes/rules.md)
-- [Rails & Sails: World](map-rails-and-sails-world/rules.md)
-- [USA](map-usa/rules.md)
+- [Europe](map-europe/rules.md) · [PDF](map-europe/rules.pdf)
+- [Germany](map-germany/rules.md) · [PDF](map-germany/rules.pdf)
+- [Märklin](map-marklin/rules.md) · [PDF](map-marklin/rules.pdf)
+- [Nordic Countries](map-nordic-countries/rules.md) · [PDF](map-nordic-countries/rules.pdf)
+- [Northern Lights](map-northern-lights/rules.md) · [PDF](map-northern-lights/rules.pdf)
+- [Rails & Sails: Great Lakes](map-rails-and-sails-great-lakes/rules.md) · [PDF](map-rails-and-sails-great-lakes/rules.pdf)
+- [Rails & Sails: World](map-rails-and-sails-world/rules.md) · [PDF](map-rails-and-sails-world/rules.pdf)
+- [USA](map-usa/rules.md) · [PDF](map-usa/rules.pdf)
 
 ### Family games
 
-- [First Journey Europe](map-first-journey-europe/rules.md)
-- [First Journey Usa](map-first-journey-usa/rules.md)
-- [Ghost Train](map-ghost-train/rules.md)
+- [First Journey Europe](map-first-journey-europe/rules.md) · [PDF](map-first-journey-europe/rules.pdf)
+- [First Journey Usa](map-first-journey-usa/rules.md) · [PDF](map-first-journey-usa/rules.pdf)
+- [Ghost Train](map-ghost-train/rules.md) · [PDF](map-ghost-train/rules.pdf)
 
 Source PDFs and images retain their original copyrights.

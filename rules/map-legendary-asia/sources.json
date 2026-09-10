@@ -25,8 +25,22 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "b022213f79f50ae4bbf4de96a56058e32ddcfcc5429d7f9fb9e2875b525beb61",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 4217,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "legendary-asia-map.png",
@@ -45,13 +59,17 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 3603357,
+			"sha256": "a53852c2b7ada03d97234a05b2d36113171cdff3650086251bb12f49bc64d283"
+		},
 		"legendary-asia-map.png": {
 			"bytes": 3867665,
 			"sha256": "9742e63a2191af244f25d8c5ebb81759b33a8e0722836fdfad85884d85444f9f"
 		},
 		"rules.md": {
-			"bytes": 1057,
-			"sha256": "e017ad72e9c756fe8e6737e4c5225c1ffb089f42c733cba3456ebc13fe7f7a9b"
+			"bytes": 4549,
+			"sha256": "b82167cfb3b777e2369c6f2f92fdabf2288666baca83bf3f1f32b97722af37af"
 		},
 		"rules.pdf": {
 			"bytes": 603924,

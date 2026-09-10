@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "ffb88d1cdc8243f5f78f855a8ac146edfee7613e5e41e46db4de87ba969a1b9f",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 6117,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 1289,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "the-heart-of-africa-map.png",
@@ -42,9 +70,21 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 7580652,
+			"sha256": "65b0a5772bc6f03af1fb8b018a4a48973f98ed1652c76980457ef661269215be"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 4158419,
+			"sha256": "e7b4b18b46fdf1513532fad7216c6c0bfee73610d27c98f695f93d0315948a9e"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4731833,
+			"sha256": "51a2867122e0f885a470bb8ade462d866cb6365b86b54e0e7962982a78fdafe1"
+		},
 		"rules.md": {
-			"bytes": 1039,
-			"sha256": "4e0a3cb85fbe6030198345fda28e35903243a75869fec79f0d1bd4c717acc696"
+			"bytes": 8083,
+			"sha256": "05601f0e740608e799230fff2906cd52c6f8bd03b5bb595b1722230e31924d12"
 		},
 		"rules.pdf": {
 			"bytes": 2530799,
