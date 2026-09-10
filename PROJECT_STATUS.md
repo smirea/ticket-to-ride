@@ -1,191 +1,81 @@
-# Goal: Implement Ticket to Ride
+# Ticket to Ride — development status
 
-Build a fully playable Ticket to Ride game on the classic USA map, supporting single-player and multiplayer.
+Updated 2026-09-10.
 
-## Scope
+## Scope and architecture
 
-- USA map only.
-- Use the installed Steam game as the gameplay and interaction reference. Inspect each feature in Steam before implementing it.
-- Recreate the interaction geometry with Svelte/CSS and project-owned overlays. Do not reuse commercial game assets; generate the complete cohesive raster art family with ImageGen.
-- Follow `~/code/knowledgebase/skills/code-ts-game-framework`.
-- Keep deterministic, serializable game rules in `packages/shared`.
-- Build and validate the complete local game before adding networking.
-- Update this file as milestones change and commit completed systems independently.
+- Playable classic USA game for solo play against bots and private multiplayer rooms with 2–5 players.
+- Desktop and tablet layouts, minimum width 768px, including portrait tablets. Preserve the physical tabletop, overlapping tickets, card fan, fitted market, and compact action ticket.
+- SvelteKit SPA served by Vite in development and the Bun server in production. Same-origin `/api` requests are proxied to Bun in development.
+- Deterministic, serializable rules and XState turn transitions live in `packages/shared/src/game.ts`.
+- Shared route adjacency and path finding live in `packages/shared/src/route-graph.ts`. Ticket completion, bot planning, celebration paths, and longest-trail scoring reuse the graph; the longest-trail algorithm remains distinct from shortest-path planning.
+- `GameScreen` renders state and submits semantic actions through its `send` callback. Solo play applies actions locally; multiplayer applies them on the server.
+- SQLite stores authoritative room snapshots and accepted actions atomically. Typed Fetch API requests and server-sent events handle multiplayer communication; no query-cache framework is used.
+- Game state version 3 records a discriminated `GameEvent` union with player IDs, turn numbers, counts, and resolved claim payments. Journal text is generated from events; semantic `GameAction` history remains available for deterministic replay.
+- Older saves retain their English log entries as literal notes, without guessing actions or player identities. Room loading and solo loading use the same game migration boundary. The obsolete destination discard field is removed during migration.
+- Gameplay follows the documented classic USA rules in `rules/default.md`. Other archived rulebooks do not imply support for additional maps.
 
-# Status
+## Implemented
 
-## Current
+- [x] Complete USA cities, routes, destination tickets, train deck, deterministic dealing, opening selection, and returned-ticket handling.
+- [x] Legal train draws, locomotive restrictions, market refresh, discard reshuffling, and exhausted-pile behavior.
+- [x] Colored/gray route claims, payment validation, train limits, route scores, and double-route restrictions.
+- [x] Destination completion, final-round order, longest continuous trail, ticket scoring, tie breakers, and final standings.
+- [x] Deterministic bots that pursue destination paths and complete games across the supported player counts.
+- [x] Solo setup, automatic save/resume, restart, bot pacing, settings, and debug scenarios.
+- [x] Multiplayer create/join/leave, host settings, readiness consensus, start, authoritative turns, live snapshots, finished games, and explicit abandonment.
+- [x] Viewer-specific projections of private hands, tickets, offers, decks, and ticket-history details. This does not yet provide protection against identity impersonation or predictable seeds; see remaining work.
+- [x] Board route selection, payment choice, card draws, ticket previews, completion celebrations, structured journal, and final results.
+- [x] Current original atlas/card/ticket artwork, retained player portraits, and attributed train sprites.
+- [x] Solo new-game URL cleanup and unavailable parallel-route interaction handling exist in the current UI. The turn instruction now lives in the ticket sidebar rather than beneath the hand fan.
 
-- [ ] End-to-end UI playthrough follow-up: a real 73-turn solo game reached final scoring; fix unavailable double-route interaction, destructive refresh on the initial `?new=1` URL, and the hand/turn-banner overlap observed during play.
-- [x] Canonical rules and XState engine pass completed: the official rules are documented, XState owns the phase/event lifecycle, audited discrepancies are corrected, and multiplayer snapshots preserve secret information.
-- [x] Pixel-precision Steam frame and original whimsical-1800s art pass completed, including real four-player interaction, responsive board-preserving decisions, repeated source comparisons, and full verification.
-- [x] Steam-reference UX parity pass completed: board-first HUD, side-docked gameplay decisions, map ticket previews, and motion polish.
-- [x] Bun API server and SvelteKit SPA scaffolded.
-- [x] Vite development proxy and production static serving configured.
-- [x] Shared environment parsing, theme tokens, TanStack Query, linting, formatting, and hooks configured.
-- [x] The complete deterministic USA rules engine can play seeded games through final scoring.
-- [x] Single player supports configurable rivals, automatic save/resume, restart, debug scenarios, and results.
-- [x] Bots deterministically pursue destination-ticket paths and complete full seeded games using only legal actions.
-- [x] Multiplayer supports private rooms, persistent browser identities, live lobby updates, authoritative turns, reconnect states, and explicit abandon.
+## Completed review follow-up
 
-## Completed milestone: Steam-reference gameplay UX pass
+Each requested point is recorded in its own commit.
 
-- [x] Capture and measure Steam's live in-match board and settings frames at the implementation viewport.
-- [x] Replace the page-like game dashboard with a full-viewport board and compact edge-mounted HUD.
-- [x] Keep the train market, decks, hand, player state, turn state, and destination tickets visible without pushing the board below the fold.
-- [x] Move destination choice, route payment, and final results into side drawers that preserve the map.
-- [x] Preview destination endpoints and their connection on the board from pointer, keyboard focus, and selection state.
-- [x] Add restrained drawer, turn, card, count, and route-claim animation with reduced-motion handling.
-- [x] Validate default turn, ticket selection, route claim, final results, and narrow-screen states through the real debug action path.
-- [x] Complete a same-viewport source/implementation comparison.
+- [x] Bot legality: share train-draw availability across the engine, bots, and UI. Bots no longer choose face-up cards when both train piles are exhausted; regression coverage checks continued play with ordinary cards and locomotives still displayed.
+- [x] Multiplayer idempotency: persist an unconfirmed move in per-room/per-identity session storage before sending it. Bounded automatic retries, explicit retry, and reload recovery reuse its original action ID, payload, and expected revision. Reject new moves while one is unconfirmed; clear definitively rejected moves and refresh the snapshot.
+- [x] Server action checks: accept identical retries even after the revision changes, reject an action ID reused with a different payload, and reject new stale-revision actions before applying them.
+- [x] Journal/history: replace English-string parsing and positional history matching with typed events. Group by player ID and turn; record exact payments at acceptance; project kept-ticket identities only to their owner.
+- [x] Graph logic: consolidate adjacency/path traversal, move connection tests into shared code, and remove the board's duplicated parallel-route rule.
+- [x] Dead code/assets: remove unused TanStack Query setup and dependency, `gameReducer`, test-only JSON serialization wrappers, and destination discard state. Remove 48 obsolete asset files totaling about 8.1 MiB while retaining all 55 active runtime assets.
+- [x] Pre-commit staging: lint and format selected staged files and automatically restage fixes. Keep formatting separate from code linting so documentation-only commits work.
+- [x] Replace historical status claims with the current implementation, verification evidence, and remaining work.
 
-## Completed milestone: Pixel-precision Steam frame and original art pass
+## Verification
 
-- [x] Capture the installed Steam game's live turn and settings states at 1210×768.
-- [x] Capture the local default game at the same viewport for a direct baseline comparison.
-- [x] Generate an original whimsical-1800s map, table background, ticket faces/backs, train deck back, nine train-card illustrations, and player portraits.
-- [x] Replace generic card and map surfaces with the generated asset family while preserving route and city interaction geometry.
-- [x] Rebuild the edge HUD to match Steam's dense left player rail, right market, deck counters, hand fan, and bottom turn banner.
-- [x] Match ticket choice, route payment, settings, and results states while keeping the board visible and highlighted.
-- [x] Add card-deal, hand-fan, route-claim, drawer, counter, hover, and turn-transition motion with reduced-motion handling.
-- [x] Complete repeated same-state, same-viewport source/local comparisons and record the final QA result.
-- [x] Run the complete test, typecheck, lint, format, and production-build suite.
+- [x] 59 tests pass, including full deterministic replay, final scoring, room persistence/recovery, private event projection, lost-acknowledgment retries, reload recovery of unconfirmed requests, stale revisions, resolved payments, duplicate player names, and graph traversal through zero-cost owned cycles.
+- [x] An additional 100 seeded all-bot games complete across 2–5 players after the graph changes.
+- [x] UI and server typechecks pass. Svelte reports no errors or warnings under the current configuration; accessibility warnings are still globally suppressed.
+- [x] Oxlint and formatting checks pass for application/shared source, scripts, and changed configuration.
+- [x] Production build passes. Adapter-static still prints its existing fallback/index overwrite warning.
+- [x] Verify every active runtime asset exists after cleanup.
+- [x] Browser smoke test: claim San Francisco–Los Angeles, observe 4 points and 42 remaining trains, see the sibling marked unavailable, and inspect the journal's exact three-purple-card payment. Retained artwork renders without browser console errors.
+- [x] Browser multiplayer smoke test: connect to a live two-player room, keep two opening tickets through the revisioned action path, hand off selection to the other player, inspect owner-visible destination history, and reload to the same live room state without browser console errors.
 
-## Completed milestone: Canonical rules and XState engine
+## Remaining work
 
-- [x] Locate and visually verify the official English classic USA rulebook.
-- [x] Convert the complete gameplay specification to `rules/default.md`.
-- [x] Audit setup, turns, draws, claims, double routes, final round, scoring, and tie breakers against the rulebook.
-- [x] Make XState v5 the authoritative state-transition layer while preserving serializable snapshots, deterministic replay, and the existing semantic action API.
-- [x] Add focused rule tests for component conservation, starting-player order, state transitions, exhausted Train Car piles, both blind-Locomotive positions, all-Locomotive payments, every route score, double-route player-count behavior, final-round boundaries, and tie breakers.
-- [x] Redact multiplayer snapshots per viewer so hands, tickets, offers, deck order, and deterministic shuffle state remain secret until final scoring.
-- [x] Run full simulation, server recovery, test, typecheck, lint, and production-build verification.
+### Correctness and multiplayer boundaries
 
-## Active milestone: End-to-end UI playthrough follow-up
+- [ ] Separate public player IDs from secret session credentials. The current request identity is exposed in room snapshots and can be reused to impersonate another player.
+- [ ] Generate unpredictable server-side seeds for ordinary multiplayer rooms. The default seed is reconstructible from the public room code; user-selected deterministic seeds should be an explicit debug capability.
+- [ ] Close existing event subscriptions when membership ends. Current streams may continue receiving updates after a player leaves through another tab.
+- [ ] Automatically retry failed initial room loads and distinguish terminal membership/not-found errors from connection failures.
+- [ ] Validate complete persisted game structure before accepting saves; the migration helper still checks only a small outer shape.
+- [ ] Introduce an explicit viewer-facing state type instead of representing private data with red-card and fake-ticket placeholders.
+- [ ] Decide whether the payment chooser should allow spending extra locomotives. It currently deliberately offers the least-wild payment per color even though the engine supports other legal payments.
 
-- [x] Start a fresh two-player solo game through the visible setup UI and choose opening Destination Tickets.
-- [x] Exercise settings and fast bot pacing, face-up and blind Train Car draws, a midgame Destination Ticket draw, route selection/payment, automatic bot turns, the turn journal, final-round countdown, and final results.
-- [x] Complete a real game through the UI in 73 turns; final scoring produced Maya 126 and You 4 after route, ticket, and longest-path scoring.
-- [x] Verify `/game` resumes the exact saved turn, hand, trains, and score without console errors.
-- [ ] Stop unavailable halves of double routes from appearing open in 2-3 player games; overlapping hitboxes currently select the claimed sibling, open the wrong payment drawer, or submit a guaranteed rejection.
-- [ ] Replace or clear the initial `/game?new=1&...` URL after creating the game; reloading that URL currently discards the in-progress or completed game and starts over.
-- [ ] Move the turn instruction clear of the hand fan; the primary banner is partially obscured during opening selection, normal turns, and results.
+### Maintainability and UI validation
 
-## Completed milestone: Open and interact with a single-player game
+- [ ] Extract animation coordination and market/hand presentation from `GameScreen`; audit cancellation and pending animation promises during navigation and reset.
+- [ ] Consolidate storage access and profile/navigation handling, including storage-disabled behavior and `DEBUG_ID` preservation through solo setup and game menus.
+- [ ] Remove blanket accessibility-warning suppression, then perform keyboard, focus, contrast, and screen-reader checks.
+- [ ] Repeat portrait-tablet and full-game browser regression checks for ticket selection, draws, claims, celebrations, results, and refresh. Historical solo QA completed one 73-turn game; multiple full human playthroughs remain outstanding.
+- [ ] Exercise actual network interruptions and multi-tab interactions end to end. Automated tests cover uncertain acknowledgments and persisted retries, but browser smoke testing does not simulate packet loss.
+- [ ] Complete remaining Steam-reference comparisons for difficulty and results where relevant to the current tabletop design.
 
-Establish the real game architecture and produce the first usable vertical slice before completing every rule.
+### Optional future features
 
-- [x] Inspect the Steam home screen and single-player entry point.
-- [x] Inspect Steam's single-player setup, opening ticket selection, board presentation, train-card draw, route claim, and turn-transition interactions.
-- [x] Add shared serializable player, card, route, ticket, turn, and game-state types.
-- [x] Add the USA city and route network as owned project data.
-- [x] Add deterministic game creation and a typed semantic action boundary.
-- [x] Build the reusable `GameScreen` and code-native SVG/CSS board.
-- [x] Add `/debug/game` using the real shared state and `GameScreen`, with deterministic scenarios.
-- [x] Add a Single Player entry point from `/`.
-- [x] Support initial destination-ticket selection and at least one complete interactive turn.
-- [x] Add a deterministic bot that performs a legal turn and returns control to the player.
-- [x] Run tests, typecheck, lint, and a production build.
-
-### Acceptance criteria
-
-- `bun run dev` opens the app at `ticket-to-ride.localhost:6090`.
-- Selecting Single Player reaches a recognizable USA game board without server or console errors.
-- The screen shows players, current turn, train counts, the player hand, destination tickets, face-up train cards, and draw piles.
-- The player can select initial destination tickets.
-- The player can complete a legal train-card draw turn.
-- A deterministic debug scenario lets the player select and claim an eligible route.
-- Accepted actions visibly update shared game state and advance the turn.
-- A local opponent performs a legal action and control returns to the human.
-- Illegal choices are disabled or rejected with a clear reason.
-- Gameplay uses the same reusable `GameScreen` and shared action path intended for the finished game.
-- State is serializable and random results are reproducible from a seed.
-- Tests, typecheck, lint, and a production build pass.
-
-## Roadmap
-
-### 2. Complete the local rules engine (complete)
-
-- [x] Inspect the complete classic USA rules and edge cases in the official English rulebook and Steam reference.
-- [x] Implement setup, deck construction, shuffling, dealing, and destination-ticket keep rules.
-- [x] Implement blind and face-up train-card draws, locomotive restrictions, market refresh, discard reshuffling, and exhausted-deck behavior.
-- [x] Implement colored and gray route claims, card payment selection, train-piece limits, and route scoring.
-- [x] Implement double-route restrictions for smaller games and ownership restrictions.
-- [x] Implement destination-ticket draws and minimum keep rules.
-- [x] Implement final-round triggering and turn order.
-- [x] Implement completed and incomplete destination scoring, longest continuous route, ties, and final ranking.
-- [x] Add meaningful deterministic tests for rule boundaries, scoring, and replay.
-- [x] Prove a complete seeded game can be played start-to-finish and rendered in `/debug/game`.
-
-### 3. Complete the single-player product (playable; extended human QA pending)
-
-- [x] Inspect Steam bot pacing, turn feedback, public player counts, board controls, and game-speed setting.
-- [ ] Inspect Steam difficulty choices and game-over presentation.
-- [x] Replace the vertical-slice bot with a coherent deterministic strategy that only uses legal actions.
-- [x] Support the intended USA player-count range and configurable local opponents.
-- [x] Add restart, turn history, bot-action feedback, and local save/resume.
-- [x] Add debug scenarios for setup, each turn action, final round, longest route, ties, and final scoring.
-- [x] Finish keyboard board navigation, route selection, card payment, transitions, and responsive layout.
-- [x] Pace bot actions so each legal move and turn transition remains visible.
-- [ ] Verify a human can complete multiple full games without debug controls.
-
-### 4. Add player identity and app navigation (complete)
-
-- [x] Add the shared player profile model and setup screens.
-- [x] Add namespaced typed local storage.
-- [x] Preserve `DEBUG_ID` through navigation and support multiple identities in one browser.
-- [x] Add `/ -> /setup` for single player and `/ -> /lobby -> /room/[code]` for multiplayer.
-- [x] Reuse a consistent player color and identity presentation throughout the app.
-
-### 5. Add authoritative multiplayer rooms (complete except debug tooling)
-
-- [x] Add shared room state and typed request, response, and event contracts.
-- [x] Add create, join, leave, readiness, settings, and start actions.
-- [x] Add SQLite-backed room snapshots and accepted semantic action persistence.
-- [x] Make the Bun server validate actions with the shared rules engine.
-- [x] Broadcast authoritative room snapshots through one per-room SSE stream.
-- [x] Add lobby and room screens using the real `GameScreen`.
-- [x] Add current-room recovery, idempotent action retries, and explicit abandon semantics to the server.
-- [x] Wire refresh and reconnect behavior into the UI room routes.
-- [ ] Add live-room debug save, load, and reset helpers.
-
-### 6. Complete multiplayer gameplay
-
-- [x] Verify secret information is hidden by the UI for the current viewer.
-- [x] Enforce turn ownership and reject invalid actions at the server boundary.
-- [x] Support 2-5 players on the USA map.
-- [x] Persist and stream completed or explicitly abandoned room snapshots.
-- [x] Verify joins, readiness, start consensus, refresh/rejoin recovery, and private opening-ticket rendering through two browser clients.
-- [ ] Add a spectator flow and simultaneous-join stress test.
-- [x] Test several same-browser clients with distinct `DEBUG_ID` values.
-- [x] Prove a multiplayer game completes start-to-finish and recovers its exact final snapshot and action log after a server/store restart.
-
-### 7. Reference parity and release polish
-
-- [ ] Audit every gameplay phase and interaction against the installed Steam game. In-match board and settings frames are captured; the board, ticket selection, claim payment, and results now follow the board-first interaction model.
-- [x] Finish responsive desktop and mobile layouts for setup, lobby, room, board, ticket selection, and results.
-- [x] Add keyboard route navigation, visible focus, semantic labels, live status, and reduced-motion behavior.
-- [ ] Complete contrast and screen-reader audits across every route.
-- [x] Add useful loading, waiting, reconnecting, empty, and error states.
-- [x] Verify rules, scoring, bot turns, replay, room recovery, and production serving.
-- [x] Run the complete test, typecheck, lint, format, and production-build suite.
-
-# Bugs
-
-- In 2-3 player games, the unused half of a claimed double route is still announced and styled as open. Its 22px hitbox overlaps the sibling route at a 10px offset, causing pointer selection to hit the wrong half or fail to open the intended claim drawer.
-- Reloading the setup-created `/game?new=1&name=...&bots=...` URL treats every load as a new-game request and replaces the saved game. Navigating to `/game` restores correctly.
-- The centered turn banner sits beneath the hand fan, hiding part of the current instruction and final-state label.
-
-# Notes
-
-- The server owns multiplayer state; clients send semantic actions and render authoritative snapshots.
-- XState v5 owns the opening selection, turn-action, second-draw, destination-selection, and game-over lifecycle; persisted `GameState.phase` hydrates the machine without storing framework metadata.
-- Multiplayer responses and SSE streams use viewer-specific projections: only the owner receives hand, ticket, and offer identities, while final scoring reveals all Destination Tickets.
-- Random outcomes or seeds must be stored in accepted state so replay remains deterministic.
-- `GameScreen` accepts plain game state, players, `viewerId`, and one `send(event)` callback.
-- Steam reference interaction is verified through single-player setup, opening ticket selection, face-up and blind card draws, route selection, and AI turn handoff. Route claims drag a matching card group onto the route; clicking a route and confirming is the accessible alternate flow.
-- Steam exposes public card, ticket, train, and score counts in each player row, announces the human turn over the board, and offers an adjustable game-speed setting. Local bots now reveal their actions with short paced transitions.
-- The Unity client occasionally drops synthetic pointer-down events. Longer held input is reliable; Retina window captures must be converted from pixels to screen points before targeting board colliders.
-- Multiplayer browser QA uses distinct `DEBUG_ID` values. Two clients have proven create/join, revisioned SSE updates, readiness, start, refresh recovery, identity isolation, and secret opening-ticket rendering; the server test completes the same authoritative path through final recovery.
-- Multiplayer work begins only after the local game is playable start-to-finish.
-- Other maps, reused commercial assets, authentication, matchmaking, and hostile-client security are out of scope.
+- [ ] Live-room debug save/load/reset tooling.
+- [ ] Spectator flow and simultaneous-join stress testing.
+- Other playable maps, account authentication, and matchmaking remain outside the current implementation scope.
