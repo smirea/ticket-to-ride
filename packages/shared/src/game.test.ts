@@ -14,13 +14,11 @@ import {
 	createDebugClaimScenario,
 	createDebugFinalRoundScenario,
 	createGame,
-	deserializeGame,
 	getGameMachineState,
 	gameMachine,
 	playBotTurns,
 	replayGame,
 	restoreGameState,
-	serializeGame,
 	type GameState,
 } from './game';
 
@@ -324,7 +322,7 @@ describe('train card edge cases', () => {
 		const state = finishTicketSelection(createGame({ seed: 'reshuffle', botCount: 1 }));
 		state.trainDeck = [];
 		state.trainDiscard = ['red', 'blue', 'green'];
-		const copy = deserializeGame(serializeGame(state));
+		const copy = restoreGameState(JSON.parse(JSON.stringify(state)));
 		const first = applyGameAction(state, { type: 'draw-train-deck' });
 		const second = applyGameAction(copy, { type: 'draw-train-deck' });
 		expect(first).toEqual(second);
@@ -684,8 +682,8 @@ describe('persistence and full simulation', () => {
 		if (!second.ok) throw new Error(second.error);
 		state = playBotTurns(second.state);
 
-		const serialized = serializeGame(state);
-		expect(serializeGame(deserializeGame(serialized))).toBe(serialized);
+		const serialized = JSON.stringify(state);
+		expect(JSON.stringify(restoreGameState(JSON.parse(serialized)))).toBe(serialized);
 		const replayed = replayGame(options, state.history);
 		expect(replayed.ok).toBe(true);
 		if (!replayed.ok) return;
@@ -693,12 +691,14 @@ describe('persistence and full simulation', () => {
 
 		const legacy = JSON.parse(serialized) as Record<string, unknown>;
 		legacy.version = 1;
+		legacy.destinationDiscard = [];
 		delete legacy.finalRound;
 		delete legacy.finalResults;
 		delete legacy.history;
 		delete legacy.openingTicketOffers;
 		const restored = restoreGameState(legacy);
 		expect(restored.version).toBe(3);
+		expect('destinationDiscard' in restored).toBe(false);
 		expect(restored.finalRound).toBeNull();
 		expect(restored.finalResults).toBeNull();
 		expect(restored.history).toEqual([]);

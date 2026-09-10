@@ -91,7 +91,6 @@ export interface GameState {
 	trainDiscard: TrainCard[];
 	faceUpTrainCards: TrainCard[];
 	destinationDeck: TicketId[];
-	destinationDiscard: TicketId[];
 	openingTicketOffers: Record<PlayerId, TicketId[]>;
 	claimedRoutes: Record<RouteId, PlayerId>;
 	events: GameEvent[];
@@ -383,7 +382,6 @@ function cloneState(state: GameState): GameState {
 		trainDiscard: [...state.trainDiscard],
 		faceUpTrainCards: [...state.faceUpTrainCards],
 		destinationDeck: [...state.destinationDeck],
-		destinationDiscard: [...state.destinationDiscard],
 		openingTicketOffers: Object.fromEntries(
 			Object.entries(state.openingTicketOffers).map(([playerId, ticketIds]) => [playerId, [...ticketIds]]),
 		),
@@ -548,7 +546,6 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 		trainDiscard: [],
 		faceUpTrainCards: [],
 		destinationDeck,
-		destinationDiscard: [],
 		openingTicketOffers,
 		claimedRoutes: {},
 		events: [{ type: 'game-started', playerCount: players.length }],
@@ -939,11 +936,6 @@ export function applyGameAction(state: GameState, action: GameAction): ActionRes
 	return nextSnapshot.context.lastResult ?? fail(state, disallowedActionError(machineState, action));
 }
 
-export function gameReducer(state: GameState, action: GameAction): GameState {
-	const result = applyGameAction(state, action);
-	return result.ok ? result.state : state;
-}
-
 function paymentColorForRoute(player: Player, routeItem: Route): TrainColor | undefined {
 	const colors = routeItem.color === 'gray' ? TRAIN_COLORS : [routeItem.color];
 	return colors
@@ -1223,10 +1215,6 @@ function finalizeGame(state: GameState): void {
 	state.events.push({ type: 'game-over', winnerIds });
 }
 
-export function serializeGame(state: GameState): string {
-	return JSON.stringify(state);
-}
-
 export function restoreGameState(value: unknown): GameState {
 	if (
 		typeof value !== 'object' ||
@@ -1249,6 +1237,7 @@ export function restoreGameState(value: unknown): GameState {
 			? restored.log.filter((text): text is string => typeof text === 'string').map(text => ({ type: 'note', text }))
 			: [];
 	delete restored.log;
+	delete restored.destinationDiscard;
 	const phase = restored.phase as Record<string, unknown>;
 	if (phase.type === 'ticket-selection' && phase.source !== 'opening' && phase.source !== 'turn') {
 		phase.source = 'opening';
@@ -1268,10 +1257,6 @@ export function restoreGameState(value: unknown): GameState {
 		finalResults: (restored.finalResults as FinalPlayerResult[] | null | undefined) ?? null,
 		history: Array.isArray(restored.history) ? (restored.history as GameAction[]) : [],
 	};
-}
-
-export function deserializeGame(serialized: string): GameState {
-	return restoreGameState(JSON.parse(serialized));
 }
 
 export function replayGame(options: CreateGameOptions, actions: GameAction[]): ActionResult {

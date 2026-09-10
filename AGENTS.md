@@ -4,7 +4,7 @@
 - Language: TypeScript, Svelte
 - UI: SvelteKit SPA
 - Styling: Svelte CSS with Tailwind CSS v4 available
-- Data Fetching: TanStack Query
+- Data Fetching: Fetch API and server-sent events
 - Linting: Oxlint + oxfmt
 - Git Hooks: Lefthook
 
@@ -27,7 +27,7 @@
 - Global styles are imported from `apps/ui/src/routes/layout.css`.
 - Theme values live in `apps/ui/src/routes/theme.css` and are selected with `html[data-theme]`.
 - Prefer Svelte component CSS for styling. Use Tailwind only for small inline layout utilities when that is simpler than adding a class.
-- TanStack Query is configured in `apps/ui/src/routes/+layout.svelte`.
+- Multiplayer uses typed Fetch API requests and server-sent events.
 
 # Local Dev Hosts
 
