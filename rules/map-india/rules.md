@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 The Mandala bonus rewards tickets connected by qualifying alternative paths. A single connection is sufficient for normal ticket completion but not necessarily for the extra bonus. Implement the independent-path condition, ferry requirements, and two-player parallel-route restrictions.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Photographic reference; verify route labels at source.
 

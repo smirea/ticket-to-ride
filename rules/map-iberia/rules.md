@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Destination tickets are drafted. Festival cards share the train deck, and an inserted marker triggers another ticket draft during play. Model draft selection and passing, festival collection and scoring, the marker's player-count-dependent placement, and ferry payment.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

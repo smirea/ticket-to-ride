@@ -1,7 +1,7 @@
 {
 	"id": "germany",
 	"name": "Germany",
-	"group": "Standalone and edition variants",
+	"group": "Standalone maps",
 	"bgg": {
 		"id": "225244",
 		"name": "Ticket to Ride: Germany",
@@ -10,9 +10,9 @@
 		"minplayers": "2",
 		"maxplayers": "5"
 	},
-	"aliases": [],
+	"aliases": ["Deutschland"],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -37,24 +37,48 @@
 		"crop_normalized": [0.46, 0.38, 0.8, 0.84],
 		"quality": "Illustration; verify labels and route data against physical components."
 	},
-	"supplemental": {},
+	"supplemental": {
+		"deutschland-rules.pdf": "https://mieze-merle.de/Gesellschaftsspiele/files/Zug%20um%20Zug%20Deutschland/Anleitung%20-%20Zug%20um%20Zug%20Deutschland.pdf"
+	},
 	"implementation_gaps": [
 		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
 	],
 	"missing_assets": null,
 	"files": {
+		"deutschland-rules.pdf": {
+			"bytes": 2280168,
+			"sha256": "7f295075d2806316882061af069f855aceaf9b6703d0da908c274c2f46b45f1d"
+		},
 		"germany-map.png": {
 			"bytes": 2181933,
 			"sha256": "9e28af823f9859615c48714783046b99a1dd173f1af292cdbfe96f5c8dbf0d7f"
 		},
 		"rules.md": {
-			"bytes": 930,
-			"sha256": "af8bd492e5ad378054e7b700ceda1073d3866a9503d8cb59b666cdf6b5be70ac"
+			"bytes": 1096,
+			"sha256": "17628832aadfcbeb072a64abf3a5c5f4bdd508fe0b74b38aeba889e8c146bc08"
 		},
 		"rules.pdf": {
 			"bytes": 3735690,
 			"sha256": "f20a9f91f909a19a16d4b4c3e06155650aa972733f5986af0b2b16892ab3341d"
 		}
 	},
-	"folder": "map-germany"
+	"folder": "map-germany",
+	"rule_editions": [
+		{
+			"id": "deutschland",
+			"name": "Deutschland",
+			"rules_path": "deutschland-rules.pdf",
+			"source_url": "https://mieze-merle.de/Gesellschaftsspiele/files/Zug%20um%20Zug%20Deutschland/Anleitung%20-%20Zug%20um%20Zug%20Deutschland.pdf",
+			"bgg": {
+				"id": "119637",
+				"name": "Zug um Zug: Deutschland",
+				"canonical_link": "https://boardgamegeek.com/boardgame/119637/zug-um-zug-deutschland",
+				"yearpublished": "2012",
+				"minplayers": "2",
+				"maxplayers": "5"
+			},
+			"note": "Alternate rules/deck edition of this map; select explicitly rather than combining its setup with the default rulebook."
+		}
+	],
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

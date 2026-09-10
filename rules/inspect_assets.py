@@ -20,7 +20,7 @@ def main():
         folder = ROOT / entry["folder"]
         metadata = json.loads((folder / "sources.json").read_text())
         required = ["rules.md", f'{entry["id"]}-map.png']
-        if entry["asset_status"] == "three-required-assets-present":
+        if entry["asset_status"] == "source-kit-present":
             required.append("rules.pdf")
         for name in required:
             if not (folder / name).is_file():

@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "63fedf0919afd8c89e03ab6155f0cbdccf6ce796df898b0735bfdf4fe87557a7"
 		},
 		"rules.md": {
-			"bytes": 1070,
-			"sha256": "db14beaf70c5acebd137092676e28f79ff0ccb42704e72a403fc0f813ac1de6b"
+			"bytes": 1054,
+			"sha256": "2378064508f061ccd725c796a8670b4b75bcca7a906db6ce7e97776c7c3ec747"
 		},
 		"rules.pdf": {
 			"bytes": 2618997,
 			"sha256": "4bea5903ca805507690cefb4e29e76e4b5aab9fe66ca3ab2288bb1c8666c6e30"
 		}
 	},
-	"folder": "map-old-west"
+	"folder": "map-old-west",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

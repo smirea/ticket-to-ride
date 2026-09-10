@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -46,8 +46,8 @@
 	"missing_assets": null,
 	"files": {
 		"rules.md": {
-			"bytes": 1099,
-			"sha256": "341c1c961bca0d99be30044ab0d8e366fedeab4eb73e395b64b3fc2a9fb9edfd"
+			"bytes": 1083,
+			"sha256": "c60340f8dc9259e94f9dc98725efaf02352c18875148c40bd133ad898c3d3718"
 		},
 		"rules.pdf": {
 			"bytes": 7351537,
@@ -58,5 +58,6 @@
 			"sha256": "c23868785df7f3cde42bf448af8e1b3ee99e6b181767c38b351dde06456ca07c"
 		}
 	},
-	"folder": "map-united-kingdom"
+	"folder": "map-united-kingdom",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "9742e63a2191af244f25d8c5ebb81759b33a8e0722836fdfad85884d85444f9f"
 		},
 		"rules.md": {
-			"bytes": 1073,
-			"sha256": "315239b74aacb85b81880e7eff7244a8d0b5f1b02188b112b34161004cef8899"
+			"bytes": 1057,
+			"sha256": "e017ad72e9c756fe8e6737e4c5225c1ffb089f42c733cba3456ebc13fe7f7a9b"
 		},
 		"rules.pdf": {
 			"bytes": 603924,
 			"sha256": "b022213f79f50ae4bbf4de96a56058e32ddcfcc5429d7f9fb9e2875b525beb61"
 		}
 	},
-	"folder": "map-legendary-asia"
+	"folder": "map-legendary-asia",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

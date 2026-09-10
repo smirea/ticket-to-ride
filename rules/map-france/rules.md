@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Much of the board begins as track beds without fixed colors. Drawing train cards also places track pieces, which constrain later claims and may invalidate crossing alternatives. Keep physical track construction separate from ownership, with proper ordering for replacement and removal.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

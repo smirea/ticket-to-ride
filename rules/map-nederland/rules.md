@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Claiming routes costs bridge tolls. Payment can go to the bank or the owner of the parallel route; insufficient funds require loans. Wealth produces an endgame bonus and loans incur penalties. The two-player neutral-player variant needs separate turn and payment handling.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Board shown with components; some detail may be obscured.
 

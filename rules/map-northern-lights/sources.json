@@ -1,7 +1,7 @@
 {
 	"id": "northern-lights",
 	"name": "Northern Lights",
-	"group": "Standalone and edition variants",
+	"group": "Standalone maps",
 	"bgg": {
 		"id": "371140",
 		"name": "Ticket to Ride: Northern Lights",
@@ -12,7 +12,7 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -58,5 +58,6 @@
 			"sha256": "bc05d9442c8ec4962b22f931973b929551779f0305d948448d4c5f83d920979a"
 		}
 	},
-	"folder": "map-northern-lights"
+	"folder": "map-northern-lights",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

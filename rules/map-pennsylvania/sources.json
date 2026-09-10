@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "4ae6979e28f85cafa87a0078abbdb6b19713444c5bb255d4dca32da04e1d05dd"
 		},
 		"rules.md": {
-			"bytes": 1087,
-			"sha256": "19c7904217f5883fcb975baef0aaa26d4fa702aeb132e5cb5d076a1b9187a3bb"
+			"bytes": 1071,
+			"sha256": "f433539cd79a8eaf04224131250936262e5f22e1c784d691670a0420fd274eae"
 		},
 		"rules.pdf": {
 			"bytes": 4228662,
 			"sha256": "d3aee1d0555297c5688ccfb240a1294ea11f91afee185176e36918ee16af7249"
 		}
 	},
-	"folder": "map-pennsylvania"
+	"folder": "map-pennsylvania",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

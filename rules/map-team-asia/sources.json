@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -46,8 +46,8 @@
 	"missing_assets": null,
 	"files": {
 		"rules.md": {
-			"bytes": 1086,
-			"sha256": "c6cfb1c1916a6d74dfbebeada8ff33bcc6275b7f3be5b43ea07bc57050d121b9"
+			"bytes": 1070,
+			"sha256": "49fec9d4379fac73536dacc156a6a71eaf3d20a32d219d84d6e411b414b25489"
 		},
 		"rules.pdf": {
 			"bytes": 416544,
@@ -58,5 +58,6 @@
 			"sha256": "be2c89353c5543ddd9a2b3f5c9f27894b81a963ecb995e6f977a8279f38c6601"
 		}
 	},
-	"folder": "map-team-asia"
+	"folder": "map-team-asia",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

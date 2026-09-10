@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -43,8 +43,8 @@
 	"missing_assets": null,
 	"files": {
 		"rules.md": {
-			"bytes": 1055,
-			"sha256": "6685b3483e1661f6cbb138f6808c6cb678792c8d99abc3612b8d164d5935ae34"
+			"bytes": 1039,
+			"sha256": "4e0a3cb85fbe6030198345fda28e35903243a75869fec79f0d1bd4c717acc696"
 		},
 		"rules.pdf": {
 			"bytes": 2530799,
@@ -55,5 +55,6 @@
 			"sha256": "117c9ebee25fc44377ab04e970bf581c2270b3507ba3d33ea444d6b2d7a89125"
 		}
 	},
-	"folder": "map-the-heart-of-africa"
+	"folder": "map-the-heart-of-africa",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "34f482a076c5ba9dee14eb7451cce0a880f6c922c2eaa69dec8c1c7a26398280"
 		},
 		"rules.md": {
-			"bytes": 1031,
-			"sha256": "83b9c01dd0e836fd71d43098adbe41acf8f463bf98ddfb09def270c51ebf90d5"
+			"bytes": 1015,
+			"sha256": "1b4aef85be85b50d4c641446d46c719092d6935a490621b3122e09ea5b202ee7"
 		},
 		"rules.pdf": {
 			"bytes": 3706587,
 			"sha256": "855957ec255d13b5868d33a475b36d6d2ca0dc8de72b329b16d33d0c09681bbc"
 		}
 	},
-	"folder": "map-iberia"
+	"folder": "map-iberia",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

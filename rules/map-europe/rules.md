@@ -1,4 +1,4 @@
-# Europe (refreshed)
+# Europe
 
 [rulebook PDF](rules.pdf) · [map reference](europe-map.png) · [source metadata](sources.json)
 
@@ -12,3 +12,7 @@ Before implementation: Complete destination/card inventory and machine-readable 
 
 Catalog reference: [Ticket to Ride: Europe](https://boardgamegeek.com/boardgame/14996/ticket-to-ride-europe).
 Rule source: [download](https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2026/08/7281N_TICKET2RIDEeuropeV2_RULES_EN_20250429.pdf).
+
+Alternate rules edition: [Europe Classic](europe-classic-rules.pdf). Use this edition explicitly when implementing its setup or ticket variants; it is not a separate map.
+
+Alternate rules edition: [Europe 15th Anniversary](europe-15th-anniversary-rules.pdf). Use this edition explicitly when implementing its setup or ticket variants; it is not a separate map.

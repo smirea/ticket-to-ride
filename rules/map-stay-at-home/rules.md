@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 A printable house map with family-role tickets and shared family routes. Colored segments of family routes can have different owners. Normal double and triple routes have separate availability rules. The PDF contains the rules, printable board tiles, and ticket sheets.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Four printable sheets assembled in reading order; print margins retained.
 

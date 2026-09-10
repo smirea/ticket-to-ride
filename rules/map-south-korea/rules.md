@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Players draft their initial tickets and receive three single-use express cards that improve chosen actions. A province board adds another scoring competition. Express effects differ for drawing trains, claiming routes, and drawing tickets; each needs its own validation and resolution.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

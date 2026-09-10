@@ -12,9 +12,9 @@
 	},
 	"aliases": ["Ticket to Ride: Switzerland (2007)"],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -54,8 +54,8 @@
 	},
 	"files": {
 		"rules.md": {
-			"bytes": 1095,
-			"sha256": "ace383c890a9afb90fb160e94f944c1f136e2f859291817182850e860a7848c8"
+			"bytes": 1079,
+			"sha256": "00cca8030b2f79df1f280e46b8f2103411afa5a12c099c3c201412c904285de3"
 		},
 		"rules.pdf": {
 			"bytes": 3540194,
@@ -66,5 +66,6 @@
 			"sha256": "634176f4f7aa549dbdc4a60268445de7ab06f9b8bd5eb5409447d98896f3a297"
 		}
 	},
-	"folder": "map-switzerland"
+	"folder": "map-switzerland",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

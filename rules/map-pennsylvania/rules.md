@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Qualifying route claims let players select available railroad shares. Endgame share majorities are scored by company, including tie handling based on acquisition order. Preserve each share's company and identifying information rather than recording only a total number of shares.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 
