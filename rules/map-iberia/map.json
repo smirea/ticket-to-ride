@@ -1,0 +1,3171 @@
+{
+	"schemaVersion": 1,
+	"id": "iberia",
+	"name": "Iberia",
+	"image": {
+		"file": "map.png",
+		"width": 1200,
+		"height": 924
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ferries", "festival-cards"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "a-coruna",
+			"name": "A Coruña",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1425,
+					"y": 0.12662
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "a-coruna"
+		},
+		{
+			"id": "gijon",
+			"name": "Gijón",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32667,
+					"y": 0.10281
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "santander",
+			"name": "Santander",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.445,
+					"y": 0.11147
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bilbao",
+			"name": "Bilbao",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51083,
+					"y": 0.13203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pamplona",
+			"name": "Pamplona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59083,
+					"y": 0.18074
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "pamplona"
+		},
+		{
+			"id": "france",
+			"name": "Francia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.835,
+					"y": 0.12013
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "vigo",
+			"name": "Vigo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12667,
+					"y": 0.2619
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "leon",
+			"name": "León",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32833,
+					"y": 0.21537
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "leon"
+		},
+		{
+			"id": "burgos",
+			"name": "Burgos",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.44917,
+					"y": 0.24675
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "valladolid",
+			"name": "Valladolid",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39167,
+					"y": 0.3171
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "valladolid"
+		},
+		{
+			"id": "zaragoza",
+			"name": "Zaragoza",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64167,
+					"y": 0.31385
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lleida",
+			"name": "Lleida",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.74583,
+					"y": 0.31169
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "barcelona",
+			"name": "Barcelona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84667,
+					"y": 0.33983
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "barcelona"
+		},
+		{
+			"id": "porto",
+			"name": "Porto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.13583,
+					"y": 0.37662
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "porto"
+		},
+		{
+			"id": "salamanca",
+			"name": "Salamanca",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3275,
+					"y": 0.39719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "coimbra",
+			"name": "Coimbra",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14583,
+					"y": 0.48052
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "porto"
+		},
+		{
+			"id": "madrid",
+			"name": "Madrid",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46083,
+					"y": 0.45996
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "madrid"
+		},
+		{
+			"id": "cuenca",
+			"name": "Cuenca",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.56167,
+					"y": 0.49567
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "valencia",
+			"name": "Valencia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68167,
+					"y": 0.56169
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "valencia"
+		},
+		{
+			"id": "palma",
+			"name": "Palma",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89333,
+					"y": 0.55844
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "palma"
+		},
+		{
+			"id": "lisboa",
+			"name": "Lisboa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10417,
+					"y": 0.64719
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "lisboa"
+		},
+		{
+			"id": "badajoz",
+			"name": "Badajoz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25583,
+					"y": 0.64286
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ciudad-real",
+			"name": "Ciudad Real",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45,
+					"y": 0.61364
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "albacete",
+			"name": "Albacete",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58,
+					"y": 0.61147
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "alicante",
+			"name": "Alicante",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67667,
+					"y": 0.67424
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "murcia",
+			"name": "Murcia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.63,
+					"y": 0.73268
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cordoba",
+			"name": "Córdoba",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3925,
+					"y": 0.74459
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "cordoba"
+		},
+		{
+			"id": "granada",
+			"name": "Granada",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47167,
+					"y": 0.81169
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "granada"
+		},
+		{
+			"id": "almeria",
+			"name": "Almería",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54833,
+					"y": 0.84632
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "almeria"
+		},
+		{
+			"id": "malaga",
+			"name": "Málaga",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4225,
+					"y": 0.86472
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "malaga"
+		},
+		{
+			"id": "sevilla",
+			"name": "Sevilla",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31417,
+					"y": 0.79978
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "sevilla"
+		},
+		{
+			"id": "portimao",
+			"name": "Portimão",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14583,
+					"y": 0.83009
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "portimao"
+		},
+		{
+			"id": "cadiz",
+			"name": "Cádiz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3025,
+					"y": 0.88961
+				}
+			],
+			"connectivity": "shared",
+			"festivalGroup": "cadiz"
+		}
+	],
+	"connections": [
+		{
+			"id": "a-coruna-gijon-1",
+			"start": "a-coruna",
+			"end": "gijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "a-coruna-leon-1",
+			"start": "a-coruna",
+			"end": "leon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "a-coruna-vigo-1",
+			"start": "a-coruna",
+			"end": "vigo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "a-coruna-vigo",
+			"claim": "route"
+		},
+		{
+			"id": "a-coruna-vigo-2",
+			"start": "a-coruna",
+			"end": "vigo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "a-coruna-vigo",
+			"claim": "route"
+		},
+		{
+			"id": "vigo-leon-1",
+			"start": "vigo",
+			"end": "leon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "vigo-porto-1",
+			"start": "vigo",
+			"end": "porto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "vigo-porto",
+			"claim": "route"
+		},
+		{
+			"id": "vigo-porto-2",
+			"start": "vigo",
+			"end": "porto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "vigo-porto",
+			"claim": "route"
+		},
+		{
+			"id": "gijon-leon-1",
+			"start": "gijon",
+			"end": "leon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gijon-santander-1",
+			"start": "gijon",
+			"end": "santander",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "santander-bilbao-1",
+			"start": "santander",
+			"end": "bilbao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "santander-bilbao",
+			"claim": "route"
+		},
+		{
+			"id": "santander-bilbao-2",
+			"start": "santander",
+			"end": "bilbao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "santander-bilbao",
+			"claim": "route"
+		},
+		{
+			"id": "santander-burgos-1",
+			"start": "santander",
+			"end": "burgos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bilbao-burgos-1",
+			"start": "bilbao",
+			"end": "burgos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bilbao-pamplona-1",
+			"start": "bilbao",
+			"end": "pamplona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bilbao-pamplona",
+			"claim": "route"
+		},
+		{
+			"id": "bilbao-pamplona-2",
+			"start": "bilbao",
+			"end": "pamplona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bilbao-pamplona",
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-burgos-1",
+			"start": "pamplona",
+			"end": "burgos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-france-1",
+			"start": "pamplona",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "pamplona-france",
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-france-2",
+			"start": "pamplona",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pamplona-france",
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-zaragoza-1",
+			"start": "pamplona",
+			"end": "zaragoza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "pamplona-zaragoza",
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-zaragoza-2",
+			"start": "pamplona",
+			"end": "zaragoza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "pamplona-zaragoza",
+			"claim": "route"
+		},
+		{
+			"id": "france-lleida-1",
+			"start": "france",
+			"end": "lleida",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "france-barcelona-1",
+			"start": "france",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "france-barcelona",
+			"claim": "route"
+		},
+		{
+			"id": "france-barcelona-2",
+			"start": "france",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "france-barcelona",
+			"claim": "route"
+		},
+		{
+			"id": "leon-burgos-1",
+			"start": "leon",
+			"end": "burgos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leon-valladolid-1",
+			"start": "leon",
+			"end": "valladolid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leon-salamanca-1",
+			"start": "leon",
+			"end": "salamanca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "burgos-valladolid-1",
+			"start": "burgos",
+			"end": "valladolid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "burgos-zaragoza-1",
+			"start": "burgos",
+			"end": "zaragoza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "valladolid-salamanca-1",
+			"start": "valladolid",
+			"end": "salamanca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "valladolid-madrid-1",
+			"start": "valladolid",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "porto-salamanca-1",
+			"start": "porto",
+			"end": "salamanca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "porto-salamanca",
+			"claim": "route"
+		},
+		{
+			"id": "porto-salamanca-2",
+			"start": "porto",
+			"end": "salamanca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "porto-salamanca",
+			"claim": "route"
+		},
+		{
+			"id": "porto-coimbra-1",
+			"start": "porto",
+			"end": "coimbra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "porto-coimbra",
+			"claim": "route"
+		},
+		{
+			"id": "porto-coimbra-2",
+			"start": "porto",
+			"end": "coimbra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "porto-coimbra",
+			"claim": "route"
+		},
+		{
+			"id": "coimbra-salamanca-1",
+			"start": "coimbra",
+			"end": "salamanca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "coimbra-lisboa-1",
+			"start": "coimbra",
+			"end": "lisboa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "coimbra-lisboa",
+			"claim": "route"
+		},
+		{
+			"id": "coimbra-lisboa-2",
+			"start": "coimbra",
+			"end": "lisboa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "coimbra-lisboa",
+			"claim": "route"
+		},
+		{
+			"id": "coimbra-badajoz-1",
+			"start": "coimbra",
+			"end": "badajoz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salamanca-madrid-1",
+			"start": "salamanca",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "salamanca-madrid",
+			"claim": "route"
+		},
+		{
+			"id": "salamanca-madrid-2",
+			"start": "salamanca",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "salamanca-madrid",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-zaragoza-1",
+			"start": "madrid",
+			"end": "zaragoza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "madrid-zaragoza",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-zaragoza-2",
+			"start": "madrid",
+			"end": "zaragoza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "madrid-zaragoza",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-cuenca-1",
+			"start": "madrid",
+			"end": "cuenca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madrid-albacete-1",
+			"start": "madrid",
+			"end": "albacete",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madrid-ciudad-real-1",
+			"start": "madrid",
+			"end": "ciudad-real",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "madrid-ciudad-real",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-ciudad-real-2",
+			"start": "madrid",
+			"end": "ciudad-real",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "madrid-ciudad-real",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-badajoz-1",
+			"start": "madrid",
+			"end": "badajoz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "madrid-badajoz",
+			"claim": "route"
+		},
+		{
+			"id": "madrid-badajoz-2",
+			"start": "madrid",
+			"end": "badajoz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "madrid-badajoz",
+			"claim": "route"
+		},
+		{
+			"id": "zaragoza-lleida-1",
+			"start": "zaragoza",
+			"end": "lleida",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "zaragoza-lleida",
+			"claim": "route"
+		},
+		{
+			"id": "zaragoza-lleida-2",
+			"start": "zaragoza",
+			"end": "lleida",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "zaragoza-lleida",
+			"claim": "route"
+		},
+		{
+			"id": "zaragoza-cuenca-1",
+			"start": "zaragoza",
+			"end": "cuenca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zaragoza-valencia-1",
+			"start": "zaragoza",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lleida-barcelona-1",
+			"start": "lleida",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lleida-barcelona",
+			"claim": "route"
+		},
+		{
+			"id": "lleida-barcelona-2",
+			"start": "lleida",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "lleida-barcelona",
+			"claim": "route"
+		},
+		{
+			"id": "lleida-valencia-1",
+			"start": "lleida",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "barcelona-valencia-1",
+			"start": "barcelona",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "barcelona-valencia",
+			"claim": "route"
+		},
+		{
+			"id": "barcelona-valencia-2",
+			"start": "barcelona",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "barcelona-valencia",
+			"claim": "route"
+		},
+		{
+			"id": "barcelona-palma-1",
+			"start": "barcelona",
+			"end": "palma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "barcelona-palma",
+			"claim": "route"
+		},
+		{
+			"id": "barcelona-palma-2",
+			"start": "barcelona",
+			"end": "palma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "barcelona-palma",
+			"claim": "route"
+		},
+		{
+			"id": "cuenca-valencia-1",
+			"start": "cuenca",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cuenca-albacete-1",
+			"start": "cuenca",
+			"end": "albacete",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albacete-valencia-1",
+			"start": "albacete",
+			"end": "valencia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albacete-ciudad-real-1",
+			"start": "albacete",
+			"end": "ciudad-real",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albacete-alicante-1",
+			"start": "albacete",
+			"end": "alicante",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albacete-murcia-1",
+			"start": "albacete",
+			"end": "murcia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "valencia-alicante-1",
+			"start": "valencia",
+			"end": "alicante",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "valencia-alicante",
+			"claim": "route"
+		},
+		{
+			"id": "valencia-alicante-2",
+			"start": "valencia",
+			"end": "alicante",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "valencia-alicante",
+			"claim": "route"
+		},
+		{
+			"id": "valencia-palma-1",
+			"start": "valencia",
+			"end": "palma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "valencia-palma",
+			"claim": "route"
+		},
+		{
+			"id": "valencia-palma-2",
+			"start": "valencia",
+			"end": "palma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "valencia-palma",
+			"claim": "route"
+		},
+		{
+			"id": "alicante-palma-1",
+			"start": "alicante",
+			"end": "palma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "alicante-murcia-1",
+			"start": "alicante",
+			"end": "murcia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "alicante-murcia",
+			"claim": "route"
+		},
+		{
+			"id": "alicante-murcia-2",
+			"start": "alicante",
+			"end": "murcia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "alicante-murcia",
+			"claim": "route"
+		},
+		{
+			"id": "murcia-granada-1",
+			"start": "murcia",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "murcia-almeria-1",
+			"start": "murcia",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "murcia-almeria",
+			"claim": "route"
+		},
+		{
+			"id": "murcia-almeria-2",
+			"start": "murcia",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "murcia-almeria",
+			"claim": "route"
+		},
+		{
+			"id": "lisboa-badajoz-1",
+			"start": "lisboa",
+			"end": "badajoz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lisboa-badajoz",
+			"claim": "route"
+		},
+		{
+			"id": "lisboa-badajoz-2",
+			"start": "lisboa",
+			"end": "badajoz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "lisboa-badajoz",
+			"claim": "route"
+		},
+		{
+			"id": "lisboa-portimao-1",
+			"start": "lisboa",
+			"end": "portimao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "lisboa-portimao",
+			"claim": "route"
+		},
+		{
+			"id": "lisboa-portimao-2",
+			"start": "lisboa",
+			"end": "portimao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lisboa-portimao",
+			"claim": "route"
+		},
+		{
+			"id": "badajoz-portimao-1",
+			"start": "badajoz",
+			"end": "portimao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "badajoz-sevilla-1",
+			"start": "badajoz",
+			"end": "sevilla",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "badajoz-sevilla",
+			"claim": "route"
+		},
+		{
+			"id": "badajoz-sevilla-2",
+			"start": "badajoz",
+			"end": "sevilla",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "badajoz-sevilla",
+			"claim": "route"
+		},
+		{
+			"id": "ciudad-real-cordoba-1",
+			"start": "ciudad-real",
+			"end": "cordoba",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "ciudad-real-cordoba",
+			"claim": "route"
+		},
+		{
+			"id": "ciudad-real-cordoba-2",
+			"start": "ciudad-real",
+			"end": "cordoba",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "ciudad-real-cordoba",
+			"claim": "route"
+		},
+		{
+			"id": "ciudad-real-granada-1",
+			"start": "ciudad-real",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cordoba-granada-1",
+			"start": "cordoba",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "cordoba-granada",
+			"claim": "route"
+		},
+		{
+			"id": "cordoba-granada-2",
+			"start": "cordoba",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "cordoba-granada",
+			"claim": "route"
+		},
+		{
+			"id": "cordoba-malaga-1",
+			"start": "cordoba",
+			"end": "malaga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cordoba-sevilla-1",
+			"start": "cordoba",
+			"end": "sevilla",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "cordoba-sevilla",
+			"claim": "route"
+		},
+		{
+			"id": "cordoba-sevilla-2",
+			"start": "cordoba",
+			"end": "sevilla",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "cordoba-sevilla",
+			"claim": "route"
+		},
+		{
+			"id": "sevilla-malaga-1",
+			"start": "sevilla",
+			"end": "malaga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sevilla-cadiz-1",
+			"start": "sevilla",
+			"end": "cadiz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "sevilla-cadiz",
+			"claim": "route"
+		},
+		{
+			"id": "sevilla-cadiz-2",
+			"start": "sevilla",
+			"end": "cadiz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "sevilla-cadiz",
+			"claim": "route"
+		},
+		{
+			"id": "sevilla-portimao-1",
+			"start": "sevilla",
+			"end": "portimao",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "portimao-cadiz-1",
+			"start": "portimao",
+			"end": "cadiz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cadiz-malaga-1",
+			"start": "cadiz",
+			"end": "malaga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "cadiz-malaga",
+			"claim": "route"
+		},
+		{
+			"id": "cadiz-malaga-2",
+			"start": "cadiz",
+			"end": "malaga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "cadiz-malaga",
+			"claim": "route"
+		},
+		{
+			"id": "malaga-granada-1",
+			"start": "malaga",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "malaga-granada",
+			"claim": "route"
+		},
+		{
+			"id": "malaga-granada-2",
+			"start": "malaga",
+			"end": "granada",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "malaga-granada",
+			"claim": "route"
+		},
+		{
+			"id": "malaga-almeria-1",
+			"start": "malaga",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "malaga-almeria",
+			"claim": "route"
+		},
+		{
+			"id": "malaga-almeria-2",
+			"start": "malaga",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "malaga-almeria",
+			"claim": "route"
+		},
+		{
+			"id": "granada-almeria-1",
+			"start": "granada",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "granada-almeria",
+			"claim": "route"
+		},
+		{
+			"id": "granada-almeria-2",
+			"start": "granada",
+			"end": "almeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "granada-almeria",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "a-coruna-vigo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "vigo-porto",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "santander-bilbao",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bilbao-pamplona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pamplona-france",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pamplona-zaragoza",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "france-barcelona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "porto-salamanca",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "porto-coimbra",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "coimbra-lisboa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salamanca-madrid",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "madrid-zaragoza",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "madrid-ciudad-real",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "madrid-badajoz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zaragoza-lleida",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lleida-barcelona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "barcelona-valencia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "barcelona-palma",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "valencia-alicante",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "valencia-palma",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "alicante-murcia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "murcia-almeria",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lisboa-badajoz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lisboa-portimao",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "badajoz-sevilla",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ciudad-real-cordoba",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cordoba-granada",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cordoba-sevilla",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sevilla-cadiz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cadiz-malaga",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "malaga-granada",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "malaga-almeria",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "granada-almeria",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

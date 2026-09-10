@@ -1,0 +1,2900 @@
+{
+	"schemaVersion": 1,
+	"id": "poland",
+	"name": "Poland",
+	"image": {
+		"file": "map.png",
+		"width": 2000,
+		"height": 1825
+	},
+	"players": [2, 3, 4],
+	"mechanics": ["country-cards"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "szczecin",
+			"name": "Szczecin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.08434,
+					"y": 0.2169
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "koszalin",
+			"name": "Koszalin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.22694,
+					"y": 0.09514
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gdansk",
+			"name": "Gdańsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45449,
+					"y": 0.07984
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "olsztyn",
+			"name": "Olsztyn",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62257,
+					"y": 0.18297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "elk",
+			"name": "Ełk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77549,
+					"y": 0.169
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "suwalki",
+			"name": "Suwałki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84527,
+					"y": 0.11377
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bialystok",
+			"name": "Białystok",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.86772,
+					"y": 0.27811
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pila",
+			"name": "Piła",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.26578,
+					"y": 0.29009
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bydgoszcz",
+			"name": "Bydgoszcz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39563,
+					"y": 0.27745
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gorzow-wielkopolski",
+			"name": "Gorzów Wielkopolski",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.13592,
+					"y": 0.34731
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "poznan",
+			"name": "Poznań",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28216,
+					"y": 0.40585
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zielona-gora",
+			"name": "Zielona Góra",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15595,
+					"y": 0.48636
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "plock",
+			"name": "Płock",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54915,
+					"y": 0.37725
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "warszawa",
+			"name": "Warszawa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67112,
+					"y": 0.4358
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "siedlce",
+			"name": "Siedlce",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.80279,
+					"y": 0.43779
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kalisz",
+			"name": "Kalisz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39199,
+					"y": 0.52029
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lodz",
+			"name": "Łódź",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.52973,
+					"y": 0.52029
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "radom",
+			"name": "Radom",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69539,
+					"y": 0.58017
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lublin",
+			"name": "Lublin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8301,
+					"y": 0.60013
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wroclaw",
+			"name": "Wrocław",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.27973,
+					"y": 0.62275
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "opole",
+			"name": "Opole",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38107,
+					"y": 0.70592
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "czestochowa",
+			"name": "Częstochowa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50789,
+					"y": 0.68064
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kielce",
+			"name": "Kielce",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64442,
+					"y": 0.67066
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "katowice",
+			"name": "Katowice",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4915,
+					"y": 0.77046
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bielsko-biala",
+			"name": "Bielsko-Biała",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48544,
+					"y": 0.85695
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "krakow",
+			"name": "Kraków",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57828,
+					"y": 0.8024
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rzeszow",
+			"name": "Rzeszów",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.7858,
+					"y": 0.80373
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zakopane",
+			"name": "Zakopane",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58981,
+					"y": 0.93812
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "germany",
+			"name": "Niemcy",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.05158,
+					"y": 0.35928
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "russia",
+			"name": "Rosja",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.67354,
+					"y": 0.06121
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lithuania",
+			"name": "Litwa",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.91687,
+					"y": 0.07718
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "belarus",
+			"name": "Białoruś",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.9375,
+					"y": 0.4185
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "czechia",
+			"name": "Czechy",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.14988,
+					"y": 0.75715
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "slovakia",
+			"name": "Słowacja",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.46663,
+					"y": 0.93214
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ukraine",
+			"name": "Ukraina",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.91262,
+					"y": 0.87159
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "szczecin-koszalin-1",
+			"start": "szczecin",
+			"end": "koszalin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "szczecin-koszalin",
+			"claim": "route"
+		},
+		{
+			"id": "szczecin-koszalin-2",
+			"start": "szczecin",
+			"end": "koszalin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "szczecin-koszalin",
+			"claim": "route"
+		},
+		{
+			"id": "szczecin-pila-1",
+			"start": "szczecin",
+			"end": "pila",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "szczecin-pila",
+			"claim": "route"
+		},
+		{
+			"id": "szczecin-pila-2",
+			"start": "szczecin",
+			"end": "pila",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "szczecin-pila",
+			"claim": "route"
+		},
+		{
+			"id": "szczecin-gorzow-wielkopolski-1",
+			"start": "szczecin",
+			"end": "gorzow-wielkopolski",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "koszalin-gdansk-1",
+			"start": "koszalin",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "koszalin-gdansk",
+			"claim": "route"
+		},
+		{
+			"id": "koszalin-gdansk-2",
+			"start": "koszalin",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "koszalin-gdansk",
+			"claim": "route"
+		},
+		{
+			"id": "koszalin-pila-1",
+			"start": "koszalin",
+			"end": "pila",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gdansk-olsztyn-1",
+			"start": "gdansk",
+			"end": "olsztyn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gdansk-bydgoszcz-1",
+			"start": "gdansk",
+			"end": "bydgoszcz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "gdansk-bydgoszcz",
+			"claim": "route"
+		},
+		{
+			"id": "gdansk-bydgoszcz-2",
+			"start": "gdansk",
+			"end": "bydgoszcz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "gdansk-bydgoszcz",
+			"claim": "route"
+		},
+		{
+			"id": "gdansk-plock-1",
+			"start": "gdansk",
+			"end": "plock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-russia-1",
+			"start": "olsztyn",
+			"end": "russia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "olsztyn-russia",
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-russia-2",
+			"start": "olsztyn",
+			"end": "russia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "olsztyn-russia",
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-russia-3",
+			"start": "olsztyn",
+			"end": "russia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "olsztyn-russia",
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-elk-1",
+			"start": "olsztyn",
+			"end": "elk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-bialystok-1",
+			"start": "olsztyn",
+			"end": "bialystok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-warszawa-1",
+			"start": "olsztyn",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "olsztyn-warszawa",
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-warszawa-2",
+			"start": "olsztyn",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "olsztyn-warszawa",
+			"claim": "route"
+		},
+		{
+			"id": "olsztyn-plock-1",
+			"start": "olsztyn",
+			"end": "plock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elk-suwalki-1",
+			"start": "elk",
+			"end": "suwalki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elk-bialystok-1",
+			"start": "elk",
+			"end": "bialystok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suwalki-lithuania-1",
+			"start": "suwalki",
+			"end": "lithuania",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suwalki-bialystok-1",
+			"start": "suwalki",
+			"end": "bialystok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bialystok-siedlce-1",
+			"start": "bialystok",
+			"end": "siedlce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bialystok-warszawa-1",
+			"start": "bialystok",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pila-bydgoszcz-1",
+			"start": "pila",
+			"end": "bydgoszcz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "pila-bydgoszcz",
+			"claim": "route"
+		},
+		{
+			"id": "pila-bydgoszcz-2",
+			"start": "pila",
+			"end": "bydgoszcz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pila-bydgoszcz",
+			"claim": "route"
+		},
+		{
+			"id": "pila-gorzow-wielkopolski-1",
+			"start": "pila",
+			"end": "gorzow-wielkopolski",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pila-poznan-1",
+			"start": "pila",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bydgoszcz-poznan-1",
+			"start": "bydgoszcz",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bydgoszcz-poznan",
+			"claim": "route"
+		},
+		{
+			"id": "bydgoszcz-poznan-2",
+			"start": "bydgoszcz",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bydgoszcz-poznan",
+			"claim": "route"
+		},
+		{
+			"id": "bydgoszcz-plock-1",
+			"start": "bydgoszcz",
+			"end": "plock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-germany-1",
+			"start": "gorzow-wielkopolski",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "gorzow-wielkopolski-germany",
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-germany-2",
+			"start": "gorzow-wielkopolski",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "gorzow-wielkopolski-germany",
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-germany-3",
+			"start": "gorzow-wielkopolski",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "gorzow-wielkopolski-germany",
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-poznan-1",
+			"start": "gorzow-wielkopolski",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "gorzow-wielkopolski-poznan",
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-poznan-2",
+			"start": "gorzow-wielkopolski",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "gorzow-wielkopolski-poznan",
+			"claim": "route"
+		},
+		{
+			"id": "gorzow-wielkopolski-zielona-gora-1",
+			"start": "gorzow-wielkopolski",
+			"end": "zielona-gora",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zielona-gora-poznan-1",
+			"start": "zielona-gora",
+			"end": "poznan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zielona-gora-wroclaw-1",
+			"start": "zielona-gora",
+			"end": "wroclaw",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "poznan-wroclaw-1",
+			"start": "poznan",
+			"end": "wroclaw",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "poznan-wroclaw",
+			"claim": "route"
+		},
+		{
+			"id": "poznan-wroclaw-2",
+			"start": "poznan",
+			"end": "wroclaw",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "poznan-wroclaw",
+			"claim": "route"
+		},
+		{
+			"id": "poznan-kalisz-1",
+			"start": "poznan",
+			"end": "kalisz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "poznan-kalisz",
+			"claim": "route"
+		},
+		{
+			"id": "poznan-kalisz-2",
+			"start": "poznan",
+			"end": "kalisz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "poznan-kalisz",
+			"claim": "route"
+		},
+		{
+			"id": "plock-kalisz-1",
+			"start": "plock",
+			"end": "kalisz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "plock-lodz-1",
+			"start": "plock",
+			"end": "lodz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "plock-warszawa-1",
+			"start": "plock",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-lodz-1",
+			"start": "warszawa",
+			"end": "lodz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "warszawa-lodz",
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-lodz-2",
+			"start": "warszawa",
+			"end": "lodz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "warszawa-lodz",
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-siedlce-1",
+			"start": "warszawa",
+			"end": "siedlce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "warszawa-siedlce",
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-siedlce-2",
+			"start": "warszawa",
+			"end": "siedlce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "warszawa-siedlce",
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-radom-1",
+			"start": "warszawa",
+			"end": "radom",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-belarus-1",
+			"start": "siedlce",
+			"end": "belarus",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "siedlce-belarus",
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-belarus-2",
+			"start": "siedlce",
+			"end": "belarus",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "siedlce-belarus",
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-belarus-3",
+			"start": "siedlce",
+			"end": "belarus",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "siedlce-belarus",
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-radom-1",
+			"start": "siedlce",
+			"end": "radom",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-lublin-1",
+			"start": "siedlce",
+			"end": "lublin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "siedlce-lublin",
+			"claim": "route"
+		},
+		{
+			"id": "siedlce-lublin-2",
+			"start": "siedlce",
+			"end": "lublin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "siedlce-lublin",
+			"claim": "route"
+		},
+		{
+			"id": "kalisz-lodz-1",
+			"start": "kalisz",
+			"end": "lodz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kalisz-lodz",
+			"claim": "route"
+		},
+		{
+			"id": "kalisz-lodz-2",
+			"start": "kalisz",
+			"end": "lodz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "kalisz-lodz",
+			"claim": "route"
+		},
+		{
+			"id": "kalisz-wroclaw-1",
+			"start": "kalisz",
+			"end": "wroclaw",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kalisz-wroclaw",
+			"claim": "route"
+		},
+		{
+			"id": "kalisz-wroclaw-2",
+			"start": "kalisz",
+			"end": "wroclaw",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kalisz-wroclaw",
+			"claim": "route"
+		},
+		{
+			"id": "kalisz-opole-1",
+			"start": "kalisz",
+			"end": "opole",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lodz-radom-1",
+			"start": "lodz",
+			"end": "radom",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lodz-kielce-1",
+			"start": "lodz",
+			"end": "kielce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lodz-czestochowa-1",
+			"start": "lodz",
+			"end": "czestochowa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lodz-czestochowa",
+			"claim": "route"
+		},
+		{
+			"id": "lodz-czestochowa-2",
+			"start": "lodz",
+			"end": "czestochowa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lodz-czestochowa",
+			"claim": "route"
+		},
+		{
+			"id": "radom-lublin-1",
+			"start": "radom",
+			"end": "lublin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "radom-kielce-1",
+			"start": "radom",
+			"end": "kielce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lublin-kielce-1",
+			"start": "lublin",
+			"end": "kielce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lublin-rzeszow-1",
+			"start": "lublin",
+			"end": "rzeszow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "lublin-rzeszow",
+			"claim": "route"
+		},
+		{
+			"id": "lublin-rzeszow-2",
+			"start": "lublin",
+			"end": "rzeszow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lublin-rzeszow",
+			"claim": "route"
+		},
+		{
+			"id": "wroclaw-czechia-1",
+			"start": "wroclaw",
+			"end": "czechia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "wroclaw-czechia",
+			"claim": "route"
+		},
+		{
+			"id": "wroclaw-czechia-2",
+			"start": "wroclaw",
+			"end": "czechia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "wroclaw-czechia",
+			"claim": "route"
+		},
+		{
+			"id": "wroclaw-czechia-3",
+			"start": "wroclaw",
+			"end": "czechia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "wroclaw-czechia",
+			"claim": "route"
+		},
+		{
+			"id": "wroclaw-czechia-4",
+			"start": "wroclaw",
+			"end": "czechia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "wroclaw-czechia",
+			"claim": "route"
+		},
+		{
+			"id": "wroclaw-opole-1",
+			"start": "wroclaw",
+			"end": "opole",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "opole-czestochowa-1",
+			"start": "opole",
+			"end": "czestochowa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "opole-katowice-1",
+			"start": "opole",
+			"end": "katowice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "opole-bielsko-biala-1",
+			"start": "opole",
+			"end": "bielsko-biala",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "czestochowa-kielce-1",
+			"start": "czestochowa",
+			"end": "kielce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "czestochowa-katowice-1",
+			"start": "czestochowa",
+			"end": "katowice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "czestochowa-katowice",
+			"claim": "route"
+		},
+		{
+			"id": "czestochowa-katowice-2",
+			"start": "czestochowa",
+			"end": "katowice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "czestochowa-katowice",
+			"claim": "route"
+		},
+		{
+			"id": "kielce-krakow-1",
+			"start": "kielce",
+			"end": "krakow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kielce-rzeszow-1",
+			"start": "kielce",
+			"end": "rzeszow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "katowice-krakow-1",
+			"start": "katowice",
+			"end": "krakow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "katowice-krakow",
+			"claim": "route"
+		},
+		{
+			"id": "katowice-krakow-2",
+			"start": "katowice",
+			"end": "krakow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "katowice-krakow",
+			"claim": "route"
+		},
+		{
+			"id": "katowice-bielsko-biala-1",
+			"start": "katowice",
+			"end": "bielsko-biala",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "katowice-bielsko-biala",
+			"claim": "route"
+		},
+		{
+			"id": "katowice-bielsko-biala-2",
+			"start": "katowice",
+			"end": "bielsko-biala",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "katowice-bielsko-biala",
+			"claim": "route"
+		},
+		{
+			"id": "bielsko-biala-krakow-1",
+			"start": "bielsko-biala",
+			"end": "krakow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bielsko-biala-slovakia-1",
+			"start": "bielsko-biala",
+			"end": "slovakia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bielsko-biala-slovakia",
+			"claim": "route"
+		},
+		{
+			"id": "bielsko-biala-slovakia-2",
+			"start": "bielsko-biala",
+			"end": "slovakia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bielsko-biala-slovakia",
+			"claim": "route"
+		},
+		{
+			"id": "bielsko-biala-slovakia-3",
+			"start": "bielsko-biala",
+			"end": "slovakia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bielsko-biala-slovakia",
+			"claim": "route"
+		},
+		{
+			"id": "bielsko-biala-zakopane-1",
+			"start": "bielsko-biala",
+			"end": "zakopane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "krakow-zakopane-1",
+			"start": "krakow",
+			"end": "zakopane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "krakow-rzeszow-1",
+			"start": "krakow",
+			"end": "rzeszow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "krakow-rzeszow",
+			"claim": "route"
+		},
+		{
+			"id": "krakow-rzeszow-2",
+			"start": "krakow",
+			"end": "rzeszow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "krakow-rzeszow",
+			"claim": "route"
+		},
+		{
+			"id": "rzeszow-zakopane-1",
+			"start": "rzeszow",
+			"end": "zakopane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rzeszow-ukraine-1",
+			"start": "rzeszow",
+			"end": "ukraine",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "rzeszow-ukraine",
+			"claim": "route"
+		},
+		{
+			"id": "rzeszow-ukraine-2",
+			"start": "rzeszow",
+			"end": "ukraine",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "rzeszow-ukraine",
+			"claim": "route"
+		},
+		{
+			"id": "rzeszow-ukraine-3",
+			"start": "rzeszow",
+			"end": "ukraine",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "rzeszow-ukraine",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "szczecin-koszalin",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "szczecin-pila",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "koszalin-gdansk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "gdansk-bydgoszcz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "olsztyn-russia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "olsztyn-warszawa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pila-bydgoszcz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bydgoszcz-poznan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "gorzow-wielkopolski-germany",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "gorzow-wielkopolski-poznan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "poznan-wroclaw",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "poznan-kalisz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "warszawa-lodz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "warszawa-siedlce",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "siedlce-belarus",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "siedlce-lublin",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kalisz-lodz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kalisz-wroclaw",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lodz-czestochowa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lublin-rzeszow",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "wroclaw-czechia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 4
+				},
+				{
+					"players": 3,
+					"tracks": 4
+				},
+				{
+					"players": 4,
+					"tracks": 4
+				}
+			]
+		},
+		{
+			"id": "czestochowa-katowice",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "katowice-krakow",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "katowice-bielsko-biala",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bielsko-biala-slovakia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "krakow-rzeszow",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "rzeszow-ukraine",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		}
+	]
+}

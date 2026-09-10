@@ -1,0 +1,3683 @@
+{
+	"schemaVersion": 1,
+	"id": "nederland",
+	"name": "Nederland",
+	"image": {
+		"file": "map.png",
+		"width": 1600,
+		"height": 2400
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["bridge-tolls"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "waddeneilanden",
+			"name": "Waddeneilanden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15469,
+					"y": 0.16719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "leeuwarden",
+			"name": "Leeuwarden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30547,
+					"y": 0.18854
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sneek",
+			"name": "Sneek",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30469,
+					"y": 0.25208
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "groningen",
+			"name": "Groningen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49688,
+					"y": 0.11875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "emden",
+			"name": "Emden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67891,
+					"y": 0.05156
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "emmen",
+			"name": "Emmen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68047,
+					"y": 0.21615
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lingen",
+			"name": "Lingen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8875,
+					"y": 0.23438
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zwolle",
+			"name": "Zwolle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54219,
+					"y": 0.35365
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "enschede",
+			"name": "Enschede",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8125,
+					"y": 0.3651
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "den-helder",
+			"name": "Den Helder",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.09531,
+					"y": 0.36458
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lelystad",
+			"name": "Lelystad",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39922,
+					"y": 0.40521
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "haarlem",
+			"name": "Haarlem",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.17578,
+					"y": 0.53021
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "amsterdam",
+			"name": "Amsterdam",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.27734,
+					"y": 0.51719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "utrecht",
+			"name": "Utrecht",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36328,
+					"y": 0.56198
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "arnhem",
+			"name": "Arnhem",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61328,
+					"y": 0.51771
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nijmegen",
+			"name": "Nijmegen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66172,
+					"y": 0.57552
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "duisburg",
+			"name": "Duisburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.92031,
+					"y": 0.59375
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "s-gravenhage",
+			"name": "'s-Gravenhage",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16016,
+					"y": 0.64115
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rotterdam",
+			"name": "Rotterdam",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24922,
+					"y": 0.69635
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "breda",
+			"name": "Breda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.40547,
+					"y": 0.7349
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "s-hertogenbosch",
+			"name": "'s-Hertogenbosch",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.52734,
+					"y": 0.66458
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "eindhoven",
+			"name": "Eindhoven",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62344,
+					"y": 0.71354
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "roermond",
+			"name": "Roermond",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84062,
+					"y": 0.73073
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "middelburg",
+			"name": "Middelburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10625,
+					"y": 0.87865
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "antwerpen",
+			"name": "Antwerpen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.40313,
+					"y": 0.88073
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "turnhout",
+			"name": "Turnhout",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51641,
+					"y": 0.80417
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "aarschot",
+			"name": "Aarschot",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54922,
+					"y": 0.91875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hasselt",
+			"name": "Hasselt",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69141,
+					"y": 0.87865
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "maastricht",
+			"name": "Maastricht",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.83984,
+					"y": 0.84115
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "liege",
+			"name": "Liège",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84922,
+					"y": 0.94427
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "waddeneilanden-groningen-1",
+			"start": "waddeneilanden",
+			"end": "groningen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "waddeneilanden-leeuwarden-1",
+			"start": "waddeneilanden",
+			"end": "leeuwarden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "waddeneilanden-sneek-1",
+			"start": "waddeneilanden",
+			"end": "sneek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "waddeneilanden-den-helder-1",
+			"start": "waddeneilanden",
+			"end": "den-helder",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "leeuwarden-groningen-1",
+			"start": "leeuwarden",
+			"end": "groningen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "leeuwarden-groningen",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "leeuwarden-groningen-2",
+			"start": "leeuwarden",
+			"end": "groningen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "leeuwarden-groningen",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "leeuwarden-sneek-1",
+			"start": "leeuwarden",
+			"end": "sneek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "leeuwarden-sneek",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "leeuwarden-sneek-2",
+			"start": "leeuwarden",
+			"end": "sneek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "leeuwarden-sneek",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-emden-1",
+			"start": "groningen",
+			"end": "emden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "groningen-emden",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-emden-2",
+			"start": "groningen",
+			"end": "emden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "groningen-emden",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-emmen-1",
+			"start": "groningen",
+			"end": "emmen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "groningen-emmen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-emmen-2",
+			"start": "groningen",
+			"end": "emmen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "groningen-emmen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-zwolle-1",
+			"start": "groningen",
+			"end": "zwolle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "groningen-zwolle",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "groningen-zwolle-2",
+			"start": "groningen",
+			"end": "zwolle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "groningen-zwolle",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "emden-emmen-1",
+			"start": "emden",
+			"end": "emmen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "emden-lingen-1",
+			"start": "emden",
+			"end": "lingen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "emden-lingen",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "emden-lingen-2",
+			"start": "emden",
+			"end": "lingen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "emden-lingen",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "emmen-lingen-1",
+			"start": "emmen",
+			"end": "lingen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "emmen-lingen",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "emmen-lingen-2",
+			"start": "emmen",
+			"end": "lingen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "emmen-lingen",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "emmen-zwolle-1",
+			"start": "emmen",
+			"end": "zwolle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "lingen-enschede-1",
+			"start": "lingen",
+			"end": "enschede",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "lingen-enschede",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "lingen-enschede-2",
+			"start": "lingen",
+			"end": "enschede",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "lingen-enschede",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "sneek-den-helder-1",
+			"start": "sneek",
+			"end": "den-helder",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sneek-den-helder",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "sneek-den-helder-2",
+			"start": "sneek",
+			"end": "den-helder",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "sneek-den-helder",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "sneek-lelystad-1",
+			"start": "sneek",
+			"end": "lelystad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "sneek-lelystad",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "sneek-lelystad-2",
+			"start": "sneek",
+			"end": "lelystad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "sneek-lelystad",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "den-helder-haarlem-1",
+			"start": "den-helder",
+			"end": "haarlem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "den-helder-haarlem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "den-helder-haarlem-2",
+			"start": "den-helder",
+			"end": "haarlem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "den-helder-haarlem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "lelystad-zwolle-1",
+			"start": "lelystad",
+			"end": "zwolle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "lelystad-zwolle",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "lelystad-zwolle-2",
+			"start": "lelystad",
+			"end": "zwolle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "lelystad-zwolle",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "lelystad-amsterdam-1",
+			"start": "lelystad",
+			"end": "amsterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "lelystad-amsterdam",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "lelystad-amsterdam-2",
+			"start": "lelystad",
+			"end": "amsterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lelystad-amsterdam",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "zwolle-enschede-1",
+			"start": "zwolle",
+			"end": "enschede",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "zwolle-enschede",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "zwolle-enschede-2",
+			"start": "zwolle",
+			"end": "enschede",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "zwolle-enschede",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "zwolle-arnhem-1",
+			"start": "zwolle",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "zwolle-arnhem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "zwolle-arnhem-2",
+			"start": "zwolle",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "zwolle-arnhem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "enschede-arnhem-1",
+			"start": "enschede",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "enschede-arnhem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "enschede-arnhem-2",
+			"start": "enschede",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "enschede-arnhem",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "enschede-duisburg-1",
+			"start": "enschede",
+			"end": "duisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "enschede-duisburg",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "enschede-duisburg-2",
+			"start": "enschede",
+			"end": "duisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "enschede-duisburg",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "haarlem-amsterdam-1",
+			"start": "haarlem",
+			"end": "amsterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "haarlem-amsterdam",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "haarlem-amsterdam-2",
+			"start": "haarlem",
+			"end": "amsterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "haarlem-amsterdam",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "haarlem-s-gravenhage-1",
+			"start": "haarlem",
+			"end": "s-gravenhage",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "haarlem-s-gravenhage",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "haarlem-s-gravenhage-2",
+			"start": "haarlem",
+			"end": "s-gravenhage",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "haarlem-s-gravenhage",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-utrecht-1",
+			"start": "amsterdam",
+			"end": "utrecht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "amsterdam-utrecht",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-utrecht-2",
+			"start": "amsterdam",
+			"end": "utrecht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "amsterdam-utrecht",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-rotterdam-1",
+			"start": "amsterdam",
+			"end": "rotterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "amsterdam-rotterdam",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-rotterdam-2",
+			"start": "amsterdam",
+			"end": "rotterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "amsterdam-rotterdam",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "utrecht-arnhem-1",
+			"start": "utrecht",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "utrecht-arnhem",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "utrecht-arnhem-2",
+			"start": "utrecht",
+			"end": "arnhem",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "utrecht-arnhem",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "utrecht-rotterdam-1",
+			"start": "utrecht",
+			"end": "rotterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "utrecht-s-hertogenbosch-1",
+			"start": "utrecht",
+			"end": "s-hertogenbosch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "utrecht-s-hertogenbosch",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "utrecht-s-hertogenbosch-2",
+			"start": "utrecht",
+			"end": "s-hertogenbosch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "utrecht-s-hertogenbosch",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "arnhem-nijmegen-1",
+			"start": "arnhem",
+			"end": "nijmegen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "arnhem-nijmegen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "arnhem-nijmegen-2",
+			"start": "arnhem",
+			"end": "nijmegen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "arnhem-nijmegen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "nijmegen-duisburg-1",
+			"start": "nijmegen",
+			"end": "duisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "nijmegen-duisburg",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "nijmegen-duisburg-2",
+			"start": "nijmegen",
+			"end": "duisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "nijmegen-duisburg",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "nijmegen-eindhoven-1",
+			"start": "nijmegen",
+			"end": "eindhoven",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "nijmegen-eindhoven",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "nijmegen-eindhoven-2",
+			"start": "nijmegen",
+			"end": "eindhoven",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "nijmegen-eindhoven",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "duisburg-roermond-1",
+			"start": "duisburg",
+			"end": "roermond",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "duisburg-roermond",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "duisburg-roermond-2",
+			"start": "duisburg",
+			"end": "roermond",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "duisburg-roermond",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "s-gravenhage-rotterdam-1",
+			"start": "s-gravenhage",
+			"end": "rotterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "s-gravenhage-rotterdam",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "s-gravenhage-rotterdam-2",
+			"start": "s-gravenhage",
+			"end": "rotterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "s-gravenhage-rotterdam",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "s-gravenhage-middelburg-1",
+			"start": "s-gravenhage",
+			"end": "middelburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "s-gravenhage-middelburg",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "s-gravenhage-middelburg-2",
+			"start": "s-gravenhage",
+			"end": "middelburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "s-gravenhage-middelburg",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "rotterdam-breda-1",
+			"start": "rotterdam",
+			"end": "breda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "rotterdam-breda",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "rotterdam-breda-2",
+			"start": "rotterdam",
+			"end": "breda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "rotterdam-breda",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "rotterdam-antwerpen-1",
+			"start": "rotterdam",
+			"end": "antwerpen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "rotterdam-antwerpen",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "rotterdam-antwerpen-2",
+			"start": "rotterdam",
+			"end": "antwerpen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "rotterdam-antwerpen",
+			"bridgeToll": 4,
+			"claim": "route"
+		},
+		{
+			"id": "breda-s-hertogenbosch-1",
+			"start": "breda",
+			"end": "s-hertogenbosch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "breda-s-hertogenbosch",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "breda-s-hertogenbosch-2",
+			"start": "breda",
+			"end": "s-hertogenbosch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "breda-s-hertogenbosch",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "breda-turnhout-1",
+			"start": "breda",
+			"end": "turnhout",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "breda-turnhout",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "breda-turnhout-2",
+			"start": "breda",
+			"end": "turnhout",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "breda-turnhout",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "s-hertogenbosch-eindhoven-1",
+			"start": "s-hertogenbosch",
+			"end": "eindhoven",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "s-hertogenbosch-eindhoven",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "s-hertogenbosch-eindhoven-2",
+			"start": "s-hertogenbosch",
+			"end": "eindhoven",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "s-hertogenbosch-eindhoven",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "eindhoven-roermond-1",
+			"start": "eindhoven",
+			"end": "roermond",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "eindhoven-roermond",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "eindhoven-roermond-2",
+			"start": "eindhoven",
+			"end": "roermond",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "eindhoven-roermond",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "eindhoven-maastricht-1",
+			"start": "eindhoven",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "eindhoven-maastricht",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "eindhoven-maastricht-2",
+			"start": "eindhoven",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "eindhoven-maastricht",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "roermond-maastricht-1",
+			"start": "roermond",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "roermond-maastricht",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "roermond-maastricht-2",
+			"start": "roermond",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "roermond-maastricht",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "middelburg-antwerpen-1",
+			"start": "middelburg",
+			"end": "antwerpen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "middelburg-antwerpen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "middelburg-antwerpen-2",
+			"start": "middelburg",
+			"end": "antwerpen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "middelburg-antwerpen",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "antwerpen-turnhout-1",
+			"start": "antwerpen",
+			"end": "turnhout",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "antwerpen-turnhout",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "antwerpen-turnhout-2",
+			"start": "antwerpen",
+			"end": "turnhout",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "antwerpen-turnhout",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "antwerpen-aarschot-1",
+			"start": "antwerpen",
+			"end": "aarschot",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "antwerpen-aarschot",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "antwerpen-aarschot-2",
+			"start": "antwerpen",
+			"end": "aarschot",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "antwerpen-aarschot",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "turnhout-hasselt-1",
+			"start": "turnhout",
+			"end": "hasselt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "turnhout-hasselt",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "turnhout-hasselt-2",
+			"start": "turnhout",
+			"end": "hasselt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "turnhout-hasselt",
+			"bridgeToll": 3,
+			"claim": "route"
+		},
+		{
+			"id": "aarschot-hasselt-1",
+			"start": "aarschot",
+			"end": "hasselt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "aarschot-hasselt",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "aarschot-hasselt-2",
+			"start": "aarschot",
+			"end": "hasselt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "aarschot-hasselt",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "aarschot-liege-1",
+			"start": "aarschot",
+			"end": "liege",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "hasselt-maastricht-1",
+			"start": "hasselt",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "hasselt-maastricht",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "hasselt-maastricht-2",
+			"start": "hasselt",
+			"end": "maastricht",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "hasselt-maastricht",
+			"bridgeToll": 2,
+			"claim": "route"
+		},
+		{
+			"id": "hasselt-liege-1",
+			"start": "hasselt",
+			"end": "liege",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "maastricht-liege-1",
+			"start": "maastricht",
+			"end": "liege",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "maastricht-liege",
+			"bridgeToll": 1,
+			"claim": "route"
+		},
+		{
+			"id": "maastricht-liege-2",
+			"start": "maastricht",
+			"end": "liege",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "maastricht-liege",
+			"bridgeToll": 1,
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "leeuwarden-groningen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "leeuwarden-sneek",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "groningen-emden",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "groningen-emmen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "groningen-zwolle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "emden-lingen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "emmen-lingen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lingen-enschede",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sneek-den-helder",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sneek-lelystad",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "den-helder-haarlem",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lelystad-zwolle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lelystad-amsterdam",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zwolle-enschede",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zwolle-arnhem",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "enschede-arnhem",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "enschede-duisburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "haarlem-amsterdam",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "haarlem-s-gravenhage",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "amsterdam-utrecht",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "amsterdam-rotterdam",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "utrecht-arnhem",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "utrecht-s-hertogenbosch",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "arnhem-nijmegen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nijmegen-duisburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nijmegen-eindhoven",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "duisburg-roermond",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "s-gravenhage-rotterdam",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "s-gravenhage-middelburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "rotterdam-breda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "rotterdam-antwerpen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "breda-s-hertogenbosch",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "breda-turnhout",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "s-hertogenbosch-eindhoven",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "eindhoven-roermond",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "eindhoven-maastricht",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "roermond-maastricht",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "middelburg-antwerpen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "antwerpen-turnhout",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "antwerpen-aarschot",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "turnhout-hasselt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "aarschot-hasselt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hasselt-maastricht",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "maastricht-liege",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 2
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

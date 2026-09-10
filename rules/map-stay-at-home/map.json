@@ -1,0 +1,2288 @@
+{
+	"schemaVersion": 1,
+	"id": "stay-at-home",
+	"name": "Stay at Home",
+	"image": {
+		"file": "map.png",
+		"width": 3399,
+		"height": 2541
+	},
+	"players": [2, 3, 4],
+	"mechanics": ["family-routes"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "sisters-room",
+			"name": "Sister’s Room",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.13268,
+					"y": 0.15627
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "baby-brothers-room",
+			"name": "Baby Brother’s Room",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.37719,
+					"y": 0.15994
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "master-bath",
+			"name": "Master Bath",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.50822,
+					"y": 0.12619
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bed",
+			"name": "Bed",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.7045,
+					"y": 0.135
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "balcony",
+			"name": "Balcony",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.89748,
+					"y": 0.23184
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "master-closet",
+			"name": "Master Closet",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.53015,
+					"y": 0.30374
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sitting-area",
+			"name": "Sitting Area",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.72314,
+					"y": 0.35216
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-west",
+			"name": "Unnamed western junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.24123,
+					"y": 0.37711
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stairs-upper",
+			"name": "Upper stair landing",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.48465,
+					"y": 0.41306
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kids-bath",
+			"name": "Kids’ Bath",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.0943,
+					"y": 0.43874
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "half-bath",
+			"name": "Half Bath",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.22314,
+					"y": 0.49083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stairs-middle",
+			"name": "Middle stair landing",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.46656,
+					"y": 0.55906
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fridge",
+			"name": "Fridge",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.60581,
+					"y": 0.49743
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kitchen-sink",
+			"name": "Kitchen Sink",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.77083,
+					"y": 0.46955
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "napping-area",
+			"name": "Napping Area",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.10362,
+					"y": 0.62509
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dads-chair",
+			"name": "Dad’s Chair",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.35362,
+					"y": 0.67572
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kitchen-island",
+			"name": "Kitchen Island",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.67434,
+					"y": 0.61115
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stove",
+			"name": "Stove",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.7955,
+					"y": 0.60895
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "balcony-table",
+			"name": "Balcony Table",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.88432,
+					"y": 0.7212
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stairs-lower",
+			"name": "Lower stair landing",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.54331,
+					"y": 0.72927
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "desk",
+			"name": "Desk",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.13542,
+					"y": 0.82098
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tv",
+			"name": "TV",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.27632,
+					"y": 0.79971
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "couch",
+			"name": "Couch",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.38542,
+					"y": 0.83859
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "front-door",
+			"name": "Front Door",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.54934,
+					"y": 0.88041
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dining-table",
+			"name": "Dining Table",
+			"type": "location",
+			"positions": [
+				{
+					"x": 0.71107,
+					"y": 0.81658
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "sisters-room-baby-brothers-room-1",
+			"start": "sisters-room",
+			"end": "baby-brothers-room",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "sisters-room-junction-west-1",
+			"start": "sisters-room",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "sisters-room-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "sisters-room-junction-west-2",
+			"start": "sisters-room",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sisters-room-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "baby-brothers-room-junction-west-1",
+			"start": "baby-brothers-room",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "baby-brothers-room-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "baby-brothers-room-junction-west-2",
+			"start": "baby-brothers-room",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "baby-brothers-room-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "kids-bath-junction-west-1",
+			"start": "kids-bath",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kids-bath-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "kids-bath-junction-west-2",
+			"start": "kids-bath",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "kids-bath-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "kids-bath-junction-west-3",
+			"start": "kids-bath",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "kids-bath-junction-west",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "junction-west-stairs-upper-1",
+			"start": "junction-west",
+			"end": "stairs-upper",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "junction-west-stairs-upper",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "junction-west-stairs-upper-2",
+			"start": "junction-west",
+			"end": "stairs-upper",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "junction-west-stairs-upper",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "stairs-upper-sitting-area-1",
+			"start": "stairs-upper",
+			"end": "sitting-area",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "stairs-upper-sitting-area",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "stairs-upper-sitting-area-2",
+			"start": "stairs-upper",
+			"end": "sitting-area",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "stairs-upper-sitting-area",
+			"claim": "family-spaces"
+		},
+		{
+			"id": "master-bath-bed-1",
+			"start": "master-bath",
+			"end": "bed",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "master-bath-bed",
+			"claim": "route"
+		},
+		{
+			"id": "master-bath-bed-2",
+			"start": "master-bath",
+			"end": "bed",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "master-bath-bed",
+			"claim": "route"
+		},
+		{
+			"id": "master-bath-master-closet-1",
+			"start": "master-bath",
+			"end": "master-closet",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "master-bath-master-closet",
+			"claim": "route"
+		},
+		{
+			"id": "master-bath-master-closet-2",
+			"start": "master-bath",
+			"end": "master-closet",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "master-bath-master-closet",
+			"claim": "route"
+		},
+		{
+			"id": "master-closet-bed-1",
+			"start": "master-closet",
+			"end": "bed",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "master-closet-sitting-area-1",
+			"start": "master-closet",
+			"end": "sitting-area",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bed-sitting-area-1",
+			"start": "bed",
+			"end": "sitting-area",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bed-sitting-area",
+			"claim": "route"
+		},
+		{
+			"id": "bed-sitting-area-2",
+			"start": "bed",
+			"end": "sitting-area",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bed-sitting-area",
+			"claim": "route"
+		},
+		{
+			"id": "bed-balcony-1",
+			"start": "bed",
+			"end": "balcony",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sitting-area-balcony-1",
+			"start": "sitting-area",
+			"end": "balcony",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sitting-area-balcony",
+			"claim": "route"
+		},
+		{
+			"id": "sitting-area-balcony-2",
+			"start": "sitting-area",
+			"end": "balcony",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sitting-area-balcony",
+			"claim": "route"
+		},
+		{
+			"id": "balcony-balcony-table-1",
+			"start": "balcony",
+			"end": "balcony-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "balcony-balcony-table",
+			"claim": "route"
+		},
+		{
+			"id": "balcony-balcony-table-2",
+			"start": "balcony",
+			"end": "balcony-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "balcony-balcony-table",
+			"claim": "route"
+		},
+		{
+			"id": "junction-west-stairs-middle-1",
+			"start": "junction-west",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stairs-upper-stairs-middle-1",
+			"start": "stairs-upper",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-upper-stairs-middle",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-upper-stairs-middle-2",
+			"start": "stairs-upper",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-upper-stairs-middle",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-upper-stairs-middle-3",
+			"start": "stairs-upper",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-upper-stairs-middle",
+			"claim": "route"
+		},
+		{
+			"id": "sitting-area-stairs-middle-1",
+			"start": "sitting-area",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "half-bath-stairs-middle-1",
+			"start": "half-bath",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "napping-area-stairs-middle-1",
+			"start": "napping-area",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "napping-area-dads-chair-1",
+			"start": "napping-area",
+			"end": "dads-chair",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "napping-area-desk-1",
+			"start": "napping-area",
+			"end": "desk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "desk-dads-chair-1",
+			"start": "desk",
+			"end": "dads-chair",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "family-spaces"
+		},
+		{
+			"id": "dads-chair-stairs-middle-1",
+			"start": "dads-chair",
+			"end": "stairs-middle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stairs-middle-fridge-1",
+			"start": "stairs-middle",
+			"end": "fridge",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fridge-kitchen-sink-1",
+			"start": "fridge",
+			"end": "kitchen-sink",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "fridge-kitchen-sink",
+			"claim": "route"
+		},
+		{
+			"id": "fridge-kitchen-sink-2",
+			"start": "fridge",
+			"end": "kitchen-sink",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "fridge-kitchen-sink",
+			"claim": "route"
+		},
+		{
+			"id": "fridge-kitchen-island-1",
+			"start": "fridge",
+			"end": "kitchen-island",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "fridge-kitchen-island",
+			"claim": "route"
+		},
+		{
+			"id": "fridge-kitchen-island-2",
+			"start": "fridge",
+			"end": "kitchen-island",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "fridge-kitchen-island",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-sink-kitchen-island-1",
+			"start": "kitchen-sink",
+			"end": "kitchen-island",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "kitchen-sink-kitchen-island",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-sink-kitchen-island-2",
+			"start": "kitchen-sink",
+			"end": "kitchen-island",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "kitchen-sink-kitchen-island",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-sink-stove-1",
+			"start": "kitchen-sink",
+			"end": "stove",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kitchen-sink-stove",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-sink-stove-2",
+			"start": "kitchen-sink",
+			"end": "stove",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kitchen-sink-stove",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-stove-1",
+			"start": "kitchen-island",
+			"end": "stove",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kitchen-island-stove",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-stove-2",
+			"start": "kitchen-island",
+			"end": "stove",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kitchen-island-stove",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-dining-table-1",
+			"start": "kitchen-island",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kitchen-island-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-dining-table-2",
+			"start": "kitchen-island",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kitchen-island-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "stove-dining-table-1",
+			"start": "stove",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "stove-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "stove-dining-table-2",
+			"start": "stove",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "stove-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-stairs-lower-1",
+			"start": "kitchen-island",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kitchen-island-stairs-lower",
+			"claim": "route"
+		},
+		{
+			"id": "kitchen-island-stairs-lower-2",
+			"start": "kitchen-island",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kitchen-island-stairs-lower",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-middle-stairs-lower-1",
+			"start": "stairs-middle",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-middle-stairs-lower",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-middle-stairs-lower-2",
+			"start": "stairs-middle",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-middle-stairs-lower",
+			"claim": "route"
+		},
+		{
+			"id": "dads-chair-stairs-lower-1",
+			"start": "dads-chair",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dads-chair-tv-1",
+			"start": "dads-chair",
+			"end": "tv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "dads-chair-tv",
+			"claim": "route"
+		},
+		{
+			"id": "dads-chair-tv-2",
+			"start": "dads-chair",
+			"end": "tv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "dads-chair-tv",
+			"claim": "route"
+		},
+		{
+			"id": "dads-chair-couch-1",
+			"start": "dads-chair",
+			"end": "couch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "dads-chair-couch",
+			"claim": "route"
+		},
+		{
+			"id": "dads-chair-couch-2",
+			"start": "dads-chair",
+			"end": "couch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "dads-chair-couch",
+			"claim": "route"
+		},
+		{
+			"id": "tv-couch-1",
+			"start": "tv",
+			"end": "couch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "tv-couch",
+			"claim": "route"
+		},
+		{
+			"id": "tv-couch-2",
+			"start": "tv",
+			"end": "couch",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "tv-couch",
+			"claim": "route"
+		},
+		{
+			"id": "couch-stairs-lower-1",
+			"start": "couch",
+			"end": "stairs-lower",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "couch-front-door-1",
+			"start": "couch",
+			"end": "front-door",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "couch-front-door",
+			"claim": "route"
+		},
+		{
+			"id": "couch-front-door-2",
+			"start": "couch",
+			"end": "front-door",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "couch-front-door",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-lower-front-door-1",
+			"start": "stairs-lower",
+			"end": "front-door",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-lower-front-door",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-lower-front-door-2",
+			"start": "stairs-lower",
+			"end": "front-door",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stairs-lower-front-door",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-lower-dining-table-1",
+			"start": "stairs-lower",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "stairs-lower-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "stairs-lower-dining-table-2",
+			"start": "stairs-lower",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "stairs-lower-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "front-door-dining-table-1",
+			"start": "front-door",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "front-door-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "front-door-dining-table-2",
+			"start": "front-door",
+			"end": "dining-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "front-door-dining-table",
+			"claim": "route"
+		},
+		{
+			"id": "dining-table-balcony-table-1",
+			"start": "dining-table",
+			"end": "balcony-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "dining-table-balcony-table",
+			"claim": "route"
+		},
+		{
+			"id": "dining-table-balcony-table-2",
+			"start": "dining-table",
+			"end": "balcony-table",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "dining-table-balcony-table",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "sisters-room-junction-west",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "baby-brothers-room-junction-west",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kids-bath-junction-west",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "junction-west-stairs-upper",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stairs-upper-sitting-area",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "master-bath-bed",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "master-bath-master-closet",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bed-sitting-area",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sitting-area-balcony",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "balcony-balcony-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stairs-upper-stairs-middle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 3
+				},
+				{
+					"players": 3,
+					"tracks": 3
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "fridge-kitchen-sink",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "fridge-kitchen-island",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kitchen-sink-kitchen-island",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kitchen-sink-stove",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kitchen-island-stove",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kitchen-island-dining-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stove-dining-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kitchen-island-stairs-lower",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stairs-middle-stairs-lower",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dads-chair-tv",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dads-chair-couch",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tv-couch",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "couch-front-door",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stairs-lower-front-door",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stairs-lower-dining-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "front-door-dining-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dining-table-balcony-table",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

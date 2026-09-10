@@ -1,0 +1,3194 @@
+{
+	"schemaVersion": 1,
+	"id": "usa",
+	"name": "USA",
+	"image": {
+		"file": "map.png",
+		"width": 2237,
+		"height": 1492
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": [],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "vancouver",
+			"name": "Vancouver",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.107,
+					"y": 0.154
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "calgary",
+			"name": "Calgary",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.234,
+					"y": 0.129
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "winnipeg",
+			"name": "Winnipeg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.453,
+					"y": 0.144
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sault-ste-marie",
+			"name": "Sault Ste. Marie",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.687,
+					"y": 0.216
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "montreal",
+			"name": "Montréal",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.874,
+					"y": 0.121
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "boston",
+			"name": "Boston",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.943,
+					"y": 0.207
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "seattle",
+			"name": "Seattle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.103,
+					"y": 0.233
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "helena",
+			"name": "Helena",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.332,
+					"y": 0.322
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "duluth",
+			"name": "Duluth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.562,
+					"y": 0.313
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "toronto",
+			"name": "Toronto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.793,
+					"y": 0.249
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "new-york",
+			"name": "New York",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.892,
+					"y": 0.315
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "portland",
+			"name": "Portland",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.082,
+					"y": 0.308
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "omaha",
+			"name": "Omaha",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.533,
+					"y": 0.449
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chicago",
+			"name": "Chicago",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.682,
+					"y": 0.404
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pittsburgh",
+			"name": "Pittsburgh",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.81,
+					"y": 0.382
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "salt-lake-city",
+			"name": "Salt Lake City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.262,
+					"y": 0.503
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "denver",
+			"name": "Denver",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.388,
+					"y": 0.549
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kansas-city",
+			"name": "Kansas City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.553,
+					"y": 0.523
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "saint-louis",
+			"name": "Saint Louis",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.637,
+					"y": 0.524
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "washington",
+			"name": "Washington",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9,
+					"y": 0.449
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "san-francisco",
+			"name": "San Francisco",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.068,
+					"y": 0.596
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "las-vegas",
+			"name": "Las Vegas",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.207,
+					"y": 0.663
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "santa-fe",
+			"name": "Santa Fe",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.382,
+					"y": 0.682
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "oklahoma-city",
+			"name": "Oklahoma City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.534,
+					"y": 0.649
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "little-rock",
+			"name": "Little Rock",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.621,
+					"y": 0.656
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nashville",
+			"name": "Nashville",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.728,
+					"y": 0.581
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "raleigh",
+			"name": "Raleigh",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.843,
+					"y": 0.548
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "charleston",
+			"name": "Charleston",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.87,
+					"y": 0.643
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "los-angeles",
+			"name": "Los Angeles",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.143,
+					"y": 0.75
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "phoenix",
+			"name": "Phoenix",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.26,
+					"y": 0.758
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "el-paso",
+			"name": "El Paso",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.377,
+					"y": 0.813
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dallas",
+			"name": "Dallas",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.554,
+					"y": 0.778
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "atlanta",
+			"name": "Atlanta",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.779,
+					"y": 0.632
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "new-orleans",
+			"name": "New Orleans",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.685,
+					"y": 0.819
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "houston",
+			"name": "Houston",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.594,
+					"y": 0.836
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "miami",
+			"name": "Miami",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.902,
+					"y": 0.874
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "vancouver-seattle-gray-a",
+			"start": "vancouver",
+			"end": "seattle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "vancouver-seattle",
+			"claim": "route"
+		},
+		{
+			"id": "vancouver-seattle-gray-b",
+			"start": "vancouver",
+			"end": "seattle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "vancouver-seattle",
+			"claim": "route"
+		},
+		{
+			"id": "vancouver-calgary-gray",
+			"start": "vancouver",
+			"end": "calgary",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "seattle-calgary-gray",
+			"start": "seattle",
+			"end": "calgary",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "seattle-portland-gray-a",
+			"start": "seattle",
+			"end": "portland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "seattle-portland",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-portland-gray-b",
+			"start": "seattle",
+			"end": "portland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "seattle-portland",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-helena-yellow",
+			"start": "seattle",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "portland-salt-lake-city-blue",
+			"start": "portland",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "portland-san-francisco-green-a",
+			"start": "portland",
+			"end": "san-francisco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "portland-san-francisco",
+			"claim": "route"
+		},
+		{
+			"id": "portland-san-francisco-purple-b",
+			"start": "portland",
+			"end": "san-francisco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "portland-san-francisco",
+			"claim": "route"
+		},
+		{
+			"id": "calgary-helena-gray",
+			"start": "calgary",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calgary-winnipeg-white",
+			"start": "calgary",
+			"end": "winnipeg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "winnipeg-helena-blue",
+			"start": "winnipeg",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "winnipeg-duluth-black",
+			"start": "winnipeg",
+			"end": "duluth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "winnipeg-sault-ste-marie-gray",
+			"start": "winnipeg",
+			"end": "sault-ste-marie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-duluth-gray",
+			"start": "sault-ste-marie",
+			"end": "duluth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-toronto-gray",
+			"start": "sault-ste-marie",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-montreal-black",
+			"start": "sault-ste-marie",
+			"end": "montreal",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "montreal-toronto-gray",
+			"start": "montreal",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "montreal-new-york-blue",
+			"start": "montreal",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "montreal-boston-gray-a",
+			"start": "montreal",
+			"end": "boston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "montreal-boston",
+			"claim": "route"
+		},
+		{
+			"id": "montreal-boston-gray-b",
+			"start": "montreal",
+			"end": "boston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "montreal-boston",
+			"claim": "route"
+		},
+		{
+			"id": "boston-new-york-yellow-a",
+			"start": "boston",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "boston-new-york",
+			"claim": "route"
+		},
+		{
+			"id": "boston-new-york-red-b",
+			"start": "boston",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "boston-new-york",
+			"claim": "route"
+		},
+		{
+			"id": "helena-duluth-orange",
+			"start": "helena",
+			"end": "duluth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "helena-omaha-red",
+			"start": "helena",
+			"end": "omaha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "helena-denver-green",
+			"start": "helena",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "helena-salt-lake-city-purple",
+			"start": "helena",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-toronto-purple",
+			"start": "duluth",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-chicago-red",
+			"start": "duluth",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-omaha-gray-a",
+			"start": "duluth",
+			"end": "omaha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "duluth-omaha",
+			"claim": "route"
+		},
+		{
+			"id": "duluth-omaha-gray-b",
+			"start": "duluth",
+			"end": "omaha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "duluth-omaha",
+			"claim": "route"
+		},
+		{
+			"id": "toronto-chicago-white",
+			"start": "toronto",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toronto-pittsburgh-gray",
+			"start": "toronto",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "new-york-pittsburgh-white-a",
+			"start": "new-york",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "new-york-pittsburgh",
+			"claim": "route"
+		},
+		{
+			"id": "new-york-pittsburgh-green-b",
+			"start": "new-york",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "new-york-pittsburgh",
+			"claim": "route"
+		},
+		{
+			"id": "new-york-washington-orange-a",
+			"start": "new-york",
+			"end": "washington",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "new-york-washington",
+			"claim": "route"
+		},
+		{
+			"id": "new-york-washington-black-b",
+			"start": "new-york",
+			"end": "washington",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "new-york-washington",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-salt-lake-city-orange-a",
+			"start": "san-francisco",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "san-francisco-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-salt-lake-city-white-b",
+			"start": "san-francisco",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "san-francisco-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-los-angeles-yellow-a",
+			"start": "san-francisco",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "san-francisco-los-angeles",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-los-angeles-purple-b",
+			"start": "san-francisco",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "san-francisco-los-angeles",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-las-vegas-orange",
+			"start": "salt-lake-city",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-denver-orange-a",
+			"start": "salt-lake-city",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "salt-lake-city-denver",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-denver-red-b",
+			"start": "salt-lake-city",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "salt-lake-city-denver",
+			"claim": "route"
+		},
+		{
+			"id": "las-vegas-los-angeles-gray",
+			"start": "las-vegas",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-phoenix-gray",
+			"start": "los-angeles",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-el-paso-black",
+			"start": "los-angeles",
+			"end": "el-paso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "phoenix-denver-white",
+			"start": "phoenix",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "phoenix-santa-fe-gray",
+			"start": "phoenix",
+			"end": "santa-fe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "phoenix-el-paso-gray",
+			"start": "phoenix",
+			"end": "el-paso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "denver-santa-fe-gray",
+			"start": "denver",
+			"end": "santa-fe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "denver-oklahoma-city-red",
+			"start": "denver",
+			"end": "oklahoma-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "denver-kansas-city-black-a",
+			"start": "denver",
+			"end": "kansas-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "denver-kansas-city",
+			"claim": "route"
+		},
+		{
+			"id": "denver-kansas-city-orange-b",
+			"start": "denver",
+			"end": "kansas-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "denver-kansas-city",
+			"claim": "route"
+		},
+		{
+			"id": "denver-omaha-purple",
+			"start": "denver",
+			"end": "omaha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "omaha-chicago-blue",
+			"start": "omaha",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "omaha-kansas-city-gray-a",
+			"start": "omaha",
+			"end": "kansas-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "omaha-kansas-city",
+			"claim": "route"
+		},
+		{
+			"id": "omaha-kansas-city-gray-b",
+			"start": "omaha",
+			"end": "kansas-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "omaha-kansas-city",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-pittsburgh-orange-a",
+			"start": "chicago",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "chicago-pittsburgh",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-pittsburgh-black-b",
+			"start": "chicago",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "chicago-pittsburgh",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-saint-louis-green-a",
+			"start": "chicago",
+			"end": "saint-louis",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "chicago-saint-louis",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-saint-louis-white-b",
+			"start": "chicago",
+			"end": "saint-louis",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "chicago-saint-louis",
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-saint-louis-green",
+			"start": "pittsburgh",
+			"end": "saint-louis",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-nashville-yellow",
+			"start": "pittsburgh",
+			"end": "nashville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-raleigh-gray",
+			"start": "pittsburgh",
+			"end": "raleigh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-washington-gray",
+			"start": "pittsburgh",
+			"end": "washington",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "washington-raleigh-gray-a",
+			"start": "washington",
+			"end": "raleigh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "washington-raleigh",
+			"claim": "route"
+		},
+		{
+			"id": "washington-raleigh-gray-b",
+			"start": "washington",
+			"end": "raleigh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "washington-raleigh",
+			"claim": "route"
+		},
+		{
+			"id": "kansas-city-saint-louis-blue-a",
+			"start": "kansas-city",
+			"end": "saint-louis",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "kansas-city-saint-louis",
+			"claim": "route"
+		},
+		{
+			"id": "kansas-city-saint-louis-purple-b",
+			"start": "kansas-city",
+			"end": "saint-louis",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kansas-city-saint-louis",
+			"claim": "route"
+		},
+		{
+			"id": "kansas-city-oklahoma-city-gray-a",
+			"start": "kansas-city",
+			"end": "oklahoma-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kansas-city-oklahoma-city",
+			"claim": "route"
+		},
+		{
+			"id": "kansas-city-oklahoma-city-gray-b",
+			"start": "kansas-city",
+			"end": "oklahoma-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kansas-city-oklahoma-city",
+			"claim": "route"
+		},
+		{
+			"id": "saint-louis-little-rock-gray",
+			"start": "saint-louis",
+			"end": "little-rock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "saint-louis-nashville-gray",
+			"start": "saint-louis",
+			"end": "nashville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oklahoma-city-santa-fe-blue",
+			"start": "oklahoma-city",
+			"end": "santa-fe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oklahoma-city-el-paso-yellow",
+			"start": "oklahoma-city",
+			"end": "el-paso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oklahoma-city-dallas-gray-a",
+			"start": "oklahoma-city",
+			"end": "dallas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "oklahoma-city-dallas",
+			"claim": "route"
+		},
+		{
+			"id": "oklahoma-city-dallas-gray-b",
+			"start": "oklahoma-city",
+			"end": "dallas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "oklahoma-city-dallas",
+			"claim": "route"
+		},
+		{
+			"id": "oklahoma-city-little-rock-gray",
+			"start": "oklahoma-city",
+			"end": "little-rock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "santa-fe-el-paso-gray",
+			"start": "santa-fe",
+			"end": "el-paso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "el-paso-dallas-red",
+			"start": "el-paso",
+			"end": "dallas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "el-paso-houston-green",
+			"start": "el-paso",
+			"end": "houston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dallas-houston-gray-a",
+			"start": "dallas",
+			"end": "houston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dallas-houston",
+			"claim": "route"
+		},
+		{
+			"id": "dallas-houston-gray-b",
+			"start": "dallas",
+			"end": "houston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dallas-houston",
+			"claim": "route"
+		},
+		{
+			"id": "dallas-little-rock-gray",
+			"start": "dallas",
+			"end": "little-rock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "houston-new-orleans-gray",
+			"start": "houston",
+			"end": "new-orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "little-rock-new-orleans-green",
+			"start": "little-rock",
+			"end": "new-orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "little-rock-nashville-white",
+			"start": "little-rock",
+			"end": "nashville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nashville-raleigh-black",
+			"start": "nashville",
+			"end": "raleigh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nashville-atlanta-gray",
+			"start": "nashville",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "raleigh-atlanta-gray-a",
+			"start": "raleigh",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "raleigh-atlanta",
+			"claim": "route"
+		},
+		{
+			"id": "raleigh-atlanta-gray-b",
+			"start": "raleigh",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "raleigh-atlanta",
+			"claim": "route"
+		},
+		{
+			"id": "raleigh-charleston-gray",
+			"start": "raleigh",
+			"end": "charleston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "charleston-atlanta-gray",
+			"start": "charleston",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "new-orleans-atlanta-yellow-a",
+			"start": "new-orleans",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "new-orleans-atlanta",
+			"claim": "route"
+		},
+		{
+			"id": "new-orleans-atlanta-orange-b",
+			"start": "new-orleans",
+			"end": "atlanta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "new-orleans-atlanta",
+			"claim": "route"
+		},
+		{
+			"id": "new-orleans-miami-red",
+			"start": "new-orleans",
+			"end": "miami",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "atlanta-miami-blue",
+			"start": "atlanta",
+			"end": "miami",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "charleston-miami-purple",
+			"start": "charleston",
+			"end": "miami",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "vancouver-seattle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "seattle-portland",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "portland-san-francisco",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "montreal-boston",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "boston-new-york",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "duluth-omaha",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "new-york-pittsburgh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "new-york-washington",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "san-francisco-salt-lake-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "san-francisco-los-angeles",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salt-lake-city-denver",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "denver-kansas-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "omaha-kansas-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chicago-pittsburgh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chicago-saint-louis",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "washington-raleigh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kansas-city-saint-louis",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kansas-city-oklahoma-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "oklahoma-city-dallas",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dallas-houston",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "raleigh-atlanta",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "new-orleans-atlanta",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

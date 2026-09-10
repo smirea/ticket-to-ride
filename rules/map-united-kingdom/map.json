@@ -1,0 +1,3363 @@
+{
+	"schemaVersion": 1,
+	"id": "united-kingdom",
+	"name": "United Kingdom",
+	"image": {
+		"file": "map.png",
+		"width": 1476,
+		"height": 2214
+	},
+	"players": [2, 3, 4],
+	"mechanics": ["ferries", "technology"],
+	"regions": [
+		{
+			"id": "england",
+			"name": "England"
+		},
+		{
+			"id": "scotland",
+			"name": "Scotland"
+		},
+		{
+			"id": "ireland",
+			"name": "Ireland"
+		},
+		{
+			"id": "wales",
+			"name": "Wales"
+		},
+		{
+			"id": "france",
+			"name": "France"
+		},
+		{
+			"id": "usa",
+			"name": "USA"
+		}
+	],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "stornoway",
+			"name": "Stornoway",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65781,
+					"y": 0.04635
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "ullapool",
+			"name": "Ullapool",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71328,
+					"y": 0.09688
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "wick",
+			"name": "Wick",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90859,
+					"y": 0.09583
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "inverness",
+			"name": "Inverness",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.76328,
+					"y": 0.1474
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "fort-william",
+			"name": "Fort William",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.63828,
+					"y": 0.1974
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "aberdeen",
+			"name": "Aberdeen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89375,
+					"y": 0.23646
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "dundee",
+			"name": "Dundee",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.80234,
+					"y": 0.27552
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "glasgow",
+			"name": "Glasgow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64375,
+					"y": 0.30521
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "edinburgh",
+			"name": "Edinburgh",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73984,
+					"y": 0.32448
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "stranraer",
+			"name": "Stranraer",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53281,
+					"y": 0.37188
+				}
+			],
+			"connectivity": "shared",
+			"region": "scotland"
+		},
+		{
+			"id": "londonderry",
+			"name": "Londonderry",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36562,
+					"y": 0.28698
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "sligo",
+			"name": "Sligo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.20469,
+					"y": 0.32656
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "galway",
+			"name": "Galway",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.09062,
+					"y": 0.40313
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "belfast",
+			"name": "Belfast",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.43281,
+					"y": 0.3776
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "dundalk",
+			"name": "Dundalk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35078,
+					"y": 0.41771
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "tullamore",
+			"name": "Tullamore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.21797,
+					"y": 0.46198
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "dublin",
+			"name": "Dublin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31328,
+					"y": 0.47969
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "limerick",
+			"name": "Limerick",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.09297,
+					"y": 0.4776
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "cork",
+			"name": "Cork",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.07266,
+					"y": 0.55417
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "rosslare",
+			"name": "Rosslare",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23281,
+					"y": 0.56719
+				}
+			],
+			"connectivity": "shared",
+			"region": "ireland"
+		},
+		{
+			"id": "carlisle",
+			"name": "Carlisle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68203,
+					"y": 0.43229
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "newcastle",
+			"name": "Newcastle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79453,
+					"y": 0.45313
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "barrow",
+			"name": "Barrow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61641,
+					"y": 0.48438
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "holyhead",
+			"name": "Holyhead",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45156,
+					"y": 0.52865
+				}
+			],
+			"connectivity": "shared",
+			"region": "wales"
+		},
+		{
+			"id": "liverpool",
+			"name": "Liverpool",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57344,
+					"y": 0.54323
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "leeds",
+			"name": "Leeds",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73516,
+					"y": 0.54948
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "manchester",
+			"name": "Manchester",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65,
+					"y": 0.57969
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "hull",
+			"name": "Hull",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82031,
+					"y": 0.5901
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "nottingham",
+			"name": "Nottingham",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70781,
+					"y": 0.65365
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "birmingham",
+			"name": "Birmingham",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62031,
+					"y": 0.68437
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "aberystwyth",
+			"name": "Aberystwyth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41797,
+					"y": 0.62448
+				}
+			],
+			"connectivity": "shared",
+			"region": "wales"
+		},
+		{
+			"id": "llandrindod-wells",
+			"name": "Llandrindod Wells",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48438,
+					"y": 0.66771
+				}
+			],
+			"connectivity": "shared",
+			"region": "wales"
+		},
+		{
+			"id": "carmarthen",
+			"name": "Carmarthen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36172,
+					"y": 0.67969
+				}
+			],
+			"connectivity": "shared",
+			"region": "wales"
+		},
+		{
+			"id": "cardiff",
+			"name": "Cardiff",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42969,
+					"y": 0.72552
+				}
+			],
+			"connectivity": "shared",
+			"region": "wales"
+		},
+		{
+			"id": "northampton",
+			"name": "Northampton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68594,
+					"y": 0.73333
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "cambridge",
+			"name": "Cambridge",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77734,
+					"y": 0.75104
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "norwich",
+			"name": "Norwich",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.92188,
+					"y": 0.74583
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "ipswich",
+			"name": "Ipswich",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.85,
+					"y": 0.80365
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "london",
+			"name": "London",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72578,
+					"y": 0.8125
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "reading",
+			"name": "Reading",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.63047,
+					"y": 0.78958
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "bristol",
+			"name": "Bristol",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49531,
+					"y": 0.76667
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "plymouth",
+			"name": "Plymouth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.29531,
+					"y": 0.79688
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "penzance",
+			"name": "Penzance",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14688,
+					"y": 0.7875
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "southampton",
+			"name": "Southampton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57734,
+					"y": 0.85156
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "brighton",
+			"name": "Brighton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67969,
+					"y": 0.88073
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "dover",
+			"name": "Dover",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.83437,
+					"y": 0.88021
+				}
+			],
+			"connectivity": "shared",
+			"region": "england"
+		},
+		{
+			"id": "france",
+			"name": "France",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.95,
+					"y": 0.9270833333333334
+				},
+				{
+					"x": 0.496875,
+					"y": 0.9619791666666667
+				}
+			],
+			"connectivity": "separate",
+			"region": "france"
+		},
+		{
+			"id": "new-york",
+			"name": "New York",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.05703,
+					"y": 0.91146
+				}
+			],
+			"connectivity": "shared",
+			"region": "usa"
+		}
+	],
+	"connections": [
+		{
+			"id": "stornoway-wick-1",
+			"start": "stornoway",
+			"end": "wick",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stornoway-ullapool-1",
+			"start": "stornoway",
+			"end": "ullapool",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stornoway-fort-william-1",
+			"start": "stornoway",
+			"end": "fort-william",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ullapool-wick-1",
+			"start": "ullapool",
+			"end": "wick",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ullapool-inverness-1",
+			"start": "ullapool",
+			"end": "inverness",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ullapool-fort-william-1",
+			"start": "ullapool",
+			"end": "fort-william",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wick-inverness-1",
+			"start": "wick",
+			"end": "inverness",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wick-aberdeen-1",
+			"start": "wick",
+			"end": "aberdeen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "inverness-fort-william-1",
+			"start": "inverness",
+			"end": "fort-william",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "inverness-dundee-1",
+			"start": "inverness",
+			"end": "dundee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "inverness-aberdeen-1",
+			"start": "inverness",
+			"end": "aberdeen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fort-william-dundee-1",
+			"start": "fort-william",
+			"end": "dundee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fort-william-glasgow-1",
+			"start": "fort-william",
+			"end": "glasgow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fort-william-londonderry-1",
+			"start": "fort-william",
+			"end": "londonderry",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aberdeen-dundee-1",
+			"start": "aberdeen",
+			"end": "dundee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aberdeen-edinburgh-1",
+			"start": "aberdeen",
+			"end": "edinburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aberdeen-newcastle-1",
+			"start": "aberdeen",
+			"end": "newcastle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dundee-edinburgh-1",
+			"start": "dundee",
+			"end": "edinburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "dundee-edinburgh",
+			"claim": "route"
+		},
+		{
+			"id": "dundee-edinburgh-2",
+			"start": "dundee",
+			"end": "edinburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "dundee-edinburgh",
+			"claim": "route"
+		},
+		{
+			"id": "glasgow-edinburgh-1",
+			"start": "glasgow",
+			"end": "edinburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "glasgow-edinburgh",
+			"claim": "route"
+		},
+		{
+			"id": "glasgow-edinburgh-2",
+			"start": "glasgow",
+			"end": "edinburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "glasgow-edinburgh",
+			"claim": "route"
+		},
+		{
+			"id": "glasgow-stranraer-1",
+			"start": "glasgow",
+			"end": "stranraer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "glasgow-londonderry-1",
+			"start": "glasgow",
+			"end": "londonderry",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "edinburgh-stranraer-1",
+			"start": "edinburgh",
+			"end": "stranraer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "edinburgh-carlisle-1",
+			"start": "edinburgh",
+			"end": "carlisle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "edinburgh-newcastle-1",
+			"start": "edinburgh",
+			"end": "newcastle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "edinburgh-newcastle",
+			"claim": "route"
+		},
+		{
+			"id": "edinburgh-newcastle-2",
+			"start": "edinburgh",
+			"end": "newcastle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "edinburgh-newcastle",
+			"claim": "route"
+		},
+		{
+			"id": "stranraer-carlisle-1",
+			"start": "stranraer",
+			"end": "carlisle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stranraer-belfast-1",
+			"start": "stranraer",
+			"end": "belfast",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stranraer-londonderry-1",
+			"start": "stranraer",
+			"end": "londonderry",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "londonderry-belfast-1",
+			"start": "londonderry",
+			"end": "belfast",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "londonderry-dundalk-1",
+			"start": "londonderry",
+			"end": "dundalk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "londonderry-sligo-1",
+			"start": "londonderry",
+			"end": "sligo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sligo-galway-1",
+			"start": "sligo",
+			"end": "galway",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sligo-tullamore-1",
+			"start": "sligo",
+			"end": "tullamore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sligo-dundalk-1",
+			"start": "sligo",
+			"end": "dundalk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "galway-tullamore-1",
+			"start": "galway",
+			"end": "tullamore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "galway-tullamore",
+			"claim": "route"
+		},
+		{
+			"id": "galway-tullamore-2",
+			"start": "galway",
+			"end": "tullamore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "galway-tullamore",
+			"claim": "route"
+		},
+		{
+			"id": "galway-limerick-1",
+			"start": "galway",
+			"end": "limerick",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "belfast-dundalk-1",
+			"start": "belfast",
+			"end": "dundalk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "belfast-dundalk",
+			"claim": "route"
+		},
+		{
+			"id": "belfast-dundalk-2",
+			"start": "belfast",
+			"end": "dundalk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "belfast-dundalk",
+			"claim": "route"
+		},
+		{
+			"id": "belfast-barrow-1",
+			"start": "belfast",
+			"end": "barrow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dundalk-dublin-1",
+			"start": "dundalk",
+			"end": "dublin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "dundalk-dublin",
+			"claim": "route"
+		},
+		{
+			"id": "dundalk-dublin-2",
+			"start": "dundalk",
+			"end": "dublin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "dundalk-dublin",
+			"claim": "route"
+		},
+		{
+			"id": "dundalk-holyhead-1",
+			"start": "dundalk",
+			"end": "holyhead",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dublin-tullamore-1",
+			"start": "dublin",
+			"end": "tullamore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "dublin-tullamore",
+			"claim": "route"
+		},
+		{
+			"id": "dublin-tullamore-2",
+			"start": "dublin",
+			"end": "tullamore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "dublin-tullamore",
+			"claim": "route"
+		},
+		{
+			"id": "dublin-rosslare-1",
+			"start": "dublin",
+			"end": "rosslare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "dublin-rosslare",
+			"claim": "route"
+		},
+		{
+			"id": "dublin-rosslare-2",
+			"start": "dublin",
+			"end": "rosslare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "dublin-rosslare",
+			"claim": "route"
+		},
+		{
+			"id": "dublin-holyhead-1",
+			"start": "dublin",
+			"end": "holyhead",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tullamore-limerick-1",
+			"start": "tullamore",
+			"end": "limerick",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tullamore-cork-1",
+			"start": "tullamore",
+			"end": "cork",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tullamore-rosslare-1",
+			"start": "tullamore",
+			"end": "rosslare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "limerick-cork-1",
+			"start": "limerick",
+			"end": "cork",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cork-rosslare-1",
+			"start": "cork",
+			"end": "rosslare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cork-penzance-1",
+			"start": "cork",
+			"end": "penzance",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rosslare-holyhead-1",
+			"start": "rosslare",
+			"end": "holyhead",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rosslare-aberystwyth-1",
+			"start": "rosslare",
+			"end": "aberystwyth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rosslare-carmarthen-1",
+			"start": "rosslare",
+			"end": "carmarthen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "carlisle-newcastle-1",
+			"start": "carlisle",
+			"end": "newcastle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "carlisle-barrow-1",
+			"start": "carlisle",
+			"end": "barrow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "newcastle-leeds-1",
+			"start": "newcastle",
+			"end": "leeds",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "newcastle-leeds",
+			"claim": "route"
+		},
+		{
+			"id": "newcastle-leeds-2",
+			"start": "newcastle",
+			"end": "leeds",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "newcastle-leeds",
+			"claim": "route"
+		},
+		{
+			"id": "newcastle-hull-1",
+			"start": "newcastle",
+			"end": "hull",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "barrow-leeds-1",
+			"start": "barrow",
+			"end": "leeds",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "barrow-liverpool-1",
+			"start": "barrow",
+			"end": "liverpool",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "holyhead-liverpool-1",
+			"start": "holyhead",
+			"end": "liverpool",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "holyhead-aberystwyth-1",
+			"start": "holyhead",
+			"end": "aberystwyth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "holyhead-llandrindod-wells-1",
+			"start": "holyhead",
+			"end": "llandrindod-wells",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "liverpool-leeds-1",
+			"start": "liverpool",
+			"end": "leeds",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "liverpool-manchester-1",
+			"start": "liverpool",
+			"end": "manchester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "liverpool-manchester",
+			"claim": "route"
+		},
+		{
+			"id": "liverpool-manchester-2",
+			"start": "liverpool",
+			"end": "manchester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "liverpool-manchester",
+			"claim": "route"
+		},
+		{
+			"id": "leeds-manchester-1",
+			"start": "leeds",
+			"end": "manchester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "leeds-manchester",
+			"claim": "route"
+		},
+		{
+			"id": "leeds-manchester-2",
+			"start": "leeds",
+			"end": "manchester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "leeds-manchester",
+			"claim": "route"
+		},
+		{
+			"id": "leeds-hull-1",
+			"start": "leeds",
+			"end": "hull",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leeds-nottingham-1",
+			"start": "leeds",
+			"end": "nottingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hull-nottingham-1",
+			"start": "hull",
+			"end": "nottingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hull-norwich-1",
+			"start": "hull",
+			"end": "norwich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "manchester-llandrindod-wells-1",
+			"start": "manchester",
+			"end": "llandrindod-wells",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "manchester-birmingham-1",
+			"start": "manchester",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "manchester-birmingham",
+			"claim": "route"
+		},
+		{
+			"id": "manchester-birmingham-2",
+			"start": "manchester",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "manchester-birmingham",
+			"claim": "route"
+		},
+		{
+			"id": "nottingham-birmingham-1",
+			"start": "nottingham",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nottingham-northampton-1",
+			"start": "nottingham",
+			"end": "northampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nottingham-cambridge-1",
+			"start": "nottingham",
+			"end": "cambridge",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nottingham-norwich-1",
+			"start": "nottingham",
+			"end": "norwich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aberystwyth-llandrindod-wells-1",
+			"start": "aberystwyth",
+			"end": "llandrindod-wells",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aberystwyth-carmarthen-1",
+			"start": "aberystwyth",
+			"end": "carmarthen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "carmarthen-cardiff-1",
+			"start": "carmarthen",
+			"end": "cardiff",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "llandrindod-wells-cardiff-1",
+			"start": "llandrindod-wells",
+			"end": "cardiff",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "llandrindod-wells-birmingham-1",
+			"start": "llandrindod-wells",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cardiff-birmingham-1",
+			"start": "cardiff",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "cardiff-birmingham",
+			"claim": "route"
+		},
+		{
+			"id": "cardiff-birmingham-2",
+			"start": "cardiff",
+			"end": "birmingham",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cardiff-birmingham",
+			"claim": "route"
+		},
+		{
+			"id": "cardiff-bristol-1",
+			"start": "cardiff",
+			"end": "bristol",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cardiff-penzance-1",
+			"start": "cardiff",
+			"end": "penzance",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "birmingham-northampton-1",
+			"start": "birmingham",
+			"end": "northampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "birmingham-northampton",
+			"claim": "route"
+		},
+		{
+			"id": "birmingham-northampton-2",
+			"start": "birmingham",
+			"end": "northampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "birmingham-northampton",
+			"claim": "route"
+		},
+		{
+			"id": "birmingham-reading-1",
+			"start": "birmingham",
+			"end": "reading",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "northampton-cambridge-1",
+			"start": "northampton",
+			"end": "cambridge",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "northampton-reading-1",
+			"start": "northampton",
+			"end": "reading",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "northampton-london-1",
+			"start": "northampton",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "northampton-london",
+			"claim": "route"
+		},
+		{
+			"id": "northampton-london-2",
+			"start": "northampton",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "northampton-london",
+			"claim": "route"
+		},
+		{
+			"id": "cambridge-norwich-1",
+			"start": "cambridge",
+			"end": "norwich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cambridge-ipswich-1",
+			"start": "cambridge",
+			"end": "ipswich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cambridge-london-1",
+			"start": "cambridge",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cambridge-london",
+			"claim": "route"
+		},
+		{
+			"id": "cambridge-london-2",
+			"start": "cambridge",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "cambridge-london",
+			"claim": "route"
+		},
+		{
+			"id": "norwich-ipswich-1",
+			"start": "norwich",
+			"end": "ipswich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ipswich-london-1",
+			"start": "ipswich",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reading-london-1",
+			"start": "reading",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reading-bristol-1",
+			"start": "reading",
+			"end": "bristol",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reading-southampton-1",
+			"start": "reading",
+			"end": "southampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bristol-plymouth-1",
+			"start": "bristol",
+			"end": "plymouth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bristol-southampton-1",
+			"start": "bristol",
+			"end": "southampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "plymouth-penzance-1",
+			"start": "plymouth",
+			"end": "penzance",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "plymouth-penzance-2",
+			"start": "plymouth",
+			"end": "penzance",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "plymouth-southampton-1",
+			"start": "plymouth",
+			"end": "southampton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "southampton-london-1",
+			"start": "southampton",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "southampton-london",
+			"claim": "route"
+		},
+		{
+			"id": "southampton-london-2",
+			"start": "southampton",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "southampton-london",
+			"claim": "route"
+		},
+		{
+			"id": "southampton-brighton-1",
+			"start": "southampton",
+			"end": "brighton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "southampton-france-1-1",
+			"start": "southampton",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "southampton-france-1",
+			"claim": "route"
+		},
+		{
+			"id": "southampton-france-1-2",
+			"start": "southampton",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "southampton-france-1",
+			"claim": "route"
+		},
+		{
+			"id": "southampton-new-york-1",
+			"start": "southampton",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route",
+			"points": 40,
+			"technologyExempt": true
+		},
+		{
+			"id": "london-brighton-1",
+			"start": "london",
+			"end": "brighton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "london-dover-1",
+			"start": "london",
+			"end": "dover",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dover-brighton-1",
+			"start": "dover",
+			"end": "brighton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dover-france-0-1",
+			"start": "dover",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "dundee-edinburgh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "glasgow-edinburgh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "edinburgh-newcastle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "galway-tullamore",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "belfast-dundalk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dundalk-dublin",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dublin-tullamore",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dublin-rosslare",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "newcastle-leeds",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "liverpool-manchester",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "leeds-manchester",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "manchester-birmingham",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cardiff-birmingham",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "birmingham-northampton",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "northampton-london",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cambridge-london",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "southampton-london",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "southampton-france-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

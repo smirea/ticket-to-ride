@@ -5,7 +5,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./env": "./src/env.ts",
-		"./package.json": "./package.json"
+		"./package.json": "./package.json",
+		"./map-schema": "./src/map-schema.ts"
 	},
 	"dependencies": {
 		"xstate": "^5.32.5",

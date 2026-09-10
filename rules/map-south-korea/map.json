@@ -1,0 +1,3076 @@
+{
+	"schemaVersion": 1,
+	"id": "south-korea",
+	"name": "South Korea",
+	"image": {
+		"file": "map.png",
+		"width": 920,
+		"height": 1200
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["express-trains", "province-mat"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "paju",
+			"name": "Paju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18913,
+					"y": 0.10333
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chuncheon",
+			"name": "Chuncheon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.425,
+					"y": 0.10083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gangneung",
+			"name": "Gangneung",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71739,
+					"y": 0.10417
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "donghae",
+			"name": "Donghae",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77609,
+					"y": 0.19167
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "seoul",
+			"name": "Seoul",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23696,
+					"y": 0.21083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "incheon",
+			"name": "Incheon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14348,
+					"y": 0.23833
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "suwon",
+			"name": "Suwon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.22391,
+					"y": 0.27667
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wonju",
+			"name": "Wonju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4663,
+					"y": 0.24167
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "taebaek",
+			"name": "Taebaek",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79674,
+					"y": 0.28917
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "jecheon",
+			"name": "Jecheon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55652,
+					"y": 0.31917
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "yeongju",
+			"name": "Yeongju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67283,
+					"y": 0.37167
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cheonan",
+			"name": "Cheonan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28043,
+					"y": 0.39333
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cheongju",
+			"name": "Cheongju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36087,
+					"y": 0.42083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sejong",
+			"name": "Sejong",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.29022,
+					"y": 0.46
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "boryeong",
+			"name": "Boryeong",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1413,
+					"y": 0.515
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "daejeon",
+			"name": "Daejeon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35543,
+					"y": 0.5225
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sangju",
+			"name": "Sangju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57065,
+					"y": 0.47583
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "andong",
+			"name": "Andong",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69565,
+					"y": 0.43083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gumi",
+			"name": "Gumi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.63913,
+					"y": 0.56333
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pohang",
+			"name": "Pohang",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88152,
+					"y": 0.54917
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "daegu",
+			"name": "Daegu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69457,
+					"y": 0.61583
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "iksan",
+			"name": "Iksan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25761,
+					"y": 0.59667
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gunsan",
+			"name": "Gunsan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.175,
+					"y": 0.61917
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "jeonju",
+			"name": "Jeonju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28804,
+					"y": 0.65833
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "namwon",
+			"name": "Namwon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35435,
+					"y": 0.75167
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ulsan",
+			"name": "Ulsan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88587,
+					"y": 0.69333
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "busan",
+			"name": "Busan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.825,
+					"y": 0.78917
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "changwon",
+			"name": "Changwon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68913,
+					"y": 0.78
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "jinju",
+			"name": "Jinju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55217,
+					"y": 0.785
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gwangju",
+			"name": "Gwangju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24239,
+					"y": 0.805
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "suncheon",
+			"name": "Suncheon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38261,
+					"y": 0.86083
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mokpo",
+			"name": "Mokpo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12717,
+					"y": 0.89417
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "yeosu",
+			"name": "Yeosu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46522,
+					"y": 0.90917
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "paju-chuncheon-1",
+			"start": "paju",
+			"end": "chuncheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paju-incheon-1",
+			"start": "paju",
+			"end": "incheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paju-seoul-1",
+			"start": "paju",
+			"end": "seoul",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "paju-seoul",
+			"claim": "route"
+		},
+		{
+			"id": "paju-seoul-2",
+			"start": "paju",
+			"end": "seoul",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "paju-seoul",
+			"claim": "route"
+		},
+		{
+			"id": "chuncheon-seoul-1",
+			"start": "chuncheon",
+			"end": "seoul",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chuncheon-wonju-1",
+			"start": "chuncheon",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chuncheon-gangneung-1",
+			"start": "chuncheon",
+			"end": "gangneung",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gangneung-wonju-1",
+			"start": "gangneung",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gangneung-donghae-1",
+			"start": "gangneung",
+			"end": "donghae",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "donghae-wonju-1",
+			"start": "donghae",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "donghae-taebaek-1",
+			"start": "donghae",
+			"end": "taebaek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "seoul-wonju-1",
+			"start": "seoul",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seoul-wonju",
+			"claim": "route"
+		},
+		{
+			"id": "seoul-wonju-2",
+			"start": "seoul",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "seoul-wonju",
+			"claim": "route"
+		},
+		{
+			"id": "seoul-incheon-1",
+			"start": "seoul",
+			"end": "incheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seoul-incheon",
+			"claim": "route"
+		},
+		{
+			"id": "seoul-incheon-2",
+			"start": "seoul",
+			"end": "incheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seoul-incheon",
+			"claim": "route"
+		},
+		{
+			"id": "seoul-suwon-1",
+			"start": "seoul",
+			"end": "suwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seoul-suwon",
+			"claim": "route"
+		},
+		{
+			"id": "seoul-suwon-2",
+			"start": "seoul",
+			"end": "suwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seoul-suwon",
+			"claim": "route"
+		},
+		{
+			"id": "incheon-suwon-1",
+			"start": "incheon",
+			"end": "suwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "incheon-suwon",
+			"claim": "route"
+		},
+		{
+			"id": "incheon-suwon-2",
+			"start": "incheon",
+			"end": "suwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "incheon-suwon",
+			"claim": "route"
+		},
+		{
+			"id": "incheon-cheonan-1",
+			"start": "incheon",
+			"end": "cheonan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "incheon-cheonan",
+			"claim": "route"
+		},
+		{
+			"id": "incheon-cheonan-2",
+			"start": "incheon",
+			"end": "cheonan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "incheon-cheonan",
+			"claim": "route"
+		},
+		{
+			"id": "suwon-wonju-1",
+			"start": "suwon",
+			"end": "wonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suwon-cheonan-1",
+			"start": "suwon",
+			"end": "cheonan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "suwon-cheonan",
+			"claim": "route"
+		},
+		{
+			"id": "suwon-cheonan-2",
+			"start": "suwon",
+			"end": "cheonan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "suwon-cheonan",
+			"claim": "route"
+		},
+		{
+			"id": "wonju-jecheon-1",
+			"start": "wonju",
+			"end": "jecheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "wonju-jecheon",
+			"claim": "route"
+		},
+		{
+			"id": "wonju-jecheon-2",
+			"start": "wonju",
+			"end": "jecheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "wonju-jecheon",
+			"claim": "route"
+		},
+		{
+			"id": "wonju-cheongju-1",
+			"start": "wonju",
+			"end": "cheongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jecheon-taebaek-1",
+			"start": "jecheon",
+			"end": "taebaek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jecheon-yeongju-1",
+			"start": "jecheon",
+			"end": "yeongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jecheon-cheongju-1",
+			"start": "jecheon",
+			"end": "cheongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jecheon-sangju-1",
+			"start": "jecheon",
+			"end": "sangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "taebaek-yeongju-1",
+			"start": "taebaek",
+			"end": "yeongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "taebaek-pohang-1",
+			"start": "taebaek",
+			"end": "pohang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cheonan-cheongju-1",
+			"start": "cheonan",
+			"end": "cheongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cheonan-cheongju",
+			"claim": "route"
+		},
+		{
+			"id": "cheonan-cheongju-2",
+			"start": "cheonan",
+			"end": "cheongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "cheonan-cheongju",
+			"claim": "route"
+		},
+		{
+			"id": "cheonan-sejong-1",
+			"start": "cheonan",
+			"end": "sejong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cheonan-sejong",
+			"claim": "route"
+		},
+		{
+			"id": "cheonan-sejong-2",
+			"start": "cheonan",
+			"end": "sejong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cheonan-sejong",
+			"claim": "route"
+		},
+		{
+			"id": "cheongju-sejong-1",
+			"start": "cheongju",
+			"end": "sejong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "cheongju-sejong",
+			"claim": "route"
+		},
+		{
+			"id": "cheongju-sejong-2",
+			"start": "cheongju",
+			"end": "sejong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "cheongju-sejong",
+			"claim": "route"
+		},
+		{
+			"id": "cheongju-daejeon-1",
+			"start": "cheongju",
+			"end": "daejeon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "cheongju-daejeon",
+			"claim": "route"
+		},
+		{
+			"id": "cheongju-daejeon-2",
+			"start": "cheongju",
+			"end": "daejeon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "cheongju-daejeon",
+			"claim": "route"
+		},
+		{
+			"id": "cheongju-sangju-1",
+			"start": "cheongju",
+			"end": "sangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sejong-boryeong-1",
+			"start": "sejong",
+			"end": "boryeong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sejong-daejeon-1",
+			"start": "sejong",
+			"end": "daejeon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "sejong-daejeon",
+			"claim": "route"
+		},
+		{
+			"id": "sejong-daejeon-2",
+			"start": "sejong",
+			"end": "daejeon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "sejong-daejeon",
+			"claim": "route"
+		},
+		{
+			"id": "boryeong-daejeon-1",
+			"start": "boryeong",
+			"end": "daejeon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "boryeong-iksan-1",
+			"start": "boryeong",
+			"end": "iksan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "boryeong-gunsan-1",
+			"start": "boryeong",
+			"end": "gunsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "daejeon-iksan-1",
+			"start": "daejeon",
+			"end": "iksan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "daejeon-iksan",
+			"claim": "route"
+		},
+		{
+			"id": "daejeon-iksan-2",
+			"start": "daejeon",
+			"end": "iksan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "daejeon-iksan",
+			"claim": "route"
+		},
+		{
+			"id": "daejeon-daegu-1",
+			"start": "daejeon",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "daejeon-daegu",
+			"claim": "route"
+		},
+		{
+			"id": "daejeon-daegu-2",
+			"start": "daejeon",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "daejeon-daegu",
+			"claim": "route"
+		},
+		{
+			"id": "iksan-gunsan-1",
+			"start": "iksan",
+			"end": "gunsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "iksan-gunsan",
+			"claim": "route"
+		},
+		{
+			"id": "iksan-gunsan-2",
+			"start": "iksan",
+			"end": "gunsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "iksan-gunsan",
+			"claim": "route"
+		},
+		{
+			"id": "iksan-jeonju-1",
+			"start": "iksan",
+			"end": "jeonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "iksan-jeonju",
+			"claim": "route"
+		},
+		{
+			"id": "iksan-jeonju-2",
+			"start": "iksan",
+			"end": "jeonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "iksan-jeonju",
+			"claim": "route"
+		},
+		{
+			"id": "gunsan-jeonju-1",
+			"start": "gunsan",
+			"end": "jeonju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gunsan-gwangju-1",
+			"start": "gunsan",
+			"end": "gwangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gunsan-mokpo-1",
+			"start": "gunsan",
+			"end": "mokpo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jeonju-namwon-1",
+			"start": "jeonju",
+			"end": "namwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jeonju-gwangju-1",
+			"start": "jeonju",
+			"end": "gwangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "jeonju-gwangju",
+			"claim": "route"
+		},
+		{
+			"id": "jeonju-gwangju-2",
+			"start": "jeonju",
+			"end": "gwangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "jeonju-gwangju",
+			"claim": "route"
+		},
+		{
+			"id": "jeonju-jinju-1",
+			"start": "jeonju",
+			"end": "jinju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "namwon-gwangju-1",
+			"start": "namwon",
+			"end": "gwangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "namwon-suncheon-1",
+			"start": "namwon",
+			"end": "suncheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "namwon-jinju-1",
+			"start": "namwon",
+			"end": "jinju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gwangju-mokpo-1",
+			"start": "gwangju",
+			"end": "mokpo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "gwangju-mokpo",
+			"claim": "route"
+		},
+		{
+			"id": "gwangju-mokpo-2",
+			"start": "gwangju",
+			"end": "mokpo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "gwangju-mokpo",
+			"claim": "route"
+		},
+		{
+			"id": "gwangju-suncheon-1",
+			"start": "gwangju",
+			"end": "suncheon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suncheon-jinju-1",
+			"start": "suncheon",
+			"end": "jinju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "suncheon-jinju",
+			"claim": "route"
+		},
+		{
+			"id": "suncheon-jinju-2",
+			"start": "suncheon",
+			"end": "jinju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "suncheon-jinju",
+			"claim": "route"
+		},
+		{
+			"id": "suncheon-yeosu-1",
+			"start": "suncheon",
+			"end": "yeosu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mokpo-yeosu-1",
+			"start": "mokpo",
+			"end": "yeosu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jinju-yeosu-1",
+			"start": "jinju",
+			"end": "yeosu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "jinju-yeosu",
+			"claim": "route"
+		},
+		{
+			"id": "jinju-yeosu-2",
+			"start": "jinju",
+			"end": "yeosu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "jinju-yeosu",
+			"claim": "route"
+		},
+		{
+			"id": "jinju-changwon-1",
+			"start": "jinju",
+			"end": "changwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "jinju-changwon",
+			"claim": "route"
+		},
+		{
+			"id": "jinju-changwon-2",
+			"start": "jinju",
+			"end": "changwon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "jinju-changwon",
+			"claim": "route"
+		},
+		{
+			"id": "changwon-yeosu-1",
+			"start": "changwon",
+			"end": "yeosu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "changwon-busan-1",
+			"start": "changwon",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "changwon-busan",
+			"claim": "route"
+		},
+		{
+			"id": "changwon-busan-2",
+			"start": "changwon",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "changwon-busan",
+			"claim": "route"
+		},
+		{
+			"id": "changwon-daegu-1",
+			"start": "changwon",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jinju-daegu-1",
+			"start": "jinju",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "daegu-busan-1",
+			"start": "daegu",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "daegu-busan",
+			"claim": "route"
+		},
+		{
+			"id": "daegu-busan-2",
+			"start": "daegu",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "daegu-busan",
+			"claim": "route"
+		},
+		{
+			"id": "daegu-ulsan-1",
+			"start": "daegu",
+			"end": "ulsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "daegu-pohang-1",
+			"start": "daegu",
+			"end": "pohang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "daegu-pohang",
+			"claim": "route"
+		},
+		{
+			"id": "daegu-pohang-2",
+			"start": "daegu",
+			"end": "pohang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "daegu-pohang",
+			"claim": "route"
+		},
+		{
+			"id": "pohang-ulsan-1",
+			"start": "pohang",
+			"end": "ulsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pohang-ulsan",
+			"claim": "route"
+		},
+		{
+			"id": "pohang-ulsan-2",
+			"start": "pohang",
+			"end": "ulsan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "pohang-ulsan",
+			"claim": "route"
+		},
+		{
+			"id": "ulsan-busan-1",
+			"start": "ulsan",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "ulsan-busan",
+			"claim": "route"
+		},
+		{
+			"id": "ulsan-busan-2",
+			"start": "ulsan",
+			"end": "busan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "ulsan-busan",
+			"claim": "route"
+		},
+		{
+			"id": "gumi-daegu-1",
+			"start": "gumi",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "gumi-daegu",
+			"claim": "route"
+		},
+		{
+			"id": "gumi-daegu-2",
+			"start": "gumi",
+			"end": "daegu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "gumi-daegu",
+			"claim": "route"
+		},
+		{
+			"id": "sangju-gumi-1",
+			"start": "sangju",
+			"end": "gumi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "andong-gumi-1",
+			"start": "andong",
+			"end": "gumi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "andong-sangju-1",
+			"start": "andong",
+			"end": "sangju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "andong-yeongju-1",
+			"start": "andong",
+			"end": "yeongju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "andong-pohang-1",
+			"start": "andong",
+			"end": "pohang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "paju-seoul",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "seoul-wonju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "seoul-incheon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "seoul-suwon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "incheon-suwon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "incheon-cheonan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "suwon-cheonan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "wonju-jecheon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cheonan-cheongju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cheonan-sejong",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cheongju-sejong",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cheongju-daejeon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sejong-daejeon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "daejeon-iksan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "daejeon-daegu",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "iksan-gunsan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "iksan-jeonju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "jeonju-gwangju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "gwangju-mokpo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "suncheon-jinju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "jinju-yeosu",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "jinju-changwon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "changwon-busan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "daegu-busan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "daegu-pohang",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pohang-ulsan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ulsan-busan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "gumi-daegu",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

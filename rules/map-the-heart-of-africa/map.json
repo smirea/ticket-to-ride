@@ -1,0 +1,3521 @@
+{
+	"schemaVersion": 1,
+	"id": "the-heart-of-africa",
+	"name": "The Heart of Africa",
+	"image": {
+		"file": "map.png",
+		"width": 2550,
+		"height": 3799
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["terrain-cards", "ferries"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "ngaoundere",
+			"name": "Ngaoundéré",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.27891,
+					"y": 0.14376
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "douala",
+			"name": "Douala",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11484,
+					"y": 0.20567
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "libreville",
+			"name": "Libreville",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.09844,
+					"y": 0.26495
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bangui",
+			"name": "Bangui",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34687,
+					"y": 0.25603
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bondo",
+			"name": "Bondo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48203,
+					"y": 0.23557
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fachoda",
+			"name": "Fachoda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62578,
+					"y": 0.1086
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "addis-ababa",
+			"name": "Addis Ababa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9,
+					"y": 0.1511
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bogoro",
+			"name": "Bogoro",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69141,
+					"y": 0.29643
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "port-florence",
+			"name": "Port Florence",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8125,
+					"y": 0.33316
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mombasa",
+			"name": "Mombasa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89687,
+					"y": 0.42445
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dar-es-salaam",
+			"name": "Dar-es-Salaam",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89922,
+					"y": 0.48059
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cabinda",
+			"name": "Cabinda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14766,
+					"y": 0.38353
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "leopoldville",
+			"name": "Léopoldville",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24688,
+					"y": 0.36936
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "luanda",
+			"name": "Luanda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16484,
+					"y": 0.44124
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ujiji",
+			"name": "Ujiji",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61328,
+					"y": 0.44229
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "elizabethville",
+			"name": "Elizabethville",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6,
+					"y": 0.49948
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "livingstonia",
+			"name": "Livingstonia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73203,
+					"y": 0.51784
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mocamedes",
+			"name": "Moçâmedes",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11406,
+					"y": 0.56034
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "serpa-pinto",
+			"name": "Serpa Pinto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36719,
+					"y": 0.58709
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zomba",
+			"name": "Zomba",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.75469,
+					"y": 0.60651
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mocambique",
+			"name": "Moçambique",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90312,
+					"y": 0.63221
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "salisbury",
+			"name": "Salisbury",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62891,
+					"y": 0.64061
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "beira",
+			"name": "Beira",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73672,
+					"y": 0.70147
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bulawayo",
+			"name": "Bulawayo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58906,
+					"y": 0.6915
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "windhoek",
+			"name": "Windhoek",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25391,
+					"y": 0.70619
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "walvis-bay",
+			"name": "Walvis Bay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15703,
+					"y": 0.71511
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pretoria",
+			"name": "Pretoria",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51406,
+					"y": 0.766
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "port-nolloth",
+			"name": "Port Nolloth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.19219,
+					"y": 0.83421
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bloemfontein",
+			"name": "Bloemfontein",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4125,
+					"y": 0.83631
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "durban",
+			"name": "Durban",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60469,
+					"y": 0.83211
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cape-town",
+			"name": "Cape Town",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.20703,
+					"y": 0.92392
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "port-elizabeth",
+			"name": "Port Elizabeth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39297,
+					"y": 0.9297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "east-london",
+			"name": "East London",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47734,
+					"y": 0.9192
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-northwest",
+			"name": "Unnamed northwestern junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.40703,
+					"y": 0.16369
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-northeast",
+			"name": "Unnamed northeastern junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.74062,
+					"y": 0.21091
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-east",
+			"name": "Unnamed eastern junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.89687,
+					"y": 0.30535
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-upper-congo",
+			"name": "Unnamed upper Congo junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.47031,
+					"y": 0.32529
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-lower-congo",
+			"name": "Unnamed lower Congo junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.48984,
+					"y": 0.47744
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-angola-north",
+			"name": "Unnamed northern Angola junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.26328,
+					"y": 0.52623
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-angola-south",
+			"name": "Unnamed southern Angola junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.23359,
+					"y": 0.61805
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-central-south",
+			"name": "Unnamed south-central junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.50547,
+					"y": 0.60283
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-namibia",
+			"name": "Unnamed Namibia junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.38594,
+					"y": 0.67891
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-coast",
+			"name": "Unnamed coastal junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.7875,
+					"y": 0.47009
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nigeria",
+			"name": "Nigeria",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.13203,
+					"y": 0.13484
+				},
+				{
+					"x": 0.14844,
+					"y": 0.07293
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "chad",
+			"name": "Chad",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.46094,
+					"y": 0.06401
+				},
+				{
+					"x": 0.46328,
+					"y": 0.08762
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "sudan",
+			"name": "Sudan",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.75,
+					"y": 0.07293
+				},
+				{
+					"x": 0.80312,
+					"y": 0.04669
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "madagascar",
+			"name": "Madagascar",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.90312,
+					"y": 0.75184
+				},
+				{
+					"x": 0.90078,
+					"y": 0.91028
+				}
+			],
+			"connectivity": "separate"
+		}
+	],
+	"connections": [
+		{
+			"id": "ngaoundere-nigeria-1-1",
+			"start": "ngaoundere",
+			"end": "nigeria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ngaoundere-nigeria-1",
+			"claim": "route"
+		},
+		{
+			"id": "ngaoundere-nigeria-1-2",
+			"start": "ngaoundere",
+			"end": "nigeria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ngaoundere-nigeria-1",
+			"claim": "route"
+		},
+		{
+			"id": "ngaoundere-chad-0-1",
+			"start": "ngaoundere",
+			"end": "chad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ngaoundere-junction-northwest-1",
+			"start": "ngaoundere",
+			"end": "junction-northwest",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ngaoundere-douala-1",
+			"start": "ngaoundere",
+			"end": "douala",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ngaoundere-bangui-1",
+			"start": "ngaoundere",
+			"end": "bangui",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "douala-nigeria-0-1",
+			"start": "douala",
+			"end": "nigeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "douala-nigeria-0",
+			"claim": "route"
+		},
+		{
+			"id": "douala-nigeria-0-2",
+			"start": "douala",
+			"end": "nigeria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "douala-nigeria-0",
+			"claim": "route"
+		},
+		{
+			"id": "douala-libreville-1",
+			"start": "douala",
+			"end": "libreville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "douala-libreville",
+			"claim": "route"
+		},
+		{
+			"id": "douala-libreville-2",
+			"start": "douala",
+			"end": "libreville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "douala-libreville",
+			"claim": "route"
+		},
+		{
+			"id": "douala-bangui-1",
+			"start": "douala",
+			"end": "bangui",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "libreville-bangui-1",
+			"start": "libreville",
+			"end": "bangui",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "libreville-cabinda-1",
+			"start": "libreville",
+			"end": "cabinda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "libreville-cabinda",
+			"claim": "route"
+		},
+		{
+			"id": "libreville-cabinda-2",
+			"start": "libreville",
+			"end": "cabinda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "libreville-cabinda",
+			"claim": "route"
+		},
+		{
+			"id": "libreville-leopoldville-1",
+			"start": "libreville",
+			"end": "leopoldville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bangui-bondo-1",
+			"start": "bangui",
+			"end": "bondo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bangui-junction-northwest-1",
+			"start": "bangui",
+			"end": "junction-northwest",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bangui-leopoldville-1",
+			"start": "bangui",
+			"end": "leopoldville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-northwest-chad-1-1",
+			"start": "junction-northwest",
+			"end": "chad",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-northwest-bondo-1",
+			"start": "junction-northwest",
+			"end": "bondo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-northwest-fachoda-1",
+			"start": "junction-northwest",
+			"end": "fachoda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bondo-fachoda-1",
+			"start": "bondo",
+			"end": "fachoda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bondo-bogoro-1",
+			"start": "bondo",
+			"end": "bogoro",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bondo-junction-upper-congo-1",
+			"start": "bondo",
+			"end": "junction-upper-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fachoda-sudan-0-1",
+			"start": "fachoda",
+			"end": "sudan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fachoda-addis-ababa-1",
+			"start": "fachoda",
+			"end": "addis-ababa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fachoda-junction-northeast-1",
+			"start": "fachoda",
+			"end": "junction-northeast",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "addis-ababa-sudan-1-1",
+			"start": "addis-ababa",
+			"end": "sudan",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "addis-ababa-sudan-1",
+			"claim": "route"
+		},
+		{
+			"id": "addis-ababa-sudan-1-2",
+			"start": "addis-ababa",
+			"end": "sudan",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "addis-ababa-sudan-1",
+			"claim": "route"
+		},
+		{
+			"id": "addis-ababa-junction-northeast-1",
+			"start": "addis-ababa",
+			"end": "junction-northeast",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "addis-ababa-port-florence-1",
+			"start": "addis-ababa",
+			"end": "port-florence",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "addis-ababa-junction-east-1",
+			"start": "addis-ababa",
+			"end": "junction-east",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-northeast-bogoro-1",
+			"start": "junction-northeast",
+			"end": "bogoro",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-northeast-port-florence-1",
+			"start": "junction-northeast",
+			"end": "port-florence",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bogoro-port-florence-1",
+			"start": "bogoro",
+			"end": "port-florence",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bogoro-ujiji-1",
+			"start": "bogoro",
+			"end": "ujiji",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bogoro-junction-upper-congo-1",
+			"start": "bogoro",
+			"end": "junction-upper-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "port-florence-junction-east-1",
+			"start": "port-florence",
+			"end": "junction-east",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "port-florence-mombasa-1",
+			"start": "port-florence",
+			"end": "mombasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-east-mombasa-1",
+			"start": "junction-east",
+			"end": "mombasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mombasa-junction-coast-1",
+			"start": "mombasa",
+			"end": "junction-coast",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mombasa-dar-es-salaam-1",
+			"start": "mombasa",
+			"end": "dar-es-salaam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "mombasa-dar-es-salaam",
+			"claim": "route"
+		},
+		{
+			"id": "mombasa-dar-es-salaam-2",
+			"start": "mombasa",
+			"end": "dar-es-salaam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "mombasa-dar-es-salaam",
+			"claim": "route"
+		},
+		{
+			"id": "dar-es-salaam-livingstonia-1",
+			"start": "dar-es-salaam",
+			"end": "livingstonia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dar-es-salaam-mocambique-1",
+			"start": "dar-es-salaam",
+			"end": "mocambique",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dar-es-salaam-mocambique",
+			"claim": "route"
+		},
+		{
+			"id": "dar-es-salaam-mocambique-2",
+			"start": "dar-es-salaam",
+			"end": "mocambique",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dar-es-salaam-mocambique",
+			"claim": "route"
+		},
+		{
+			"id": "junction-coast-livingstonia-1",
+			"start": "junction-coast",
+			"end": "livingstonia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-coast-ujiji-1",
+			"start": "junction-coast",
+			"end": "ujiji",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ujiji-elizabethville-1",
+			"start": "ujiji",
+			"end": "elizabethville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ujiji-junction-lower-congo-1",
+			"start": "ujiji",
+			"end": "junction-lower-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elizabethville-livingstonia-1",
+			"start": "elizabethville",
+			"end": "livingstonia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elizabethville-salisbury-1",
+			"start": "elizabethville",
+			"end": "salisbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elizabethville-junction-central-south-1",
+			"start": "elizabethville",
+			"end": "junction-central-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "livingstonia-zomba-1",
+			"start": "livingstonia",
+			"end": "zomba",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zomba-salisbury-1",
+			"start": "zomba",
+			"end": "salisbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zomba-beira-1",
+			"start": "zomba",
+			"end": "beira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zomba-mocambique-1",
+			"start": "zomba",
+			"end": "mocambique",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mocambique-beira-1",
+			"start": "mocambique",
+			"end": "beira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mocambique-beira",
+			"claim": "route"
+		},
+		{
+			"id": "mocambique-beira-2",
+			"start": "mocambique",
+			"end": "beira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mocambique-beira",
+			"claim": "route"
+		},
+		{
+			"id": "mocambique-madagascar-0-1",
+			"start": "mocambique",
+			"end": "madagascar",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mocambique-madagascar-0",
+			"claim": "route"
+		},
+		{
+			"id": "mocambique-madagascar-0-2",
+			"start": "mocambique",
+			"end": "madagascar",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mocambique-madagascar-0",
+			"claim": "route"
+		},
+		{
+			"id": "madagascar-0-madagascar-1-1",
+			"start": "madagascar",
+			"end": "madagascar",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madagascar-1-durban-1",
+			"start": "madagascar",
+			"end": "durban",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "madagascar-1-durban",
+			"claim": "route"
+		},
+		{
+			"id": "madagascar-1-durban-2",
+			"start": "madagascar",
+			"end": "durban",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "madagascar-1-durban",
+			"claim": "route"
+		},
+		{
+			"id": "cabinda-leopoldville-1",
+			"start": "cabinda",
+			"end": "leopoldville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "cabinda-leopoldville",
+			"claim": "route"
+		},
+		{
+			"id": "cabinda-leopoldville-2",
+			"start": "cabinda",
+			"end": "leopoldville",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "cabinda-leopoldville",
+			"claim": "route"
+		},
+		{
+			"id": "cabinda-luanda-1",
+			"start": "cabinda",
+			"end": "luanda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "cabinda-luanda",
+			"claim": "route"
+		},
+		{
+			"id": "cabinda-luanda-2",
+			"start": "cabinda",
+			"end": "luanda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "cabinda-luanda",
+			"claim": "route"
+		},
+		{
+			"id": "leopoldville-luanda-1",
+			"start": "leopoldville",
+			"end": "luanda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leopoldville-junction-upper-congo-1",
+			"start": "leopoldville",
+			"end": "junction-upper-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leopoldville-junction-lower-congo-1",
+			"start": "leopoldville",
+			"end": "junction-lower-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-upper-congo-junction-lower-congo-1",
+			"start": "junction-upper-congo",
+			"end": "junction-lower-congo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-lower-congo-junction-central-south-1",
+			"start": "junction-lower-congo",
+			"end": "junction-central-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-lower-congo-junction-angola-north-1",
+			"start": "junction-lower-congo",
+			"end": "junction-angola-north",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "luanda-junction-angola-north-1",
+			"start": "luanda",
+			"end": "junction-angola-north",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "luanda-mocamedes-1",
+			"start": "luanda",
+			"end": "mocamedes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "luanda-mocamedes",
+			"claim": "route"
+		},
+		{
+			"id": "luanda-mocamedes-2",
+			"start": "luanda",
+			"end": "mocamedes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "luanda-mocamedes",
+			"claim": "route"
+		},
+		{
+			"id": "mocamedes-junction-angola-south-1",
+			"start": "mocamedes",
+			"end": "junction-angola-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mocamedes-walvis-bay-1",
+			"start": "mocamedes",
+			"end": "walvis-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "mocamedes-walvis-bay",
+			"claim": "route"
+		},
+		{
+			"id": "mocamedes-walvis-bay-2",
+			"start": "mocamedes",
+			"end": "walvis-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "mocamedes-walvis-bay",
+			"claim": "route"
+		},
+		{
+			"id": "junction-angola-north-junction-angola-south-1",
+			"start": "junction-angola-north",
+			"end": "junction-angola-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-angola-north-serpa-pinto-1",
+			"start": "junction-angola-north",
+			"end": "serpa-pinto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-angola-south-serpa-pinto-1",
+			"start": "junction-angola-south",
+			"end": "serpa-pinto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-angola-south-windhoek-1",
+			"start": "junction-angola-south",
+			"end": "windhoek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "serpa-pinto-junction-namibia-1",
+			"start": "serpa-pinto",
+			"end": "junction-namibia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-central-south-junction-namibia-1",
+			"start": "junction-central-south",
+			"end": "junction-namibia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-central-south-salisbury-1",
+			"start": "junction-central-south",
+			"end": "salisbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salisbury-beira-1",
+			"start": "salisbury",
+			"end": "beira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salisbury-bulawayo-1",
+			"start": "salisbury",
+			"end": "bulawayo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bulawayo-junction-namibia-1",
+			"start": "bulawayo",
+			"end": "junction-namibia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bulawayo-pretoria-1",
+			"start": "bulawayo",
+			"end": "pretoria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bulawayo-durban-1",
+			"start": "bulawayo",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "beira-durban-1",
+			"start": "beira",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "beira-durban",
+			"claim": "route"
+		},
+		{
+			"id": "beira-durban-2",
+			"start": "beira",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "beira-durban",
+			"claim": "route"
+		},
+		{
+			"id": "junction-namibia-windhoek-1",
+			"start": "junction-namibia",
+			"end": "windhoek",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-namibia-pretoria-1",
+			"start": "junction-namibia",
+			"end": "pretoria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-namibia-bloemfontein-1",
+			"start": "junction-namibia",
+			"end": "bloemfontein",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "windhoek-walvis-bay-1",
+			"start": "windhoek",
+			"end": "walvis-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "windhoek-port-nolloth-1",
+			"start": "windhoek",
+			"end": "port-nolloth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "walvis-bay-port-nolloth-1",
+			"start": "walvis-bay",
+			"end": "port-nolloth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "walvis-bay-port-nolloth",
+			"claim": "route"
+		},
+		{
+			"id": "walvis-bay-port-nolloth-2",
+			"start": "walvis-bay",
+			"end": "port-nolloth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "walvis-bay-port-nolloth",
+			"claim": "route"
+		},
+		{
+			"id": "pretoria-bloemfontein-1",
+			"start": "pretoria",
+			"end": "bloemfontein",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pretoria-durban-1",
+			"start": "pretoria",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "pretoria-durban",
+			"claim": "route"
+		},
+		{
+			"id": "pretoria-durban-2",
+			"start": "pretoria",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "pretoria-durban",
+			"claim": "route"
+		},
+		{
+			"id": "port-nolloth-bloemfontein-1",
+			"start": "port-nolloth",
+			"end": "bloemfontein",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "port-nolloth-cape-town-1",
+			"start": "port-nolloth",
+			"end": "cape-town",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "port-nolloth-cape-town",
+			"claim": "route"
+		},
+		{
+			"id": "port-nolloth-cape-town-2",
+			"start": "port-nolloth",
+			"end": "cape-town",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "port-nolloth-cape-town",
+			"claim": "route"
+		},
+		{
+			"id": "bloemfontein-durban-1",
+			"start": "bloemfontein",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bloemfontein-cape-town-1",
+			"start": "bloemfontein",
+			"end": "cape-town",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bloemfontein-port-elizabeth-1",
+			"start": "bloemfontein",
+			"end": "port-elizabeth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bloemfontein-east-london-1",
+			"start": "bloemfontein",
+			"end": "east-london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cape-town-port-elizabeth-1",
+			"start": "cape-town",
+			"end": "port-elizabeth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "cape-town-port-elizabeth",
+			"claim": "route"
+		},
+		{
+			"id": "cape-town-port-elizabeth-2",
+			"start": "cape-town",
+			"end": "port-elizabeth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "cape-town-port-elizabeth",
+			"claim": "route"
+		},
+		{
+			"id": "port-elizabeth-east-london-1",
+			"start": "port-elizabeth",
+			"end": "east-london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "port-elizabeth-east-london",
+			"claim": "route"
+		},
+		{
+			"id": "port-elizabeth-east-london-2",
+			"start": "port-elizabeth",
+			"end": "east-london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "port-elizabeth-east-london",
+			"claim": "route"
+		},
+		{
+			"id": "east-london-durban-1",
+			"start": "east-london",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "east-london-durban",
+			"claim": "route"
+		},
+		{
+			"id": "east-london-durban-2",
+			"start": "east-london",
+			"end": "durban",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "east-london-durban",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "ngaoundere-nigeria-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "douala-nigeria-0",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "douala-libreville",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "libreville-cabinda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "addis-ababa-sudan-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mombasa-dar-es-salaam",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dar-es-salaam-mocambique",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mocambique-beira",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mocambique-madagascar-0",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "madagascar-1-durban",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cabinda-leopoldville",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cabinda-luanda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "luanda-mocamedes",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mocamedes-walvis-bay",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "beira-durban",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "walvis-bay-port-nolloth",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pretoria-durban",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "port-nolloth-cape-town",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cape-town-port-elizabeth",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "port-elizabeth-east-london",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "east-london-durban",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,3502 @@
+{
+	"schemaVersion": 1,
+	"id": "team-asia",
+	"name": "Team Asia",
+	"image": {
+		"file": "map.png",
+		"width": 2400,
+		"height": 1600
+	},
+	"players": [4, 6],
+	"mechanics": ["tunnels", "team-play"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "kabul",
+			"name": "Kabul",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12396,
+					"y": 0.16562
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kashgar",
+			"name": "Kashgar",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25781,
+					"y": 0.1125
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dihua",
+			"name": "Dihua",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.43073,
+					"y": 0.09844
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ulan-bator",
+			"name": "Ulan Bator",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70573,
+					"y": 0.08438
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "harbin",
+			"name": "Harbin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.93906,
+					"y": 0.10547
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rawalpindi",
+			"name": "Rawalpindi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18385,
+					"y": 0.21406
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sukkur",
+			"name": "Sukkur",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.0625,
+					"y": 0.30469
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lahore",
+			"name": "Lahore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18958,
+					"y": 0.30859
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-west",
+			"name": "Unnamed western junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.28542,
+					"y": 0.30469
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "jiuquan",
+			"name": "Jiuquan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60833,
+					"y": 0.25703
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "yinchuan",
+			"name": "Yinchuan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70781,
+					"y": 0.28437
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "peking",
+			"name": "Peking",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84323,
+					"y": 0.28047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mukden",
+			"name": "Mukden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.94531,
+					"y": 0.26016
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "karachi",
+			"name": "Karachi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.0526,
+					"y": 0.40703
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "delhi",
+			"name": "Delhi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.19167,
+					"y": 0.40547
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kathmandu",
+			"name": "Kathmandu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30677,
+					"y": 0.50391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lhasa",
+			"name": "Lhasa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42292,
+					"y": 0.52031
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lanchow",
+			"name": "Lanchow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67917,
+					"y": 0.37891
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "xian",
+			"name": "Xi’an",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77031,
+					"y": 0.46016
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "baroda",
+			"name": "Baroda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.08802,
+					"y": 0.53281
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cawnpore",
+			"name": "Cawnpore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23125,
+					"y": 0.54219
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-south",
+			"name": "Unnamed southern junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.46719,
+					"y": 0.59844
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-east",
+			"name": "Unnamed eastern junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.55,
+					"y": 0.55781
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chengdu",
+			"name": "Chengdu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66927,
+					"y": 0.58984
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hankow",
+			"name": "Hankow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.81458,
+					"y": 0.54766
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shanghai",
+			"name": "Shanghai",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.92083,
+					"y": 0.53203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bombay",
+			"name": "Bombay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.07552,
+					"y": 0.62344
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nagpur",
+			"name": "Nagpur",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18073,
+					"y": 0.66406
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "calcutta",
+			"name": "Calcutta",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32188,
+					"y": 0.70781
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dacca",
+			"name": "Dacca",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38281,
+					"y": 0.67344
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kunming",
+			"name": "Kunming",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.5974,
+					"y": 0.6875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chungking",
+			"name": "Chungking",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71042,
+					"y": 0.66641
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nanchang",
+			"name": "Nanchang",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.85104,
+					"y": 0.63203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "foochow",
+			"name": "Foochow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90573,
+					"y": 0.68906
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hyderabad",
+			"name": "Hyderabad",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15052,
+					"y": 0.74297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mandalay",
+			"name": "Mandalay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46302,
+					"y": 0.76094
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nanning",
+			"name": "Nanning",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69948,
+					"y": 0.7625
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "canton",
+			"name": "Canton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.775,
+					"y": 0.775
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bangalore",
+			"name": "Bangalore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.09115,
+					"y": 0.86719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "madras",
+			"name": "Madras",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15104,
+					"y": 0.88984
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chiang-mai",
+			"name": "Chiang Mai",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51198,
+					"y": 0.85
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "vientiane",
+			"name": "Vientiane",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58073,
+					"y": 0.85938
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hanoi",
+			"name": "Hanoi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64375,
+					"y": 0.82266
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fort-bayard",
+			"name": "Fort Bayard",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72448,
+					"y": 0.85156
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hong-kong",
+			"name": "Hong Kong",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79635,
+					"y": 0.86797
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rangoon",
+			"name": "Rangoon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45833,
+					"y": 0.91016
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "kabul-kashgar-1",
+			"start": "kabul",
+			"end": "kashgar",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 4
+			},
+			"claim": "route"
+		},
+		{
+			"id": "kabul-rawalpindi-1",
+			"start": "kabul",
+			"end": "rawalpindi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 4
+			},
+			"claim": "route"
+		},
+		{
+			"id": "kabul-sukkur-1",
+			"start": "kabul",
+			"end": "sukkur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 4
+			},
+			"claim": "route"
+		},
+		{
+			"id": "kashgar-rawalpindi-1",
+			"start": "kashgar",
+			"end": "rawalpindi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"tunnel": {
+				"reveal": 6
+			},
+			"claim": "route"
+		},
+		{
+			"id": "kashgar-dihua-1",
+			"start": "kashgar",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kashgar-junction-west-1",
+			"start": "kashgar",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rawalpindi-sukkur-1",
+			"start": "rawalpindi",
+			"end": "sukkur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rawalpindi-lahore-1",
+			"start": "rawalpindi",
+			"end": "lahore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rawalpindi-junction-west-1",
+			"start": "rawalpindi",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"tunnel": {
+				"reveal": 5
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sukkur-lahore-1",
+			"start": "sukkur",
+			"end": "lahore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sukkur-karachi-1",
+			"start": "sukkur",
+			"end": "karachi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lahore-junction-west-1",
+			"start": "lahore",
+			"end": "junction-west",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 5
+			},
+			"claim": "route"
+		},
+		{
+			"id": "lahore-delhi-1",
+			"start": "lahore",
+			"end": "delhi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "lahore-delhi",
+			"claim": "route"
+		},
+		{
+			"id": "lahore-delhi-2",
+			"start": "lahore",
+			"end": "delhi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lahore-delhi",
+			"claim": "route"
+		},
+		{
+			"id": "junction-west-dihua-1",
+			"start": "junction-west",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-west-lhasa-1",
+			"start": "junction-west",
+			"end": "lhasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dihua-ulan-bator-1",
+			"start": "dihua",
+			"end": "ulan-bator",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dihua-jiuquan-1",
+			"start": "dihua",
+			"end": "jiuquan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-harbin-1",
+			"start": "ulan-bator",
+			"end": "harbin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ulan-bator-harbin",
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-harbin-2",
+			"start": "ulan-bator",
+			"end": "harbin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ulan-bator-harbin",
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-jiuquan-1",
+			"start": "ulan-bator",
+			"end": "jiuquan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-yinchuan-1",
+			"start": "ulan-bator",
+			"end": "yinchuan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-peking-1",
+			"start": "ulan-bator",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "harbin-peking-1",
+			"start": "harbin",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "harbin-mukden-1",
+			"start": "harbin",
+			"end": "mukden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "harbin-mukden",
+			"claim": "route"
+		},
+		{
+			"id": "harbin-mukden-2",
+			"start": "harbin",
+			"end": "mukden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "harbin-mukden",
+			"claim": "route"
+		},
+		{
+			"id": "mukden-peking-1",
+			"start": "mukden",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "mukden-peking",
+			"claim": "route"
+		},
+		{
+			"id": "mukden-peking-2",
+			"start": "mukden",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "mukden-peking",
+			"claim": "route"
+		},
+		{
+			"id": "peking-yinchuan-1",
+			"start": "peking",
+			"end": "yinchuan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "peking-xian-1",
+			"start": "peking",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "peking-xian",
+			"claim": "route"
+		},
+		{
+			"id": "peking-xian-2",
+			"start": "peking",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "peking-xian",
+			"claim": "route"
+		},
+		{
+			"id": "peking-shanghai-1",
+			"start": "peking",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "peking-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "peking-shanghai-2",
+			"start": "peking",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "peking-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "peking-shanghai-3",
+			"start": "peking",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "peking-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "jiuquan-yinchuan-1",
+			"start": "jiuquan",
+			"end": "yinchuan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "jiuquan-lanchow-1",
+			"start": "jiuquan",
+			"end": "lanchow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "yinchuan-lanchow-1",
+			"start": "yinchuan",
+			"end": "lanchow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lanchow-xian-1",
+			"start": "lanchow",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lanchow-chengdu-1",
+			"start": "lanchow",
+			"end": "chengdu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lanchow-junction-east-1",
+			"start": "lanchow",
+			"end": "junction-east",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "xian-chengdu-1",
+			"start": "xian",
+			"end": "chengdu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "xian-chungking-1",
+			"start": "xian",
+			"end": "chungking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "xian-hankow-1",
+			"start": "xian",
+			"end": "hankow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "xian-hankow",
+			"claim": "route"
+		},
+		{
+			"id": "xian-hankow-2",
+			"start": "xian",
+			"end": "hankow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "xian-hankow",
+			"claim": "route"
+		},
+		{
+			"id": "karachi-delhi-1",
+			"start": "karachi",
+			"end": "delhi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karachi-baroda-1",
+			"start": "karachi",
+			"end": "baroda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "delhi-baroda-1",
+			"start": "delhi",
+			"end": "baroda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "delhi-baroda",
+			"claim": "route"
+		},
+		{
+			"id": "delhi-baroda-2",
+			"start": "delhi",
+			"end": "baroda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "delhi-baroda",
+			"claim": "route"
+		},
+		{
+			"id": "delhi-cawnpore-1",
+			"start": "delhi",
+			"end": "cawnpore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "delhi-kathmandu-1",
+			"start": "delhi",
+			"end": "kathmandu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 6
+			},
+			"claim": "route"
+		},
+		{
+			"id": "baroda-bombay-1",
+			"start": "baroda",
+			"end": "bombay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "baroda-bombay",
+			"claim": "route"
+		},
+		{
+			"id": "baroda-bombay-2",
+			"start": "baroda",
+			"end": "bombay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "baroda-bombay",
+			"claim": "route"
+		},
+		{
+			"id": "baroda-cawnpore-1",
+			"start": "baroda",
+			"end": "cawnpore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cawnpore-kathmandu-1",
+			"start": "cawnpore",
+			"end": "kathmandu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 6
+			},
+			"claim": "route"
+		},
+		{
+			"id": "cawnpore-nagpur-1",
+			"start": "cawnpore",
+			"end": "nagpur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cawnpore-calcutta-1",
+			"start": "cawnpore",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cawnpore-junction-south-1",
+			"start": "cawnpore",
+			"end": "junction-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lhasa-junction-south-1",
+			"start": "lhasa",
+			"end": "junction-south",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 6
+			},
+			"claim": "route"
+		},
+		{
+			"id": "lhasa-junction-east-1",
+			"start": "lhasa",
+			"end": "junction-east",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-south-junction-east-1",
+			"start": "junction-south",
+			"end": "junction-east",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 5
+			},
+			"claim": "route"
+		},
+		{
+			"id": "junction-south-dacca-1",
+			"start": "junction-south",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-south-mandalay-1",
+			"start": "junction-south",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-south-kunming-1",
+			"start": "junction-south",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-east-chengdu-1",
+			"start": "junction-east",
+			"end": "chengdu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-east-kunming-1",
+			"start": "junction-east",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chengdu-kunming-1",
+			"start": "chengdu",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "chengdu-kunming",
+			"claim": "route"
+		},
+		{
+			"id": "chengdu-kunming-2",
+			"start": "chengdu",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "chengdu-kunming",
+			"claim": "route"
+		},
+		{
+			"id": "chengdu-chungking-1",
+			"start": "chengdu",
+			"end": "chungking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "chengdu-chungking",
+			"claim": "route"
+		},
+		{
+			"id": "chengdu-chungking-2",
+			"start": "chengdu",
+			"end": "chungking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "chengdu-chungking",
+			"claim": "route"
+		},
+		{
+			"id": "chungking-hankow-1",
+			"start": "chungking",
+			"end": "hankow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chungking-nanning-1",
+			"start": "chungking",
+			"end": "nanning",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "chungking-nanning",
+			"claim": "route"
+		},
+		{
+			"id": "chungking-nanning-2",
+			"start": "chungking",
+			"end": "nanning",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "chungking-nanning",
+			"claim": "route"
+		},
+		{
+			"id": "hankow-shanghai-1",
+			"start": "hankow",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "hankow-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "hankow-shanghai-2",
+			"start": "hankow",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "hankow-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "hankow-nanchang-1",
+			"start": "hankow",
+			"end": "nanchang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "hankow-nanchang",
+			"claim": "route"
+		},
+		{
+			"id": "hankow-nanchang-2",
+			"start": "hankow",
+			"end": "nanchang",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "hankow-nanchang",
+			"claim": "route"
+		},
+		{
+			"id": "hankow-canton-1",
+			"start": "hankow",
+			"end": "canton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nanchang-foochow-1",
+			"start": "nanchang",
+			"end": "foochow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "nanchang-foochow",
+			"claim": "route"
+		},
+		{
+			"id": "nanchang-foochow-2",
+			"start": "nanchang",
+			"end": "foochow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "nanchang-foochow",
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-foochow-1",
+			"start": "shanghai",
+			"end": "foochow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "shanghai-foochow",
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-foochow-2",
+			"start": "shanghai",
+			"end": "foochow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "shanghai-foochow",
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-foochow-3",
+			"start": "shanghai",
+			"end": "foochow",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "shanghai-foochow",
+			"claim": "route"
+		},
+		{
+			"id": "foochow-canton-1",
+			"start": "foochow",
+			"end": "canton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "foochow-canton",
+			"claim": "route"
+		},
+		{
+			"id": "foochow-canton-2",
+			"start": "foochow",
+			"end": "canton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "foochow-canton",
+			"claim": "route"
+		},
+		{
+			"id": "foochow-canton-3",
+			"start": "foochow",
+			"end": "canton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "foochow-canton",
+			"claim": "route"
+		},
+		{
+			"id": "canton-nanning-1",
+			"start": "canton",
+			"end": "nanning",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "canton-nanning",
+			"claim": "route"
+		},
+		{
+			"id": "canton-nanning-2",
+			"start": "canton",
+			"end": "nanning",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "canton-nanning",
+			"claim": "route"
+		},
+		{
+			"id": "canton-hong-kong-1",
+			"start": "canton",
+			"end": "hong-kong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "canton-hong-kong",
+			"claim": "route"
+		},
+		{
+			"id": "canton-hong-kong-2",
+			"start": "canton",
+			"end": "hong-kong",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "canton-hong-kong",
+			"claim": "route"
+		},
+		{
+			"id": "canton-fort-bayard-1",
+			"start": "canton",
+			"end": "fort-bayard",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nanning-fort-bayard-1",
+			"start": "nanning",
+			"end": "fort-bayard",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nanning-hanoi-1",
+			"start": "nanning",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "nanning-hanoi",
+			"claim": "route"
+		},
+		{
+			"id": "nanning-hanoi-2",
+			"start": "nanning",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "nanning-hanoi",
+			"claim": "route"
+		},
+		{
+			"id": "nanning-kunming-1",
+			"start": "nanning",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "nanning-kunming",
+			"claim": "route"
+		},
+		{
+			"id": "nanning-kunming-2",
+			"start": "nanning",
+			"end": "kunming",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "nanning-kunming",
+			"claim": "route"
+		},
+		{
+			"id": "kunming-hanoi-1",
+			"start": "kunming",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kunming-chiang-mai-1",
+			"start": "kunming",
+			"end": "chiang-mai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kunming-mandalay-1",
+			"start": "kunming",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kunming-mandalay",
+			"claim": "route"
+		},
+		{
+			"id": "kunming-mandalay-2",
+			"start": "kunming",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kunming-mandalay",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-dacca-1",
+			"start": "mandalay",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-dacca",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-dacca-2",
+			"start": "mandalay",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-dacca",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-chiang-mai-1",
+			"start": "mandalay",
+			"end": "chiang-mai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-chiang-mai",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-chiang-mai-2",
+			"start": "mandalay",
+			"end": "chiang-mai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-chiang-mai",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-rangoon-1",
+			"start": "mandalay",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-rangoon-2",
+			"start": "mandalay",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mandalay-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "chiang-mai-rangoon-1",
+			"start": "chiang-mai",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chiang-mai-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "chiang-mai-rangoon-2",
+			"start": "chiang-mai",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chiang-mai-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "chiang-mai-vientiane-1",
+			"start": "chiang-mai",
+			"end": "vientiane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chiang-mai-vientiane",
+			"claim": "route"
+		},
+		{
+			"id": "chiang-mai-vientiane-2",
+			"start": "chiang-mai",
+			"end": "vientiane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chiang-mai-vientiane",
+			"claim": "route"
+		},
+		{
+			"id": "vientiane-hanoi-1",
+			"start": "vientiane",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "vientiane-hanoi",
+			"claim": "route"
+		},
+		{
+			"id": "vientiane-hanoi-2",
+			"start": "vientiane",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "vientiane-hanoi",
+			"claim": "route"
+		},
+		{
+			"id": "bombay-nagpur-1",
+			"start": "bombay",
+			"end": "nagpur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bombay-hyderabad-1",
+			"start": "bombay",
+			"end": "hyderabad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bombay-bangalore-1",
+			"start": "bombay",
+			"end": "bangalore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bombay-bangalore",
+			"claim": "route"
+		},
+		{
+			"id": "bombay-bangalore-2",
+			"start": "bombay",
+			"end": "bangalore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bombay-bangalore",
+			"claim": "route"
+		},
+		{
+			"id": "nagpur-hyderabad-1",
+			"start": "nagpur",
+			"end": "hyderabad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nagpur-calcutta-1",
+			"start": "nagpur",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hyderabad-calcutta-1",
+			"start": "hyderabad",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hyderabad-bangalore-1",
+			"start": "hyderabad",
+			"end": "bangalore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bangalore-madras-1",
+			"start": "bangalore",
+			"end": "madras",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "bangalore-madras",
+			"claim": "route"
+		},
+		{
+			"id": "bangalore-madras-2",
+			"start": "bangalore",
+			"end": "madras",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bangalore-madras",
+			"claim": "route"
+		},
+		{
+			"id": "madras-calcutta-1",
+			"start": "madras",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "madras-calcutta",
+			"claim": "route"
+		},
+		{
+			"id": "madras-calcutta-2",
+			"start": "madras",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "madras-calcutta",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-dacca-1",
+			"start": "calcutta",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "calcutta-dacca",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-dacca-2",
+			"start": "calcutta",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "calcutta-dacca",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-dacca-3",
+			"start": "calcutta",
+			"end": "dacca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "calcutta-dacca",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "lahore-delhi",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ulan-bator-harbin",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "harbin-mukden",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mukden-peking",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "peking-xian",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "peking-shanghai",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "xian-hankow",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "delhi-baroda",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "baroda-bombay",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chengdu-kunming",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chengdu-chungking",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chungking-nanning",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hankow-shanghai",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hankow-nanchang",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nanchang-foochow",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "shanghai-foochow",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "foochow-canton",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "canton-nanning",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "canton-hong-kong",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nanning-hanoi",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nanning-kunming",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kunming-mandalay",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mandalay-dacca",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mandalay-chiang-mai",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mandalay-rangoon",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chiang-mai-rangoon",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chiang-mai-vientiane",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "vientiane-hanoi",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bombay-bangalore",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bangalore-madras",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "madras-calcutta",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 1
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "calcutta-dacca",
+			"limits": [
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		}
+	]
+}

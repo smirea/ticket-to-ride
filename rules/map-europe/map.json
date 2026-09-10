@@ -1,0 +1,3101 @@
+{
+	"schemaVersion": 1,
+	"id": "europe",
+	"name": "Europe",
+	"image": {
+		"file": "map.png",
+		"width": 2790,
+		"height": 1858
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["stations", "ferries", "tunnels"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "edinburgh",
+			"name": "Edinburgh",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.164,
+					"y": 0.089
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "london",
+			"name": "London",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.227,
+					"y": 0.304
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dieppe",
+			"name": "Dieppe",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.217,
+					"y": 0.432
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "brest",
+			"name": "Brest",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.133,
+					"y": 0.473
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "paris",
+			"name": "Paris",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.263,
+					"y": 0.495
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pamplona",
+			"name": "Pamplona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.204,
+					"y": 0.714
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "madrid",
+			"name": "Madrid",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.109,
+					"y": 0.83
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lisboa",
+			"name": "Lisboa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.045,
+					"y": 0.862
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cadiz",
+			"name": "Cádiz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.108,
+					"y": 0.935
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "barcelona",
+			"name": "Barcelona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.215,
+					"y": 0.845
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "amsterdam",
+			"name": "Amsterdam",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.318,
+					"y": 0.309
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bruxelles",
+			"name": "Bruxelles",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.298,
+					"y": 0.376
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "essen",
+			"name": "Essen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.396,
+					"y": 0.322
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "frankfurt",
+			"name": "Frankfurt",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.382,
+					"y": 0.421
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "munchen",
+			"name": "München",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.437,
+					"y": 0.483
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zurich",
+			"name": "Zürich",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.374,
+					"y": 0.575
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "marseille",
+			"name": "Marseille",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.348,
+					"y": 0.707
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "venezia",
+			"name": "Venezia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.453,
+					"y": 0.621
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "roma",
+			"name": "Roma",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.459,
+					"y": 0.75
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "brindisi",
+			"name": "Brindisi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.542,
+					"y": 0.786
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "palermo",
+			"name": "Palermo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.495,
+					"y": 0.936
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stockholm",
+			"name": "Stockholm",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.562,
+					"y": 0.06
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kobenhavn",
+			"name": "København",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.464,
+					"y": 0.172
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "berlin",
+			"name": "Berlin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49,
+					"y": 0.342
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wien",
+			"name": "Wien",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.544,
+					"y": 0.507
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "budapest",
+			"name": "Budapest",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.592,
+					"y": 0.544
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zagrab",
+			"name": "Zágráb",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.534,
+					"y": 0.638
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sarajevo",
+			"name": "Sarajevo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.614,
+					"y": 0.722
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sofia",
+			"name": "Sofia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.676,
+					"y": 0.734
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "athina",
+			"name": "Athína",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.659,
+					"y": 0.897
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "riga",
+			"name": "Riga",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.678,
+					"y": 0.102
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "danzig",
+			"name": "Danzig",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.599,
+					"y": 0.231
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wilno",
+			"name": "Wilno",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.753,
+					"y": 0.294
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "warszawa",
+			"name": "Warszawa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.645,
+					"y": 0.33
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bucuresti",
+			"name": "București",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.736,
+					"y": 0.644
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "constantinople",
+			"name": "Constantinople",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.783,
+					"y": 0.82
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "angora",
+			"name": "Angora",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.857,
+					"y": 0.899
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "smyrna",
+			"name": "Smyrna",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.741,
+					"y": 0.932
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "petrograd",
+			"name": "Petrograd",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.838,
+					"y": 0.095
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "moskva",
+			"name": "Moskva",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.931,
+					"y": 0.267
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "smolensk",
+			"name": "Smolensk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.85,
+					"y": 0.301
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kyiv",
+			"name": "Kyiv",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79,
+					"y": 0.406
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kharkov",
+			"name": "Kharkov",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.918,
+					"y": 0.481
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rostov",
+			"name": "Rostov",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.956,
+					"y": 0.557
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sevastopol",
+			"name": "Sevastopol",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.866,
+					"y": 0.664
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sochi",
+			"name": "Sochi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.951,
+					"y": 0.685
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "erzurum",
+			"name": "Erzurum",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.933,
+					"y": 0.863
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "edinburgh-london-1",
+			"start": "edinburgh",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "edinburgh-london",
+			"claim": "route"
+		},
+		{
+			"id": "edinburgh-london-2",
+			"start": "edinburgh",
+			"end": "london",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "edinburgh-london",
+			"claim": "route"
+		},
+		{
+			"id": "london-amsterdam-1",
+			"start": "london",
+			"end": "amsterdam",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "london-dieppe-1",
+			"start": "london",
+			"end": "dieppe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "london-dieppe",
+			"claim": "route"
+		},
+		{
+			"id": "london-dieppe-2",
+			"start": "london",
+			"end": "dieppe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "london-dieppe",
+			"claim": "route"
+		},
+		{
+			"id": "dieppe-brest-1",
+			"start": "dieppe",
+			"end": "brest",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dieppe-bruxelles-1",
+			"start": "dieppe",
+			"end": "bruxelles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dieppe-paris-1",
+			"start": "dieppe",
+			"end": "paris",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brest-paris-1",
+			"start": "brest",
+			"end": "paris",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brest-pamplona-1",
+			"start": "brest",
+			"end": "pamplona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paris-bruxelles-1",
+			"start": "paris",
+			"end": "bruxelles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "paris-bruxelles",
+			"claim": "route"
+		},
+		{
+			"id": "paris-bruxelles-2",
+			"start": "paris",
+			"end": "bruxelles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "paris-bruxelles",
+			"claim": "route"
+		},
+		{
+			"id": "paris-frankfurt-1",
+			"start": "paris",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "paris-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "paris-frankfurt-2",
+			"start": "paris",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "paris-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "paris-zurich-1",
+			"start": "paris",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "paris-marseille-1",
+			"start": "paris",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paris-pamplona-1",
+			"start": "paris",
+			"end": "pamplona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "paris-pamplona",
+			"claim": "route"
+		},
+		{
+			"id": "paris-pamplona-2",
+			"start": "paris",
+			"end": "pamplona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "paris-pamplona",
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-marseille-1",
+			"start": "pamplona",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-barcelona-1",
+			"start": "pamplona",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-madrid-1",
+			"start": "pamplona",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pamplona-madrid",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "pamplona-madrid-2",
+			"start": "pamplona",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "pamplona-madrid",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "madrid-lisboa-1",
+			"start": "madrid",
+			"end": "lisboa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lisboa-cadiz-1",
+			"start": "lisboa",
+			"end": "cadiz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cadiz-madrid-1",
+			"start": "cadiz",
+			"end": "madrid",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madrid-barcelona-1",
+			"start": "madrid",
+			"end": "barcelona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "barcelona-marseille-1",
+			"start": "barcelona",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-essen-1",
+			"start": "amsterdam",
+			"end": "essen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-frankfurt-1",
+			"start": "amsterdam",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "amsterdam-bruxelles-1",
+			"start": "amsterdam",
+			"end": "bruxelles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bruxelles-frankfurt-1",
+			"start": "bruxelles",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "essen-kobenhavn-1",
+			"start": "essen",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "essen-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "essen-kobenhavn-2",
+			"start": "essen",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "essen-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "essen-berlin-1",
+			"start": "essen",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "essen-frankfurt-1",
+			"start": "essen",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-berlin-1",
+			"start": "frankfurt",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "frankfurt-berlin",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-berlin-2",
+			"start": "frankfurt",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "frankfurt-berlin",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-munchen-1",
+			"start": "frankfurt",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munchen-wien-1",
+			"start": "munchen",
+			"end": "wien",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munchen-venezia-1",
+			"start": "munchen",
+			"end": "venezia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "munchen-zurich-1",
+			"start": "munchen",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "zurich-venezia-1",
+			"start": "zurich",
+			"end": "venezia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "zurich-marseille-1",
+			"start": "zurich",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "marseille-roma-1",
+			"start": "marseille",
+			"end": "roma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "venezia-zagrab-1",
+			"start": "venezia",
+			"end": "zagrab",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "venezia-roma-1",
+			"start": "venezia",
+			"end": "roma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "roma-brindisi-1",
+			"start": "roma",
+			"end": "brindisi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "roma-palermo-1",
+			"start": "roma",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brindisi-athina-1",
+			"start": "brindisi",
+			"end": "athina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brindisi-palermo-1",
+			"start": "brindisi",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "palermo-smyrna-1",
+			"start": "palermo",
+			"end": "smyrna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-petrograd-1",
+			"start": "stockholm",
+			"end": "petrograd",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-kobenhavn-1",
+			"start": "stockholm",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "stockholm-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-kobenhavn-2",
+			"start": "stockholm",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "stockholm-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "berlin-danzig-1",
+			"start": "berlin",
+			"end": "danzig",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "berlin-warszawa-1",
+			"start": "berlin",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "berlin-warszawa",
+			"claim": "route"
+		},
+		{
+			"id": "berlin-warszawa-2",
+			"start": "berlin",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "berlin-warszawa",
+			"claim": "route"
+		},
+		{
+			"id": "berlin-wien-1",
+			"start": "berlin",
+			"end": "wien",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wien-warszawa-1",
+			"start": "wien",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wien-budapest-1",
+			"start": "wien",
+			"end": "budapest",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "wien-budapest",
+			"claim": "route"
+		},
+		{
+			"id": "wien-budapest-2",
+			"start": "wien",
+			"end": "budapest",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "wien-budapest",
+			"claim": "route"
+		},
+		{
+			"id": "wien-zagrab-1",
+			"start": "wien",
+			"end": "zagrab",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "budapest-kyiv-1",
+			"start": "budapest",
+			"end": "kyiv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "budapest-bucuresti-1",
+			"start": "budapest",
+			"end": "bucuresti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "budapest-sarajevo-1",
+			"start": "budapest",
+			"end": "sarajevo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "budapest-zagrab-1",
+			"start": "budapest",
+			"end": "zagrab",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zagrab-sarajevo-1",
+			"start": "zagrab",
+			"end": "sarajevo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sarajevo-sofia-1",
+			"start": "sarajevo",
+			"end": "sofia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sarajevo-athina-1",
+			"start": "sarajevo",
+			"end": "athina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sofia-bucuresti-1",
+			"start": "sofia",
+			"end": "bucuresti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sofia-constantinople-1",
+			"start": "sofia",
+			"end": "constantinople",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sofia-athina-1",
+			"start": "sofia",
+			"end": "athina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "athina-smyrna-1",
+			"start": "athina",
+			"end": "smyrna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "riga-petrograd-1",
+			"start": "riga",
+			"end": "petrograd",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "riga-wilno-1",
+			"start": "riga",
+			"end": "wilno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "riga-danzig-1",
+			"start": "riga",
+			"end": "danzig",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "danzig-warszawa-1",
+			"start": "danzig",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wilno-petrograd-1",
+			"start": "wilno",
+			"end": "petrograd",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wilno-smolensk-1",
+			"start": "wilno",
+			"end": "smolensk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wilno-kyiv-1",
+			"start": "wilno",
+			"end": "kyiv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wilno-warszawa-1",
+			"start": "wilno",
+			"end": "warszawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "warszawa-kyiv-1",
+			"start": "warszawa",
+			"end": "kyiv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bucuresti-kyiv-1",
+			"start": "bucuresti",
+			"end": "kyiv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bucuresti-sevastopol-1",
+			"start": "bucuresti",
+			"end": "sevastopol",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bucuresti-constantinople-1",
+			"start": "bucuresti",
+			"end": "constantinople",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "constantinople-sevastopol-1",
+			"start": "constantinople",
+			"end": "sevastopol",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "constantinople-angora-1",
+			"start": "constantinople",
+			"end": "angora",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "constantinople-smyrna-1",
+			"start": "constantinople",
+			"end": "smyrna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "angora-erzurum-1",
+			"start": "angora",
+			"end": "erzurum",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "angora-smyrna-1",
+			"start": "angora",
+			"end": "smyrna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "petrograd-moskva-1",
+			"start": "petrograd",
+			"end": "moskva",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "moskva-kharkov-1",
+			"start": "moskva",
+			"end": "kharkov",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "moskva-smolensk-1",
+			"start": "moskva",
+			"end": "smolensk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "smolensk-kyiv-1",
+			"start": "smolensk",
+			"end": "kyiv",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kyiv-kharkov-1",
+			"start": "kyiv",
+			"end": "kharkov",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kharkov-rostov-1",
+			"start": "kharkov",
+			"end": "rostov",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rostov-sochi-1",
+			"start": "rostov",
+			"end": "sochi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rostov-sevastopol-1",
+			"start": "rostov",
+			"end": "sevastopol",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sevastopol-sochi-1",
+			"start": "sevastopol",
+			"end": "sochi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sevastopol-erzurum-1",
+			"start": "sevastopol",
+			"end": "erzurum",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sochi-erzurum-1",
+			"start": "sochi",
+			"end": "erzurum",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "edinburgh-london",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "london-dieppe",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "paris-bruxelles",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "paris-frankfurt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "paris-pamplona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pamplona-madrid",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "essen-kobenhavn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "frankfurt-berlin",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stockholm-kobenhavn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "berlin-warszawa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "wien-budapest",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

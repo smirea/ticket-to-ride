@@ -1,0 +1,4868 @@
+{
+	"schemaVersion": 1,
+	"id": "northern-lights",
+	"name": "Northern Lights",
+	"image": {
+		"file": "map.png",
+		"width": 2697,
+		"height": 4041
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ferries", "card-bonuses", "bonus-cards"],
+	"regions": [
+		{
+			"id": "norway",
+			"name": "Norway"
+		},
+		{
+			"id": "sweden",
+			"name": "Sweden"
+		},
+		{
+			"id": "finland",
+			"name": "Finland"
+		},
+		{
+			"id": "russia",
+			"name": "Russia"
+		},
+		{
+			"id": "estonia",
+			"name": "Estonia"
+		},
+		{
+			"id": "latvia",
+			"name": "Latvia"
+		},
+		{
+			"id": "lithuania",
+			"name": "Lithuania"
+		},
+		{
+			"id": "poland",
+			"name": "Poland"
+		},
+		{
+			"id": "denmark",
+			"name": "Denmark"
+		}
+	],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "honningsvag",
+			"name": "Honningsvåg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47459,
+					"y": 0.04017
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "kirkenes",
+			"name": "Kirkenes",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58405,
+					"y": 0.08555
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "murmansk",
+			"name": "Murmansk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73729,
+					"y": 0.0579
+				}
+			],
+			"connectivity": "shared",
+			"region": "russia"
+		},
+		{
+			"id": "tromso",
+			"name": "Tromsø",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32369,
+					"y": 0.16588
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "junction-sweden-north",
+			"name": "Unnamed northern Swedish junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.46677,
+					"y": 0.19562
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "apatity",
+			"name": "Apatity",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.78812,
+					"y": 0.13354
+				}
+			],
+			"connectivity": "shared",
+			"region": "russia"
+		},
+		{
+			"id": "junction-russia",
+			"name": "Unnamed Russian junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.92729,
+					"y": 0.16536
+				}
+			],
+			"connectivity": "shared",
+			"region": "russia"
+		},
+		{
+			"id": "kemijarvi",
+			"name": "Kemijärvi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66615,
+					"y": 0.20188
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "narvik",
+			"name": "Narvik",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.2846,
+					"y": 0.24465
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "kiruna",
+			"name": "Kiruna",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36669,
+					"y": 0.26761
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "rovaniemi",
+			"name": "Rovaniemi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59891,
+					"y": 0.24987
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "kostomuksha",
+			"name": "Kostomuksha",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82643,
+					"y": 0.27752
+				}
+			],
+			"connectivity": "shared",
+			"region": "russia"
+		},
+		{
+			"id": "boden",
+			"name": "Boden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50665,
+					"y": 0.30673
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "tornio",
+			"name": "Tornio",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59969,
+					"y": 0.31038
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "oulu",
+			"name": "Oulu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65364,
+					"y": 0.35107
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "kajaani",
+			"name": "Kajaani",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.7889,
+					"y": 0.34011
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "lieksa",
+			"name": "Lieksa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88038,
+					"y": 0.34272
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "mo-i-rana",
+			"name": "Mo i Rana",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24941,
+					"y": 0.38445
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "junction-sweden-central",
+			"name": "Unnamed central Swedish junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.38702,
+					"y": 0.41367
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "umea",
+			"name": "Umeå",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55043,
+					"y": 0.43714
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "kuopio",
+			"name": "Kuopio",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84285,
+					"y": 0.40636
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "vaasa",
+			"name": "Vaasa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61689,
+					"y": 0.47418
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "imatra",
+			"name": "Imatra",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.94292,
+					"y": 0.48096
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "ostersund",
+			"name": "Östersund",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34558,
+					"y": 0.54617
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "tampere",
+			"name": "Tampere",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73495,
+					"y": 0.53782
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "lahti",
+			"name": "Lahti",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82252,
+					"y": 0.53782
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "sundsvall",
+			"name": "Sundsvall",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4957,
+					"y": 0.56182
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "trondheim",
+			"name": "Trondheim",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25176,
+					"y": 0.57277
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "turku",
+			"name": "Turku",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72791,
+					"y": 0.59833
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland"
+		},
+		{
+			"id": "helsinki",
+			"name": "Helsinki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82877,
+					"y": 0.59833
+				}
+			],
+			"connectivity": "shared",
+			"region": "finland",
+			"capital": true
+		},
+		{
+			"id": "andalsnes",
+			"name": "Åndalsnes",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18686,
+					"y": 0.61815
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "tallinn",
+			"name": "Tallinn",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.86317,
+					"y": 0.65884
+				}
+			],
+			"connectivity": "shared",
+			"region": "estonia",
+			"capital": true
+		},
+		{
+			"id": "lillehammer",
+			"name": "Lillehammer",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.2846,
+					"y": 0.6964
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "stockholm",
+			"name": "Stockholm",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60516,
+					"y": 0.69797
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden",
+			"capital": true
+		},
+		{
+			"id": "karlstad",
+			"name": "Karlstad",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49023,
+					"y": 0.73187
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "kuressaare",
+			"name": "Kuressaare",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.83268,
+					"y": 0.735
+				}
+			],
+			"connectivity": "shared",
+			"region": "estonia"
+		},
+		{
+			"id": "bergen",
+			"name": "Bergen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10399,
+					"y": 0.76369
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "oslo",
+			"name": "Oslo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35106,
+					"y": 0.76317
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway",
+			"capital": true
+		},
+		{
+			"id": "norrkoping",
+			"name": "Norrköping",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62392,
+					"y": 0.77413
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "riga",
+			"name": "Riga",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.93198,
+					"y": 0.78873
+				}
+			],
+			"connectivity": "shared",
+			"region": "latvia",
+			"capital": true
+		},
+		{
+			"id": "visby",
+			"name": "Visby",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.724,
+					"y": 0.8023
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "kristiansand",
+			"name": "Kristiansand",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3018,
+					"y": 0.85498
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "stavanger",
+			"name": "Stavanger",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15637,
+					"y": 0.8555
+				}
+			],
+			"connectivity": "shared",
+			"region": "norway"
+		},
+		{
+			"id": "goteborg",
+			"name": "Göteborg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45661,
+					"y": 0.85029
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "klaipeda",
+			"name": "Klaipėda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.86396,
+					"y": 0.88002
+				}
+			],
+			"connectivity": "shared",
+			"region": "lithuania"
+		},
+		{
+			"id": "karlskrona",
+			"name": "Karlskrona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65442,
+					"y": 0.9061
+				}
+			],
+			"connectivity": "shared",
+			"region": "sweden"
+		},
+		{
+			"id": "alborg",
+			"name": "Ålborg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38155,
+					"y": 0.90297
+				}
+			],
+			"connectivity": "shared",
+			"region": "denmark"
+		},
+		{
+			"id": "arhus",
+			"name": "Århus",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42142,
+					"y": 0.95462
+				}
+			],
+			"connectivity": "shared",
+			"region": "denmark"
+		},
+		{
+			"id": "kobenhavn",
+			"name": "København",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51759,
+					"y": 0.95044
+				}
+			],
+			"connectivity": "shared",
+			"region": "denmark",
+			"capital": true
+		},
+		{
+			"id": "gdansk",
+			"name": "Gdańsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.78264,
+					"y": 0.95462
+				}
+			],
+			"connectivity": "shared",
+			"region": "poland"
+		}
+	],
+	"connections": [
+		{
+			"id": "honningsvag-tromso-1",
+			"start": "honningsvag",
+			"end": "tromso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "honningsvag-tromso",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "honningsvag-tromso-2",
+			"start": "honningsvag",
+			"end": "tromso",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "honningsvag-tromso",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "honningsvag-kirkenes-1",
+			"start": "honningsvag",
+			"end": "kirkenes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "honningsvag-murmansk-1",
+			"start": "honningsvag",
+			"end": "murmansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "honningsvag-murmansk",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "honningsvag-murmansk-2",
+			"start": "honningsvag",
+			"end": "murmansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "honningsvag-murmansk",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "honningsvag-junction-sweden-north-1",
+			"start": "honningsvag",
+			"end": "junction-sweden-north",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kirkenes-murmansk-1",
+			"start": "kirkenes",
+			"end": "murmansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kirkenes-apatity-1",
+			"start": "kirkenes",
+			"end": "apatity",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kirkenes-kemijarvi-1",
+			"start": "kirkenes",
+			"end": "kemijarvi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kirkenes-junction-sweden-north-1",
+			"start": "kirkenes",
+			"end": "junction-sweden-north",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "murmansk-apatity-1",
+			"start": "murmansk",
+			"end": "apatity",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "murmansk-junction-russia-1",
+			"start": "murmansk",
+			"end": "junction-russia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "apatity-junction-russia-1",
+			"start": "apatity",
+			"end": "junction-russia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "apatity-kostomuksha-1",
+			"start": "apatity",
+			"end": "kostomuksha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "apatity-kemijarvi-1",
+			"start": "apatity",
+			"end": "kemijarvi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-russia-kostomuksha-1",
+			"start": "junction-russia",
+			"end": "kostomuksha",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-russia-lieksa-1",
+			"start": "junction-russia",
+			"end": "lieksa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kostomuksha-kajaani-1",
+			"start": "kostomuksha",
+			"end": "kajaani",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kostomuksha-lieksa-1",
+			"start": "kostomuksha",
+			"end": "lieksa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kostomuksha-kemijarvi-1",
+			"start": "kostomuksha",
+			"end": "kemijarvi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tromso-junction-sweden-north-1",
+			"start": "tromso",
+			"end": "junction-sweden-north",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tromso-narvik-1",
+			"start": "tromso",
+			"end": "narvik",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "tromso-narvik",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "tromso-narvik-2",
+			"start": "tromso",
+			"end": "narvik",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "tromso-narvik",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "junction-sweden-north-kemijarvi-1",
+			"start": "junction-sweden-north",
+			"end": "kemijarvi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-sweden-north-rovaniemi-1",
+			"start": "junction-sweden-north",
+			"end": "rovaniemi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-sweden-north-kiruna-1",
+			"start": "junction-sweden-north",
+			"end": "kiruna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kemijarvi-rovaniemi-1",
+			"start": "kemijarvi",
+			"end": "rovaniemi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rovaniemi-boden-1",
+			"start": "rovaniemi",
+			"end": "boden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rovaniemi-tornio-1",
+			"start": "rovaniemi",
+			"end": "tornio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rovaniemi-oulu-1",
+			"start": "rovaniemi",
+			"end": "oulu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tornio-boden-1",
+			"start": "tornio",
+			"end": "boden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tornio-oulu-1",
+			"start": "tornio",
+			"end": "oulu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "boden-kiruna-1",
+			"start": "boden",
+			"end": "kiruna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "boden-kiruna",
+			"claim": "route"
+		},
+		{
+			"id": "boden-kiruna-2",
+			"start": "boden",
+			"end": "kiruna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "boden-kiruna",
+			"claim": "route"
+		},
+		{
+			"id": "boden-junction-sweden-central-1",
+			"start": "boden",
+			"end": "junction-sweden-central",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "boden-umea-1",
+			"start": "boden",
+			"end": "umea",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "boden-umea",
+			"claim": "route"
+		},
+		{
+			"id": "boden-umea-2",
+			"start": "boden",
+			"end": "umea",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "boden-umea",
+			"claim": "route"
+		},
+		{
+			"id": "kiruna-narvik-1",
+			"start": "kiruna",
+			"end": "narvik",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "kiruna-narvik",
+			"claim": "route"
+		},
+		{
+			"id": "kiruna-narvik-2",
+			"start": "kiruna",
+			"end": "narvik",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "kiruna-narvik",
+			"claim": "route"
+		},
+		{
+			"id": "kiruna-junction-sweden-central-1",
+			"start": "kiruna",
+			"end": "junction-sweden-central",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "narvik-mo-i-rana-1",
+			"start": "narvik",
+			"end": "mo-i-rana",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "narvik-mo-i-rana",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "narvik-mo-i-rana-2",
+			"start": "narvik",
+			"end": "mo-i-rana",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "narvik-mo-i-rana",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "mo-i-rana-junction-sweden-central-1",
+			"start": "mo-i-rana",
+			"end": "junction-sweden-central",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mo-i-rana-trondheim-1",
+			"start": "mo-i-rana",
+			"end": "trondheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mo-i-rana-trondheim",
+			"cardBonus": 3,
+			"claim": "route"
+		},
+		{
+			"id": "mo-i-rana-trondheim-2",
+			"start": "mo-i-rana",
+			"end": "trondheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mo-i-rana-trondheim",
+			"cardBonus": 3,
+			"claim": "route"
+		},
+		{
+			"id": "junction-sweden-central-umea-1",
+			"start": "junction-sweden-central",
+			"end": "umea",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-sweden-central-ostersund-1",
+			"start": "junction-sweden-central",
+			"end": "ostersund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "umea-vaasa-1",
+			"start": "umea",
+			"end": "vaasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "umea-vaasa",
+			"claim": "route"
+		},
+		{
+			"id": "umea-vaasa-2",
+			"start": "umea",
+			"end": "vaasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "umea-vaasa",
+			"claim": "route"
+		},
+		{
+			"id": "umea-sundsvall-1",
+			"start": "umea",
+			"end": "sundsvall",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "umea-sundsvall",
+			"claim": "route"
+		},
+		{
+			"id": "umea-sundsvall-2",
+			"start": "umea",
+			"end": "sundsvall",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "umea-sundsvall",
+			"claim": "route"
+		},
+		{
+			"id": "oulu-kajaani-1",
+			"start": "oulu",
+			"end": "kajaani",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oulu-kuopio-1",
+			"start": "oulu",
+			"end": "kuopio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oulu-vaasa-1",
+			"start": "oulu",
+			"end": "vaasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kajaani-lieksa-1",
+			"start": "kajaani",
+			"end": "lieksa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kajaani-kuopio-1",
+			"start": "kajaani",
+			"end": "kuopio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lieksa-kuopio-1",
+			"start": "lieksa",
+			"end": "kuopio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lieksa-kuopio",
+			"claim": "route"
+		},
+		{
+			"id": "lieksa-kuopio-2",
+			"start": "lieksa",
+			"end": "kuopio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "lieksa-kuopio",
+			"claim": "route"
+		},
+		{
+			"id": "lieksa-imatra-1",
+			"start": "lieksa",
+			"end": "imatra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kuopio-imatra-1",
+			"start": "kuopio",
+			"end": "imatra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kuopio-lahti-1",
+			"start": "kuopio",
+			"end": "lahti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kuopio-lahti",
+			"claim": "route"
+		},
+		{
+			"id": "kuopio-lahti-2",
+			"start": "kuopio",
+			"end": "lahti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "kuopio-lahti",
+			"claim": "route"
+		},
+		{
+			"id": "kuopio-vaasa-1",
+			"start": "kuopio",
+			"end": "vaasa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "vaasa-tampere-1",
+			"start": "vaasa",
+			"end": "tampere",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "vaasa-tampere",
+			"claim": "route"
+		},
+		{
+			"id": "vaasa-tampere-2",
+			"start": "vaasa",
+			"end": "tampere",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "vaasa-tampere",
+			"claim": "route"
+		},
+		{
+			"id": "vaasa-sundsvall-1",
+			"start": "vaasa",
+			"end": "sundsvall",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "imatra-lahti-1",
+			"start": "imatra",
+			"end": "lahti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "imatra-helsinki-1",
+			"start": "imatra",
+			"end": "helsinki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tampere-lahti-1",
+			"start": "tampere",
+			"end": "lahti",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tampere-turku-1",
+			"start": "tampere",
+			"end": "turku",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "tampere-turku",
+			"claim": "route"
+		},
+		{
+			"id": "tampere-turku-2",
+			"start": "tampere",
+			"end": "turku",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "tampere-turku",
+			"claim": "route"
+		},
+		{
+			"id": "tampere-helsinki-1",
+			"start": "tampere",
+			"end": "helsinki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lahti-helsinki-1",
+			"start": "lahti",
+			"end": "helsinki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "lahti-helsinki",
+			"claim": "route"
+		},
+		{
+			"id": "lahti-helsinki-2",
+			"start": "lahti",
+			"end": "helsinki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lahti-helsinki",
+			"claim": "route"
+		},
+		{
+			"id": "helsinki-turku-1",
+			"start": "helsinki",
+			"end": "turku",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "helsinki-tallinn-1",
+			"start": "helsinki",
+			"end": "tallinn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helsinki-tallinn",
+			"claim": "route"
+		},
+		{
+			"id": "helsinki-tallinn-2",
+			"start": "helsinki",
+			"end": "tallinn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helsinki-tallinn",
+			"claim": "route"
+		},
+		{
+			"id": "helsinki-stockholm-1",
+			"start": "helsinki",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helsinki-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "helsinki-stockholm-2",
+			"start": "helsinki",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helsinki-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "turku-stockholm-1",
+			"start": "turku",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ostersund-trondheim-1",
+			"start": "ostersund",
+			"end": "trondheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "ostersund-trondheim",
+			"claim": "route"
+		},
+		{
+			"id": "ostersund-trondheim-2",
+			"start": "ostersund",
+			"end": "trondheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ostersund-trondheim",
+			"claim": "route"
+		},
+		{
+			"id": "ostersund-sundsvall-1",
+			"start": "ostersund",
+			"end": "sundsvall",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "ostersund-sundsvall",
+			"claim": "route"
+		},
+		{
+			"id": "ostersund-sundsvall-2",
+			"start": "ostersund",
+			"end": "sundsvall",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "ostersund-sundsvall",
+			"claim": "route"
+		},
+		{
+			"id": "ostersund-karlstad-1",
+			"start": "ostersund",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sundsvall-stockholm-1",
+			"start": "sundsvall",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "sundsvall-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "sundsvall-stockholm-2",
+			"start": "sundsvall",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sundsvall-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "sundsvall-karlstad-1",
+			"start": "sundsvall",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "trondheim-andalsnes-1",
+			"start": "trondheim",
+			"end": "andalsnes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "trondheim-andalsnes",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "trondheim-andalsnes-2",
+			"start": "trondheim",
+			"end": "andalsnes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "trondheim-andalsnes",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "trondheim-lillehammer-1",
+			"start": "trondheim",
+			"end": "lillehammer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "trondheim-lillehammer",
+			"claim": "route"
+		},
+		{
+			"id": "trondheim-lillehammer-2",
+			"start": "trondheim",
+			"end": "lillehammer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "trondheim-lillehammer",
+			"claim": "route"
+		},
+		{
+			"id": "andalsnes-lillehammer-1",
+			"start": "andalsnes",
+			"end": "lillehammer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "andalsnes-lillehammer",
+			"claim": "route"
+		},
+		{
+			"id": "andalsnes-lillehammer-2",
+			"start": "andalsnes",
+			"end": "lillehammer",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "andalsnes-lillehammer",
+			"claim": "route"
+		},
+		{
+			"id": "andalsnes-bergen-1",
+			"start": "andalsnes",
+			"end": "bergen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "andalsnes-bergen",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "andalsnes-bergen-2",
+			"start": "andalsnes",
+			"end": "bergen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "andalsnes-bergen",
+			"cardBonus": 2,
+			"claim": "route"
+		},
+		{
+			"id": "lillehammer-bergen-1",
+			"start": "lillehammer",
+			"end": "bergen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lillehammer-oslo-1",
+			"start": "lillehammer",
+			"end": "oslo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "lillehammer-oslo",
+			"claim": "route"
+		},
+		{
+			"id": "lillehammer-oslo-2",
+			"start": "lillehammer",
+			"end": "oslo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lillehammer-oslo",
+			"claim": "route"
+		},
+		{
+			"id": "lillehammer-karlstad-1",
+			"start": "lillehammer",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bergen-oslo-1",
+			"start": "bergen",
+			"end": "oslo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bergen-oslo",
+			"claim": "route"
+		},
+		{
+			"id": "bergen-oslo-2",
+			"start": "bergen",
+			"end": "oslo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bergen-oslo",
+			"claim": "route"
+		},
+		{
+			"id": "bergen-stavanger-1",
+			"start": "bergen",
+			"end": "stavanger",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bergen-stavanger",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "bergen-stavanger-2",
+			"start": "bergen",
+			"end": "stavanger",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bergen-stavanger",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "oslo-karlstad-1",
+			"start": "oslo",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "oslo-karlstad",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-karlstad-2",
+			"start": "oslo",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "oslo-karlstad",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-karlstad-3",
+			"start": "oslo",
+			"end": "karlstad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "oslo-karlstad",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-goteborg-1",
+			"start": "oslo",
+			"end": "goteborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "oslo-goteborg",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-goteborg-2",
+			"start": "oslo",
+			"end": "goteborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "oslo-goteborg",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-alborg-1",
+			"start": "oslo",
+			"end": "alborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "oslo-kristiansand-1",
+			"start": "oslo",
+			"end": "kristiansand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "oslo-kristiansand",
+			"claim": "route"
+		},
+		{
+			"id": "oslo-kristiansand-2",
+			"start": "oslo",
+			"end": "kristiansand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "oslo-kristiansand",
+			"claim": "route"
+		},
+		{
+			"id": "stavanger-kristiansand-1",
+			"start": "stavanger",
+			"end": "kristiansand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stavanger-kristiansand",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "stavanger-kristiansand-2",
+			"start": "stavanger",
+			"end": "kristiansand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stavanger-kristiansand",
+			"cardBonus": 1,
+			"claim": "route"
+		},
+		{
+			"id": "kristiansand-alborg-1",
+			"start": "kristiansand",
+			"end": "alborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kristiansand-alborg",
+			"claim": "route"
+		},
+		{
+			"id": "kristiansand-alborg-2",
+			"start": "kristiansand",
+			"end": "alborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kristiansand-alborg",
+			"claim": "route"
+		},
+		{
+			"id": "karlstad-goteborg-1",
+			"start": "karlstad",
+			"end": "goteborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlstad-norrkoping-1",
+			"start": "karlstad",
+			"end": "norrkoping",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlstad-stockholm-1",
+			"start": "karlstad",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "karlstad-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "karlstad-stockholm-2",
+			"start": "karlstad",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "karlstad-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "karlstad-stockholm-3",
+			"start": "karlstad",
+			"end": "stockholm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "karlstad-stockholm",
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-norrkoping-1",
+			"start": "stockholm",
+			"end": "norrkoping",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "stockholm-norrkoping",
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-norrkoping-2",
+			"start": "stockholm",
+			"end": "norrkoping",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "stockholm-norrkoping",
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-tallinn-1",
+			"start": "stockholm",
+			"end": "tallinn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stockholm-kuressaare-1",
+			"start": "stockholm",
+			"end": "kuressaare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-goteborg-1",
+			"start": "norrkoping",
+			"end": "goteborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "norrkoping-goteborg",
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-goteborg-2",
+			"start": "norrkoping",
+			"end": "goteborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "norrkoping-goteborg",
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-visby-1",
+			"start": "norrkoping",
+			"end": "visby",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "norrkoping-visby",
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-visby-2",
+			"start": "norrkoping",
+			"end": "visby",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "norrkoping-visby",
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-karlskrona-1",
+			"start": "norrkoping",
+			"end": "karlskrona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "norrkoping-karlskrona",
+			"claim": "route"
+		},
+		{
+			"id": "norrkoping-karlskrona-2",
+			"start": "norrkoping",
+			"end": "karlskrona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "norrkoping-karlskrona",
+			"claim": "route"
+		},
+		{
+			"id": "goteborg-alborg-1",
+			"start": "goteborg",
+			"end": "alborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "goteborg-alborg",
+			"claim": "route"
+		},
+		{
+			"id": "goteborg-alborg-2",
+			"start": "goteborg",
+			"end": "alborg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "goteborg-alborg",
+			"claim": "route"
+		},
+		{
+			"id": "goteborg-kobenhavn-1",
+			"start": "goteborg",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "goteborg-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "goteborg-kobenhavn-2",
+			"start": "goteborg",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "goteborg-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "alborg-arhus-1",
+			"start": "alborg",
+			"end": "arhus",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "alborg-arhus",
+			"claim": "route"
+		},
+		{
+			"id": "alborg-arhus-2",
+			"start": "alborg",
+			"end": "arhus",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "alborg-arhus",
+			"claim": "route"
+		},
+		{
+			"id": "arhus-kobenhavn-1",
+			"start": "arhus",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "arhus-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "arhus-kobenhavn-2",
+			"start": "arhus",
+			"end": "kobenhavn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "arhus-kobenhavn",
+			"claim": "route"
+		},
+		{
+			"id": "kobenhavn-karlskrona-1",
+			"start": "kobenhavn",
+			"end": "karlskrona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kobenhavn-karlskrona",
+			"claim": "route"
+		},
+		{
+			"id": "kobenhavn-karlskrona-2",
+			"start": "kobenhavn",
+			"end": "karlskrona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kobenhavn-karlskrona",
+			"claim": "route"
+		},
+		{
+			"id": "kobenhavn-gdansk-1",
+			"start": "kobenhavn",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kobenhavn-gdansk",
+			"claim": "route"
+		},
+		{
+			"id": "kobenhavn-gdansk-2",
+			"start": "kobenhavn",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "kobenhavn-gdansk",
+			"claim": "route"
+		},
+		{
+			"id": "karlskrona-gdansk-1",
+			"start": "karlskrona",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlskrona-klaipeda-1",
+			"start": "karlskrona",
+			"end": "klaipeda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlskrona-visby-1",
+			"start": "karlskrona",
+			"end": "visby",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "visby-klaipeda-1",
+			"start": "visby",
+			"end": "klaipeda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "visby-klaipeda",
+			"claim": "route"
+		},
+		{
+			"id": "visby-klaipeda-2",
+			"start": "visby",
+			"end": "klaipeda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "visby-klaipeda",
+			"claim": "route"
+		},
+		{
+			"id": "visby-kuressaare-1",
+			"start": "visby",
+			"end": "kuressaare",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "visby-riga-1",
+			"start": "visby",
+			"end": "riga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kuressaare-riga-1",
+			"start": "kuressaare",
+			"end": "riga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "kuressaare-riga",
+			"claim": "route"
+		},
+		{
+			"id": "kuressaare-riga-2",
+			"start": "kuressaare",
+			"end": "riga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "kuressaare-riga",
+			"claim": "route"
+		},
+		{
+			"id": "kuressaare-tallinn-1",
+			"start": "kuressaare",
+			"end": "tallinn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kuressaare-tallinn",
+			"claim": "route"
+		},
+		{
+			"id": "kuressaare-tallinn-2",
+			"start": "kuressaare",
+			"end": "tallinn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kuressaare-tallinn",
+			"claim": "route"
+		},
+		{
+			"id": "tallinn-riga-1",
+			"start": "tallinn",
+			"end": "riga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "tallinn-riga",
+			"claim": "route"
+		},
+		{
+			"id": "tallinn-riga-2",
+			"start": "tallinn",
+			"end": "riga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "tallinn-riga",
+			"claim": "route"
+		},
+		{
+			"id": "riga-klaipeda-1",
+			"start": "riga",
+			"end": "klaipeda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "riga-klaipeda",
+			"claim": "route"
+		},
+		{
+			"id": "riga-klaipeda-2",
+			"start": "riga",
+			"end": "klaipeda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "riga-klaipeda",
+			"claim": "route"
+		},
+		{
+			"id": "klaipeda-gdansk-1",
+			"start": "klaipeda",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "klaipeda-gdansk",
+			"claim": "route"
+		},
+		{
+			"id": "klaipeda-gdansk-2",
+			"start": "klaipeda",
+			"end": "gdansk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "klaipeda-gdansk",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "honningsvag-tromso",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "honningsvag-murmansk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tromso-narvik",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "boden-kiruna",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "boden-umea",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kiruna-narvik",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "narvik-mo-i-rana",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mo-i-rana-trondheim",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "umea-vaasa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "umea-sundsvall",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lieksa-kuopio",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kuopio-lahti",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "vaasa-tampere",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tampere-turku",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lahti-helsinki",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "helsinki-tallinn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "helsinki-stockholm",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ostersund-trondheim",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ostersund-sundsvall",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sundsvall-stockholm",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "trondheim-andalsnes",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "trondheim-lillehammer",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "andalsnes-lillehammer",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "andalsnes-bergen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lillehammer-oslo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bergen-oslo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bergen-stavanger",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "oslo-karlstad",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "oslo-goteborg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "oslo-kristiansand",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stavanger-kristiansand",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kristiansand-alborg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "karlstad-stockholm",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "stockholm-norrkoping",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "norrkoping-goteborg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "norrkoping-visby",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "norrkoping-karlskrona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "goteborg-alborg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "goteborg-kobenhavn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "alborg-arhus",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "arhus-kobenhavn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kobenhavn-karlskrona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kobenhavn-gdansk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "visby-klaipeda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kuressaare-riga",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kuressaare-tallinn",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tallinn-riga",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "riga-klaipeda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "klaipeda-gdansk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

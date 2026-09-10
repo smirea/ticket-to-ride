@@ -1,0 +1,4245 @@
+{
+	"schemaVersion": 1,
+	"id": "france",
+	"name": "France",
+	"image": {
+		"file": "map.png",
+		"width": 1772,
+		"height": 2086
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["track-beds", "ferries"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "brest",
+			"name": "Brest",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.06676,
+					"y": 0.13889
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cherbourg",
+			"name": "Cherbourg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31676,
+					"y": 0.10532
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "calais",
+			"name": "Calais",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.5906,
+					"y": 0.06713
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lille",
+			"name": "Lille",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68665,
+					"y": 0.125
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "le-havre",
+			"name": "Le Havre",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42507,
+					"y": 0.14931
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "saint-malo",
+			"name": "Saint-Malo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23025,
+					"y": 0.17824
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rouen",
+			"name": "Rouen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50068,
+					"y": 0.18634
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "amiens",
+			"name": "Amiens",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58787,
+					"y": 0.17535
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lorient",
+			"name": "Lorient",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10763,
+					"y": 0.24306
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rennes",
+			"name": "Rennes",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23501,
+					"y": 0.24132
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "reims",
+			"name": "Reims",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.69414,
+					"y": 0.26852
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "paris",
+			"name": "Paris",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55245,
+					"y": 0.27951
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "le-mans",
+			"name": "Le Mans",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35014,
+					"y": 0.29977
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nantes",
+			"name": "Nantes",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.19619,
+					"y": 0.33391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "angers",
+			"name": "Angers",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28747,
+					"y": 0.33854
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tours",
+			"name": "Tours",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39305,
+					"y": 0.36169
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "orleans",
+			"name": "Orléans",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49183,
+					"y": 0.34259
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "metz",
+			"name": "Metz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.86308,
+					"y": 0.31076
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nancy",
+			"name": "Nancy",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82766,
+					"y": 0.36053
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "strasbourg",
+			"name": "Strasbourg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9312,
+					"y": 0.40278
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "la-rochelle",
+			"name": "La Rochelle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18529,
+					"y": 0.43634
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "poitiers",
+			"name": "Poitiers",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30995,
+					"y": 0.44618
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bourges",
+			"name": "Bourges",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47616,
+					"y": 0.44039
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dijon",
+			"name": "Dijon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67575,
+					"y": 0.46875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mulhouse",
+			"name": "Mulhouse",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88079,
+					"y": 0.46644
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "besancon",
+			"name": "Besançon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77316,
+					"y": 0.48958
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "limoges",
+			"name": "Limoges",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34741,
+					"y": 0.5353
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bordeaux",
+			"name": "Bordeaux",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1812,
+					"y": 0.58738
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "brive-la-gaillarde",
+			"name": "Brive-la-Gaillarde",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34264,
+					"y": 0.60532
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "clermont-ferrand",
+			"name": "Clermont-Ferrand",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4891,
+					"y": 0.58044
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lyon",
+			"name": "Lyon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6376,
+					"y": 0.60648
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bayonne",
+			"name": "Bayonne",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.0436,
+					"y": 0.6794
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pau",
+			"name": "Pau",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10899,
+					"y": 0.72396
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "toulouse",
+			"name": "Toulouse",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.26022,
+					"y": 0.74826
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rodez",
+			"name": "Rodez",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39101,
+					"y": 0.70544
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "grenoble",
+			"name": "Grenoble",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66689,
+					"y": 0.69502
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "briancon",
+			"name": "Briançon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72207,
+					"y": 0.73727
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "avignon",
+			"name": "Avignon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55722,
+					"y": 0.77894
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "montpellier",
+			"name": "Montpellier",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.44005,
+					"y": 0.80903
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "perpignan",
+			"name": "Perpignan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34809,
+					"y": 0.86227
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "marseille",
+			"name": "Marseille",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57766,
+					"y": 0.87963
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nice",
+			"name": "Nice",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72275,
+					"y": 0.87269
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "belgium",
+			"name": "Belgique",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.7064,
+					"y": 0.05787
+				},
+				{
+					"x": 0.74864,
+					"y": 0.08854
+				},
+				{
+					"x": 0.7861,
+					"y": 0.125
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "germany",
+			"name": "Allemagne",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.92234,
+					"y": 0.27546
+				},
+				{
+					"x": 0.99114,
+					"y": 0.42824
+				},
+				{
+					"x": 0.98706,
+					"y": 0.46181
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "switzerland",
+			"name": "Suisse",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.89305,
+					"y": 0.55961
+				},
+				{
+					"x": 0.83447,
+					"y": 0.5735
+				},
+				{
+					"x": 0.79155,
+					"y": 0.61227
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "italy",
+			"name": "Italia",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.8549,
+					"y": 0.68229
+				},
+				{
+					"x": 0.87125,
+					"y": 0.73553
+				},
+				{
+					"x": 0.84605,
+					"y": 0.79167
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "spain",
+			"name": "España",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.06948,
+					"y": 0.80324
+				},
+				{
+					"x": 0.11853,
+					"y": 0.81829
+				},
+				{
+					"x": 0.14646,
+					"y": 0.88831
+				},
+				{
+					"x": 0.25749,
+					"y": 0.91204
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "corsica",
+			"name": "Corse",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.55722,
+					"y": 0.93692
+				},
+				{
+					"x": 0.69959,
+					"y": 0.96065
+				},
+				{
+					"x": 0.77316,
+					"y": 0.9537
+				}
+			],
+			"connectivity": "separate"
+		}
+	],
+	"connections": [
+		{
+			"id": "brest-cherbourg-1",
+			"start": "brest",
+			"end": "cherbourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brest-saint-malo-1",
+			"start": "brest",
+			"end": "saint-malo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brest-rennes-1",
+			"start": "brest",
+			"end": "rennes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["saint-malo-lorient-1"],
+			"claim": "route"
+		},
+		{
+			"id": "brest-lorient-1",
+			"start": "brest",
+			"end": "lorient",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "brest-lorient",
+			"claim": "route"
+		},
+		{
+			"id": "brest-lorient-2",
+			"start": "brest",
+			"end": "lorient",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "brest-lorient",
+			"claim": "route"
+		},
+		{
+			"id": "cherbourg-calais-1",
+			"start": "cherbourg",
+			"end": "calais",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cherbourg-saint-malo-1",
+			"start": "cherbourg",
+			"end": "saint-malo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cherbourg-le-havre-1",
+			"start": "cherbourg",
+			"end": "le-havre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cherbourg-le-mans-1",
+			"start": "cherbourg",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["saint-malo-rouen-1"],
+			"claim": "route"
+		},
+		{
+			"id": "calais-le-havre-1",
+			"start": "calais",
+			"end": "le-havre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calais-rouen-1",
+			"start": "calais",
+			"end": "rouen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calais-amiens-1",
+			"start": "calais",
+			"end": "amiens",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calais-lille-1",
+			"start": "calais",
+			"end": "lille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calais-belgium-0-1",
+			"start": "calais",
+			"end": "belgium",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lille-belgium-1-1",
+			"start": "lille",
+			"end": "belgium",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lille-amiens-1",
+			"start": "lille",
+			"end": "amiens",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lille-reims-1",
+			"start": "lille",
+			"end": "reims",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reims-belgium-2-1",
+			"start": "reims",
+			"end": "belgium",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "le-havre-rouen-1",
+			"start": "le-havre",
+			"end": "rouen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "le-havre-le-mans-1",
+			"start": "le-havre",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["saint-malo-rouen-1"],
+			"claim": "route"
+		},
+		{
+			"id": "saint-malo-rennes-1",
+			"start": "saint-malo",
+			"end": "rennes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "saint-malo-rouen-1",
+			"start": "saint-malo",
+			"end": "rouen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["cherbourg-le-mans-1", "le-havre-le-mans-1"],
+			"claim": "route"
+		},
+		{
+			"id": "saint-malo-lorient-1",
+			"start": "saint-malo",
+			"end": "lorient",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["brest-rennes-1"],
+			"claim": "route"
+		},
+		{
+			"id": "lorient-rennes-1",
+			"start": "lorient",
+			"end": "rennes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lorient-nantes-1",
+			"start": "lorient",
+			"end": "nantes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lorient-nantes",
+			"claim": "route"
+		},
+		{
+			"id": "lorient-nantes-2",
+			"start": "lorient",
+			"end": "nantes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lorient-nantes",
+			"claim": "route"
+		},
+		{
+			"id": "lorient-le-mans-1",
+			"start": "lorient",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["rennes-nantes-1", "rennes-angers-1"],
+			"claim": "route"
+		},
+		{
+			"id": "rennes-nantes-1",
+			"start": "rennes",
+			"end": "nantes",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["lorient-le-mans-1"],
+			"claim": "route"
+		},
+		{
+			"id": "rennes-angers-1",
+			"start": "rennes",
+			"end": "angers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["lorient-le-mans-1"],
+			"claim": "route"
+		},
+		{
+			"id": "rennes-le-mans-1",
+			"start": "rennes",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rouen-amiens-1",
+			"start": "rouen",
+			"end": "amiens",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rouen-paris-1",
+			"start": "rouen",
+			"end": "paris",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rouen-le-mans-1",
+			"start": "rouen",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "amiens-paris-1",
+			"start": "amiens",
+			"end": "paris",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "amiens-paris",
+			"claim": "route"
+		},
+		{
+			"id": "amiens-paris-2",
+			"start": "amiens",
+			"end": "paris",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "amiens-paris",
+			"claim": "route"
+		},
+		{
+			"id": "amiens-reims-1",
+			"start": "amiens",
+			"end": "reims",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paris-reims-1",
+			"start": "paris",
+			"end": "reims",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "paris-reims",
+			"claim": "route"
+		},
+		{
+			"id": "paris-reims-2",
+			"start": "paris",
+			"end": "reims",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "paris-reims",
+			"claim": "route"
+		},
+		{
+			"id": "paris-le-mans-1",
+			"start": "paris",
+			"end": "le-mans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "paris-orleans-1",
+			"start": "paris",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "paris-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "paris-orleans-2",
+			"start": "paris",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "paris-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "paris-orleans-3",
+			"start": "paris",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "paris-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "paris-dijon-1",
+			"start": "paris",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "paris-dijon",
+			"claim": "route"
+		},
+		{
+			"id": "paris-dijon-2",
+			"start": "paris",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "paris-dijon",
+			"claim": "route"
+		},
+		{
+			"id": "paris-dijon-3",
+			"start": "paris",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "paris-dijon",
+			"claim": "route"
+		},
+		{
+			"id": "le-mans-angers-1",
+			"start": "le-mans",
+			"end": "angers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "le-mans-tours-1",
+			"start": "le-mans",
+			"end": "tours",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "le-mans-orleans-1",
+			"start": "le-mans",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nantes-angers-1",
+			"start": "nantes",
+			"end": "angers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "nantes-angers",
+			"claim": "route"
+		},
+		{
+			"id": "nantes-angers-2",
+			"start": "nantes",
+			"end": "angers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "nantes-angers",
+			"claim": "route"
+		},
+		{
+			"id": "nantes-la-rochelle-1",
+			"start": "nantes",
+			"end": "la-rochelle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nantes-la-rochelle",
+			"claim": "route"
+		},
+		{
+			"id": "nantes-la-rochelle-2",
+			"start": "nantes",
+			"end": "la-rochelle",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nantes-la-rochelle",
+			"claim": "route"
+		},
+		{
+			"id": "angers-tours-1",
+			"start": "angers",
+			"end": "tours",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "angers-tours",
+			"claim": "route"
+		},
+		{
+			"id": "angers-tours-2",
+			"start": "angers",
+			"end": "tours",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "angers-tours",
+			"claim": "route"
+		},
+		{
+			"id": "angers-poitiers-1",
+			"start": "angers",
+			"end": "poitiers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tours-orleans-1",
+			"start": "tours",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "tours-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "tours-orleans-2",
+			"start": "tours",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "tours-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "tours-orleans-3",
+			"start": "tours",
+			"end": "orleans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "tours-orleans",
+			"claim": "route"
+		},
+		{
+			"id": "tours-poitiers-1",
+			"start": "tours",
+			"end": "poitiers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "tours-poitiers",
+			"claim": "route"
+		},
+		{
+			"id": "tours-poitiers-2",
+			"start": "tours",
+			"end": "poitiers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "tours-poitiers",
+			"claim": "route"
+		},
+		{
+			"id": "tours-poitiers-3",
+			"start": "tours",
+			"end": "poitiers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "tours-poitiers",
+			"claim": "route"
+		},
+		{
+			"id": "tours-bourges-1",
+			"start": "tours",
+			"end": "bourges",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "orleans-bourges-1",
+			"start": "orleans",
+			"end": "bourges",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reims-metz-1",
+			"start": "reims",
+			"end": "metz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "reims-nancy-1",
+			"start": "reims",
+			"end": "nancy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "reims-nancy",
+			"claim": "route"
+		},
+		{
+			"id": "reims-nancy-2",
+			"start": "reims",
+			"end": "nancy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "reims-nancy",
+			"claim": "route"
+		},
+		{
+			"id": "metz-germany-0-1",
+			"start": "metz",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "metz-germany-0",
+			"claim": "route"
+		},
+		{
+			"id": "metz-germany-0-2",
+			"start": "metz",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "metz-germany-0",
+			"claim": "route"
+		},
+		{
+			"id": "metz-nancy-1",
+			"start": "metz",
+			"end": "nancy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "metz-nancy",
+			"claim": "route"
+		},
+		{
+			"id": "metz-nancy-2",
+			"start": "metz",
+			"end": "nancy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "metz-nancy",
+			"claim": "route"
+		},
+		{
+			"id": "metz-strasbourg-1",
+			"start": "metz",
+			"end": "strasbourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nancy-strasbourg-1",
+			"start": "nancy",
+			"end": "strasbourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nancy-strasbourg",
+			"claim": "route"
+		},
+		{
+			"id": "nancy-strasbourg-2",
+			"start": "nancy",
+			"end": "strasbourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nancy-strasbourg",
+			"claim": "route"
+		},
+		{
+			"id": "nancy-dijon-1",
+			"start": "nancy",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nancy-dijon",
+			"claim": "route"
+		},
+		{
+			"id": "nancy-dijon-2",
+			"start": "nancy",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nancy-dijon",
+			"claim": "route"
+		},
+		{
+			"id": "nancy-besancon-1",
+			"start": "nancy",
+			"end": "besancon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["mulhouse-dijon-1"],
+			"claim": "route"
+		},
+		{
+			"id": "strasbourg-germany-1-1",
+			"start": "strasbourg",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "strasbourg-germany-1",
+			"claim": "route"
+		},
+		{
+			"id": "strasbourg-germany-1-2",
+			"start": "strasbourg",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "strasbourg-germany-1",
+			"claim": "route"
+		},
+		{
+			"id": "strasbourg-mulhouse-1",
+			"start": "strasbourg",
+			"end": "mulhouse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mulhouse-germany-2-1",
+			"start": "mulhouse",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mulhouse-switzerland-0-1",
+			"start": "mulhouse",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mulhouse-besancon-1",
+			"start": "mulhouse",
+			"end": "besancon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mulhouse-dijon-1",
+			"start": "mulhouse",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["nancy-besancon-1"],
+			"claim": "route"
+		},
+		{
+			"id": "besancon-switzerland-1-1",
+			"start": "besancon",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "besancon-dijon-1",
+			"start": "besancon",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "besancon-lyon-1",
+			"start": "besancon",
+			"end": "lyon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "la-rochelle-poitiers-1",
+			"start": "la-rochelle",
+			"end": "poitiers",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "la-rochelle-bordeaux-1",
+			"start": "la-rochelle",
+			"end": "bordeaux",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "la-rochelle-bordeaux",
+			"claim": "route"
+		},
+		{
+			"id": "la-rochelle-bordeaux-2",
+			"start": "la-rochelle",
+			"end": "bordeaux",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "la-rochelle-bordeaux",
+			"claim": "route"
+		},
+		{
+			"id": "poitiers-bordeaux-1",
+			"start": "poitiers",
+			"end": "bordeaux",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "poitiers-bordeaux",
+			"claim": "route"
+		},
+		{
+			"id": "poitiers-bordeaux-2",
+			"start": "poitiers",
+			"end": "bordeaux",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "poitiers-bordeaux",
+			"claim": "route"
+		},
+		{
+			"id": "poitiers-bordeaux-3",
+			"start": "poitiers",
+			"end": "bordeaux",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "poitiers-bordeaux",
+			"claim": "route"
+		},
+		{
+			"id": "poitiers-limoges-1",
+			"start": "poitiers",
+			"end": "limoges",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "poitiers-bourges-1",
+			"start": "poitiers",
+			"end": "bourges",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bourges-dijon-1",
+			"start": "bourges",
+			"end": "dijon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bourges-clermont-ferrand-1",
+			"start": "bourges",
+			"end": "clermont-ferrand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bourges-brive-la-gaillarde-1",
+			"start": "bourges",
+			"end": "brive-la-gaillarde",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["limoges-clermont-ferrand-1"],
+			"claim": "route"
+		},
+		{
+			"id": "limoges-clermont-ferrand-1",
+			"start": "limoges",
+			"end": "clermont-ferrand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["bourges-brive-la-gaillarde-1"],
+			"claim": "route"
+		},
+		{
+			"id": "limoges-brive-la-gaillarde-1",
+			"start": "limoges",
+			"end": "brive-la-gaillarde",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-brive-la-gaillarde-1",
+			"start": "bordeaux",
+			"end": "brive-la-gaillarde",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-bayonne-1",
+			"start": "bordeaux",
+			"end": "bayonne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "bordeaux-bayonne",
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-bayonne-2",
+			"start": "bordeaux",
+			"end": "bayonne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "bordeaux-bayonne",
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-pau-1",
+			"start": "bordeaux",
+			"end": "pau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-toulouse-1",
+			"start": "bordeaux",
+			"end": "toulouse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "bordeaux-toulouse",
+			"claim": "route"
+		},
+		{
+			"id": "bordeaux-toulouse-2",
+			"start": "bordeaux",
+			"end": "toulouse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "bordeaux-toulouse",
+			"claim": "route"
+		},
+		{
+			"id": "brive-la-gaillarde-toulouse-1",
+			"start": "brive-la-gaillarde",
+			"end": "toulouse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brive-la-gaillarde-rodez-1",
+			"start": "brive-la-gaillarde",
+			"end": "rodez",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "brive-la-gaillarde-clermont-ferrand-1",
+			"start": "brive-la-gaillarde",
+			"end": "clermont-ferrand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "clermont-ferrand-lyon-1",
+			"start": "clermont-ferrand",
+			"end": "lyon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "clermont-ferrand-rodez-1",
+			"start": "clermont-ferrand",
+			"end": "rodez",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dijon-lyon-1",
+			"start": "dijon",
+			"end": "lyon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "dijon-lyon",
+			"claim": "route"
+		},
+		{
+			"id": "dijon-lyon-2",
+			"start": "dijon",
+			"end": "lyon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "dijon-lyon",
+			"claim": "route"
+		},
+		{
+			"id": "dijon-lyon-3",
+			"start": "dijon",
+			"end": "lyon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "dijon-lyon",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-switzerland-2-1",
+			"start": "lyon",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lyon-switzerland-2",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-switzerland-2-2",
+			"start": "lyon",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lyon-switzerland-2",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-grenoble-1",
+			"start": "lyon",
+			"end": "grenoble",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lyon-avignon-1",
+			"start": "lyon",
+			"end": "avignon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lyon-avignon",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-avignon-2",
+			"start": "lyon",
+			"end": "avignon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lyon-avignon",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-avignon-3",
+			"start": "lyon",
+			"end": "avignon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "lyon-avignon",
+			"claim": "route"
+		},
+		{
+			"id": "lyon-rodez-1",
+			"start": "lyon",
+			"end": "rodez",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bayonne-pau-1",
+			"start": "bayonne",
+			"end": "pau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bayonne-spain-0-1",
+			"start": "bayonne",
+			"end": "spain",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pau-spain-1-1",
+			"start": "pau",
+			"end": "spain",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pau-toulouse-1",
+			"start": "pau",
+			"end": "toulouse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-spain-2-1",
+			"start": "toulouse",
+			"end": "spain",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "toulouse-spain-2",
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-spain-2-2",
+			"start": "toulouse",
+			"end": "spain",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "toulouse-spain-2",
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-rodez-1",
+			"start": "toulouse",
+			"end": "rodez",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-montpellier-1",
+			"start": "toulouse",
+			"end": "montpellier",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "toulouse-montpellier",
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-montpellier-2",
+			"start": "toulouse",
+			"end": "montpellier",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "toulouse-montpellier",
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-perpignan-1",
+			"start": "toulouse",
+			"end": "perpignan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toulouse-avignon-1",
+			"start": "toulouse",
+			"end": "avignon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"blocks": ["rodez-montpellier-1"],
+			"claim": "route"
+		},
+		{
+			"id": "rodez-montpellier-1",
+			"start": "rodez",
+			"end": "montpellier",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["toulouse-avignon-1"],
+			"claim": "route"
+		},
+		{
+			"id": "grenoble-italy-0-1",
+			"start": "grenoble",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grenoble-briancon-1",
+			"start": "grenoble",
+			"end": "briancon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grenoble-marseille-1",
+			"start": "grenoble",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["briancon-avignon-1", "avignon-nice-1"],
+			"claim": "route"
+		},
+		{
+			"id": "briancon-italy-1-1",
+			"start": "briancon",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "briancon-avignon-1",
+			"start": "briancon",
+			"end": "avignon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["grenoble-marseille-1"],
+			"claim": "route"
+		},
+		{
+			"id": "briancon-nice-1",
+			"start": "briancon",
+			"end": "nice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "briancon-marseille-1",
+			"start": "briancon",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["avignon-nice-1"],
+			"claim": "route"
+		},
+		{
+			"id": "avignon-nice-1",
+			"start": "avignon",
+			"end": "nice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"blocks": ["grenoble-marseille-1", "briancon-marseille-1"],
+			"claim": "route"
+		},
+		{
+			"id": "avignon-marseille-1",
+			"start": "avignon",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "avignon-marseille",
+			"claim": "route"
+		},
+		{
+			"id": "avignon-marseille-2",
+			"start": "avignon",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "avignon-marseille",
+			"claim": "route"
+		},
+		{
+			"id": "avignon-marseille-3",
+			"start": "avignon",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "avignon-marseille",
+			"claim": "route"
+		},
+		{
+			"id": "avignon-montpellier-1",
+			"start": "avignon",
+			"end": "montpellier",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "avignon-montpellier",
+			"claim": "route"
+		},
+		{
+			"id": "avignon-montpellier-2",
+			"start": "avignon",
+			"end": "montpellier",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "avignon-montpellier",
+			"claim": "route"
+		},
+		{
+			"id": "montpellier-perpignan-1",
+			"start": "montpellier",
+			"end": "perpignan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "montpellier-marseille-1",
+			"start": "montpellier",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "montpellier-marseille",
+			"claim": "route"
+		},
+		{
+			"id": "montpellier-marseille-2",
+			"start": "montpellier",
+			"end": "marseille",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "montpellier-marseille",
+			"claim": "route"
+		},
+		{
+			"id": "perpignan-spain-3-1",
+			"start": "perpignan",
+			"end": "spain",
+			"startPosition": 0,
+			"endPosition": 3,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perpignan-corsica-0-1",
+			"start": "perpignan",
+			"end": "corsica",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "marseille-corsica-1-1",
+			"start": "marseille",
+			"end": "corsica",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "marseille-nice-1",
+			"start": "marseille",
+			"end": "nice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "marseille-nice",
+			"claim": "route"
+		},
+		{
+			"id": "marseille-nice-2",
+			"start": "marseille",
+			"end": "nice",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "marseille-nice",
+			"claim": "route"
+		},
+		{
+			"id": "nice-corsica-2-1",
+			"start": "nice",
+			"end": "corsica",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nice-italy-2-1",
+			"start": "nice",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nice-italy-2",
+			"claim": "route"
+		},
+		{
+			"id": "nice-italy-2-2",
+			"start": "nice",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				},
+				{
+					"type": "track-bed"
+				}
+			],
+			"parallelGroup": "nice-italy-2",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "brest-lorient",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lorient-nantes",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "amiens-paris",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "paris-reims",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "paris-orleans",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "paris-dijon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "nantes-angers",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nantes-la-rochelle",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "angers-tours",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tours-orleans",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "tours-poitiers",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "reims-nancy",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "metz-germany-0",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "metz-nancy",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nancy-strasbourg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nancy-dijon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "strasbourg-germany-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "la-rochelle-bordeaux",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "poitiers-bordeaux",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "bordeaux-bayonne",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bordeaux-toulouse",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dijon-lyon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "lyon-switzerland-2",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lyon-avignon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "toulouse-spain-2",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "toulouse-montpellier",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "avignon-marseille",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "avignon-montpellier",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "montpellier-marseille",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "marseille-nice",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nice-italy-2",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

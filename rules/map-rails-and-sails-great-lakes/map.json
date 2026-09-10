@@ -1,0 +1,3639 @@
+{
+	"schemaVersion": 1,
+	"id": "rails-and-sails-great-lakes",
+	"name": "Rails & Sails: Great Lakes",
+	"image": {
+		"file": "map.png",
+		"width": 2600,
+		"height": 1447
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ships", "harbors"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "duluth",
+			"name": "Duluth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11719,
+					"y": 0.27281
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "thunder-bay",
+			"name": "Thunder Bay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24219,
+					"y": 0.12018
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "marathon",
+			"name": "Marathon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36279,
+					"y": 0.10965
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "timmins",
+			"name": "Timmins",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53809,
+					"y": 0.08947
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "rouyn-noranda",
+			"name": "Rouyn-Noranda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67529,
+					"y": 0.11754
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "sudbury",
+			"name": "Sudbury",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59326,
+					"y": 0.32632
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "ottawa",
+			"name": "Ottawa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.81543,
+					"y": 0.42982
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "montreal",
+			"name": "Montréal",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88281,
+					"y": 0.41404
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "marquette",
+			"name": "Marquette",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31641,
+					"y": 0.3386
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "sault-ste-marie",
+			"name": "Sault Ste. Marie",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.43994,
+					"y": 0.33684
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "south-baymouth",
+			"name": "South Baymouth",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53564,
+					"y": 0.43509
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "perry-sound",
+			"name": "Perry Sound",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62939,
+					"y": 0.47895
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "port-elgin",
+			"name": "Port Elgin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.56885,
+					"y": 0.57719
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "toronto",
+			"name": "Toronto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.646,
+					"y": 0.64211
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "kingston",
+			"name": "Kingston",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.78711,
+					"y": 0.56404
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "eau-claire",
+			"name": "Eau Claire",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12842,
+					"y": 0.49298
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "wausau",
+			"name": "Wausau",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.21387,
+					"y": 0.48333
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "green-bay",
+			"name": "Green Bay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.2749,
+					"y": 0.53684
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "traverse-city",
+			"name": "Traverse City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38232,
+					"y": 0.52982
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "bay-city",
+			"name": "Bay City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45996,
+					"y": 0.66053
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "muskegon",
+			"name": "Muskegon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35547,
+					"y": 0.70526
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "madison",
+			"name": "Madison",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.21729,
+					"y": 0.73158
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "milwaukee",
+			"name": "Milwaukee",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.27783,
+					"y": 0.73596
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "cedar-rapids",
+			"name": "Cedar Rapids",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11523,
+					"y": 0.82281
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "chicago",
+			"name": "Chicago",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28662,
+					"y": 0.85789
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "south-bend",
+			"name": "South Bend",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34863,
+					"y": 0.89912
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "detroit",
+			"name": "Detroit",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48584,
+					"y": 0.79298
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "toledo",
+			"name": "Toledo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47119,
+					"y": 0.89561
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "cleveland",
+			"name": "Cleveland",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.56396,
+					"y": 0.88772
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "erie",
+			"name": "Erie",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61865,
+					"y": 0.84211
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "buffalo",
+			"name": "Buffalo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67676,
+					"y": 0.73684
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "syracuse",
+			"name": "Syracuse",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79004,
+					"y": 0.71404
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "albany",
+			"name": "Albany",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88037,
+					"y": 0.73246
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "scranton",
+			"name": "Scranton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.81592,
+					"y": 0.87105
+				}
+			],
+			"connectivity": "shared",
+			"port": false
+		},
+		{
+			"id": "new-york",
+			"name": "New York",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.87061,
+					"y": 0.94123
+				}
+			],
+			"connectivity": "shared",
+			"port": true
+		},
+		{
+			"id": "junction-superior",
+			"name": "Unnamed Lake Superior junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.28564,
+					"y": 0.19035
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "junction-huron",
+			"name": "Unnamed Lake Huron junction",
+			"type": "junction",
+			"positions": [
+				{
+					"x": 0.51807,
+					"y": 0.54825
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "duluth-thunder-bay-1",
+			"start": "duluth",
+			"end": "thunder-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-thunder-bay-2",
+			"start": "duluth",
+			"end": "thunder-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-junction-superior-1",
+			"start": "duluth",
+			"end": "junction-superior",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "duluth-junction-superior",
+			"claim": "route"
+		},
+		{
+			"id": "duluth-junction-superior-2",
+			"start": "duluth",
+			"end": "junction-superior",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "duluth-junction-superior",
+			"claim": "route"
+		},
+		{
+			"id": "duluth-marquette-1",
+			"start": "duluth",
+			"end": "marquette",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-eau-claire-1",
+			"start": "duluth",
+			"end": "eau-claire",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "duluth-wausau-1",
+			"start": "duluth",
+			"end": "wausau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "thunder-bay-marathon-1",
+			"start": "thunder-bay",
+			"end": "marathon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "thunder-bay-junction-superior-1",
+			"start": "thunder-bay",
+			"end": "junction-superior",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "thunder-bay-junction-superior",
+			"claim": "route"
+		},
+		{
+			"id": "thunder-bay-junction-superior-2",
+			"start": "thunder-bay",
+			"end": "junction-superior",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "thunder-bay-junction-superior",
+			"claim": "route"
+		},
+		{
+			"id": "marathon-junction-superior-1",
+			"start": "marathon",
+			"end": "junction-superior",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "marathon-sault-ste-marie-1",
+			"start": "marathon",
+			"end": "sault-ste-marie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "marathon-timmins-1",
+			"start": "marathon",
+			"end": "timmins",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-superior-marquette-1",
+			"start": "junction-superior",
+			"end": "marquette",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-superior-sault-ste-marie-1",
+			"start": "junction-superior",
+			"end": "sault-ste-marie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "junction-superior-sault-ste-marie",
+			"claim": "route"
+		},
+		{
+			"id": "junction-superior-sault-ste-marie-2",
+			"start": "junction-superior",
+			"end": "sault-ste-marie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "junction-superior-sault-ste-marie",
+			"claim": "route"
+		},
+		{
+			"id": "marquette-sault-ste-marie-1",
+			"start": "marquette",
+			"end": "sault-ste-marie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "marquette-wausau-1",
+			"start": "marquette",
+			"end": "wausau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-south-baymouth-1",
+			"start": "sault-ste-marie",
+			"end": "south-baymouth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-junction-huron-1",
+			"start": "sault-ste-marie",
+			"end": "junction-huron",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "sault-ste-marie-junction-huron",
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-junction-huron-2",
+			"start": "sault-ste-marie",
+			"end": "junction-huron",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sault-ste-marie-junction-huron",
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-traverse-city-1",
+			"start": "sault-ste-marie",
+			"end": "traverse-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-green-bay-1",
+			"start": "sault-ste-marie",
+			"end": "green-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "sault-ste-marie-green-bay",
+			"claim": "route"
+		},
+		{
+			"id": "sault-ste-marie-green-bay-2",
+			"start": "sault-ste-marie",
+			"end": "green-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "sault-ste-marie-green-bay",
+			"claim": "route"
+		},
+		{
+			"id": "timmins-rouyn-noranda-1",
+			"start": "timmins",
+			"end": "rouyn-noranda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "timmins-sudbury-1",
+			"start": "timmins",
+			"end": "sudbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "timmins-sudbury",
+			"claim": "route"
+		},
+		{
+			"id": "timmins-sudbury-2",
+			"start": "timmins",
+			"end": "sudbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "timmins-sudbury",
+			"claim": "route"
+		},
+		{
+			"id": "rouyn-noranda-sudbury-1",
+			"start": "rouyn-noranda",
+			"end": "sudbury",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rouyn-noranda-ottawa-1",
+			"start": "rouyn-noranda",
+			"end": "ottawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rouyn-noranda-montreal-1",
+			"start": "rouyn-noranda",
+			"end": "montreal",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sudbury-south-baymouth-1",
+			"start": "sudbury",
+			"end": "south-baymouth",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sudbury-perry-sound-1",
+			"start": "sudbury",
+			"end": "perry-sound",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sudbury-ottawa-1",
+			"start": "sudbury",
+			"end": "ottawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "sudbury-ottawa",
+			"claim": "route"
+		},
+		{
+			"id": "sudbury-ottawa-2",
+			"start": "sudbury",
+			"end": "ottawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "sudbury-ottawa",
+			"claim": "route"
+		},
+		{
+			"id": "ottawa-montreal-1",
+			"start": "ottawa",
+			"end": "montreal",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ottawa-montreal",
+			"claim": "route"
+		},
+		{
+			"id": "ottawa-montreal-2",
+			"start": "ottawa",
+			"end": "montreal",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ottawa-montreal",
+			"claim": "route"
+		},
+		{
+			"id": "ottawa-kingston-1",
+			"start": "ottawa",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "montreal-kingston-1",
+			"start": "montreal",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "montreal-kingston",
+			"claim": "route"
+		},
+		{
+			"id": "montreal-kingston-2",
+			"start": "montreal",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "montreal-kingston",
+			"claim": "route"
+		},
+		{
+			"id": "montreal-albany-1",
+			"start": "montreal",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "montreal-albany",
+			"claim": "route"
+		},
+		{
+			"id": "montreal-albany-2",
+			"start": "montreal",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "montreal-albany",
+			"claim": "route"
+		},
+		{
+			"id": "south-baymouth-perry-sound-1",
+			"start": "south-baymouth",
+			"end": "perry-sound",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "south-baymouth-port-elgin-1",
+			"start": "south-baymouth",
+			"end": "port-elgin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "south-baymouth-junction-huron-1",
+			"start": "south-baymouth",
+			"end": "junction-huron",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perry-sound-port-elgin-1",
+			"start": "perry-sound",
+			"end": "port-elgin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perry-sound-toronto-1",
+			"start": "perry-sound",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "port-elgin-toronto-1",
+			"start": "port-elgin",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "port-elgin-junction-huron-1",
+			"start": "port-elgin",
+			"end": "junction-huron",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-huron-bay-city-1",
+			"start": "junction-huron",
+			"end": "bay-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "junction-huron-detroit-1",
+			"start": "junction-huron",
+			"end": "detroit",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "junction-huron-detroit",
+			"claim": "route"
+		},
+		{
+			"id": "junction-huron-detroit-2",
+			"start": "junction-huron",
+			"end": "detroit",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "junction-huron-detroit",
+			"claim": "route"
+		},
+		{
+			"id": "eau-claire-wausau-1",
+			"start": "eau-claire",
+			"end": "wausau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "eau-claire-madison-1",
+			"start": "eau-claire",
+			"end": "madison",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "eau-claire-cedar-rapids-1",
+			"start": "eau-claire",
+			"end": "cedar-rapids",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wausau-green-bay-1",
+			"start": "wausau",
+			"end": "green-bay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wausau-milwaukee-1",
+			"start": "wausau",
+			"end": "milwaukee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wausau-madison-1",
+			"start": "wausau",
+			"end": "madison",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "green-bay-traverse-city-1",
+			"start": "green-bay",
+			"end": "traverse-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "green-bay-milwaukee-1",
+			"start": "green-bay",
+			"end": "milwaukee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "green-bay-milwaukee",
+			"claim": "route"
+		},
+		{
+			"id": "green-bay-milwaukee-2",
+			"start": "green-bay",
+			"end": "milwaukee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "green-bay-milwaukee",
+			"claim": "route"
+		},
+		{
+			"id": "traverse-city-bay-city-1",
+			"start": "traverse-city",
+			"end": "bay-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "traverse-city-muskegon-1",
+			"start": "traverse-city",
+			"end": "muskegon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "traverse-city-muskegon-2",
+			"start": "traverse-city",
+			"end": "muskegon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bay-city-detroit-1",
+			"start": "bay-city",
+			"end": "detroit",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "muskegon-milwaukee-1",
+			"start": "muskegon",
+			"end": "milwaukee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "muskegon-chicago-1",
+			"start": "muskegon",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "muskegon-south-bend-1",
+			"start": "muskegon",
+			"end": "south-bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madison-milwaukee-1",
+			"start": "madison",
+			"end": "milwaukee",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madison-cedar-rapids-1",
+			"start": "madison",
+			"end": "cedar-rapids",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "madison-chicago-1",
+			"start": "madison",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "milwaukee-chicago-1",
+			"start": "milwaukee",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "milwaukee-chicago",
+			"claim": "route"
+		},
+		{
+			"id": "milwaukee-chicago-2",
+			"start": "milwaukee",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "milwaukee-chicago",
+			"claim": "route"
+		},
+		{
+			"id": "cedar-rapids-chicago-1",
+			"start": "cedar-rapids",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "cedar-rapids-chicago",
+			"claim": "route"
+		},
+		{
+			"id": "cedar-rapids-chicago-2",
+			"start": "cedar-rapids",
+			"end": "chicago",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "cedar-rapids-chicago",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-south-bend-1",
+			"start": "chicago",
+			"end": "south-bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chicago-south-bend",
+			"claim": "route"
+		},
+		{
+			"id": "chicago-south-bend-2",
+			"start": "chicago",
+			"end": "south-bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "chicago-south-bend",
+			"claim": "route"
+		},
+		{
+			"id": "south-bend-toledo-1",
+			"start": "south-bend",
+			"end": "toledo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "south-bend-toledo",
+			"claim": "route"
+		},
+		{
+			"id": "south-bend-toledo-2",
+			"start": "south-bend",
+			"end": "toledo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "south-bend-toledo",
+			"claim": "route"
+		},
+		{
+			"id": "south-bend-detroit-1",
+			"start": "south-bend",
+			"end": "detroit",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "detroit-toronto-1",
+			"start": "detroit",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "detroit-buffalo-1",
+			"start": "detroit",
+			"end": "buffalo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "detroit-buffalo",
+			"claim": "route"
+		},
+		{
+			"id": "detroit-buffalo-2",
+			"start": "detroit",
+			"end": "buffalo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "detroit-buffalo",
+			"claim": "route"
+		},
+		{
+			"id": "detroit-toledo-1",
+			"start": "detroit",
+			"end": "toledo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "detroit-toledo",
+			"claim": "route"
+		},
+		{
+			"id": "detroit-toledo-2",
+			"start": "detroit",
+			"end": "toledo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "detroit-toledo",
+			"claim": "route"
+		},
+		{
+			"id": "detroit-cleveland-1",
+			"start": "detroit",
+			"end": "cleveland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toledo-cleveland-1",
+			"start": "toledo",
+			"end": "cleveland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "toledo-cleveland",
+			"claim": "route"
+		},
+		{
+			"id": "toledo-cleveland-2",
+			"start": "toledo",
+			"end": "cleveland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "toledo-cleveland",
+			"claim": "route"
+		},
+		{
+			"id": "cleveland-erie-1",
+			"start": "cleveland",
+			"end": "erie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "cleveland-erie",
+			"claim": "route"
+		},
+		{
+			"id": "cleveland-erie-2",
+			"start": "cleveland",
+			"end": "erie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "cleveland-erie",
+			"claim": "route"
+		},
+		{
+			"id": "cleveland-new-york-1",
+			"start": "cleveland",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "erie-buffalo-1",
+			"start": "erie",
+			"end": "buffalo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "erie-scranton-1",
+			"start": "erie",
+			"end": "scranton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "erie-scranton",
+			"claim": "route"
+		},
+		{
+			"id": "erie-scranton-2",
+			"start": "erie",
+			"end": "scranton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "erie-scranton",
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-toronto-1",
+			"start": "buffalo",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "buffalo-toronto",
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-toronto-2",
+			"start": "buffalo",
+			"end": "toronto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "buffalo-toronto",
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-kingston-1",
+			"start": "buffalo",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				},
+				{
+					"type": "ship",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-syracuse-1",
+			"start": "buffalo",
+			"end": "syracuse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "buffalo-syracuse",
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-syracuse-2",
+			"start": "buffalo",
+			"end": "syracuse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				},
+				{
+					"type": "ship",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "buffalo-syracuse",
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-scranton-1",
+			"start": "buffalo",
+			"end": "scranton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "toronto-kingston-1",
+			"start": "toronto",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				},
+				{
+					"type": "ship",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "toronto-kingston",
+			"claim": "route"
+		},
+		{
+			"id": "toronto-kingston-2",
+			"start": "toronto",
+			"end": "kingston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "toronto-kingston",
+			"claim": "route"
+		},
+		{
+			"id": "kingston-syracuse-1",
+			"start": "kingston",
+			"end": "syracuse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-scranton-1",
+			"start": "syracuse",
+			"end": "scranton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "syracuse-scranton",
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-scranton-2",
+			"start": "syracuse",
+			"end": "scranton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "syracuse-scranton",
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-albany-1",
+			"start": "syracuse",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "green"
+				},
+				{
+					"type": "ship",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "syracuse-albany",
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-albany-2",
+			"start": "syracuse",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "purple"
+				},
+				{
+					"type": "ship",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "syracuse-albany",
+			"claim": "route"
+		},
+		{
+			"id": "albany-new-york-1",
+			"start": "albany",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				},
+				{
+					"type": "ship",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "albany-new-york",
+			"claim": "route"
+		},
+		{
+			"id": "albany-new-york-2",
+			"start": "albany",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				},
+				{
+					"type": "ship",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "albany-new-york",
+			"claim": "route"
+		},
+		{
+			"id": "scranton-new-york-1",
+			"start": "scranton",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "scranton-new-york",
+			"claim": "route"
+		},
+		{
+			"id": "scranton-new-york-2",
+			"start": "scranton",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "scranton-new-york",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "duluth-junction-superior",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "thunder-bay-junction-superior",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "junction-superior-sault-ste-marie",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sault-ste-marie-junction-huron",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sault-ste-marie-green-bay",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "timmins-sudbury",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sudbury-ottawa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ottawa-montreal",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "montreal-kingston",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "montreal-albany",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "junction-huron-detroit",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "green-bay-milwaukee",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "milwaukee-chicago",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cedar-rapids-chicago",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "chicago-south-bend",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "south-bend-toledo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "detroit-buffalo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "detroit-toledo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "toledo-cleveland",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cleveland-erie",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "erie-scranton",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "buffalo-toronto",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "buffalo-syracuse",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "toronto-kingston",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "syracuse-scranton",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "syracuse-albany",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "albany-new-york",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "scranton-new-york",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

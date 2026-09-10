@@ -1,0 +1,3402 @@
+{
+	"schemaVersion": 1,
+	"id": "pennsylvania",
+	"name": "Pennsylvania",
+	"image": {
+		"file": "map.png",
+		"width": 2214,
+		"height": 1476
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ferries", "stocks"],
+	"regions": [],
+	"companies": [
+		{
+			"id": "pennsylvania-railroad",
+			"name": "Pennsylvania Railroad"
+		},
+		{
+			"id": "erie-lackawanna-railway",
+			"name": "Erie Lackawanna Railway"
+		},
+		{
+			"id": "baltimore-ohio-railroad",
+			"name": "Baltimore & Ohio Railroad"
+		},
+		{
+			"id": "lehigh-valley-railroad",
+			"name": "Lehigh Valley Railroad"
+		},
+		{
+			"id": "new-york-central-system",
+			"name": "New York Central System"
+		},
+		{
+			"id": "reading-railroad",
+			"name": "Reading Railroad"
+		},
+		{
+			"id": "jersey-central-line",
+			"name": "Jersey Central Line"
+		},
+		{
+			"id": "western-maryland-railway",
+			"name": "Western Maryland Railway"
+		},
+		{
+			"id": "buffalo-rochester-pittsburgh-railway",
+			"name": "Buffalo Rochester & Pittsburgh Railway"
+		}
+	],
+	"nodes": [
+		{
+			"id": "ontario",
+			"name": "Ontario",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.0765625,
+					"y": 0.078125
+				},
+				{
+					"x": 0.24947916666666667,
+					"y": 0.08046875
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "erie",
+			"name": "Erie",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14271,
+					"y": 0.24609
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "buffalo",
+			"name": "Buffalo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.33229,
+					"y": 0.08203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rochester",
+			"name": "Rochester",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53854,
+					"y": 0.08359
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "syracuse",
+			"name": "Syracuse",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70937,
+					"y": 0.08281
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "albany",
+			"name": "Albany",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9526,
+					"y": 0.12344
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "elmira",
+			"name": "Elmira",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58281,
+					"y": 0.25078
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "binghamton",
+			"name": "Binghamton",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72865,
+					"y": 0.24688
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "warren",
+			"name": "Warren",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.26615,
+					"y": 0.32578
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "coudersport",
+			"name": "Coudersport",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42865,
+					"y": 0.32813
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "towanda",
+			"name": "Towanda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64219,
+					"y": 0.35078
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "oil-city",
+			"name": "Oil City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.19167,
+					"y": 0.44062
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "youngstown",
+			"name": "Youngstown",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.05677,
+					"y": 0.48672
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "scranton-wilkes-barre",
+			"name": "Scranton / Wilkes Barre",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.75521,
+					"y": 0.44688
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "williamsport",
+			"name": "Williamsport",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55937,
+					"y": 0.48672
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dubois",
+			"name": "Dubois",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3224,
+					"y": 0.52656
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "stroudsburg",
+			"name": "Stroudsburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84219,
+					"y": 0.55078
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "new-york",
+			"name": "New York",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9526,
+					"y": 0.49453
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pittsburgh",
+			"name": "Pittsburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1474,
+					"y": 0.7
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "altoona",
+			"name": "Altoona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.37292,
+					"y": 0.66719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lewiston",
+			"name": "Lewiston",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4875,
+					"y": 0.65156
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "allentown",
+			"name": "Allentown",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.7724,
+					"y": 0.64922
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "johnstown",
+			"name": "Johnstown",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31719,
+					"y": 0.72656
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "harrisburg",
+			"name": "Harrisburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58021,
+					"y": 0.73203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "reading",
+			"name": "Reading",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68333,
+					"y": 0.70859
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lancaster",
+			"name": "Lancaster",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66719,
+					"y": 0.80156
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "york",
+			"name": "York",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60573,
+					"y": 0.82578
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "philadelphia",
+			"name": "Philadelphia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.83854,
+					"y": 0.83594
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "atlantic-city",
+			"name": "Atlantic City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.94844,
+					"y": 0.85547
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wheeling",
+			"name": "Wheeling",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.06406,
+					"y": 0.79688
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "morgantown",
+			"name": "Morgantown",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16094,
+					"y": 0.93203
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cumberland",
+			"name": "Cumberland",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.375,
+					"y": 0.92422
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chambersburg",
+			"name": "Chambersburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47083,
+					"y": 0.83047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gettysburg",
+			"name": "Gettysburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53802,
+					"y": 0.86641
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "baltimore",
+			"name": "Baltimore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6724,
+					"y": 0.92734
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "ontario-0-erie-1",
+			"start": "ontario",
+			"end": "erie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ontario-0-erie",
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "ontario-0-erie-2",
+			"start": "ontario",
+			"end": "erie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ontario-0-erie",
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "ontario-1-buffalo-1",
+			"start": "ontario",
+			"end": "buffalo",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ontario-1-buffalo",
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "ontario-1-buffalo-2",
+			"start": "ontario",
+			"end": "buffalo",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ontario-1-buffalo",
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "erie-buffalo-1",
+			"start": "erie",
+			"end": "buffalo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "erie-buffalo",
+			"stockCompanies": ["erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "erie-buffalo-2",
+			"start": "erie",
+			"end": "buffalo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "erie-buffalo",
+			"stockCompanies": ["erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-rochester-1",
+			"start": "buffalo",
+			"end": "rochester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "buffalo-rochester",
+			"stockCompanies": [
+				"baltimore-ohio-railroad",
+				"erie-lackawanna-railway",
+				"lehigh-valley-railroad",
+				"new-york-central-system",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-rochester-2",
+			"start": "buffalo",
+			"end": "rochester",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "buffalo-rochester",
+			"stockCompanies": [
+				"baltimore-ohio-railroad",
+				"erie-lackawanna-railway",
+				"lehigh-valley-railroad",
+				"new-york-central-system",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-warren-1",
+			"start": "buffalo",
+			"end": "warren",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"stockCompanies": [
+				"pennsylvania-railroad",
+				"erie-lackawanna-railway",
+				"baltimore-ohio-railroad",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "buffalo-coudersport-1",
+			"start": "buffalo",
+			"end": "coudersport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "rochester-syracuse-1",
+			"start": "rochester",
+			"end": "syracuse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "rochester-syracuse",
+			"stockCompanies": ["lehigh-valley-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "rochester-syracuse-2",
+			"start": "rochester",
+			"end": "syracuse",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "rochester-syracuse",
+			"stockCompanies": ["lehigh-valley-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "rochester-elmira-1",
+			"start": "rochester",
+			"end": "elmira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"stockCompanies": [
+				"pennsylvania-railroad",
+				"erie-lackawanna-railway",
+				"baltimore-ohio-railroad",
+				"lehigh-valley-railroad",
+				"new-york-central-system",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-albany-1",
+			"start": "syracuse",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "syracuse-albany",
+			"stockCompanies": ["new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-albany-2",
+			"start": "syracuse",
+			"end": "albany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "syracuse-albany",
+			"stockCompanies": ["new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-binghamton-1",
+			"start": "syracuse",
+			"end": "binghamton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "syracuse-binghamton",
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-binghamton-2",
+			"start": "syracuse",
+			"end": "binghamton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "syracuse-binghamton",
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "syracuse-elmira-1",
+			"start": "syracuse",
+			"end": "elmira",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway", "lehigh-valley-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "albany-binghamton-1",
+			"start": "albany",
+			"end": "binghamton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albany-new-york-1",
+			"start": "albany",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "albany-new-york",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "albany-new-york-2",
+			"start": "albany",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "albany-new-york",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "elmira-binghamton-1",
+			"start": "elmira",
+			"end": "binghamton",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "elmira-coudersport-1",
+			"start": "elmira",
+			"end": "coudersport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"stockCompanies": [
+				"pennsylvania-railroad",
+				"erie-lackawanna-railway",
+				"baltimore-ohio-railroad",
+				"new-york-central-system",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "elmira-towanda-1",
+			"start": "elmira",
+			"end": "towanda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "lehigh-valley-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "binghamton-towanda-1",
+			"start": "binghamton",
+			"end": "towanda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "binghamton-scranton-wilkes-barre-1",
+			"start": "binghamton",
+			"end": "scranton-wilkes-barre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "binghamton-scranton-wilkes-barre",
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "binghamton-scranton-wilkes-barre-2",
+			"start": "binghamton",
+			"end": "scranton-wilkes-barre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "binghamton-scranton-wilkes-barre",
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "warren-erie-1",
+			"start": "warren",
+			"end": "erie",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "warren-oil-city-1",
+			"start": "warren",
+			"end": "oil-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "warren-coudersport-1",
+			"start": "warren",
+			"end": "coudersport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": [
+				"pennsylvania-railroad",
+				"erie-lackawanna-railway",
+				"baltimore-ohio-railroad",
+				"new-york-central-system",
+				"buffalo-rochester-pittsburgh-railway"
+			],
+			"claim": "route"
+		},
+		{
+			"id": "warren-dubois-1",
+			"start": "warren",
+			"end": "dubois",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway", "buffalo-rochester-pittsburgh-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "erie-oil-city-1",
+			"start": "erie",
+			"end": "oil-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "erie-youngstown-1",
+			"start": "erie",
+			"end": "youngstown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "erie-youngstown",
+			"stockCompanies": ["erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "erie-youngstown-2",
+			"start": "erie",
+			"end": "youngstown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "erie-youngstown",
+			"stockCompanies": ["erie-lackawanna-railway", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "youngstown-oil-city-1",
+			"start": "youngstown",
+			"end": "oil-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "youngstown-pittsburgh-1",
+			"start": "youngstown",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "youngstown-pittsburgh",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "youngstown-pittsburgh-2",
+			"start": "youngstown",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "youngstown-pittsburgh",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "youngstown-wheeling-1",
+			"start": "youngstown",
+			"end": "wheeling",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "new-york-central-system"],
+			"claim": "route"
+		},
+		{
+			"id": "oil-city-pittsburgh-1",
+			"start": "oil-city",
+			"end": "pittsburgh",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "oil-city-dubois-1",
+			"start": "oil-city",
+			"end": "dubois",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "coudersport-williamsport-1",
+			"start": "coudersport",
+			"end": "williamsport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "dubois-williamsport-1",
+			"start": "dubois",
+			"end": "williamsport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dubois-altoona-1",
+			"start": "dubois",
+			"end": "altoona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "towanda-williamsport-1",
+			"start": "towanda",
+			"end": "williamsport",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"stockCompanies": ["erie-lackawanna-railway", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "towanda-scranton-wilkes-barre-1",
+			"start": "towanda",
+			"end": "scranton-wilkes-barre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "erie-lackawanna-railway", "lehigh-valley-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "williamsport-scranton-wilkes-barre-1",
+			"start": "williamsport",
+			"end": "scranton-wilkes-barre",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "williamsport-lewiston-1",
+			"start": "williamsport",
+			"end": "lewiston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-new-york-1",
+			"start": "scranton-wilkes-barre",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "scranton-wilkes-barre-new-york",
+			"stockCompanies": ["erie-lackawanna-railway", "lehigh-valley-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-new-york-2",
+			"start": "scranton-wilkes-barre",
+			"end": "new-york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "scranton-wilkes-barre-new-york",
+			"stockCompanies": ["erie-lackawanna-railway", "lehigh-valley-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-stroudsburg-1",
+			"start": "scranton-wilkes-barre",
+			"end": "stroudsburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"stockCompanies": ["reading-railroad", "lehigh-valley-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-allentown-1",
+			"start": "scranton-wilkes-barre",
+			"end": "allentown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "scranton-wilkes-barre-allentown",
+			"stockCompanies": ["pennsylvania-railroad", "lehigh-valley-railroad", "jersey-central-line", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-allentown-2",
+			"start": "scranton-wilkes-barre",
+			"end": "allentown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "scranton-wilkes-barre-allentown",
+			"stockCompanies": ["pennsylvania-railroad", "lehigh-valley-railroad", "jersey-central-line", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "scranton-wilkes-barre-harrisburg-1",
+			"start": "scranton-wilkes-barre",
+			"end": "harrisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "new-york-philadelphia-1",
+			"start": "new-york",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "new-york-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "jersey-central-line", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "new-york-philadelphia-2",
+			"start": "new-york",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "new-york-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad", "jersey-central-line", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "new-york-atlantic-city-1",
+			"start": "new-york",
+			"end": "atlantic-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "new-york-atlantic-city",
+			"stockCompanies": ["jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "new-york-atlantic-city-2",
+			"start": "new-york",
+			"end": "atlantic-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "new-york-atlantic-city",
+			"stockCompanies": ["jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "stroudsburg-allentown-1",
+			"start": "stroudsburg",
+			"end": "allentown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"stockCompanies": ["reading-railroad", "lehigh-valley-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "allentown-reading-1",
+			"start": "allentown",
+			"end": "reading",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"stockCompanies": ["reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "allentown-philadelphia-1",
+			"start": "allentown",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "allentown-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "allentown-philadelphia-2",
+			"start": "allentown",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "allentown-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-johnstown-1",
+			"start": "pittsburgh",
+			"end": "johnstown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "pittsburgh-johnstown",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-johnstown-2",
+			"start": "pittsburgh",
+			"end": "johnstown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pittsburgh-johnstown",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-wheeling-1",
+			"start": "pittsburgh",
+			"end": "wheeling",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "pittsburgh-wheeling",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-wheeling-2",
+			"start": "pittsburgh",
+			"end": "wheeling",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "pittsburgh-wheeling",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "pittsburgh-morgantown-1",
+			"start": "pittsburgh",
+			"end": "morgantown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wheeling-morgantown-1",
+			"start": "wheeling",
+			"end": "morgantown",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"stockCompanies": ["baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "morgantown-cumberland-1",
+			"start": "morgantown",
+			"end": "cumberland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"stockCompanies": ["western-maryland-railway", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "johnstown-altoona-1",
+			"start": "johnstown",
+			"end": "altoona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "johnstown-altoona",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "johnstown-altoona-2",
+			"start": "johnstown",
+			"end": "altoona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "johnstown-altoona",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "johnstown-cumberland-1",
+			"start": "johnstown",
+			"end": "cumberland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "altoona-lewiston-1",
+			"start": "altoona",
+			"end": "lewiston",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "altoona-harrisburg-1",
+			"start": "altoona",
+			"end": "harrisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "altoona-harrisburg",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "altoona-harrisburg-2",
+			"start": "altoona",
+			"end": "harrisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "altoona-harrisburg",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "lewiston-harrisburg-1",
+			"start": "lewiston",
+			"end": "harrisburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-reading-1",
+			"start": "harrisburg",
+			"end": "reading",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"stockCompanies": ["reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-lancaster-1",
+			"start": "harrisburg",
+			"end": "lancaster",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "harrisburg-lancaster",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-lancaster-2",
+			"start": "harrisburg",
+			"end": "lancaster",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "harrisburg-lancaster",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-york-1",
+			"start": "harrisburg",
+			"end": "york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-gettysburg-1",
+			"start": "harrisburg",
+			"end": "gettysburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "harrisburg-chambersburg-1",
+			"start": "harrisburg",
+			"end": "chambersburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway", "reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "reading-lancaster-1",
+			"start": "reading",
+			"end": "lancaster",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"stockCompanies": ["reading-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "lancaster-york-1",
+			"start": "lancaster",
+			"end": "york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "lancaster-philadelphia-1",
+			"start": "lancaster",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "lancaster-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "lancaster-philadelphia-2",
+			"start": "lancaster",
+			"end": "philadelphia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "lancaster-philadelphia",
+			"stockCompanies": ["pennsylvania-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "philadelphia-atlantic-city-1",
+			"start": "philadelphia",
+			"end": "atlantic-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "philadelphia-atlantic-city",
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "philadelphia-atlantic-city-2",
+			"start": "philadelphia",
+			"end": "atlantic-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "philadelphia-atlantic-city",
+			"stockCompanies": ["pennsylvania-railroad", "reading-railroad", "jersey-central-line"],
+			"claim": "route"
+		},
+		{
+			"id": "philadelphia-baltimore-1",
+			"start": "philadelphia",
+			"end": "baltimore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "philadelphia-baltimore",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "philadelphia-baltimore-2",
+			"start": "philadelphia",
+			"end": "baltimore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "philadelphia-baltimore",
+			"stockCompanies": ["pennsylvania-railroad", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "cumberland-chambersburg-1",
+			"start": "cumberland",
+			"end": "chambersburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "cumberland-baltimore-1",
+			"start": "cumberland",
+			"end": "baltimore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"stockCompanies": ["western-maryland-railway", "baltimore-ohio-railroad"],
+			"claim": "route"
+		},
+		{
+			"id": "chambersburg-gettysburg-1",
+			"start": "chambersburg",
+			"end": "gettysburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "gettysburg-york-1",
+			"start": "gettysburg",
+			"end": "york",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "gettysburg-baltimore-1",
+			"start": "gettysburg",
+			"end": "baltimore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway"],
+			"claim": "route"
+		},
+		{
+			"id": "york-baltimore-1",
+			"start": "york",
+			"end": "baltimore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"stockCompanies": ["pennsylvania-railroad", "western-maryland-railway"],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "ontario-0-erie",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ontario-1-buffalo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "erie-buffalo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "buffalo-rochester",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "rochester-syracuse",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "syracuse-albany",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "syracuse-binghamton",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "albany-new-york",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "binghamton-scranton-wilkes-barre",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "erie-youngstown",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "youngstown-pittsburgh",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "scranton-wilkes-barre-new-york",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "scranton-wilkes-barre-allentown",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "new-york-philadelphia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "new-york-atlantic-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "allentown-philadelphia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pittsburgh-johnstown",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pittsburgh-wheeling",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "johnstown-altoona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "altoona-harrisburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "harrisburg-lancaster",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lancaster-philadelphia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "philadelphia-atlantic-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "philadelphia-baltimore",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}
