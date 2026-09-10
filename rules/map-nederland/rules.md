@@ -1,6 +1,6 @@
 # Nederland
 
-[Source PDF](rules.pdf) · [Map reference](nederland-map.png)
+[Source PDF](rules.pdf) · [Map reference](map.png) · [Map image source](https://boardgamegeek.com/image/3080154)
 
 Parsed locally with pdf-inspector. Original page images preserve diagrams, tables, and layout; consult them where extraction is unclear.
 

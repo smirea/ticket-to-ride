@@ -1,6 +1,6 @@
 # Nordic Countries
 
-[Source PDF](rules.pdf) · [Map reference](nordic-countries-map.png)
+[Source PDF](rules.pdf) · [Map reference](map.png) · [Map image source](https://images-na.ssl-images-amazon.com/images/I/91E3oV6zwoL._AC_SL1500_.jpg)
 
 Parsed locally with pdf-inspector. Original page images preserve diagrams, tables, and layout; consult them where extraction is unclear.
 
