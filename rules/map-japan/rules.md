@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Bullet-train routes form a shared network usable by everyone for tickets. Contributors advance a separate track instead of scoring those claims normally. Model the finite shared train supply, fallback to ordinary routes, inset-map connections, contribution bonuses, and joint end condition.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

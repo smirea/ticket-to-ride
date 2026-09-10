@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Connecting neighboring countries awards cards from descending-value country stacks. Country bonuses are checked as networks expand, so both timing and previously awarded connections matter. Special border routes have availability rules that differ from ordinary parallel routes.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

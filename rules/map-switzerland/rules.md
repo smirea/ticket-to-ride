@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Designed for a smaller player count. Tickets can link cities and countries, and some offer alternative destinations. Locomotives follow tunnel-specific restrictions. Treat country endpoints according to the rulebook rather than automatically joining all border routes through one traversable country node.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

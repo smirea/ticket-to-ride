@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -47,13 +47,14 @@
 			"sha256": "3a456f0ced43451891c03f46ee59fc41ba9cf2a42f5587a0c58a52fc7c22c07e"
 		},
 		"rules.md": {
-			"bytes": 1010,
-			"sha256": "813819d1f04438ae1c37e990bda719f762f7e4c1b89417af67a39fbe20944106"
+			"bytes": 994,
+			"sha256": "055cec52f23f74176923e66891b23a8220da4bf2b87deb39dca740fd98e6ba1b"
 		},
 		"rules.pdf": {
 			"bytes": 3347265,
 			"sha256": "5484985cd0e675633cc91ff148bb7d1c9f4b3396fb225d6d230c99cdfed763b8"
 		}
 	},
-	"folder": "map-nederland"
+	"folder": "map-nederland",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

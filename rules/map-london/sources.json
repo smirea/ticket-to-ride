@@ -12,7 +12,7 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -58,5 +58,6 @@
 			"sha256": "5c5f1e518ea29d4d387da7fcfa75e2d9ddb2023c2a11b8014e9e12d20031a5a5"
 		}
 	},
-	"folder": "map-london"
+	"folder": "map-london",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

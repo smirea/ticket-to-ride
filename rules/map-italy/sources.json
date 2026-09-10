@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "ee0754955f83717604d09f3b400fe94d62dcb6b3a35042a905e19d133769fd2d"
 		},
 		"rules.md": {
-			"bytes": 1025,
-			"sha256": "e7c945a7726ade3a423b57211fef7819cf41e0f88577b044db5f1ecaaf0736b7"
+			"bytes": 1009,
+			"sha256": "117a8fdefed7e6111ca0f34b67739cfc5173f02f781666f96a41cdc9d23db35f"
 		},
 		"rules.pdf": {
 			"bytes": 12885186,
 			"sha256": "18f18624a52e99a504448ed340d87b2abf79f4c9ab093f8a5e268be521e537e6"
 		}
 	},
-	"folder": "map-italy"
+	"folder": "map-italy",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

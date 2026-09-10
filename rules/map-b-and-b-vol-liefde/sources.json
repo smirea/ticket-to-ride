@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -47,8 +47,8 @@
 			"sha256": "8f286b14286ab28019dcf52a30aee7b1bc795383e57bbcf7bd13162f78bd2bff"
 		},
 		"rules.md": {
-			"bytes": 1035,
-			"sha256": "924e4ea203c2fc2a03730606eadbefcc335aa8914f1cfbf50cc7977fc4dcef7b"
+			"bytes": 1019,
+			"sha256": "99792856b53a5df7f4aec83942e8ecbe702cbeeabd0a09abc62020467aa515ba"
 		},
 		"rules.pdf": {
 			"bytes": 1316118,
@@ -59,5 +59,6 @@
 			"sha256": "5d2df8533776c5aa255d60acfebf3fede33a9e4dd02ee36bd79eb18a88445c4c"
 		}
 	},
-	"folder": "map-b-and-b-vol-liefde"
+	"folder": "map-b-and-b-vol-liefde",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

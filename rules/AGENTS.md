@@ -2,7 +2,9 @@
 
 Start with README.md and catalog.json. This archive contains geographic maps only; do not add separate folders for ticket packs, shared-map modules, card-only games, or puzzles. Catalog IDs remain stable; the `folder` field gives the `map-<name>` directory. Choose one `map-<name>` folder and read its rules.md, sources.json, source PDF, and listed prerequisite rules. Markdown files are original orientation notes, not complete rules. The source PDF and applicable publisher errata govern rule details.
 
-A `three-required-assets-present` status means PDF, Markdown, and PNG exist. It does not mean the map is implemented or that all cards, route data, or campaign content are available. Resolve the entry's implementation gaps before claiming completeness. Missing PDFs must remain explicit; do not rename a related edition's rulebook to conceal a missing source.
+Keep one active folder per canonical map/game mode. Store alternate printing and anniversary rulebooks as supplemental files in that folder. Retailer demos and incomplete source kits belong only in catalog.json deferred entries, not asset folders.
+
+A `source-kit-present` status means a published rulebook, Markdown brief, and board reference exist. It does not mean the map is implemented or that all cards, route data, or campaign content are available. Resolve the entry's implementation gaps before claiming completeness. Missing PDFs must remain explicit; do not rename a related edition's rulebook to conceal a missing source.
 
 Keep edition setup, decks, end conditions, tie rules, route restrictions, and bonuses separate. Expansions often supply only rule changes. A prerequisite points to shared rules, not permission to inherit every mechanic or proof that every physical base set is compatible.
 

@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 A Dutch print-and-play Europe-themed map connecting locations from the television series. The publisher provides a dedicated board, ticket sheet, and Dutch rules. Use its printed locations and ticket values rather than the standard Europe map; verify setup and route exceptions directly from this rulebook.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

@@ -8,11 +8,11 @@
 		"Passing checks means files decode and match their manifest, not that rule semantics or reading order are verified.",
 		"Duplicate PDF bytes reuse the same inspection result and timing."
 	],
-	"folder_count": 44,
-	"missing_rules_pdf": ["map-demo-europe", "map-demo-usa", "map-express", "map-italia-milite-ignoto"],
-	"pdf_file_count": 43,
-	"unique_pdf_count": 43,
-	"verified_png_count": 45,
+	"folder_count": 34,
+	"missing_rules_pdf": [],
+	"pdf_file_count": 40,
+	"unique_pdf_count": 40,
+	"verified_png_count": 34,
 	"documents": [
 		{
 			"path": "map-amsterdam/rules.pdf",
@@ -32,7 +32,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 46551,
-			"processing_time_ms": 72
+			"processing_time_ms": 71
 		},
 		{
 			"path": "map-b-and-b-vol-liefde/tickets.pdf",
@@ -42,7 +42,7 @@
 			"pages_needing_ocr": [1],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 80912,
-			"processing_time_ms": 128
+			"processing_time_ms": 141
 		},
 		{
 			"path": "map-berlin/rules.pdf",
@@ -52,17 +52,27 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 8333,
-			"processing_time_ms": 42
+			"processing_time_ms": 65
 		},
 		{
-			"path": "map-deutschland/rules.pdf",
-			"sha256": "7f295075d2806316882061af069f855aceaf9b6703d0da908c274c2f46b45f1d",
-			"page_count": 2,
+			"path": "map-europe/europe-15th-anniversary-rules.pdf",
+			"sha256": "9dc1f4210477d61dcd9b1baed990f4080fe372b657f6531f6e57c98197487fae",
+			"page_count": 8,
 			"pdf_type": "text_based",
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
-			"extracted_markdown_characters": 12645,
-			"processing_time_ms": 14
+			"extracted_markdown_characters": 23826,
+			"processing_time_ms": 36
+		},
+		{
+			"path": "map-europe/europe-classic-rules.pdf",
+			"sha256": "06ccb239eaf408f7d3c36cce93cd4d5ace03e5b43cb509786175c3012f6c356d",
+			"page_count": 5,
+			"pdf_type": "text_based",
+			"pages_needing_ocr": [],
+			"has_encoding_issues": false,
+			"extracted_markdown_characters": 20067,
+			"processing_time_ms": 17
 		},
 		{
 			"path": "map-europe/rules.pdf",
@@ -72,27 +82,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 9592,
-			"processing_time_ms": 46
-		},
-		{
-			"path": "map-europe-15th-anniversary/rules.pdf",
-			"sha256": "9dc1f4210477d61dcd9b1baed990f4080fe372b657f6531f6e57c98197487fae",
-			"page_count": 8,
-			"pdf_type": "text_based",
-			"pages_needing_ocr": [],
-			"has_encoding_issues": false,
-			"extracted_markdown_characters": 23826,
-			"processing_time_ms": 34
-		},
-		{
-			"path": "map-europe-classic/rules.pdf",
-			"sha256": "06ccb239eaf408f7d3c36cce93cd4d5ace03e5b43cb509786175c3012f6c356d",
-			"page_count": 5,
-			"pdf_type": "text_based",
-			"pages_needing_ocr": [],
-			"has_encoding_issues": false,
-			"extracted_markdown_characters": 20067,
-			"processing_time_ms": 18
+			"processing_time_ms": 44
 		},
 		{
 			"path": "map-first-journey-europe/rules.pdf",
@@ -102,7 +92,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5565,
-			"processing_time_ms": 29
+			"processing_time_ms": 25
 		},
 		{
 			"path": "map-first-journey-usa/rules.pdf",
@@ -123,6 +113,16 @@
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5760,
 			"processing_time_ms": 6
+		},
+		{
+			"path": "map-germany/deutschland-rules.pdf",
+			"sha256": "7f295075d2806316882061af069f855aceaf9b6703d0da908c274c2f46b45f1d",
+			"page_count": 2,
+			"pdf_type": "text_based",
+			"pages_needing_ocr": [],
+			"has_encoding_issues": false,
+			"extracted_markdown_characters": 12645,
+			"processing_time_ms": 13
 		},
 		{
 			"path": "map-germany/rules.pdf",
@@ -172,7 +172,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5426,
-			"processing_time_ms": 18
+			"processing_time_ms": 17
 		},
 		{
 			"path": "map-japan/rules.pdf",
@@ -195,36 +195,6 @@
 			"processing_time_ms": 2
 		},
 		{
-			"path": "map-legends-of-the-west/errata.pdf",
-			"sha256": "3d03f62a01d27a2b7a9b8c7fa61701e35db6d2a97139d2c6c6ed9adce7c54bdf",
-			"page_count": 8,
-			"pdf_type": "text_based",
-			"pages_needing_ocr": [],
-			"has_encoding_issues": false,
-			"extracted_markdown_characters": 4357,
-			"processing_time_ms": 20
-		},
-		{
-			"path": "map-legends-of-the-west/faq.pdf",
-			"sha256": "ad559b004f99481d7e45f734a39f5032aea24b766c6b3a75efbbf80eff72f308",
-			"page_count": 3,
-			"pdf_type": "text_based",
-			"pages_needing_ocr": [],
-			"has_encoding_issues": false,
-			"extracted_markdown_characters": 4359,
-			"processing_time_ms": 6
-		},
-		{
-			"path": "map-legends-of-the-west/rules.pdf",
-			"sha256": "d438bdbbcd7a9607e6c324e3e6345b48042af640a70549f1232f699ddc4a4249",
-			"page_count": 16,
-			"pdf_type": "text_based",
-			"pages_needing_ocr": [],
-			"has_encoding_issues": false,
-			"extracted_markdown_characters": 25840,
-			"processing_time_ms": 77
-		},
-		{
 			"path": "map-london/rules.pdf",
 			"sha256": "5c5f1e518ea29d4d387da7fcfa75e2d9ddb2023c2a11b8014e9e12d20031a5a5",
 			"page_count": 2,
@@ -232,7 +202,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 7833,
-			"processing_time_ms": 34
+			"processing_time_ms": 35
 		},
 		{
 			"path": "map-marklin/rules.pdf",
@@ -262,7 +232,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 7369,
-			"processing_time_ms": 15
+			"processing_time_ms": 16
 		},
 		{
 			"path": "map-nordic-countries/rules.pdf",
@@ -282,7 +252,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 12374,
-			"processing_time_ms": 135
+			"processing_time_ms": 150
 		},
 		{
 			"path": "map-old-west/rules.pdf",
@@ -302,7 +272,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 9395,
-			"processing_time_ms": 85
+			"processing_time_ms": 86
 		},
 		{
 			"path": "map-pennsylvania/rules.pdf",
@@ -332,7 +302,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 13681,
-			"processing_time_ms": 18
+			"processing_time_ms": 17
 		},
 		{
 			"path": "map-rails-and-sails-world/rules.pdf",
@@ -342,7 +312,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 15191,
-			"processing_time_ms": 21
+			"processing_time_ms": 20
 		},
 		{
 			"path": "map-san-francisco/rules.pdf",
@@ -352,7 +322,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 9667,
-			"processing_time_ms": 21
+			"processing_time_ms": 20
 		},
 		{
 			"path": "map-south-korea/rules.pdf",
@@ -372,7 +342,7 @@
 			"pages_needing_ocr": [3, 4, 5, 6, 13],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 5606,
-			"processing_time_ms": 244
+			"processing_time_ms": 245
 		},
 		{
 			"path": "map-switzerland/rules.pdf",
@@ -382,7 +352,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 50409,
-			"processing_time_ms": 39
+			"processing_time_ms": 33
 		},
 		{
 			"path": "map-team-asia/rules.pdf",
@@ -402,7 +372,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 7515,
-			"processing_time_ms": 9
+			"processing_time_ms": 7
 		},
 		{
 			"path": "map-united-kingdom/rules.pdf",
@@ -412,7 +382,7 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 77069,
-			"processing_time_ms": 62
+			"processing_time_ms": 51
 		},
 		{
 			"path": "map-usa/rules.pdf",
@@ -422,27 +392,27 @@
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 10377,
-			"processing_time_ms": 95
+			"processing_time_ms": 84
 		},
 		{
-			"path": "map-usa-10th-anniversary/rules.pdf",
+			"path": "map-usa/usa-10th-anniversary-rules.pdf",
 			"sha256": "9f0cd0e40c295a2a1433601ce3f1dd36ecf44e8d54847163a0050dee85459951",
 			"page_count": 2,
 			"pdf_type": "text_based",
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 10230,
-			"processing_time_ms": 12
+			"processing_time_ms": 10
 		},
 		{
-			"path": "map-usa-classic/rules.pdf",
+			"path": "map-usa/usa-classic-rules.pdf",
 			"sha256": "2c331d825e863bf4850c058e29cf7b07c58798a0799a490e6706a14254d7ab19",
 			"page_count": 4,
 			"pdf_type": "text_based",
 			"pages_needing_ocr": [],
 			"has_encoding_issues": false,
 			"extracted_markdown_characters": 11734,
-			"processing_time_ms": 12
+			"processing_time_ms": 10
 		}
 	],
 	"errors": []

@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "c956c8b0cd97e3fc15dc33deddd76ffaff27cad2a73b984cb11ddf1debb8c4c3"
 		},
 		"rules.md": {
-			"bytes": 1063,
-			"sha256": "e296647f9943ce3fd2c23ec1a0a6220204faffd0a6e5f1106001e50054fad5b6"
+			"bytes": 1047,
+			"sha256": "114a0324934d3768dac0c52527e1656bfb3971a979870d4d080dd4e5bf673836"
 		},
 		"rules.pdf": {
 			"bytes": 4878710,
 			"sha256": "c429f9768413d010bbba5dee4a3965f1bb088a2e736902bfaf1c45d53cafc842"
 		}
 	},
-	"folder": "map-france"
+	"folder": "map-france",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

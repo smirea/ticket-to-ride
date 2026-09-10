@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "daf06605d3ebceddafaec31be94c2bc6bafc7d5f41288537eaab07a965d74770"
 		},
 		"rules.md": {
-			"bytes": 1025,
-			"sha256": "7c479b93f91c439098ad38f013a82bcc66b4605c1528ebf93a65067e12fe3fc2"
+			"bytes": 1009,
+			"sha256": "d90e9a27f0b3395b7939f9918a36d52d5565121a40fc4c16948da4ba4cdf29db"
 		},
 		"rules.pdf": {
 			"bytes": 8090350,
 			"sha256": "2d298b9d0cdf08fe04d298631c28ec7dfdb646d49506c5ba6aaa2f0dd9441232"
 		}
 	},
-	"folder": "map-poland"
+	"folder": "map-poland",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

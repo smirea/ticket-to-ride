@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Players establish starting cities and extend outward from their existing network. City ownership changes who receives points from route claims. Alvin adds a moving bonus objective. Model the starting-city choice, permitted expansion, city placement costs, and alternate score recipients.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

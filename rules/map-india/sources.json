@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -49,13 +49,14 @@
 			"sha256": "b13de9e38417633720193914bfc277baed22acea3538b411d1407df18d3465c7"
 		},
 		"rules.md": {
-			"bytes": 1035,
-			"sha256": "111f30b73e49e4338a0a803138f57287e7088d869464bcc79739b916c2658966"
+			"bytes": 1019,
+			"sha256": "867f74e28fa843c3c770bf4c447950c3e386c4e24bec7f9d541a20002201baf5"
 		},
 		"rules.pdf": {
 			"bytes": 3327741,
 			"sha256": "48558bbed157c7e814e535a28a2ce4d6ebdd8d09a91a62df2ad5926d67955b76"
 		}
 	},
-	"folder": "map-india"
+	"folder": "map-india",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

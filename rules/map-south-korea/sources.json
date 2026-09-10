@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -46,8 +46,8 @@
 	"missing_assets": null,
 	"files": {
 		"rules.md": {
-			"bytes": 1054,
-			"sha256": "cb1a037ec3611e5a2c1364ad3fce1e828314f1bcab2420ae8a8f68bc316a22ba"
+			"bytes": 1038,
+			"sha256": "a85a24642a522e932e06ea5f989c9feee87a238cca562713b683924fc478b317"
 		},
 		"rules.pdf": {
 			"bytes": 2959187,
@@ -58,5 +58,6 @@
 			"sha256": "78ff8165da2e494c954aaae9b1814f51c59fc49ef7f114214631ad89cb3d0437"
 		}
 	},
-	"folder": "map-south-korea"
+	"folder": "map-south-korea",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

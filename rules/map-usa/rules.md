@@ -1,4 +1,4 @@
-# USA (refreshed)
+# USA
 
 [rulebook PDF](rules.pdf) · [map reference](usa-map.png) · [source metadata](sources.json)
 
@@ -12,3 +12,7 @@ Before implementation: Complete destination/card inventory and machine-readable 
 
 Catalog reference: [Ticket to Ride](https://boardgamegeek.com/boardgame/9209/ticket-to-ride).
 Rule source: [download](https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2025/07/7201N_TICKET2RIDEV2_RULES_EN_20250425_WEB.pdf).
+
+Alternate rules edition: [USA Classic](usa-classic-rules.pdf). Use this edition explicitly when implementing its setup or ticket variants; it is not a separate map.
+
+Alternate rules edition: [USA 10th Anniversary](usa-10th-anniversary-rules.pdf). Use this edition explicitly when implementing its setup or ticket variants; it is not a separate map.

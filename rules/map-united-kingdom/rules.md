@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Technology cards unlock geographic access, longer routes, and other capabilities. Locomotives also serve as technology currency, with special conversion rules. Implement technology acquisition timing, unlock prerequisites, ferry exceptions, and the advanced technology variants as explicit configuration.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

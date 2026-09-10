@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Terrain cards introduce an additional collectible resource used to increase eligible route scores. Terrain eligibility depends on route color and relative holdings. Validate terrain payment and scoring timing, and keep these cards separate from train cards and destination tickets.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Board shown with components; some detail may be obscured.
 

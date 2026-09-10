@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Players cooperate in fixed teams, sharing some cards through public racks while retaining private hands. Card distribution, ticket sharing, communication restrictions, and team train reserves differ from individual play. Team scoring and triple-route availability require their own player-count rules.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

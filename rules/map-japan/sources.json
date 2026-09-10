@@ -12,9 +12,9 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
-	"prerequisite_rules": ["usa-classic"],
+	"prerequisite_rules": ["usa"],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
 	"rules": {
 		"path": "rules.pdf",
@@ -50,13 +50,14 @@
 			"sha256": "13b1aaa07da7571c8e8ade583cf0cee61dcca52e39f9b3433a4e7cfcf09f443b"
 		},
 		"rules.md": {
-			"bytes": 1051,
-			"sha256": "024b6f869e22ae7527874c6eeb67ebd8deb6510aac69b40209dc844f4942bd13"
+			"bytes": 1035,
+			"sha256": "56d0c1303ed30b03d52c4525df81686ffb32981514697a3bc0949c98d68c66c2"
 		},
 		"rules.pdf": {
 			"bytes": 9473097,
 			"sha256": "05301e5bd9d0b9ba3445eb6b525e0387186f9c99bf0e3d6787ef335c7ea221aa"
 		}
 	},
-	"folder": "map-japan"
+	"folder": "map-japan",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

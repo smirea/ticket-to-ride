@@ -12,3 +12,5 @@ Before implementation: Complete destination/card inventory and machine-readable 
 
 Catalog reference: [Ticket to Ride: Germany](https://boardgamegeek.com/boardgame/225244/ticket-to-ride-germany).
 Rule source: [download](https://cdn.svc.asmodee.net/staging-daysofwonder/uploads/2024/07/tg_rules_2017_en.pdf).
+
+Alternate rules edition: [Deutschland](deutschland-rules.pdf). Use this edition explicitly when implementing its setup or ticket variants; it is not a separate map.

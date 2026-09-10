@@ -1,7 +1,7 @@
 {
 	"id": "nordic-countries",
 	"name": "Nordic Countries",
-	"group": "Standalone and edition variants",
+	"group": "Standalone maps",
 	"bgg": {
 		"id": "31627",
 		"name": "Ticket to Ride: Nordic Countries",
@@ -12,7 +12,7 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -55,5 +55,6 @@
 			"sha256": "7f7b18297e7e29038cdafb153d194d29306dd58ad377a5ad8094857a6a4168e8"
 		}
 	},
-	"folder": "map-nordic-countries"
+	"folder": "map-nordic-countries",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

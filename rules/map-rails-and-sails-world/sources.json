@@ -1,7 +1,7 @@
 {
 	"id": "rails-and-sails-world",
 	"name": "Rails & Sails: World",
-	"group": "Standalone and edition variants",
+	"group": "Standalone maps",
 	"bgg": {
 		"id": "202670",
 		"name": "Ticket to Ride: Rails & Sails",
@@ -12,7 +12,7 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -58,5 +58,6 @@
 			"sha256": "06e375d8dedce08a5967fd921f2a74e03c2fb6354e5ae63dc5fc54bc176312b8"
 		}
 	},
-	"folder": "map-rails-and-sails-world"
+	"folder": "map-rails-and-sails-world",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

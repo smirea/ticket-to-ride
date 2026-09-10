@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Mountain routes consume additional trains, which are removed to a separate area and score differently from ordinary placement. The endgame also rewards a qualifying connected network. Distinguish trains physically occupying edges from trains sacrificed for mountain travel.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 

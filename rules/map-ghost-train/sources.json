@@ -12,7 +12,7 @@
 	},
 	"aliases": [],
 	"retrieved_on": "2026-09-10",
-	"asset_status": "three-required-assets-present",
+	"asset_status": "source-kit-present",
 	"implementation_status": "research-required",
 	"prerequisite_rules": [],
 	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
@@ -55,5 +55,6 @@
 			"sha256": "2809c1f6b21e4cf4ca7e5e4f41e118aa08895a14dac95a7e07d77e8c57700572"
 		}
 	},
-	"folder": "map-ghost-train"
+	"folder": "map-ghost-train",
+	"source_kit_note": "Published rulebook and geographic board reference are present. This does not certify a transcribed ticket deck, route graph, or implemented game."
 }

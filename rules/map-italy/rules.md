@@ -6,7 +6,7 @@ Original implementation brief; consult the PDF for complete rules and edge cases
 
 Adds ferry cards and regional network bonuses. A ferry card can cover eligible wave spaces, with a restricted hand limit and its own draw action. Border countries and Monaco are destination zones whose incoming routes do not automatically connect through the zone.
 
-Read first: [usa-classic](../map-usa-classic/rules.md).
+Read first: [usa](../map-usa/rules.md).
 
 Map reference: Visual reference, not verified graph data. Some photos include placed pieces.
 
