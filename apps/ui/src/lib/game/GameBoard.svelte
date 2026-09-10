@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { hasParallelConflict } from '@repo/shared';
 	import type { DestinationTicket, GameState, Player, Route, RouteId } from '@repo/shared';
 	import { onMount, tick, untrack } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
@@ -236,17 +237,9 @@
 		return playerId ? playerById.get(playerId) : undefined;
 	}
 	function blocked(route: Route) {
-		return Boolean(
-			route.parallelGroup &&
-			routes.some(
-				other =>
-					other.id !== route.id &&
-					other.parallelGroup === route.parallelGroup &&
-					gameState.claimedRoutes[other.id] &&
-					(gameState.players.length <= 3 || gameState.claimedRoutes[other.id] === viewerId),
-			),
-		);
+		return hasParallelConflict(gameState, route, viewerId);
 	}
+
 	function point(route: Route, t: number) {
 		return routePoint(route, t);
 	}
