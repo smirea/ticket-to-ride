@@ -38,7 +38,7 @@
 	import DestinationCard from './DestinationCard.svelte';
 	import TicketCelebration from './TicketCelebration.svelte';
 	import TicketCountIcon from './TicketCountIcon.svelte';
-	import { shortestTicketConnection } from './ticket-connection';
+	import { shortestTicketConnection } from '@repo/shared';
 	import TableStatus from './TableStatus.svelte';
 	import RouteScoring from './RouteScoring.svelte';
 	import PlayerPlaque from './PlayerPlaque.svelte';

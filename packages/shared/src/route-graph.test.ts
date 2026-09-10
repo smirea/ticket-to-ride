@@ -1,6 +1,5 @@
 import { expect, test } from 'bun:test';
-import { USA_ROUTES } from '@repo/shared';
-import { shortestTicketConnection } from './ticket-connection';
+import { USA_ROUTES, shortestTicketConnection } from './game';
 
 test('completion traces the shortest owned connection in traversal order, excluding opponent shortcuts', () => {
 	const routes = USA_ROUTES.filter(route =>
@@ -28,4 +27,21 @@ test('disconnected owned routes produce no completion wave', () => {
 			{ cityA: 'denver', cityB: 'el-paso' },
 		),
 	).toEqual([]);
+});
+
+test('path planning handles zero-cost owned cycles and breaks ties deterministically', async () => {
+	const { createRouteGraph, findRoutePath } = await import('./route-graph');
+	const routes = [
+		{ id: 'ab', cityA: 'a', cityB: 'b', color: 'gray' as const, length: 1 },
+		{ id: 'bc', cityA: 'b', cityB: 'c', color: 'gray' as const, length: 1 },
+		{ id: 'ac', cityA: 'a', cityB: 'c', color: 'gray' as const, length: 1 },
+		{ id: 'cd', cityA: 'c', cityB: 'd', color: 'gray' as const, length: 2 },
+		{ id: 'bd', cityA: 'b', cityB: 'd', color: 'gray' as const, length: 2 },
+	];
+	const cost = (route: (typeof routes)[number]) => (route.cityB === 'd' ? 2 : 0);
+	const path = findRoutePath(createRouteGraph(routes), 'a', 'd', cost)!;
+	const reversed = findRoutePath(createRouteGraph([...routes].reverse()), 'a', 'd', cost)!;
+	expect(path.cost).toBe(2);
+	expect(path).toEqual(reversed);
+	expect(new Set(path.steps.map(step => step.route.id)).size).toBe(path.steps.length);
 });

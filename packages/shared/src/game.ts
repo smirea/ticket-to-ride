@@ -1,3 +1,4 @@
+import { createRouteGraph, findRoutePath } from './route-graph';
 import type { GameEvent } from './game-events';
 import { assign, setup, transition } from 'xstate';
 
@@ -318,6 +319,8 @@ export const ROUTE_SCORES: Record<number, number> = {
 
 export const DEBUG_ROUTE_ID = 'san-francisco-los-angeles-purple-b';
 
+const USA_ROUTE_GRAPH = createRouteGraph(USA_ROUTES);
+
 const ROUTES_BY_ID = new Map(USA_ROUTES.map(item => [item.id, item]));
 const TICKETS_BY_ID = new Map(USA_TICKETS.map(item => [item.id, item]));
 
@@ -591,14 +594,14 @@ function endTurn(state: GameState): void {
 	state.phase = { type: 'turn', drawsTaken: 0 };
 }
 
-function hasParallelConflict(state: GameState, routeToClaim: Route, player: Player): boolean {
+export function hasParallelConflict(state: GameState, routeToClaim: Route, playerId: PlayerId): boolean {
 	if (!routeToClaim.parallelGroup) return false;
-	const parallels = USA_ROUTES.filter(
-		routeItem => routeItem.parallelGroup === routeToClaim.parallelGroup && routeItem.id !== routeToClaim.id,
-	);
+	const parallels = (USA_ROUTE_GRAPH.get(routeToClaim.cityA) ?? [])
+		.map(step => step.route)
+		.filter(routeItem => routeItem.parallelGroup === routeToClaim.parallelGroup && routeItem.id !== routeToClaim.id);
 	return parallels.some(parallel => {
 		const owner = state.claimedRoutes[parallel.id];
-		return owner && (state.players.length <= 3 || owner === player.id);
+		return owner && (state.players.length <= 3 || owner === playerId);
 	});
 }
 
@@ -614,7 +617,7 @@ export function canClaimRoute(
 	const routeToClaim = getRoute(routeId);
 	if (!routeToClaim) return { ok: false, error: 'Unknown route.' };
 	if (state.claimedRoutes[routeId]) return { ok: false, error: 'That route is already claimed.' };
-	if (hasParallelConflict(state, routeToClaim, player)) {
+	if (hasParallelConflict(state, routeToClaim, player.id)) {
 		return { ok: false, error: 'The parallel route is not available in this game.' };
 	}
 	if (player.trains < routeToClaim.length) return { ok: false, error: 'Not enough train pieces.' };
@@ -957,53 +960,15 @@ interface BotTicketPlan {
 function shortestTicketPath(state: GameState, player: Player, ticketId: TicketId): BotTicketPlan | undefined {
 	const ticket = getTicket(ticketId);
 	if (!ticket) return undefined;
-	const unvisited = new Set(USA_CITIES.map(city => city.id));
-	const distances = new Map<CityId, number>([[ticket.cityA, 0]]);
-	const paths = new Map<CityId, Route[]>([[ticket.cityA, []]]);
 
-	while (unvisited.size > 0) {
-		const cityId = [...unvisited]
-			.filter(candidate => distances.has(candidate))
-			.sort((left, right) => {
-				const distance = distances.get(left)! - distances.get(right)!;
-				if (distance !== 0) return distance;
-				const path = pathKey(paths.get(left) ?? []).localeCompare(pathKey(paths.get(right) ?? []));
-				return path || left.localeCompare(right);
-			})[0];
-		if (!cityId) break;
-		unvisited.delete(cityId);
-		if (cityId === ticket.cityB) break;
-
-		for (const routeItem of USA_ROUTES) {
-			const neighbor =
-				routeItem.cityA === cityId ? routeItem.cityB : routeItem.cityB === cityId ? routeItem.cityA : null;
-			if (!neighbor || !unvisited.has(neighbor)) continue;
-			const owner = state.claimedRoutes[routeItem.id];
-			if (owner && owner !== player.id) continue;
-			if (!owner && (routeItem.length > player.trains || hasParallelConflict(state, routeItem, player))) continue;
-			const nextDistance = distances.get(cityId)! + (owner === player.id ? 0 : routeItem.length);
-			const nextPath = [...(paths.get(cityId) ?? []), routeItem];
-			const knownDistance = distances.get(neighbor);
-			const knownPath = paths.get(neighbor);
-			if (
-				knownDistance === undefined ||
-				nextDistance < knownDistance ||
-				(nextDistance === knownDistance && pathKey(nextPath) < pathKey(knownPath ?? []))
-			) {
-				distances.set(neighbor, nextDistance);
-				paths.set(neighbor, nextPath);
-			}
-		}
-	}
-
-	const remainingCost = distances.get(ticket.cityB);
-	const routes = paths.get(ticket.cityB);
-	if (remainingCost === undefined || remainingCost > player.trains || !routes) return undefined;
-	return { ticketId, routes, remainingCost };
-}
-
-function pathKey(routes: Route[]): string {
-	return routes.map(routeItem => routeItem.id).join('|');
+	const path = findRoutePath(USA_ROUTE_GRAPH, ticket.cityA, ticket.cityB, route => {
+		const owner = state.claimedRoutes[route.id];
+		if (owner === player.id) return 0;
+		if (owner || route.length > player.trains || hasParallelConflict(state, route, player.id)) return undefined;
+		return route.length;
+	});
+	if (!path || path.cost > player.trains) return undefined;
+	return { ticketId, routes: path.steps.map(step => step.route), remainingCost: path.cost };
 }
 
 function botTicketPlans(state: GameState, player: Player): BotTicketPlan[] {
@@ -1024,7 +989,7 @@ function availableBotRoutes(state: GameState, player: Player): Route[] {
 		routeItem =>
 			!state.claimedRoutes[routeItem.id] &&
 			player.trains >= routeItem.length &&
-			!hasParallelConflict(state, routeItem, player),
+			!hasParallelConflict(state, routeItem, player.id),
 	);
 }
 
@@ -1170,54 +1135,45 @@ export function createDebugFinalScenario(): GameState {
 	return result.ok ? result.state : state;
 }
 
+export function shortestTicketConnection(
+	state: Pick<GameState, 'claimedRoutes'>,
+	playerId: PlayerId,
+	ticket: Pick<DestinationTicket, 'cityA' | 'cityB'>,
+	routes: readonly Route[] = USA_ROUTES,
+): { routeId: string; reverse: boolean }[] {
+	const graph = routes === USA_ROUTES ? USA_ROUTE_GRAPH : createRouteGraph(routes);
+	const path = findRoutePath(graph, ticket.cityA, ticket.cityB, route =>
+		state.claimedRoutes[route.id] === playerId ? route.length : undefined,
+	);
+	return path?.steps.map(step => ({ routeId: step.route.id, reverse: step.reverse })) ?? [];
+}
+
 export function isTicketComplete(state: GameState, playerId: PlayerId, ticketId: TicketId): boolean {
-	const destination = getTicket(ticketId);
-	if (!destination) return false;
-	const adjacency = new Map<CityId, CityId[]>();
-	for (const routeItem of USA_ROUTES) {
-		if (state.claimedRoutes[routeItem.id] !== playerId) continue;
-		adjacency.set(routeItem.cityA, [...(adjacency.get(routeItem.cityA) ?? []), routeItem.cityB]);
-		adjacency.set(routeItem.cityB, [...(adjacency.get(routeItem.cityB) ?? []), routeItem.cityA]);
-	}
-	const seen = new Set<CityId>([destination.cityA]);
-	const queue = [destination.cityA];
-	while (queue.length > 0) {
-		const cityId = queue.shift()!;
-		if (cityId === destination.cityB) return true;
-		for (const neighbor of adjacency.get(cityId) ?? []) {
-			if (seen.has(neighbor)) continue;
-			seen.add(neighbor);
-			queue.push(neighbor);
-		}
-	}
-	return false;
+	const ticket = getTicket(ticketId);
+	return Boolean(ticket && shortestTicketConnection(state, playerId, ticket).length);
 }
 
 export function calculateLongestPath(state: GameState, playerId: PlayerId): number {
 	const edges = USA_ROUTES.filter(routeItem => state.claimedRoutes[routeItem.id] === playerId);
 	if (edges.length === 0) return 0;
-	const adjacency = new Map<CityId, number[]>();
-	for (const [index, edge] of edges.entries()) {
-		adjacency.set(edge.cityA, [...(adjacency.get(edge.cityA) ?? []), index]);
-		adjacency.set(edge.cityB, [...(adjacency.get(edge.cityB) ?? []), index]);
-	}
+	const edgeIndexById = new Map(edges.map((edge, index) => [edge.id, index]));
 	const memo = new Map<string, number>();
 	const visit = (cityId: CityId, used: bigint): number => {
 		const key = `${cityId}:${used.toString(36)}`;
 		const cached = memo.get(key);
 		if (cached !== undefined) return cached;
 		let longest = 0;
-		for (const edgeIndex of adjacency.get(cityId) ?? []) {
+		for (const step of USA_ROUTE_GRAPH.get(cityId) ?? []) {
+			const edgeIndex = edgeIndexById.get(step.route.id);
+			if (edgeIndex === undefined) continue;
 			const bit = 1n << BigInt(edgeIndex);
 			if ((used & bit) !== 0n) continue;
-			const edge = edges[edgeIndex]!;
-			const nextCity = edge.cityA === cityId ? edge.cityB : edge.cityA;
-			longest = Math.max(longest, edge.length + visit(nextCity, used | bit));
+			longest = Math.max(longest, step.route.length + visit(step.city, used | bit));
 		}
 		memo.set(key, longest);
 		return longest;
 	};
-	return Math.max(...[...adjacency.keys()].map(cityId => visit(cityId, 0n)));
+	return Math.max(...[...new Set(edges.flatMap(edge => [edge.cityA, edge.cityB]))].map(cityId => visit(cityId, 0n)));
 }
 
 function finalizeGame(state: GameState): void {
