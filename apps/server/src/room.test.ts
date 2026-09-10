@@ -338,6 +338,11 @@ describe('authoritative game actions', () => {
 		expect(accepted.status).toBe(200);
 		const afterAlice = await responseRoom(accepted);
 		expect(afterAlice.game?.history.at(-1)).toEqual({ type: 'keep-tickets', ticketIds: [] });
+		const ownerEvent = afterAlice.game?.events.find(event => event.type === 'keep-tickets');
+		expect(ownerEvent?.type === 'keep-tickets' && ownerEvent.ticketIds?.length).toBeGreaterThan(0);
+		const otherView = projectRoomForViewer(context.store.getRoom(afterAlice.code)!, 'bob');
+		const privateEvent = otherView.game?.events.find(event => event.type === 'keep-tickets');
+		expect(privateEvent?.type === 'keep-tickets' && privateEvent.ticketIds).toBeUndefined();
 
 		const afterBob = await responseRoom(await context.request('GET', `/api/rooms/${aliceRoom.code}`, 'bob'));
 		if (!afterBob.game || afterBob.game.phase.type !== 'ticket-selection') {

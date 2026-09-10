@@ -1,3 +1,4 @@
+import type { GameEvent } from './game-events';
 import { assign, setup, transition } from 'xstate';
 
 export const TRAIN_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white'] as const;
@@ -78,7 +79,7 @@ export interface FinalPlayerResult {
 }
 
 export interface GameState {
-	version: 2;
+	version: 3;
 	seed: string;
 	rngState: number;
 	phase: GamePhase;
@@ -92,7 +93,7 @@ export interface GameState {
 	destinationDiscard: TicketId[];
 	openingTicketOffers: Record<PlayerId, TicketId[]>;
 	claimedRoutes: Record<RouteId, PlayerId>;
-	log: string[];
+	events: GameEvent[];
 	finalRound: FinalRound | null;
 	finalResults: FinalPlayerResult[] | null;
 	history: GameAction[];
@@ -384,7 +385,13 @@ function cloneState(state: GameState): GameState {
 			Object.entries(state.openingTicketOffers).map(([playerId, ticketIds]) => [playerId, [...ticketIds]]),
 		),
 		claimedRoutes: { ...state.claimedRoutes },
-		log: [...state.log],
+		events: state.events.map(event =>
+			event.type === 'keep-tickets'
+				? { ...event, ...(event.ticketIds ? { ticketIds: [...event.ticketIds] } : {}) }
+				: event.type === 'game-over'
+					? { ...event, winnerIds: [...event.winnerIds] }
+					: { ...event },
+		),
 		finalRound: state.finalRound ? { ...state.finalRound } : null,
 		finalResults: state.finalResults?.map(result => ({ ...result })) ?? null,
 		history: state.history.map(cloneAction),
@@ -521,7 +528,7 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 	const firstOffer = openingTicketOffers[players[0]!.id] ?? [];
 
 	const state: GameState = {
-		version: 2,
+		version: 3,
 		seed,
 		rngState,
 		phase: {
@@ -541,7 +548,7 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 		destinationDiscard: [],
 		openingTicketOffers,
 		claimedRoutes: {},
-		log: [`Game started with ${players.length} players.`],
+		events: [{ type: 'game-started', playerCount: players.length }],
 		finalRound: null,
 		finalResults: null,
 		history: [],
@@ -577,7 +584,7 @@ function endTurn(state: GameState): void {
 			triggeredBy: player.id,
 			turnsRemaining: state.players.length,
 		};
-		state.log.push(`${player.name} triggered the final round.`);
+		state.events.push({ type: 'final-round', playerId: player.id, turnNumber: state.turnNumber });
 	}
 	state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
 	state.turnNumber += 1;
@@ -647,9 +654,13 @@ function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep
 	nextPlayer.tickets.push(...uniqueTicketIds);
 	const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
 	next.destinationDeck.unshift(...returned);
-	next.log.push(
-		`${nextPlayer.name} kept ${uniqueTicketIds.length} destination ${uniqueTicketIds.length === 1 ? 'ticket' : 'tickets'}.`,
-	);
+	next.events.push({
+		type: 'keep-tickets',
+		playerId: nextPlayer.id,
+		turnNumber: next.turnNumber,
+		count: uniqueTicketIds.length,
+		ticketIds: uniqueTicketIds,
+	});
 	return succeed(next, action);
 }
 
@@ -668,7 +679,7 @@ function drawFaceUp(state: GameState, action: Extract<GameAction, { type: 'draw-
 	if (!drawn) return fail(state, 'Choose an available face-up card.');
 	nextPlayer.hand[drawn] += 1;
 	refillFaceUp(next);
-	next.log.push(`${nextPlayer.name} drew a face-up ${drawn} card.`);
+	next.events.push({ type: 'draw-face-up', playerId: nextPlayer.id, turnNumber: next.turnNumber, card: drawn });
 	return succeed(next, action);
 }
 
@@ -681,7 +692,7 @@ function drawTrainDeck(state: GameState, action: Extract<GameAction, { type: 'dr
 	const card = takeTrainDeckCard(next);
 	if (!card) return fail(state, 'There are no train cards left to draw.');
 	nextPlayer.hand[card] += 1;
-	next.log.push(`${nextPlayer.name} drew from the train deck.`);
+	next.events.push({ type: 'draw-train-deck', playerId: nextPlayer.id, turnNumber: next.turnNumber });
 	return succeed(next, action);
 }
 
@@ -701,9 +712,16 @@ function claimRoute(state: GameState, action: Extract<GameAction, { type: 'claim
 	nextPlayer.trains -= routeToClaim.length;
 	nextPlayer.score += ROUTE_SCORES[routeToClaim.length] ?? routeToClaim.length;
 	next.claimedRoutes[routeToClaim.id] = nextPlayer.id;
-	const cityA = USA_CITIES.find(city => city.id === routeToClaim.cityA)?.name ?? routeToClaim.cityA;
-	const cityB = USA_CITIES.find(city => city.id === routeToClaim.cityB)?.name ?? routeToClaim.cityB;
-	next.log.push(`${nextPlayer.name} claimed ${cityA}–${cityB}.`);
+	next.events.push({
+		type: 'claim-route',
+		playerId: nextPlayer.id,
+		turnNumber: next.turnNumber,
+		routeId: routeToClaim.id,
+		paymentColor: action.paymentColor,
+		cars: coloredCards,
+		locomotives,
+		points: ROUTE_SCORES[routeToClaim.length] ?? routeToClaim.length,
+	});
 	return succeed(next, action);
 }
 
@@ -718,7 +736,12 @@ function drawDestinationTickets(state: GameState, action: GameAction): ActionRes
 		minimum: 1,
 		source: 'turn',
 	};
-	next.log.push(`${currentPlayer(next).name} drew ${offered.length} destination tickets.`);
+	next.events.push({
+		type: 'draw-destination-tickets',
+		playerId: currentPlayer(next).id,
+		turnNumber: next.turnNumber,
+		count: offered.length,
+	});
 	return succeed(next, action);
 }
 
@@ -1117,7 +1140,10 @@ export function createDebugClaimScenario(): GameState {
 	debugState.players[0]!.hand.purple = 3;
 	debugState.phase = { type: 'turn', drawsTaken: 0 };
 	debugState.currentPlayerIndex = 0;
-	debugState.log.push('Debug scenario: claim San Francisco–Los Angeles with three purple cards.');
+	debugState.events.push({
+		type: 'note',
+		text: 'Debug scenario: claim San Francisco–Los Angeles with three purple cards.',
+	});
 	return debugState;
 }
 
@@ -1130,7 +1156,7 @@ export function createDebugTicketScenario(): GameState {
 export function createDebugFinalRoundScenario(): GameState {
 	const state = createDebugClaimScenario();
 	state.finalRound = { triggeredBy: state.players[1]!.id, turnsRemaining: 1 };
-	state.log.push('Debug scenario: the next completed turn ends the game.');
+	state.events.push({ type: 'note', text: 'Debug scenario: the next completed turn ends the game.' });
 	return state;
 }
 
@@ -1238,10 +1264,7 @@ function finalizeGame(state: GameState): void {
 	state.finalResults = results;
 	const winnerIds = results.filter(result => result.rank === 1).map(result => result.playerId);
 	state.phase = { type: 'game-over', winnerIds };
-	const winners = winnerIds
-		.map(playerId => state.players.find(player => player.id === playerId)?.name ?? playerId)
-		.join(' and ');
-	state.log.push(`Game over. ${winners} ${winnerIds.length === 1 ? 'wins' : 'tie for the win'}.`);
+	state.events.push({ type: 'game-over', winnerIds });
 }
 
 export function serializeGame(state: GameState): string {
@@ -1253,7 +1276,7 @@ export function restoreGameState(value: unknown): GameState {
 		typeof value !== 'object' ||
 		value === null ||
 		!('version' in value) ||
-		(value.version !== 1 && value.version !== 2) ||
+		(value.version !== 1 && value.version !== 2 && value.version !== 3) ||
 		!('players' in value) ||
 		!Array.isArray(value.players) ||
 		!('phase' in value) ||
@@ -1264,6 +1287,12 @@ export function restoreGameState(value: unknown): GameState {
 		throw new Error('Invalid game state.');
 	}
 	const restored = structuredClone(value) as Record<string, unknown>;
+	const events: GameEvent[] = Array.isArray(restored.events)
+		? restored.events
+		: Array.isArray(restored.log)
+			? restored.log.filter((text): text is string => typeof text === 'string').map(text => ({ type: 'note', text }))
+			: [];
+	delete restored.log;
 	const phase = restored.phase as Record<string, unknown>;
 	if (phase.type === 'ticket-selection' && phase.source !== 'opening' && phase.source !== 'turn') {
 		phase.source = 'opening';
@@ -1276,7 +1305,8 @@ export function restoreGameState(value: unknown): GameState {
 				: {};
 	return {
 		...(restored as unknown as GameState),
-		version: 2,
+		version: 3,
+		events,
 		openingTicketOffers,
 		finalRound: (restored.finalRound as FinalRound | null | undefined) ?? null,
 		finalResults: (restored.finalResults as FinalPlayerResult[] | null | undefined) ?? null,
