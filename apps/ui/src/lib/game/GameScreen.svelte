@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {
 		canClaimRoute,
+		canDrawTrainCards,
 		isTicketComplete,
 		ROUTE_SCORES,
 		TRAIN_CARDS,
@@ -594,7 +595,7 @@
 			!marketAnimating &&
 			isViewerTurn &&
 			gameState.phase.type === 'turn' &&
-			Boolean(gameState.trainDeck.length || gameState.trainDiscard.length) &&
+			canDrawTrainCards(gameState) &&
 			!(gameState.phase.drawsTaken === 1 && card === 'locomotive')
 		);
 	}
@@ -1024,10 +1025,7 @@
 				</div>
 				<button
 					class="blind-deck"
-					disabled={busy ||
-						marketAnimating ||
-						!isViewerTurn ||
-						(!gameState.trainDeck.length && !gameState.trainDiscard.length)}
+					disabled={busy || marketAnimating || !isViewerTurn || !canDrawTrainCards(gameState)}
 					onclick={event => drawCard(event)}
 					aria-label={`Draw a blind train card. ${gameState.trainDeck.length} remain.`}
 					><TrainCard back /><span class="deck-count">{gameState.trainDeck.length}</span></button

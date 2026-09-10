@@ -443,7 +443,7 @@ function refillFaceUp(state: GameState): void {
 	}
 }
 
-function canTakeAnotherTrainCard(state: GameState): boolean {
+export function canDrawTrainCards(state: GameState): boolean {
 	return state.trainDeck.length > 0 || state.trainDiscard.length > 0;
 }
 
@@ -654,7 +654,7 @@ function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep
 }
 
 function drawFaceUp(state: GameState, action: Extract<GameAction, { type: 'draw-face-up' }>): ActionResult {
-	if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
+	if (!canDrawTrainCards(state)) {
 		return fail(state, 'There are no train cards left to draw.');
 	}
 	const card = state.faceUpTrainCards[action.index];
@@ -673,7 +673,7 @@ function drawFaceUp(state: GameState, action: Extract<GameAction, { type: 'draw-
 }
 
 function drawTrainDeck(state: GameState, action: Extract<GameAction, { type: 'draw-train-deck' }>): ActionResult {
-	if (state.trainDeck.length === 0 && state.trainDiscard.length === 0) {
+	if (!canDrawTrainCards(state)) {
 		return fail(state, 'There are no train cards left to draw.');
 	}
 	const next = cloneState(state);
@@ -756,7 +756,7 @@ const gameMachineSetup = setup({
 		drawEndsTurn: ({ context }) =>
 			context.drewFaceUpLocomotive ||
 			(context.game.phase.type === 'turn' && context.game.phase.drawsTaken === 1) ||
-			!canTakeAnotherTrainCard(context.game),
+			!canDrawTrainCards(context.game),
 	},
 	actions: {
 		keepTickets: assign(({ context, event }) =>
@@ -1074,15 +1074,15 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 		if (routeAction) return routeAction;
 	}
 
-	const preferredFaceUpIndex = usefulFaceUpIndex(state, player, strategicRoutes);
-	if (preferredFaceUpIndex >= 0) return { type: 'draw-face-up', index: preferredFaceUpIndex };
-	if (state.trainDeck.length > 0 || state.trainDiscard.length > 0) return { type: 'draw-train-deck' };
+	if (canDrawTrainCards(state)) {
+		const preferredFaceUpIndex = usefulFaceUpIndex(state, player, strategicRoutes);
+		if (preferredFaceUpIndex >= 0) return { type: 'draw-face-up', index: preferredFaceUpIndex };
+		return { type: 'draw-train-deck' };
+	}
 	if (state.phase.drawsTaken === 0) {
 		const fallbackRoute = claimableBotAction(state, player, availableRoutes);
 		if (fallbackRoute) return fallbackRoute;
 	}
-	const fallbackFaceUpIndex = state.faceUpTrainCards.findIndex(card => card !== 'locomotive');
-	if (fallbackFaceUpIndex >= 0) return { type: 'draw-face-up', index: fallbackFaceUpIndex };
 	if (state.phase.drawsTaken === 0 && state.destinationDeck.length > 0) {
 		return { type: 'draw-destination-tickets' };
 	}
