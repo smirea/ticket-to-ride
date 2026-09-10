@@ -1,0 +1,62 @@
+{
+	"id": "south-korea",
+	"name": "South Korea",
+	"group": "Map expansions",
+	"bgg": {
+		"id": "414268",
+		"name": "Ticket to Ride Map Collection 8: Iberia & South Korea",
+		"canonical_link": "https://boardgamegeek.com/boardgame/414268/ticket-to-ride-map-collection-8-iberia-and-south-k",
+		"yearpublished": "2024",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2024/07/KOREA-RULES_EN.pdf",
+		"pages": 3,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "south-korea-map.png",
+		"source_url": "https://cf.geekdo-images.com/IMJNHDvhfPpEbC9e9ndFzQ__original/img/CIFBL6vzQiV8utlejQG8cOm6Pec=/0x0/filters:format(jpeg)/pic8179720.jpg",
+		"source_page": "https://boardgamegeek.com/image/8179720/ticket-to-ride-map-collection-8-iberia-and-south-k",
+		"caption": "Ticket to Ride: Map Collection 8 - South Korea map",
+		"original_size": [920, 1200],
+		"size": [920, 1200],
+		"type": "board-image",
+		"bgg_image_id": 8179720,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"rules.md": {
+			"bytes": 1054,
+			"sha256": "cb1a037ec3611e5a2c1364ad3fce1e828314f1bcab2420ae8a8f68bc316a22ba"
+		},
+		"rules.pdf": {
+			"bytes": 2959187,
+			"sha256": "0ace6b0eb34317309bcd0737b5cf803834889bf681b9411fbf8dd4d9c66fec5b"
+		},
+		"south-korea-map.png": {
+			"bytes": 2271099,
+			"sha256": "78ff8165da2e494c954aaae9b1814f51c59fc49ef7f114214631ad89cb3d0437"
+		}
+	},
+	"folder": "map-south-korea"
+}

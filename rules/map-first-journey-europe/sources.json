@@ -1,0 +1,62 @@
+{
+	"id": "first-journey-europe",
+	"name": "First Journey Europe",
+	"group": "Family games",
+	"bgg": {
+		"id": "218208",
+		"name": "Ticket to Ride: First Journey (Europe)",
+		"canonical_link": "https://boardgamegeek.com/boardgame/218208/ticket-to-ride-first-journey-europe",
+		"yearpublished": "2017",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2024/11/720027-T2REFJ-rules-EN.pdf",
+		"pages": 2,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "first-journey-europe-map.png",
+		"source_url": "https://cf.geekdo-images.com/AhwUqbZyyk-BHG1Jlw8R6A__original/img/ikYrRSqPwgIujfOEKZa9DoQZSvk=/0x0/filters:format(jpeg)/pic3381773.jpg",
+		"source_page": "https://boardgamegeek.com/image/3381773/ticket-to-ride-first-journey-europe",
+		"caption": "Ticket to Ride: First Journey, Days of Wonder, 2017 — game board for the English European version (image provided by the publisher)",
+		"original_size": [2000, 1333],
+		"size": [2000, 1333],
+		"type": "board-image",
+		"bgg_image_id": 3381773,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"first-journey-europe-map.png": {
+			"bytes": 3754706,
+			"sha256": "90dd18550fca3bfa75312bce7c2ed8750e0addf96ad2a541dde86d865128cf8b"
+		},
+		"rules.md": {
+			"bytes": 976,
+			"sha256": "0b8149406be8f36e496be00ce5eff1034dbdd49206c1f4841054178720e8d452"
+		},
+		"rules.pdf": {
+			"bytes": 1876937,
+			"sha256": "68fe03ccd54309c42e6d5c2c0cf8cf1ff0930ef19c34dc55d8cfd0c30afd2d3a"
+		}
+	},
+	"folder": "map-first-journey-europe"
+}

@@ -1,27 +1,27 @@
-# Ticket to Ride rules and map archive
+# Ticket to Ride map rules archive
 
-Inventory checked on **2026-09-10**: **55 folders**, **49 with all three requested files**, and **6 missing a downloadable rules PDF**. Every folder has an original Markdown implementation brief, a map/layout reference PNG, and source metadata. This collection is not yet a complete implementation dataset.
+Inventory checked on **2026-09-10**: **44 map folders**, **40 with PDF, Markdown, and PNG**, and **4 missing a downloadable rules PDF**.
 
-Use [catalog.json](catalog.json) to choose an entry and its prerequisite rules. [AGENTS.md](AGENTS.md) describes how to use the assets. Existing [default.md](default.md) is retained unchanged; it is not the inventory or a substitute for edition-specific PDFs.
+Each geographic map lives in `rules/map-<name>/`, with `rules.pdf`, `rules.md`, `<name>-map.png`, and `sources.json`. The image filename retains the map name without the folder prefix. [catalog.json](catalog.json) records stable map IDs, explicit folder paths, prerequisite rules, and source coverage. [AGENTS.md](AGENTS.md) explains how to use the assets. Existing [default.md](default.md) remains the shared reference.
 
-## Scope and sources
+## Scope
 
-[BoardGameGeek's official family](https://boardgamegeek.com/boardgamefamily/17/game-ticket-to-ride-official) is the catalog cross-check; [Days of Wonder](https://www.daysofwonder.com/universe/ticket-to-ride/) is the preferred rulebook source. All 46 products returned by the BGG family API are accounted for in the manifest. Unlock! Game Adventures is excluded as a separate escape-game system. Track Switcher is included from publisher material. Language-only reprints, cosmetic train sets, and fan-made maps are excluded. Individual sides of double-sided boards are separate entries. Switzerland 2007 is an alias of the Switzerland map entry; meaningful rules editions remain separate.
+Keep geographic maps: standalone editions, Map Collection sides, city games, family games, campaign maps, print-and-play maps, and demos. Classic, refreshed, and anniversary map editions remain separate to preserve their source rules and artwork. Expansions that reuse an existing board, ticket-only promos, Card Game, and Track Switcher have no asset folders. Their exclusion is recorded in the catalog.
 
-`rules.pdf` is a downloaded source document, not a generated placeholder. `rules.md` is a concise, original implementation brief, **not a full rulebook transcription or parser dump**. `<name>-map.png` is a real board photograph, publisher image, or PDF illustration. Modules without a new map reuse a compatible base-map reference; Card Game and Track Switcher use layout references. Every source, transformation, limitation, and file hash is recorded in `sources.json`.
+[BoardGameGeek's official family](https://boardgamegeek.com/boardgamefamily/17/game-ticket-to-ride-official) provides the inventory cross-check; [Days of Wonder](https://www.daysofwonder.com/universe/ticket-to-ride/) is the preferred rulebook source. Both sides of double-sided maps have separate entries. Switzerland 2007 is an alias of the Switzerland entry. Fan maps and cosmetic accessories are outside scope.
+
+Source PDFs are preserved in full, including shared rules when the publisher combines them with map rules. Markdown files are concise original implementation briefs, not full rulebook transcriptions. Map PNGs are real board photographs or publisher/PDF illustrations. Sources, image transformations, limitations, and hashes are recorded in each folder's metadata.
 
 ## Known missing material
 
-- [Deutschland 1902](deutschland-1902/rules.md): Original standalone expansion PDF unavailable; public mirror DNS failed and BGG download is blocked. Later combined edition is supplemental only.
-- [Les Aventuriers du Rail Express](express/rules.md): Identified BGG English rules files, but downloads require access unavailable in this session.
-- [Retailer Demo: USA](demo-usa/rules.md): No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules.
-- [Retailer Demo: Europe](demo-europe/rules.md): No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules.
-- [Italia: Milite Ignoto 1921–2021](italia-milite-ignoto/rules.md): Only photographed rule leaflet located; no downloadable publisher PDF.
-- [Legendary Characters](legendary-characters/rules.md): Physical rules card documented, but no downloadable PDF located.
+- [Retailer Demo: Europe](map-demo-europe/rules.md): No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules.
+- [Retailer Demo: USA](map-demo-usa/rules.md): No publisher PDF located. Community discussion includes house rules, which are not substituted for authoritative rules.
+- [Les Aventuriers du Rail Express](map-express/rules.md): Identified BGG English rules files, but downloads require access unavailable in this session.
+- [Italia: Milite Ignoto 1921–2021](map-italia-milite-ignoto/rules.md): Only photographed rule leaflet located; no downloadable publisher PDF.
 
-BGG catalog and image APIs were accessible, but file downloads were blocked by a browser verification challenge. No empty PDFs or substitutes have been used to conceal these gaps. Deutschland 1902 includes a clearly labeled later combined-edition PDF as supplemental material. Milite Ignoto includes a photographed rule leaflet. The Europe bonus-ticket promos use the anniversary PDF that explicitly covers them.
+BGG catalog and image APIs were accessible during collection, but file downloads were blocked by browser verification. Milite Ignoto includes a photographed rule leaflet. Missing PDFs remain explicit.
 
-Legacy includes public starter rules, errata, and FAQ, not sealed campaign content. Track Switcher lacks the full puzzle deck. Most rulebooks do not enumerate every ticket or route: card inventories and machine-readable graphs still need verification. Some map photographs contain placed pieces; consult their quality notes before tracing.
+Legacy includes public starter rules, errata, and FAQ, not sealed campaign content. Most rulebooks do not enumerate every ticket or route: card inventories and machine-readable graphs still need verification. Some photographs contain placed pieces; consult the quality notes before tracing.
 
 ## PDF parsing
 
@@ -35,100 +35,82 @@ uv pip install --python .cache/rules-tools/bin/python pdf-inspector==1.19.0 pymu
 .cache/rules-tools/bin/python rules/inspect_assets.py
 ```
 
-The recorded run checked 53 PDF files (51 unique documents) and 56 PNGs with no integrity or rendering errors. Median parser time was 20 ms. OCR was recommended only for printable board/ticket pages in Stay at Home and the B&B ticket sheet; no encoding issues were reported. These signals do not establish correct diagram interpretation.
-
 See [inspection.json](inspection.json) for the measured results. This is a local research dependency, not an application runtime dependency.
 
 ## Index
 
-### Standalone and edition variants
+### City games
 
-| Entry                                                              | Assets         | Prerequisite rules |
-| ------------------------------------------------------------------ | -------------- | ------------------ |
-| [Deutschland](deutschland/rules.md)                                | PDF / MD / PNG | Standalone         |
-| [Europe (refreshed)](europe/rules.md)                              | PDF / MD / PNG | Standalone         |
-| [Europe 15th Anniversary](europe-15th-anniversary/rules.md)        | PDF / MD / PNG | Standalone         |
-| [Europe Classic](europe-classic/rules.md)                          | PDF / MD / PNG | Standalone         |
-| [Germany](germany/rules.md)                                        | PDF / MD / PNG | Standalone         |
-| [Märklin](marklin/rules.md)                                        | PDF / MD / PNG | Standalone         |
-| [Nordic Countries](nordic-countries/rules.md)                      | PDF / MD / PNG | Standalone         |
-| [Northern Lights](northern-lights/rules.md)                        | PDF / MD / PNG | Standalone         |
-| [Rails & Sails: Great Lakes](rails-and-sails-great-lakes/rules.md) | PDF / MD / PNG | Standalone         |
-| [Rails & Sails: World](rails-and-sails-world/rules.md)             | PDF / MD / PNG | Standalone         |
-| [USA (refreshed)](usa/rules.md)                                    | PDF / MD / PNG | Standalone         |
-| [USA 10th Anniversary](usa-10th-anniversary/rules.md)              | PDF / MD / PNG | usa-classic        |
-| [USA Classic](usa-classic/rules.md)                                | PDF / MD / PNG | Standalone         |
+| Map                                                     | Assets                     | Prerequisite rules |
+| ------------------------------------------------------- | -------------------------- | ------------------ |
+| [Amsterdam](map-amsterdam/rules.md)                     | PDF / MD / PNG             | Standalone         |
+| [Berlin](map-berlin/rules.md)                           | PDF / MD / PNG             | Standalone         |
+| [Les Aventuriers du Rail Express](map-express/rules.md) | **PDF missing** / MD / PNG | Standalone         |
+| [London](map-london/rules.md)                           | PDF / MD / PNG             | Standalone         |
+| [New York](map-new-york/rules.md)                       | PDF / MD / PNG             | Standalone         |
+| [Paris](map-paris/rules.md)                             | PDF / MD / PNG             | Standalone         |
+| [San Francisco](map-san-francisco/rules.md)             | PDF / MD / PNG             | Standalone         |
 
 ### Map expansions
 
-| Entry                                               | Assets         | Prerequisite rules |
-| --------------------------------------------------- | -------------- | ------------------ |
-| [B&B Vol Liefde](b-and-b-vol-liefde/rules.md)       | PDF / MD / PNG | usa-classic        |
-| [France](france/rules.md)                           | PDF / MD / PNG | usa-classic        |
-| [Iberia](iberia/rules.md)                           | PDF / MD / PNG | usa-classic        |
-| [India](india/rules.md)                             | PDF / MD / PNG | usa-classic        |
-| [Italy](italy/rules.md)                             | PDF / MD / PNG | usa-classic        |
-| [Japan](japan/rules.md)                             | PDF / MD / PNG | usa-classic        |
-| [Legendary Asia](legendary-asia/rules.md)           | PDF / MD / PNG | usa-classic        |
-| [Nederland](nederland/rules.md)                     | PDF / MD / PNG | usa-classic        |
-| [Old West](old-west/rules.md)                       | PDF / MD / PNG | usa-classic        |
-| [Pennsylvania](pennsylvania/rules.md)               | PDF / MD / PNG | usa-classic        |
-| [Poland](poland/rules.md)                           | PDF / MD / PNG | usa-classic        |
-| [South Korea](south-korea/rules.md)                 | PDF / MD / PNG | usa-classic        |
-| [Stay At Home](stay-at-home/rules.md)               | PDF / MD / PNG | usa-classic        |
-| [Switzerland](switzerland/rules.md)                 | PDF / MD / PNG | usa-classic        |
-| [Team Asia](team-asia/rules.md)                     | PDF / MD / PNG | usa-classic        |
-| [The Heart Of Africa](the-heart-of-africa/rules.md) | PDF / MD / PNG | usa-classic        |
-| [United Kingdom](united-kingdom/rules.md)           | PDF / MD / PNG | usa-classic        |
-
-### City games
-
-| Entry                                               | Assets                     | Prerequisite rules |
-| --------------------------------------------------- | -------------------------- | ------------------ |
-| [Amsterdam](amsterdam/rules.md)                     | PDF / MD / PNG             | Standalone         |
-| [Berlin](berlin/rules.md)                           | PDF / MD / PNG             | Standalone         |
-| [Les Aventuriers du Rail Express](express/rules.md) | **PDF missing** / MD / PNG | Standalone         |
-| [London](london/rules.md)                           | PDF / MD / PNG             | Standalone         |
-| [New York](new-york/rules.md)                       | PDF / MD / PNG             | Standalone         |
-| [Paris](paris/rules.md)                             | PDF / MD / PNG             | Standalone         |
-| [San Francisco](san-francisco/rules.md)             | PDF / MD / PNG             | Standalone         |
-
-### Family games
-
-| Entry                                                 | Assets         | Prerequisite rules |
-| ----------------------------------------------------- | -------------- | ------------------ |
-| [First Journey Europe](first-journey-europe/rules.md) | PDF / MD / PNG | Standalone         |
-| [First Journey Usa](first-journey-usa/rules.md)       | PDF / MD / PNG | Standalone         |
-| [Ghost Train](ghost-train/rules.md)                   | PDF / MD / PNG | Standalone         |
-
-### Modules and promos
-
-| Entry                                                                   | Assets                     | Prerequisite rules |
-| ----------------------------------------------------------------------- | -------------------------- | ------------------ |
-| [Alvin And Dexter](alvin-and-dexter/rules.md)                           | PDF / MD / PNG             | usa-classic        |
-| [Deutschland 1902](deutschland-1902/rules.md)                           | **PDF missing** / MD / PNG | deutschland        |
-| [Dice Expansion](dice-expansion/rules.md)                               | PDF / MD / PNG             | usa-classic        |
-| [Europa 1912](europa-1912/rules.md)                                     | PDF / MD / PNG             | europe-classic     |
-| [Legendary Characters](legendary-characters/rules.md)                   | **PDF missing** / MD / PNG | usa-classic        |
-| [London–København / Ticket to Ride with Max](london-kobenhavn/rules.md) | PDF / MD / PNG             | europe-classic     |
-| [Mystery Train](mystery-train/rules.md)                                 | PDF / MD / PNG             | usa-classic        |
-| [Orient Express](orient-express/rules.md)                               | PDF / MD / PNG             | europe-classic     |
-| [USA 1910](usa-1910/rules.md)                                           | PDF / MD / PNG             | usa-classic        |
-
-### Special formats
-
-| Entry                                                       | Assets         | Prerequisite rules |
-| ----------------------------------------------------------- | -------------- | ------------------ |
-| [Card Game](card-game/rules.md)                             | PDF / MD / PNG | Standalone         |
-| [Legacy: Legends of the West](legends-of-the-west/rules.md) | PDF / MD / PNG | Standalone         |
-| [Track Switcher](track-switcher/rules.md)                   | PDF / MD / PNG | Standalone         |
+| Map                                                     | Assets         | Prerequisite rules                      |
+| ------------------------------------------------------- | -------------- | --------------------------------------- |
+| [B&B Vol Liefde](map-b-and-b-vol-liefde/rules.md)       | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [France](map-france/rules.md)                           | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Iberia](map-iberia/rules.md)                           | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [India](map-india/rules.md)                             | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Italy](map-italy/rules.md)                             | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Japan](map-japan/rules.md)                             | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Legendary Asia](map-legendary-asia/rules.md)           | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Nederland](map-nederland/rules.md)                     | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Old West](map-old-west/rules.md)                       | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Pennsylvania](map-pennsylvania/rules.md)               | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Poland](map-poland/rules.md)                           | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [South Korea](map-south-korea/rules.md)                 | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Stay At Home](map-stay-at-home/rules.md)               | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Switzerland](map-switzerland/rules.md)                 | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [Team Asia](map-team-asia/rules.md)                     | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [The Heart Of Africa](map-the-heart-of-africa/rules.md) | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [United Kingdom](map-united-kingdom/rules.md)           | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
 
 ### Rare and demo maps
 
-| Entry                                                            | Assets                     | Prerequisite rules |
-| ---------------------------------------------------------------- | -------------------------- | ------------------ |
-| [Retailer Demo: Europe](demo-europe/rules.md)                    | **PDF missing** / MD / PNG | Standalone         |
-| [Retailer Demo: USA](demo-usa/rules.md)                          | **PDF missing** / MD / PNG | Standalone         |
-| [Italia: Milite Ignoto 1921–2021](italia-milite-ignoto/rules.md) | **PDF missing** / MD / PNG | italy              |
+| Map                                                                  | Assets                     | Prerequisite rules          |
+| -------------------------------------------------------------------- | -------------------------- | --------------------------- |
+| [Retailer Demo: Europe](map-demo-europe/rules.md)                    | **PDF missing** / MD / PNG | Standalone                  |
+| [Retailer Demo: USA](map-demo-usa/rules.md)                          | **PDF missing** / MD / PNG | Standalone                  |
+| [Italia: Milite Ignoto 1921–2021](map-italia-milite-ignoto/rules.md) | **PDF missing** / MD / PNG | [italy](map-italy/rules.md) |
+
+### Standalone and edition variants
+
+| Map                                                                    | Assets         | Prerequisite rules                      |
+| ---------------------------------------------------------------------- | -------------- | --------------------------------------- |
+| [Deutschland](map-deutschland/rules.md)                                | PDF / MD / PNG | Standalone                              |
+| [Europe (refreshed)](map-europe/rules.md)                              | PDF / MD / PNG | Standalone                              |
+| [Europe 15th Anniversary](map-europe-15th-anniversary/rules.md)        | PDF / MD / PNG | Standalone                              |
+| [Europe Classic](map-europe-classic/rules.md)                          | PDF / MD / PNG | Standalone                              |
+| [Germany](map-germany/rules.md)                                        | PDF / MD / PNG | Standalone                              |
+| [Märklin](map-marklin/rules.md)                                        | PDF / MD / PNG | Standalone                              |
+| [Nordic Countries](map-nordic-countries/rules.md)                      | PDF / MD / PNG | Standalone                              |
+| [Northern Lights](map-northern-lights/rules.md)                        | PDF / MD / PNG | Standalone                              |
+| [Rails & Sails: Great Lakes](map-rails-and-sails-great-lakes/rules.md) | PDF / MD / PNG | Standalone                              |
+| [Rails & Sails: World](map-rails-and-sails-world/rules.md)             | PDF / MD / PNG | Standalone                              |
+| [USA (refreshed)](map-usa/rules.md)                                    | PDF / MD / PNG | Standalone                              |
+| [USA 10th Anniversary](map-usa-10th-anniversary/rules.md)              | PDF / MD / PNG | [usa-classic](map-usa-classic/rules.md) |
+| [USA Classic](map-usa-classic/rules.md)                                | PDF / MD / PNG | Standalone                              |
+
+### Family games
+
+| Map                                                       | Assets         | Prerequisite rules |
+| --------------------------------------------------------- | -------------- | ------------------ |
+| [First Journey Europe](map-first-journey-europe/rules.md) | PDF / MD / PNG | Standalone         |
+| [First Journey Usa](map-first-journey-usa/rules.md)       | PDF / MD / PNG | Standalone         |
+| [Ghost Train](map-ghost-train/rules.md)                   | PDF / MD / PNG | Standalone         |
+
+### Special formats
+
+| Map                                                             | Assets         | Prerequisite rules |
+| --------------------------------------------------------------- | -------------- | ------------------ |
+| [Legacy: Legends of the West](map-legends-of-the-west/rules.md) | PDF / MD / PNG | Standalone         |
 
 Source PDFs and images retain their original copyrights. Download availability does not grant permission to redistribute their artwork in an implemented game.

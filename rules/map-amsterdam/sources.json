@@ -1,0 +1,60 @@
+{
+	"id": "amsterdam",
+	"name": "Amsterdam",
+	"group": "City games",
+	"bgg": {
+		"id": "309113",
+		"name": "Ticket to Ride: Amsterdam",
+		"canonical_link": "https://boardgamegeek.com/boardgame/309113/ticket-to-ride-amsterdam",
+		"yearpublished": "2020",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2024/07/720063-T2RAM-Rules-EN.pdf",
+		"pages": 2,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "amsterdam-map.png",
+		"size": [1906, 1334],
+		"type": "rulebook-board-crop",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2024/07/720063-T2RAM-Rules-EN.pdf",
+		"pdf_page": 2,
+		"crop_normalized": [0.03, 0.36, 0.43, 0.92],
+		"quality": "Illustration; verify labels and route data against physical components."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"amsterdam-map.png": {
+			"bytes": 3341297,
+			"sha256": "3aa86465dea834aaa231191c87ad676f83f289d191b5271d9e1a5b14c3c55744"
+		},
+		"rules.md": {
+			"bytes": 968,
+			"sha256": "4c12eafba0c40b23ab113f0460dbd09e41760b6b1da44b17f96c3d0ee34f4e5d"
+		},
+		"rules.pdf": {
+			"bytes": 4826507,
+			"sha256": "abdd9fb4655ce28f5ec70460ca53f80f5dc67d5eafacc5ebb74fc6ab5a8a72f1"
+		}
+	},
+	"folder": "map-amsterdam"
+}
