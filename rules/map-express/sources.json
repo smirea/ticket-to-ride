@@ -1,0 +1,56 @@
+{
+	"id": "express",
+	"name": "Les Aventuriers du Rail Express",
+	"group": "City games",
+	"bgg": {
+		"id": "258140",
+		"name": "Les Aventuriers du Rail Express",
+		"canonical_link": "https://boardgamegeek.com/boardgame/258140/les-aventuriers-du-rail-express",
+		"yearpublished": "2018",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "missing-rules-pdf",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": null,
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "express-map.png",
+		"source_url": "https://cf.geekdo-images.com/e-weY3ci-uIgutB_GMB4hg__original/img/72pWDNuBfjGVdL4yDMHNc_WH5bY=/0x0/filters:format(jpeg)/pic5308536.jpg",
+		"source_page": "https://boardgamegeek.com/image/5308536/les-aventuriers-du-rail-express",
+		"caption": "Whole board",
+		"original_size": [3264, 2174],
+		"size": [2600, 1732],
+		"type": "board-image",
+		"bgg_image_id": 5308536,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Identified BGG English rules files, but downloads require access unavailable in this session.",
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": {
+		"reason": "Identified BGG English rules files, but downloads require access unavailable in this session.",
+		"candidate_urls": ["https://api.geekdo.com/api/files/382073", "https://api.geekdo.com/api/files/296190"]
+	},
+	"files": {
+		"express-map.png": {
+			"bytes": 7824818,
+			"sha256": "2ee83652a2dfa89efa4e4ec797cd27630c5fc767fcf627482ed7182ba0cbf192"
+		},
+		"rules.md": {
+			"bytes": 1049,
+			"sha256": "aabb7c2991bdf04c26c1edbe7c7bd7c2760b517bdd5c61b792958d8f7cc11b59"
+		}
+	},
+	"folder": "map-express"
+}

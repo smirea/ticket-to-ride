@@ -1,0 +1,62 @@
+{
+	"id": "legendary-asia",
+	"name": "Legendary Asia",
+	"group": "Map expansions",
+	"bgg": {
+		"id": "106637",
+		"name": "Ticket to Ride Map Collection 1: Asia + Legendary Asia",
+		"canonical_link": "https://boardgamegeek.com/boardgame/106637/ticket-to-ride-map-collection-1-asia-plus-legendar",
+		"yearpublished": "2011",
+		"minplayers": "2",
+		"maxplayers": "6"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/staging-daysofwonder/uploads/2024/07/705123-T2RMC1-Rules-LegendaryAsia-EN-2019.pdf",
+		"pages": 1,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "legendary-asia-map.png",
+		"source_url": "https://cf.geekdo-images.com/9UNqe9kJB9mzwdTMdfwLVw__original/img/lSReQZBvoR32letue7Wkv3VfK_0=/0x0/filters:format(jpeg)/pic1077574.jpg",
+		"source_page": "https://boardgamegeek.com/image/1077574/ticket-to-ride-map-collection-1-asia-plus-legendar",
+		"caption": "Ticket to Ride Map Collection: Volume 1 - Team Asia & Legendary Asia, Days of Wonder, 2011 – game board for Legendary Asia",
+		"original_size": [2036, 1328],
+		"size": [2036, 1328],
+		"type": "board-image",
+		"bgg_image_id": 1077574,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"legendary-asia-map.png": {
+			"bytes": 3867665,
+			"sha256": "9742e63a2191af244f25d8c5ebb81759b33a8e0722836fdfad85884d85444f9f"
+		},
+		"rules.md": {
+			"bytes": 1073,
+			"sha256": "315239b74aacb85b81880e7eff7244a8d0b5f1b02188b112b34161004cef8899"
+		},
+		"rules.pdf": {
+			"bytes": 603924,
+			"sha256": "b022213f79f50ae4bbf4de96a56058e32ddcfcc5429d7f9fb9e2875b525beb61"
+		}
+	},
+	"folder": "map-legendary-asia"
+}

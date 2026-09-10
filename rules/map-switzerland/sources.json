@@ -1,0 +1,70 @@
+{
+	"id": "switzerland",
+	"name": "Switzerland",
+	"group": "Map expansions",
+	"bgg": {
+		"id": "106645",
+		"name": "Ticket to Ride Map Collection 2: India & Switzerland",
+		"canonical_link": "https://boardgamegeek.com/boardgame/106645/ticket-to-ride-map-collection-2-india-and-switzerl",
+		"yearpublished": "2011",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": ["Ticket to Ride: Switzerland (2007)"],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/staging-daysofwonder/uploads/2024/07/720114-T2RMC2-Rules_switzerland-ML-2017.pdf",
+		"pages": 12,
+		"language": "multilingual-including-en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "switzerland-map.png",
+		"source_url": "https://cf.geekdo-images.com/MjvN1OEVDNcsYW7yJYcWQQ__original/img/kImvBq9-d5SJzkHsvhDp3f-bPIY=/0x0/filters:format(jpeg)/pic1243343.jpg",
+		"source_page": "https://boardgamegeek.com/image/1243343/ticket-to-ride-map-collection-2-india-and-switzerl",
+		"caption": "Full Game Board, Produced Copy, Switzerland Side\n",
+		"original_size": [5000, 3323],
+		"size": [2600, 1728],
+		"type": "board-image",
+		"bgg_image_id": 1243343,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"bgg_original_edition": {
+		"id": "30746",
+		"name": "Ticket to Ride: Switzerland",
+		"canonical_link": "https://boardgamegeek.com/boardgame/30746/ticket-to-ride-switzerland",
+		"yearpublished": "2007",
+		"minplayers": "2",
+		"maxplayers": "3"
+	},
+	"files": {
+		"rules.md": {
+			"bytes": 1095,
+			"sha256": "ace383c890a9afb90fb160e94f944c1f136e2f859291817182850e860a7848c8"
+		},
+		"rules.pdf": {
+			"bytes": 3540194,
+			"sha256": "2b1752ec607cd596d800975a4715ceb4b8530031e46714a080d1a2ddc61d60be"
+		},
+		"switzerland-map.png": {
+			"bytes": 8798411,
+			"sha256": "634176f4f7aa549dbdc4a60268445de7ab06f9b8bd5eb5409447d98896f3a297"
+		}
+	},
+	"folder": "map-switzerland"
+}

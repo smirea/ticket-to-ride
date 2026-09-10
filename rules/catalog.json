@@ -1,28 +1,21 @@
 {
 	"as_of": "2026-09-10",
-	"scope": "Official physical maps, gameplay expansions, standalone games, significant rules editions, promos and demos; both board sides have separate folders. Fan-made expansions, translations/reboxes with unchanged rules, digital-only cosmetics, and physical cosmetic accessories are outside scope.",
+	"scope": "Official physical geographic maps and their rules editions, including standalone, city, family, campaign, print-and-play, and demo maps. Both board sides have separate folders. Expansions without a new geographic board, card-only games, puzzles, cosmetic accessories, and fan maps are excluded.",
 	"inventory_sources": [
 		"https://boardgamegeek.com/boardgamefamily/17/game-ticket-to-ride-official",
 		"https://api.geekdo.com/api/geekitems?objectid=17&objecttype=family",
 		"https://www.daysofwonder.com/universe/ticket-to-ride/"
 	],
-	"coverage_note": "Cross-checked all 46 entries returned by the BGG official-family API. This is a dated inventory, not a guarantee that undocumented promos do not exist. Track Switcher is included from the publisher despite absence from that family.",
+	"coverage_note": "The original inventory cross-checked all 46 products returned by the BGG official-family API. Coverage records retain excluded products for provenance; only geographic map entries have asset folders. This is a dated inventory, not a guarantee that undocumented maps do not exist.",
 	"entries": [
-		{
-			"id": "alvin-and-dexter",
-			"name": "Alvin And Dexter",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
 		{
 			"id": "amsterdam",
 			"name": "Amsterdam",
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-amsterdam"
 		},
 		{
 			"id": "b-and-b-vol-liefde",
@@ -30,7 +23,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-b-and-b-vol-liefde"
 		},
 		{
 			"id": "berlin",
@@ -38,15 +32,8 @@
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
-		},
-		{
-			"id": "card-game",
-			"name": "Card Game",
-			"group": "Special formats",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-berlin"
 		},
 		{
 			"id": "demo-europe",
@@ -54,7 +41,8 @@
 			"group": "Rare and demo maps",
 			"asset_status": "missing-rules-pdf",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-demo-europe"
 		},
 		{
 			"id": "demo-usa",
@@ -62,7 +50,8 @@
 			"group": "Rare and demo maps",
 			"asset_status": "missing-rules-pdf",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-demo-usa"
 		},
 		{
 			"id": "deutschland",
@@ -70,31 +59,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
-		},
-		{
-			"id": "deutschland-1902",
-			"name": "Deutschland 1902",
-			"group": "Modules and promos",
-			"asset_status": "missing-rules-pdf",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["deutschland"]
-		},
-		{
-			"id": "dice-expansion",
-			"name": "Dice Expansion",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
-		{
-			"id": "europa-1912",
-			"name": "Europa 1912",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["europe-classic"]
+			"prerequisite_rules": [],
+			"folder": "map-deutschland"
 		},
 		{
 			"id": "europe",
@@ -102,7 +68,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-europe"
 		},
 		{
 			"id": "europe-15th-anniversary",
@@ -110,7 +77,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-europe-15th-anniversary"
 		},
 		{
 			"id": "europe-classic",
@@ -118,7 +86,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-europe-classic"
 		},
 		{
 			"id": "express",
@@ -126,7 +95,8 @@
 			"group": "City games",
 			"asset_status": "missing-rules-pdf",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-express"
 		},
 		{
 			"id": "first-journey-europe",
@@ -134,7 +104,8 @@
 			"group": "Family games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-first-journey-europe"
 		},
 		{
 			"id": "first-journey-usa",
@@ -142,7 +113,8 @@
 			"group": "Family games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-first-journey-usa"
 		},
 		{
 			"id": "france",
@@ -150,7 +122,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-france"
 		},
 		{
 			"id": "germany",
@@ -158,7 +131,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-germany"
 		},
 		{
 			"id": "ghost-train",
@@ -166,7 +140,8 @@
 			"group": "Family games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-ghost-train"
 		},
 		{
 			"id": "iberia",
@@ -174,7 +149,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-iberia"
 		},
 		{
 			"id": "india",
@@ -182,7 +158,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-india"
 		},
 		{
 			"id": "italia-milite-ignoto",
@@ -190,7 +167,8 @@
 			"group": "Rare and demo maps",
 			"asset_status": "missing-rules-pdf",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["italy"]
+			"prerequisite_rules": ["italy"],
+			"folder": "map-italia-milite-ignoto"
 		},
 		{
 			"id": "italy",
@@ -198,7 +176,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-italy"
 		},
 		{
 			"id": "japan",
@@ -206,7 +185,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-japan"
 		},
 		{
 			"id": "legendary-asia",
@@ -214,15 +194,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
-		{
-			"id": "legendary-characters",
-			"name": "Legendary Characters",
-			"group": "Modules and promos",
-			"asset_status": "missing-rules-pdf",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-legendary-asia"
 		},
 		{
 			"id": "legends-of-the-west",
@@ -230,7 +203,8 @@
 			"group": "Special formats",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-legends-of-the-west"
 		},
 		{
 			"id": "london",
@@ -238,15 +212,8 @@
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
-		},
-		{
-			"id": "london-kobenhavn",
-			"name": "London–København / Ticket to Ride with Max",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["europe-classic"]
+			"prerequisite_rules": [],
+			"folder": "map-london"
 		},
 		{
 			"id": "marklin",
@@ -254,15 +221,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
-		},
-		{
-			"id": "mystery-train",
-			"name": "Mystery Train",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": [],
+			"folder": "map-marklin"
 		},
 		{
 			"id": "nederland",
@@ -270,7 +230,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-nederland"
 		},
 		{
 			"id": "new-york",
@@ -278,7 +239,8 @@
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-new-york"
 		},
 		{
 			"id": "nordic-countries",
@@ -286,7 +248,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-nordic-countries"
 		},
 		{
 			"id": "northern-lights",
@@ -294,7 +257,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-northern-lights"
 		},
 		{
 			"id": "old-west",
@@ -302,15 +266,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
-		{
-			"id": "orient-express",
-			"name": "Orient Express",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["europe-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-old-west"
 		},
 		{
 			"id": "paris",
@@ -318,7 +275,8 @@
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-paris"
 		},
 		{
 			"id": "pennsylvania",
@@ -326,7 +284,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-pennsylvania"
 		},
 		{
 			"id": "poland",
@@ -334,7 +293,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-poland"
 		},
 		{
 			"id": "rails-and-sails-great-lakes",
@@ -342,7 +302,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-rails-and-sails-great-lakes"
 		},
 		{
 			"id": "rails-and-sails-world",
@@ -350,7 +311,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-rails-and-sails-world"
 		},
 		{
 			"id": "san-francisco",
@@ -358,7 +320,8 @@
 			"group": "City games",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-san-francisco"
 		},
 		{
 			"id": "south-korea",
@@ -366,7 +329,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-south-korea"
 		},
 		{
 			"id": "stay-at-home",
@@ -374,7 +338,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-stay-at-home"
 		},
 		{
 			"id": "switzerland",
@@ -382,7 +347,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-switzerland"
 		},
 		{
 			"id": "team-asia",
@@ -390,7 +356,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-team-asia"
 		},
 		{
 			"id": "the-heart-of-africa",
@@ -398,15 +365,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
-		{
-			"id": "track-switcher",
-			"name": "Track Switcher",
-			"group": "Special formats",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-the-heart-of-africa"
 		},
 		{
 			"id": "united-kingdom",
@@ -414,7 +374,8 @@
 			"group": "Map expansions",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-united-kingdom"
 		},
 		{
 			"id": "usa",
@@ -422,7 +383,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-usa"
 		},
 		{
 			"id": "usa-10th-anniversary",
@@ -430,15 +392,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
-		},
-		{
-			"id": "usa-1910",
-			"name": "USA 1910",
-			"group": "Modules and promos",
-			"asset_status": "three-required-assets-present",
-			"implementation_status": "research-required",
-			"prerequisite_rules": ["usa-classic"]
+			"prerequisite_rules": ["usa-classic"],
+			"folder": "map-usa-10th-anniversary"
 		},
 		{
 			"id": "usa-classic",
@@ -446,7 +401,8 @@
 			"group": "Standalone and edition variants",
 			"asset_status": "three-required-assets-present",
 			"implementation_status": "research-required",
-			"prerequisite_rules": []
+			"prerequisite_rules": [],
+			"folder": "map-usa-classic"
 		}
 	],
 	"bgg_family_coverage": [
@@ -457,7 +413,7 @@
 			"yearpublished": "2022",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["northern-lights"],
+			"folders": ["map-northern-lights"],
 			"disposition": "included"
 		},
 		{
@@ -467,7 +423,7 @@
 			"yearpublished": "2018",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["express"],
+			"folders": ["map-express"],
 			"disposition": "included"
 		},
 		{
@@ -477,7 +433,7 @@
 			"yearpublished": "2004",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["usa", "usa-classic"],
+			"folders": ["map-usa", "map-usa-classic"],
 			"disposition": "included"
 		},
 		{
@@ -487,7 +443,7 @@
 			"yearpublished": "2017",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["demo-usa", "demo-europe"],
+			"folders": ["map-demo-usa", "map-demo-europe"],
 			"disposition": "included"
 		},
 		{
@@ -497,7 +453,7 @@
 			"yearpublished": "2023",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["legends-of-the-west"],
+			"folders": ["map-legends-of-the-west"],
 			"disposition": "included"
 		},
 		{
@@ -507,7 +463,7 @@
 			"yearpublished": "2011",
 			"minplayers": "2",
 			"maxplayers": "6",
-			"folders": ["team-asia", "legendary-asia"],
+			"folders": ["map-team-asia", "map-legendary-asia"],
 			"disposition": "included"
 		},
 		{
@@ -517,7 +473,7 @@
 			"yearpublished": "2011",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["india", "switzerland"],
+			"folders": ["map-india", "map-switzerland"],
 			"disposition": "included"
 		},
 		{
@@ -527,7 +483,7 @@
 			"yearpublished": "2012",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["the-heart-of-africa"],
+			"folders": ["map-the-heart-of-africa"],
 			"disposition": "included"
 		},
 		{
@@ -537,7 +493,7 @@
 			"yearpublished": "2013",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["nederland"],
+			"folders": ["map-nederland"],
 			"disposition": "included"
 		},
 		{
@@ -547,7 +503,7 @@
 			"yearpublished": "2015",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["united-kingdom", "pennsylvania"],
+			"folders": ["map-united-kingdom", "map-pennsylvania"],
 			"disposition": "included"
 		},
 		{
@@ -557,7 +513,7 @@
 			"yearpublished": "2017",
 			"minplayers": "2",
 			"maxplayers": "6",
-			"folders": ["france", "old-west"],
+			"folders": ["map-france", "map-old-west"],
 			"disposition": "included"
 		},
 		{
@@ -567,7 +523,7 @@
 			"yearpublished": "2019",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["poland"],
+			"folders": ["map-poland"],
 			"disposition": "included"
 		},
 		{
@@ -577,7 +533,7 @@
 			"yearpublished": "2019",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["japan", "italy"],
+			"folders": ["map-japan", "map-italy"],
 			"disposition": "included"
 		},
 		{
@@ -587,7 +543,7 @@
 			"yearpublished": "2024",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["iberia", "south-korea"],
+			"folders": ["map-iberia", "map-south-korea"],
 			"disposition": "included"
 		},
 		{
@@ -597,7 +553,7 @@
 			"yearpublished": "2014",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["usa-10th-anniversary"],
+			"folders": ["map-usa-10th-anniversary"],
 			"disposition": "included"
 		},
 		{
@@ -607,8 +563,8 @@
 			"yearpublished": "2011",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["alvin-and-dexter"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "309113",
@@ -617,7 +573,7 @@
 			"yearpublished": "2020",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["amsterdam"],
+			"folders": ["map-amsterdam"],
 			"disposition": "included"
 		},
 		{
@@ -627,7 +583,7 @@
 			"yearpublished": "2026",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["b-and-b-vol-liefde"],
+			"folders": ["map-b-and-b-vol-liefde"],
 			"disposition": "included"
 		},
 		{
@@ -637,7 +593,7 @@
 			"yearpublished": "2023",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["berlin"],
+			"folders": ["map-berlin"],
 			"disposition": "included"
 		},
 		{
@@ -647,8 +603,8 @@
 			"yearpublished": "2009",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["europa-1912"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "14996",
@@ -657,7 +613,7 @@
 			"yearpublished": "2005",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["europe", "europe-classic"],
+			"folders": ["map-europe", "map-europe-classic"],
 			"disposition": "included"
 		},
 		{
@@ -667,7 +623,7 @@
 			"yearpublished": "2021",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["europe-15th-anniversary"],
+			"folders": ["map-europe-15th-anniversary"],
 			"disposition": "included"
 		},
 		{
@@ -677,8 +633,8 @@
 			"yearpublished": "2017",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["london-kobenhavn"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "185306",
@@ -687,8 +643,8 @@
 			"yearpublished": "2015",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["orient-express"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "218208",
@@ -697,7 +653,7 @@
 			"yearpublished": "2017",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["first-journey-europe"],
+			"folders": ["map-first-journey-europe"],
 			"disposition": "included"
 		},
 		{
@@ -707,7 +663,7 @@
 			"yearpublished": "2016",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["first-journey-usa"],
+			"folders": ["map-first-journey-usa"],
 			"disposition": "included"
 		},
 		{
@@ -717,7 +673,7 @@
 			"yearpublished": "2017",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["germany"],
+			"folders": ["map-germany"],
 			"disposition": "included"
 		},
 		{
@@ -727,7 +683,7 @@
 			"yearpublished": "2022",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["ghost-train"],
+			"folders": ["map-ghost-train"],
 			"disposition": "included"
 		},
 		{
@@ -737,7 +693,7 @@
 			"yearpublished": "2021",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["italia-milite-ignoto"],
+			"folders": ["map-italia-milite-ignoto"],
 			"disposition": "included"
 		},
 		{
@@ -747,8 +703,8 @@
 			"yearpublished": "2026",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["legendary-characters"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "276894",
@@ -757,7 +713,7 @@
 			"yearpublished": "2019",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["london"],
+			"folders": ["map-london"],
 			"disposition": "included"
 		},
 		{
@@ -767,7 +723,7 @@
 			"yearpublished": "2006",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["marklin"],
+			"folders": ["map-marklin"],
 			"disposition": "included"
 		},
 		{
@@ -777,8 +733,8 @@
 			"yearpublished": "2004",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["mystery-train"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "253284",
@@ -787,7 +743,7 @@
 			"yearpublished": "2018",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["new-york"],
+			"folders": ["map-new-york"],
 			"disposition": "included"
 		},
 		{
@@ -797,7 +753,7 @@
 			"yearpublished": "2007",
 			"minplayers": "2",
 			"maxplayers": "3",
-			"folders": ["nordic-countries"],
+			"folders": ["map-nordic-countries"],
 			"disposition": "included"
 		},
 		{
@@ -807,7 +763,7 @@
 			"yearpublished": "2024",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["paris"],
+			"folders": ["map-paris"],
 			"disposition": "included"
 		},
 		{
@@ -817,7 +773,7 @@
 			"yearpublished": "2016",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["rails-and-sails-world", "rails-and-sails-great-lakes"],
+			"folders": ["map-rails-and-sails-world", "map-rails-and-sails-great-lakes"],
 			"disposition": "included"
 		},
 		{
@@ -827,7 +783,7 @@
 			"yearpublished": "2022",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["san-francisco"],
+			"folders": ["map-san-francisco"],
 			"disposition": "included"
 		},
 		{
@@ -837,7 +793,7 @@
 			"yearpublished": "2020",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["stay-at-home"],
+			"folders": ["map-stay-at-home"],
 			"disposition": "included"
 		},
 		{
@@ -847,7 +803,7 @@
 			"yearpublished": "2007",
 			"minplayers": "2",
 			"maxplayers": "3",
-			"folders": ["switzerland"],
+			"folders": ["map-switzerland"],
 			"disposition": "included"
 		},
 		{
@@ -857,8 +813,8 @@
 			"yearpublished": "2008",
 			"minplayers": "2",
 			"maxplayers": "4",
-			"folders": ["card-game"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "38454",
@@ -867,8 +823,8 @@
 			"yearpublished": "2008",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["dice-expansion"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "24439",
@@ -877,8 +833,8 @@
 			"yearpublished": "2006",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["usa-1910"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		},
 		{
 			"id": "350636",
@@ -897,7 +853,7 @@
 			"yearpublished": "2012",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["deutschland"],
+			"folders": ["map-deutschland"],
 			"disposition": "included"
 		},
 		{
@@ -907,8 +863,8 @@
 			"yearpublished": "2015",
 			"minplayers": "2",
 			"maxplayers": "5",
-			"folders": ["deutschland-1902"],
-			"disposition": "included"
+			"folders": [],
+			"disposition": "excluded-no-new-geographic-map"
 		}
 	],
 	"excluded": [
@@ -931,12 +887,18 @@
 		"Deluxe Train Sets / 20th Anniversary train sets",
 		"Character Score Markers"
 	],
-	"missing_pdf_folders": [
-		"demo-europe",
-		"demo-usa",
+	"missing_pdf_folders": ["map-demo-europe", "map-demo-usa", "map-express", "map-italia-milite-ignoto"],
+	"excluded_non_map_entries": [
+		"alvin-and-dexter",
+		"card-game",
 		"deutschland-1902",
-		"express",
-		"italia-milite-ignoto",
-		"legendary-characters"
+		"dice-expansion",
+		"europa-1912",
+		"legendary-characters",
+		"london-kobenhavn",
+		"mystery-train",
+		"orient-express",
+		"track-switcher",
+		"usa-1910"
 	]
 }

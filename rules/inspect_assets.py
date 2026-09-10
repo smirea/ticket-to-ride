@@ -17,7 +17,7 @@ def main():
     image_count = 0
     cache = {}
     for entry in catalog["entries"]:
-        folder = ROOT / entry["id"]
+        folder = ROOT / entry["folder"]
         metadata = json.loads((folder / "sources.json").read_text())
         required = ["rules.md", f'{entry["id"]}-map.png']
         if entry["asset_status"] == "three-required-assets-present":
