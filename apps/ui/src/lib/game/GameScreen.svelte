@@ -571,8 +571,7 @@
 		const points = ROUTE_SCORES[route.length] ?? 0;
 		return {
 			routeId: route.id,
-			hints:
-				turnReady && options.length ? options.map(option => ({ ...option, points })) : [{ points, unavailable: true }],
+			hints: options.length ? options.map(option => ({ ...option, points })) : [{ points, unavailable: true }],
 		};
 	});
 

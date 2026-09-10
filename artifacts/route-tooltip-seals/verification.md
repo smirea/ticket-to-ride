@@ -12,3 +12,15 @@ Verified the running debug fixtures in Chrome with native CDP pointer movement a
 - Shared seal numerals optically centered; zero ticket groups omitted. Separate agent checked initial and train-fleet ticket counters, including the green completed icon and journal-style unfinished icon (../count-alignment/refined.png).
 
 Validation: ui:check (zero errors/warnings), lint, production UI build and server typecheck all passed.
+
+## Turn timing regression
+
+The previous route-hover condition incorrectly showed “can't claim” whenever the turn was not ready, even with sufficient resources. Removed that presentation-only turn check; execution guards are unchanged.
+
+Native Chrome pointer checks on Duluth–Omaha (two gray segments), using Full table then actual blind draws:
+
+- Eight affordable payment options before drawing and after the first draw.
+- After the first draw, the action ticket says “Draw one more card”. Clicking the route opens no payment menu, consumes no resources, and leaves all routes unclaimed.
+- The second draw advances to Maya; payment previews still describe the viewer's hand.
+- Evidence: after-first-draw.png and turn-preview-check.json. The browser was foregrounded for animation checks.
+- Svelte check, lint, and all three payment tests passed (30 assertions).
