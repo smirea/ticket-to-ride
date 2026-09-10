@@ -37,7 +37,7 @@ Build a fully playable Ticket to Ride game on the classic USA map, supporting si
 - [x] Preview destination endpoints and their connection on the board from pointer, keyboard focus, and selection state.
 - [x] Add restrained drawer, turn, card, count, and route-claim animation with reduced-motion handling.
 - [x] Validate default turn, ticket selection, route claim, final results, and narrow-screen states through the real debug action path.
-- [x] Complete a same-viewport source/implementation comparison and record the result in `design-qa.md`.
+- [x] Complete a same-viewport source/implementation comparison.
 
 ## Completed milestone: Pixel-precision Steam frame and original art pass
 
