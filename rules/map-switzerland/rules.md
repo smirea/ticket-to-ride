@@ -1,6 +1,6 @@
 # Switzerland
 
-[Source PDF](rules.pdf) · [Map reference](switzerland-map.png)
+[Source PDF](rules.pdf) · [Map reference](map.png)
 
 Parsed locally with pdf-inspector. Original page images preserve diagrams, tables, and layout; consult them where extraction is unclear.
 

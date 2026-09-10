@@ -1,6 +1,6 @@
 # The Heart Of Africa
 
-[Source PDF](rules.pdf) · [Map reference](the-heart-of-africa-map.png)
+[Source PDF](rules.pdf) · [Map reference](map.png) · [Map image source](https://boardgamegeek.com/image/6116873)
 
 Parsed locally with pdf-inspector. Original page images preserve diagrams, tables, and layout; consult them where extraction is unclear.
 

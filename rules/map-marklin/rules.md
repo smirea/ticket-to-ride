@@ -1,6 +1,6 @@
 # Märklin
 
-[Source PDF](rules.pdf) · [Map reference](marklin-map.png)
+[Source PDF](rules.pdf) · [Map reference](map.png) · [Map image source](https://labsk.net/index.php?topic=247932.0)
 
 Parsed locally with pdf-inspector. Original page images preserve diagrams, tables, and layout; consult them where extraction is unclear.
 
