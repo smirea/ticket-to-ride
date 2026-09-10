@@ -25,8 +25,29 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "2809c1f6b21e4cf4ca7e5e4f41e118aa08895a14dac95a7e07d77e8c57700572",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 1727,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 3638,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "ghost-train-map.png",
@@ -46,9 +67,17 @@
 			"bytes": 1180350,
 			"sha256": "2985c4102a829287bc978f94f8bb2bc1e0f962bf014b64593902d2ffbaf65c2b"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 5052763,
+			"sha256": "9ad1dfc30659d46513cf4d8211a76727fbfbac6b8e02949338eb2c84722312a3"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 4093625,
+			"sha256": "1813150ec375e64e286c04bdd889b9dd2b7a253375d69ff832fdc46a72631100"
+		},
 		"rules.md": {
-			"bytes": 923,
-			"sha256": "59b682315b99d4b8938622ef1a3bdcc397b2a541d7f1aaa93ea6d6340651b1a9"
+			"bytes": 5838,
+			"sha256": "fb8f2e10bc999a5a33eb91b8372c33431782657415673aae9b1315ac081b0c9d"
 		},
 		"rules.pdf": {
 			"bytes": 4219931,

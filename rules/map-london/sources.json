@@ -25,8 +25,29 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "5c5f1e518ea29d4d387da7fcfa75e2d9ddb2023c2a11b8014e9e12d20031a5a5",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 3540,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 4288,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "london-map.png",
@@ -45,13 +66,21 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 2951382,
+			"sha256": "85d5b4105c6d81c2d53421953853901291fc010772690ca6739b502853688a04"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 2467372,
+			"sha256": "239e0674cb0699fb2be84a8ca25f60319b35420b1b2ebe4d4ab319942b5ccac1"
+		},
 		"london-map.png": {
 			"bytes": 2446261,
 			"sha256": "7cd173db30c188a95c00c035b23c83e5f773aed2e26b1448f55e0d4a7039c016"
 		},
 		"rules.md": {
-			"bytes": 902,
-			"sha256": "3501d798054814598adb7a5c0fd8572183a3fe858b59eff445ca1015fcf8bb8b"
+			"bytes": 8282,
+			"sha256": "dbea59a654908945229f48567ac206ed82b6a50e58a95a6c8b6796f04b457fec"
 		},
 		"rules.pdf": {
 			"bytes": 5928996,

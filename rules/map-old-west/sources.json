@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "4bea5903ca805507690cefb4e29e76e4b5aab9fe66ca3ab2288bb1c8666c6e30",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 5478,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 788,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "old-west-map.png",
@@ -45,13 +73,25 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 6719740,
+			"sha256": "9a4b02ca231211efed0d33fbbb93e617afe5ba6eeab5725f4fbde5f791fe22f7"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 5210261,
+			"sha256": "2ab2b7a1ae11284eba1996b3e72e0761118c302660c2ad90defd5a3df73b53dd"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 7009346,
+			"sha256": "72b80ab86a20f569e6acee5df2c04dcf7a30aa56c501d62d0591cae4b12f267d"
+		},
 		"old-west-map.png": {
 			"bytes": 6477149,
 			"sha256": "63fedf0919afd8c89e03ab6155f0cbdccf6ce796df898b0735bfdf4fe87557a7"
 		},
 		"rules.md": {
-			"bytes": 1054,
-			"sha256": "2378064508f061ccd725c796a8670b4b75bcca7a906db6ce7e97776c7c3ec747"
+			"bytes": 6880,
+			"sha256": "20411f2f28fe796b3f47cc186f6996652ca8d85b0e65b5dda59c4bd4119fa4db"
 		},
 		"rules.pdf": {
 			"bytes": 2618997,

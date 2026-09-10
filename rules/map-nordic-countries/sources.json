@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "7f7b18297e7e29038cdafb153d194d29306dd58ad377a5ad8094857a6a4168e8",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 636,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 7018,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 4581,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "nordic-countries-map.png",
@@ -42,13 +70,25 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 6384425,
+			"sha256": "6abb9da0ef2c425eec5008c0d2ad1eaf09b2fb43ce9bd4ae0dbbcc8f4590e6f9"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 4662722,
+			"sha256": "3b95eb90265e851f892b9a641bff7dfc3c95c1bfcc2ac1aa5d428eaac5dfb292"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4049147,
+			"sha256": "89f1de6425e796b44d19799fd0698fdb39af02540ec7f900123d3d71c11245dc"
+		},
 		"nordic-countries-map.png": {
 			"bytes": 322077,
 			"sha256": "b528449d21ffc560362443c2a33982f35f3f13e66b4d2a3a2c972e09435f3b52"
 		},
 		"rules.md": {
-			"bytes": 936,
-			"sha256": "193c88c37726ba3b0b7eb55261407359cce896c094b673a7ac8e1016fad91a9c"
+			"bytes": 12817,
+			"sha256": "616524be98cb01fd6adcaf60cddcb71c0e0844ed04c842bfb3cc532f21caaee3"
 		},
 		"rules.pdf": {
 			"bytes": 2611960,

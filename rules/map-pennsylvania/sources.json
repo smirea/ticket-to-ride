@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "d3aee1d0555297c5688ccfb240a1294ea11f91afee185176e36918ee16af7249",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 87,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 4796,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 772,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "pennsylvania-map.png",
@@ -45,13 +73,25 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 7115641,
+			"sha256": "bac13cd20879497ae4a541d7f7084ac70249d5930b5ecbabf4642fb498896e2e"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 4676395,
+			"sha256": "6835ac2022cc73338871f5b382b6e03d02c4f81743db6d942134328fb7fda063"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 4113985,
+			"sha256": "02c23c8621b37553787e003913fa43467b05f6eadc868ea7deefd1fa5d4252f6"
+		},
 		"pennsylvania-map.png": {
 			"bytes": 5920785,
 			"sha256": "4ae6979e28f85cafa87a0078abbdb6b19713444c5bb255d4dca32da04e1d05dd"
 		},
 		"rules.md": {
-			"bytes": 1071,
-			"sha256": "f433539cd79a8eaf04224131250936262e5f22e1c784d691670a0420fd274eae"
+			"bytes": 6248,
+			"sha256": "172c086840e6f080452790c1415aab625c9c314feac39d59afb9e35182ac5e96"
 		},
 		"rules.pdf": {
 			"bytes": 4228662,

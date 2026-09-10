@@ -19,6 +19,19 @@ def main():
     for entry in catalog["entries"]:
         folder = ROOT / entry["folder"]
         metadata = json.loads((folder / "sources.json").read_text())
+        parsed = metadata.get("markdown", {})
+        if parsed.get("type") == "parsed-rulebook":
+            source_digest = hashlib.sha256((folder / "rules.pdf").read_bytes()).hexdigest()
+            if source_digest != parsed["source_pdf_sha256"]:
+                errors.append(f'{entry["id"]}: parsed Markdown is stale')
+            with pymupdf.open(folder / "rules.pdf") as document:
+                if len(parsed["pages"]) != len(document):
+                    errors.append(f'{entry["id"]}: incomplete parsed page coverage')
+            markdown = (folder / "rules.md").read_text()
+            for page in parsed["pages"]:
+                image_path = page["image_path"]
+                if not (folder / image_path).is_file() or f"]({image_path})" not in markdown:
+                    errors.append(f'{entry["id"]}: missing page image or Markdown link: {image_path}')
         required = ["rules.md", f'{entry["id"]}-map.png']
         if entry["asset_status"] == "source-kit-present":
             required.append("rules.pdf")
@@ -64,7 +77,7 @@ def main():
         "pymupdf_version": importlib.metadata.version("pymupdf"),
         "ocr_enabled": False,
         "notes": [
-            "Parser output was measured but is not persisted as full rulebook text.",
+            "This report measures parser output; parse_rulebooks.py stores page-level extracted text and image links in each rules.md.",
             "OCR recommendations are heuristics; illustrated covers and board/ticket sheets may legitimately lack text.",
             "Passing checks means files decode and match their manifest, not that rule semantics or reading order are verified.",
             "Duplicate PDF bytes reuse the same inspection result and timing.",

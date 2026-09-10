@@ -25,8 +25,36 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "c429f9768413d010bbba5dee4a3965f1bb088a2e736902bfaf1c45d53cafc842",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 4937,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 788,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "france-map.png",
@@ -49,9 +77,21 @@
 			"bytes": 8635937,
 			"sha256": "c956c8b0cd97e3fc15dc33deddd76ffaff27cad2a73b984cb11ddf1debb8c4c3"
 		},
+		"images/rules-page-001.png": {
+			"bytes": 7807126,
+			"sha256": "1587d4755b1328a2b198c6a57051e2013c06112a8f6a6ee8cef634983b0cdcdb"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 6470252,
+			"sha256": "0e54615cc620542fb569d9ce4eb805f96179a593d3fb9d1a67d4261493f4428f"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 7971793,
+			"sha256": "1f3d2dd8e2fb5d51da8bfe97e884c05f25a9d43a340dce93d4188a77cf419e4c"
+		},
 		"rules.md": {
-			"bytes": 1047,
-			"sha256": "114a0324934d3768dac0c52527e1656bfb3971a979870d4d080dd4e5bf673836"
+			"bytes": 6332,
+			"sha256": "cd4b952cb8db35dc86ce5d1df8db9a4a32ce2fe0cde9682712788cd0352df4f1"
 		},
 		"rules.pdf": {
 			"bytes": 4878710,

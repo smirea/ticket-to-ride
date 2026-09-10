@@ -25,8 +25,50 @@
 	},
 	"markdown": {
 		"path": "rules.md",
-		"type": "original-implementation-brief",
-		"is_full_transcription": false
+		"type": "parsed-rulebook",
+		"parser": "pdf-inspector",
+		"parser_version": "1.19.0",
+		"source_pdf_sha256": "098ce57f1afd747f1f4d6b6d70e20408ed5ac3f57f3235fe614da063a8244427",
+		"coverage": "All PDF pages, including non-English and printable component pages where present.",
+		"ocr_enabled": false,
+		"image_method": "Full-page renders preserve raster and vector diagrams without dropping figure labels.",
+		"pages": [
+			{
+				"pdf_page": 1,
+				"image_path": "images/rules-page-001.png",
+				"extracted_characters": 0,
+				"ocr_recommended": true,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 2,
+				"image_path": "images/rules-page-002.png",
+				"extracted_characters": 3782,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 3,
+				"image_path": "images/rules-page-003.png",
+				"extracted_characters": 6145,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 4,
+				"image_path": "images/rules-page-004.png",
+				"extracted_characters": 3013,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			},
+			{
+				"pdf_page": 5,
+				"image_path": "images/rules-page-005.png",
+				"extracted_characters": 690,
+				"ocr_recommended": false,
+				"has_encoding_issues": false
+			}
+		]
 	},
 	"map": {
 		"path": "rails-and-sails-great-lakes-map.png",
@@ -45,13 +87,33 @@
 	],
 	"missing_assets": null,
 	"files": {
+		"images/rules-page-001.png": {
+			"bytes": 7164093,
+			"sha256": "18a9cc39e85ca907abb39024c8a029d1e8199c3e0395274f02924d20ba5c21cc"
+		},
+		"images/rules-page-002.png": {
+			"bytes": 5584636,
+			"sha256": "27068dac7e6ee950d58bb952369cb60c44844925e77399011e9dd9b2cf54fafe"
+		},
+		"images/rules-page-003.png": {
+			"bytes": 5340996,
+			"sha256": "74754d49ee6f299fc66e59821e1162197a12198bd4256c1af6ec1aa9ac60f4e7"
+		},
+		"images/rules-page-004.png": {
+			"bytes": 5316512,
+			"sha256": "953bae365302136fabe8fd0eb5562e9bb5bd2164998b36ceaf1f825dad676860"
+		},
+		"images/rules-page-005.png": {
+			"bytes": 6854466,
+			"sha256": "e110331f5a6345b216bbcf86cd24a93b7f4c63b35a9ee94918c3dda1d51f9a5f"
+		},
 		"rails-and-sails-great-lakes-map.png": {
 			"bytes": 7376999,
 			"sha256": "4126348e0e9ecd67e6863b0e1e6e5c8ccf5ab8d8cd07e1bd0e36cc4300a8288c"
 		},
 		"rules.md": {
-			"bytes": 1010,
-			"sha256": "50754f8bbcf1106635878e355435b0bfa02e392414408bb6779bc20d44de4fa8"
+			"bytes": 15318,
+			"sha256": "c15af9a3c70316203f5db572bbe812d125b3ea3ae023d4d0c00751e5e7d923f7"
 		},
 		"rules.pdf": {
 			"bytes": 8766459,
