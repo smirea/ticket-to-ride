@@ -21,7 +21,8 @@
 		"ui:build": "bun --filter @repo/ui build",
 		"ui:check": "bun --filter @repo/ui check",
 		"ui:dev": "bun --filter @repo/ui dev --host 127.0.0.1",
-		"ui:preview": "bun --filter @repo/ui preview"
+		"ui:preview": "bun --filter @repo/ui preview",
+		"rules:validate": "bun scripts/validate-maps.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.3.14",

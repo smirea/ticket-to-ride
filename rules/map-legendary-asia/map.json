@@ -1,0 +1,3277 @@
+{
+	"schemaVersion": 1,
+	"id": "legendary-asia",
+	"name": "Legendary Asia",
+	"image": {
+		"file": "map.png",
+		"width": 2400,
+		"height": 1600
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ferries", "mountains"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "moscow",
+			"name": "Moscow",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.0901,
+					"y": 0.08906
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "perm",
+			"name": "Perm",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.225,
+					"y": 0.07578
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "omsk",
+			"name": "Omsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35833,
+					"y": 0.07266
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "krasnoyarsk",
+			"name": "Krasnoyarsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49323,
+					"y": 0.08047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "irkutsk",
+			"name": "Irkutsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.62396,
+					"y": 0.09297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chita",
+			"name": "Chita",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71719,
+					"y": 0.11328
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "khabarovsk",
+			"name": "Khabarovsk",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90677,
+					"y": 0.14453
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "astrakhan",
+			"name": "Astrakhan",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1599,
+					"y": 0.24063
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tbilisi",
+			"name": "Tbilisi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.13281,
+					"y": 0.31172
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ankara",
+			"name": "Ankara",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.04583,
+					"y": 0.34063
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "baghdad",
+			"name": "Baghdad",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14219,
+					"y": 0.45703
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tehran",
+			"name": "Tehran",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1974,
+					"y": 0.40859
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "samarkand",
+			"name": "Samarkand",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32813,
+					"y": 0.32969
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "dihua",
+			"name": "Dihua",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50469,
+					"y": 0.26875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ulan-bator",
+			"name": "Ulan Bator",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65052,
+					"y": 0.20781
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "peking",
+			"name": "Peking",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.74844,
+					"y": 0.33672
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "vladivostok",
+			"name": "Vladivostok",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.88594,
+					"y": 0.27734
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "seoul",
+			"name": "Seoul",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84792,
+					"y": 0.40625
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kobe",
+			"name": "Kobe",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.94271,
+					"y": 0.40313
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shanghai",
+			"name": "Shanghai",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79271,
+					"y": 0.46328
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "xian",
+			"name": "Xi’an",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67135,
+					"y": 0.42578
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lhasa",
+			"name": "Lhasa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53854,
+					"y": 0.47422
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rawalpindi",
+			"name": "Rawalpindi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3776,
+					"y": 0.45078
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kathmandu",
+			"name": "Kathmandu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48906,
+					"y": 0.52656
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "agra",
+			"name": "Agra",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41615,
+					"y": 0.54531
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "karachi",
+			"name": "Karachi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32604,
+					"y": 0.56719
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shiraz",
+			"name": "Shiraz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24063,
+					"y": 0.52734
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mecca",
+			"name": "Mecca",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.10417,
+					"y": 0.64141
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bombay",
+			"name": "Bombay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38802,
+					"y": 0.67031
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "calcutta",
+			"name": "Calcutta",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51146,
+					"y": 0.58984
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "mandalay",
+			"name": "Mandalay",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57448,
+					"y": 0.60781
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hanoi",
+			"name": "Hanoi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.66302,
+					"y": 0.60391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "macau",
+			"name": "Macau",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71979,
+					"y": 0.61875
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "taipei",
+			"name": "Taipei",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8026,
+					"y": 0.57422
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "rangoon",
+			"name": "Rangoon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57448,
+					"y": 0.69766
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bangkok",
+			"name": "Bangkok",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61719,
+					"y": 0.74375
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "saigon",
+			"name": "Saigon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6625,
+					"y": 0.79297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "singapore",
+			"name": "Singapore",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64115,
+					"y": 0.92266
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "colombo",
+			"name": "Colombo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45469,
+					"y": 0.86953
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "moscow-perm-1",
+			"start": "moscow",
+			"end": "perm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "moscow-perm",
+			"claim": "route"
+		},
+		{
+			"id": "moscow-perm-2",
+			"start": "moscow",
+			"end": "perm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "moscow-perm",
+			"claim": "route"
+		},
+		{
+			"id": "moscow-astrakhan-1",
+			"start": "moscow",
+			"end": "astrakhan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "moscow-astrakhan",
+			"claim": "route"
+		},
+		{
+			"id": "moscow-astrakhan-2",
+			"start": "moscow",
+			"end": "astrakhan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "moscow-astrakhan",
+			"claim": "route"
+		},
+		{
+			"id": "perm-astrakhan-1",
+			"start": "perm",
+			"end": "astrakhan",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perm-omsk-1",
+			"start": "perm",
+			"end": "omsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "perm-omsk",
+			"claim": "route"
+		},
+		{
+			"id": "perm-omsk-2",
+			"start": "perm",
+			"end": "omsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "perm-omsk",
+			"claim": "route"
+		},
+		{
+			"id": "omsk-krasnoyarsk-1",
+			"start": "omsk",
+			"end": "krasnoyarsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "omsk-krasnoyarsk",
+			"claim": "route"
+		},
+		{
+			"id": "omsk-krasnoyarsk-2",
+			"start": "omsk",
+			"end": "krasnoyarsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "omsk-krasnoyarsk",
+			"claim": "route"
+		},
+		{
+			"id": "omsk-samarkand-1",
+			"start": "omsk",
+			"end": "samarkand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "omsk-dihua-1",
+			"start": "omsk",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "krasnoyarsk-irkutsk-1",
+			"start": "krasnoyarsk",
+			"end": "irkutsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "krasnoyarsk-irkutsk",
+			"claim": "route"
+		},
+		{
+			"id": "krasnoyarsk-irkutsk-2",
+			"start": "krasnoyarsk",
+			"end": "irkutsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "krasnoyarsk-irkutsk",
+			"claim": "route"
+		},
+		{
+			"id": "krasnoyarsk-dihua-1",
+			"start": "krasnoyarsk",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "irkutsk-chita-1",
+			"start": "irkutsk",
+			"end": "chita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "irkutsk-chita",
+			"claim": "route"
+		},
+		{
+			"id": "irkutsk-chita-2",
+			"start": "irkutsk",
+			"end": "chita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "irkutsk-chita",
+			"claim": "route"
+		},
+		{
+			"id": "irkutsk-ulan-bator-1",
+			"start": "irkutsk",
+			"end": "ulan-bator",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "yellow",
+					"mountain": true
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chita-ulan-bator-1",
+			"start": "chita",
+			"end": "ulan-bator",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chita-khabarovsk-1",
+			"start": "chita",
+			"end": "khabarovsk",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "khabarovsk-vladivostok-1",
+			"start": "khabarovsk",
+			"end": "vladivostok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "khabarovsk-vladivostok",
+			"claim": "route"
+		},
+		{
+			"id": "khabarovsk-vladivostok-2",
+			"start": "khabarovsk",
+			"end": "vladivostok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "khabarovsk-vladivostok",
+			"claim": "route"
+		},
+		{
+			"id": "khabarovsk-peking-1",
+			"start": "khabarovsk",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-peking-1",
+			"start": "ulan-bator",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "ulan-bator-peking",
+			"claim": "route"
+		},
+		{
+			"id": "ulan-bator-peking-2",
+			"start": "ulan-bator",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ulan-bator-peking",
+			"claim": "route"
+		},
+		{
+			"id": "astrakhan-tbilisi-1",
+			"start": "astrakhan",
+			"end": "tbilisi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "astrakhan-tbilisi",
+			"claim": "route"
+		},
+		{
+			"id": "astrakhan-tbilisi-2",
+			"start": "astrakhan",
+			"end": "tbilisi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "astrakhan-tbilisi",
+			"claim": "route"
+		},
+		{
+			"id": "astrakhan-samarkand-1",
+			"start": "astrakhan",
+			"end": "samarkand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "astrakhan-tehran-1",
+			"start": "astrakhan",
+			"end": "tehran",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tbilisi-ankara-1",
+			"start": "tbilisi",
+			"end": "ankara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tbilisi-tehran-1",
+			"start": "tbilisi",
+			"end": "tehran",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "tbilisi-tehran",
+			"claim": "route"
+		},
+		{
+			"id": "tbilisi-tehran-2",
+			"start": "tbilisi",
+			"end": "tehran",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "tbilisi-tehran",
+			"claim": "route"
+		},
+		{
+			"id": "ankara-baghdad-1",
+			"start": "ankara",
+			"end": "baghdad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "ankara-baghdad",
+			"claim": "route"
+		},
+		{
+			"id": "ankara-baghdad-2",
+			"start": "ankara",
+			"end": "baghdad",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "ankara-baghdad",
+			"claim": "route"
+		},
+		{
+			"id": "baghdad-tehran-1",
+			"start": "baghdad",
+			"end": "tehran",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "baghdad-tehran",
+			"claim": "route"
+		},
+		{
+			"id": "baghdad-tehran-2",
+			"start": "baghdad",
+			"end": "tehran",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "baghdad-tehran",
+			"claim": "route"
+		},
+		{
+			"id": "baghdad-mecca-1",
+			"start": "baghdad",
+			"end": "mecca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "baghdad-mecca",
+			"claim": "route"
+		},
+		{
+			"id": "baghdad-mecca-2",
+			"start": "baghdad",
+			"end": "mecca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "baghdad-mecca",
+			"claim": "route"
+		},
+		{
+			"id": "tehran-shiraz-1",
+			"start": "tehran",
+			"end": "shiraz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				}
+			],
+			"parallelGroup": "tehran-shiraz",
+			"claim": "route"
+		},
+		{
+			"id": "tehran-shiraz-2",
+			"start": "tehran",
+			"end": "shiraz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "green",
+					"mountain": true
+				}
+			],
+			"parallelGroup": "tehran-shiraz",
+			"claim": "route"
+		},
+		{
+			"id": "tehran-samarkand-1",
+			"start": "tehran",
+			"end": "samarkand",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "samarkand-dihua-1",
+			"start": "samarkand",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "samarkand-dihua",
+			"claim": "route"
+		},
+		{
+			"id": "samarkand-dihua-2",
+			"start": "samarkand",
+			"end": "dihua",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "samarkand-dihua",
+			"claim": "route"
+		},
+		{
+			"id": "samarkand-rawalpindi-1",
+			"start": "samarkand",
+			"end": "rawalpindi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "samarkand-karachi-1",
+			"start": "samarkand",
+			"end": "karachi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shiraz-karachi-1",
+			"start": "shiraz",
+			"end": "karachi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "purple",
+					"mountain": true
+				}
+			],
+			"parallelGroup": "shiraz-karachi",
+			"claim": "route"
+		},
+		{
+			"id": "shiraz-karachi-2",
+			"start": "shiraz",
+			"end": "karachi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "blue",
+					"mountain": true
+				}
+			],
+			"parallelGroup": "shiraz-karachi",
+			"claim": "route"
+		},
+		{
+			"id": "shiraz-mecca-1",
+			"start": "shiraz",
+			"end": "mecca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karachi-rawalpindi-1",
+			"start": "karachi",
+			"end": "rawalpindi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karachi-agra-1",
+			"start": "karachi",
+			"end": "agra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karachi-bombay-1",
+			"start": "karachi",
+			"end": "bombay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "karachi-bombay",
+			"claim": "route"
+		},
+		{
+			"id": "karachi-bombay-2",
+			"start": "karachi",
+			"end": "bombay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "karachi-bombay",
+			"claim": "route"
+		},
+		{
+			"id": "rawalpindi-agra-1",
+			"start": "rawalpindi",
+			"end": "agra",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rawalpindi-kathmandu-1",
+			"start": "rawalpindi",
+			"end": "kathmandu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "agra-kathmandu-1",
+			"start": "agra",
+			"end": "kathmandu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "agra-bombay-1",
+			"start": "agra",
+			"end": "bombay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "agra-calcutta-1",
+			"start": "agra",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bombay-calcutta-1",
+			"start": "bombay",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "bombay-calcutta",
+			"claim": "route"
+		},
+		{
+			"id": "bombay-calcutta-2",
+			"start": "bombay",
+			"end": "calcutta",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bombay-calcutta",
+			"claim": "route"
+		},
+		{
+			"id": "bombay-colombo-1",
+			"start": "bombay",
+			"end": "colombo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "bombay-colombo",
+			"claim": "route"
+		},
+		{
+			"id": "bombay-colombo-2",
+			"start": "bombay",
+			"end": "colombo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bombay-colombo",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-colombo-1",
+			"start": "calcutta",
+			"end": "colombo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-rangoon-1",
+			"start": "calcutta",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "calcutta-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-rangoon-2",
+			"start": "calcutta",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "calcutta-rangoon",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-mandalay-1",
+			"start": "calcutta",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "calcutta-mandalay",
+			"claim": "route"
+		},
+		{
+			"id": "calcutta-mandalay-2",
+			"start": "calcutta",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "calcutta-mandalay",
+			"claim": "route"
+		},
+		{
+			"id": "kathmandu-mandalay-1",
+			"start": "kathmandu",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "orange",
+					"mountain": true
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lhasa-mandalay-1",
+			"start": "lhasa",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "black",
+					"mountain": true
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dihua-peking-1",
+			"start": "dihua",
+			"end": "peking",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dihua-xian-1",
+			"start": "dihua",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lhasa-xian-1",
+			"start": "lhasa",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "peking-xian-1",
+			"start": "peking",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "peking-xian",
+			"claim": "route"
+		},
+		{
+			"id": "peking-xian-2",
+			"start": "peking",
+			"end": "xian",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "peking-xian",
+			"claim": "route"
+		},
+		{
+			"id": "peking-shanghai-1",
+			"start": "peking",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "peking-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "peking-shanghai-2",
+			"start": "peking",
+			"end": "shanghai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "peking-shanghai",
+			"claim": "route"
+		},
+		{
+			"id": "peking-seoul-1",
+			"start": "peking",
+			"end": "seoul",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "vladivostok-seoul-1",
+			"start": "vladivostok",
+			"end": "seoul",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "seoul-kobe-1",
+			"start": "seoul",
+			"end": "kobe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-kobe-1",
+			"start": "shanghai",
+			"end": "kobe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kobe-taipei-1",
+			"start": "kobe",
+			"end": "taipei",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "kobe-taipei",
+			"claim": "route"
+		},
+		{
+			"id": "kobe-taipei-2",
+			"start": "kobe",
+			"end": "taipei",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "kobe-taipei",
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-taipei-1",
+			"start": "shanghai",
+			"end": "taipei",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shanghai-macau-1",
+			"start": "shanghai",
+			"end": "macau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "macau-taipei-1",
+			"start": "macau",
+			"end": "taipei",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "xian-mandalay-1",
+			"start": "xian",
+			"end": "mandalay",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "xian-macau-1",
+			"start": "xian",
+			"end": "macau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "xian-macau",
+			"claim": "route"
+		},
+		{
+			"id": "xian-macau-2",
+			"start": "xian",
+			"end": "macau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "xian-macau",
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-hanoi-1",
+			"start": "mandalay",
+			"end": "hanoi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "red",
+					"mountain": true
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mandalay-rangoon-1",
+			"start": "mandalay",
+			"end": "rangoon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray",
+					"mountain": true
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hanoi-macau-1",
+			"start": "hanoi",
+			"end": "macau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "hanoi-macau",
+			"claim": "route"
+		},
+		{
+			"id": "hanoi-macau-2",
+			"start": "hanoi",
+			"end": "macau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "hanoi-macau",
+			"claim": "route"
+		},
+		{
+			"id": "hanoi-bangkok-1",
+			"start": "hanoi",
+			"end": "bangkok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white",
+					"mountain": true
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hanoi-saigon-1",
+			"start": "hanoi",
+			"end": "saigon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "hanoi-saigon",
+			"claim": "route"
+		},
+		{
+			"id": "hanoi-saigon-2",
+			"start": "hanoi",
+			"end": "saigon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "hanoi-saigon",
+			"claim": "route"
+		},
+		{
+			"id": "rangoon-bangkok-1",
+			"start": "rangoon",
+			"end": "bangkok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "rangoon-bangkok",
+			"claim": "route"
+		},
+		{
+			"id": "rangoon-bangkok-2",
+			"start": "rangoon",
+			"end": "bangkok",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "rangoon-bangkok",
+			"claim": "route"
+		},
+		{
+			"id": "bangkok-saigon-1",
+			"start": "bangkok",
+			"end": "saigon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bangkok-saigon",
+			"claim": "route"
+		},
+		{
+			"id": "bangkok-saigon-2",
+			"start": "bangkok",
+			"end": "saigon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bangkok-saigon",
+			"claim": "route"
+		},
+		{
+			"id": "bangkok-singapore-1",
+			"start": "bangkok",
+			"end": "singapore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bangkok-singapore",
+			"claim": "route"
+		},
+		{
+			"id": "bangkok-singapore-2",
+			"start": "bangkok",
+			"end": "singapore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "bangkok-singapore",
+			"claim": "route"
+		},
+		{
+			"id": "saigon-singapore-1",
+			"start": "saigon",
+			"end": "singapore",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "moscow-perm",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "moscow-astrakhan",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "perm-omsk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "omsk-krasnoyarsk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "krasnoyarsk-irkutsk",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "irkutsk-chita",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "khabarovsk-vladivostok",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ulan-bator-peking",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "astrakhan-tbilisi",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tbilisi-tehran",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ankara-baghdad",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "baghdad-tehran",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "baghdad-mecca",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tehran-shiraz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "samarkand-dihua",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "shiraz-karachi",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "karachi-bombay",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bombay-calcutta",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bombay-colombo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "calcutta-rangoon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "calcutta-mandalay",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "peking-xian",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "peking-shanghai",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kobe-taipei",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "xian-macau",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hanoi-macau",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hanoi-saigon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "rangoon-bangkok",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bangkok-saigon",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bangkok-singapore",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,3293 @@
+{
+	"schemaVersion": 1,
+	"id": "japan",
+	"name": "Japan",
+	"image": {
+		"file": "map.png",
+		"width": 1500,
+		"height": 828
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["bullet-trains"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "hakodate",
+			"name": "Hakodate",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.97267,
+					"y": 0.07729
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "aomori",
+			"name": "Aomori",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.93733,
+					"y": 0.20411
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "akita",
+			"name": "Akita",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84733,
+					"y": 0.3285
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "morioka",
+			"name": "Morioka",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.922,
+					"y": 0.39493
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "miyako",
+			"name": "Miyako",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.96333,
+					"y": 0.44565
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shinjo",
+			"name": "Shinjō",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.824,
+					"y": 0.46981
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "niigata",
+			"name": "Niigata",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.718,
+					"y": 0.51812
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fukushima",
+			"name": "Fukushima",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.79733,
+					"y": 0.62802
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sendai",
+			"name": "Sendai",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84667,
+					"y": 0.60507
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "iwaki",
+			"name": "Iwaki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.792,
+					"y": 0.77778
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "utsunomiya",
+			"name": "Utsunomiya",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.72267,
+					"y": 0.77415
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "takasaki",
+			"name": "Takasaki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64667,
+					"y": 0.74396
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nagano",
+			"name": "Nagano",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60733,
+					"y": 0.65459
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "matsumoto",
+			"name": "Matsumoto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.56667,
+					"y": 0.70531
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kanazawa",
+			"name": "Kanazawa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51133,
+					"y": 0.56522
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nagoya",
+			"name": "Nagoya",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46467,
+					"y": 0.78865
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hamamatsu",
+			"name": "Hamamatsu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.512,
+					"y": 0.92271
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "odawara",
+			"name": "Odawara",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.618,
+					"y": 0.92874
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tokyo",
+			"name": "Tokyo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6646666666666666,
+					"y": 0.8888888888888888
+				},
+				{
+					"x": 0.5093333333333333,
+					"y": 0.2995169082125604
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "narita",
+			"name": "Narita",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.712,
+					"y": 0.91787
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ise",
+			"name": "Ise",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41933,
+					"y": 0.88889
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kyoto",
+			"name": "Kyoto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38867,
+					"y": 0.74879
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tsuruga",
+			"name": "Tsuruga",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42533,
+					"y": 0.67391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "osaka",
+			"name": "Osaka",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.342,
+					"y": 0.76691
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tottori",
+			"name": "Tottori",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.308,
+					"y": 0.55676
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "okayama",
+			"name": "Okayama",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25133,
+					"y": 0.65821
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "takamatsu",
+			"name": "Takamatsu",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23667,
+					"y": 0.74034
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kochi",
+			"name": "Kōchi",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.174,
+					"y": 0.81884
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "matsuyama",
+			"name": "Matsuyama",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.13333,
+					"y": 0.69444
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hiroshima",
+			"name": "Hiroshima",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14867,
+					"y": 0.60386
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "masuda",
+			"name": "Masuda",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11867,
+					"y": 0.52053
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kokura",
+			"name": "Kokura",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.012666666666666666,
+					"y": 0.572463768115942
+				},
+				{
+					"x": 0.256,
+					"y": 0.12560386473429952
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "hakata",
+			"name": "Hakata",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.206,
+					"y": 0.11232
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "nagasaki",
+			"name": "Nagasaki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12867,
+					"y": 0.16546
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kumamoto",
+			"name": "Kumamoto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.17067,
+					"y": 0.23551
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kagoshima-chuo",
+			"name": "Kagoshima-Chūō",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.094,
+					"y": 0.36473
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "miyazaki",
+			"name": "Miyazaki",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16467,
+					"y": 0.42391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "oita",
+			"name": "Ōita",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25067,
+					"y": 0.25966
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ikebukuro",
+			"name": "Ikebukuro",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.44467,
+					"y": 0.13043
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shinjuku",
+			"name": "Shinjuku",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.37733,
+					"y": 0.28623
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "yotsuya",
+			"name": "Yotsuya",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45533,
+					"y": 0.28744
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "shibuya",
+			"name": "Shibuya",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42667,
+					"y": 0.41908
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ueno",
+			"name": "Ueno",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54533,
+					"y": 0.17633
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kita-senju",
+			"name": "Kita-Senju",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61867,
+					"y": 0.13285
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "asakusa",
+			"name": "Asakusa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65267,
+					"y": 0.20048
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "suitengumae",
+			"name": "Suitengumae",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59,
+					"y": 0.28865
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ginza",
+			"name": "Ginza",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53,
+					"y": 0.38164
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "monzen-nakacho",
+			"name": "Monzen-Nakachō",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.638,
+					"y": 0.40942
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "hakodate-aomori-1",
+			"start": "hakodate",
+			"end": "aomori",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "hakodate-aomori-2",
+			"start": "hakodate",
+			"end": "aomori",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aomori-akita-1",
+			"start": "aomori",
+			"end": "akita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "aomori-morioka-1",
+			"start": "aomori",
+			"end": "morioka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "aomori-miyako-1",
+			"start": "aomori",
+			"end": "miyako",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "akita-morioka-1",
+			"start": "akita",
+			"end": "morioka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "akita-shinjo-1",
+			"start": "akita",
+			"end": "shinjo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "akita-niigata-1",
+			"start": "akita",
+			"end": "niigata",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "morioka-miyako-1",
+			"start": "morioka",
+			"end": "miyako",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "morioka-shinjo-1",
+			"start": "morioka",
+			"end": "shinjo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "morioka-sendai-1",
+			"start": "morioka",
+			"end": "sendai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "miyako-sendai-1",
+			"start": "miyako",
+			"end": "sendai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shinjo-niigata-1",
+			"start": "shinjo",
+			"end": "niigata",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shinjo-fukushima-1",
+			"start": "shinjo",
+			"end": "fukushima",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "shinjo-sendai-1",
+			"start": "shinjo",
+			"end": "sendai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "niigata-fukushima-1",
+			"start": "niigata",
+			"end": "fukushima",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "niigata-takasaki-1",
+			"start": "niigata",
+			"end": "takasaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "niigata-nagano-1",
+			"start": "niigata",
+			"end": "nagano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fukushima-sendai-1",
+			"start": "fukushima",
+			"end": "sendai",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "fukushima-iwaki-1",
+			"start": "fukushima",
+			"end": "iwaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fukushima-utsunomiya-1",
+			"start": "fukushima",
+			"end": "utsunomiya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "sendai-iwaki-1",
+			"start": "sendai",
+			"end": "iwaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "iwaki-narita-1",
+			"start": "iwaki",
+			"end": "narita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "utsunomiya-narita-1",
+			"start": "utsunomiya",
+			"end": "narita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "utsunomiya-tokyo-1",
+			"start": "utsunomiya",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "utsunomiya-takasaki-1",
+			"start": "utsunomiya",
+			"end": "takasaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "takasaki-tokyo-1",
+			"start": "takasaki",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "takasaki-nagano-1",
+			"start": "takasaki",
+			"end": "nagano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "nagano-kanazawa-1",
+			"start": "nagano",
+			"end": "kanazawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "nagano-matsumoto-1",
+			"start": "nagano",
+			"end": "matsumoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "matsumoto-tokyo-1",
+			"start": "matsumoto",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "matsumoto-odawara-1",
+			"start": "matsumoto",
+			"end": "odawara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "matsumoto-nagoya-1",
+			"start": "matsumoto",
+			"end": "nagoya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "matsumoto-nagoya",
+			"claim": "route"
+		},
+		{
+			"id": "matsumoto-nagoya-2",
+			"start": "matsumoto",
+			"end": "nagoya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "matsumoto-nagoya",
+			"claim": "route"
+		},
+		{
+			"id": "tokyo-odawara-1",
+			"start": "tokyo",
+			"end": "odawara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "tokyo-narita-1",
+			"start": "tokyo",
+			"end": "narita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "tokyo-narita",
+			"claim": "route"
+		},
+		{
+			"id": "tokyo-narita-2",
+			"start": "tokyo",
+			"end": "narita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "tokyo-narita",
+			"claim": "route"
+		},
+		{
+			"id": "odawara-hamamatsu-1",
+			"start": "odawara",
+			"end": "hamamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "hamamatsu-nagoya-1",
+			"start": "hamamatsu",
+			"end": "nagoya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "nagoya-kanazawa-1",
+			"start": "nagoya",
+			"end": "kanazawa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nagoya-tsuruga-1",
+			"start": "nagoya",
+			"end": "tsuruga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nagoya-kyoto-1",
+			"start": "nagoya",
+			"end": "kyoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "nagoya-ise-1",
+			"start": "nagoya",
+			"end": "ise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ise-kyoto-1",
+			"start": "ise",
+			"end": "kyoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ise-osaka-1",
+			"start": "ise",
+			"end": "osaka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kanazawa-tsuruga-1",
+			"start": "kanazawa",
+			"end": "tsuruga",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tsuruga-kyoto-1",
+			"start": "tsuruga",
+			"end": "kyoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kyoto-osaka-1",
+			"start": "kyoto",
+			"end": "osaka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "tsuruga-tottori-1",
+			"start": "tsuruga",
+			"end": "tottori",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tottori-osaka-1",
+			"start": "tottori",
+			"end": "osaka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "tottori-osaka",
+			"claim": "route"
+		},
+		{
+			"id": "tottori-osaka-2",
+			"start": "tottori",
+			"end": "osaka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "tottori-osaka",
+			"claim": "route"
+		},
+		{
+			"id": "tottori-okayama-1",
+			"start": "tottori",
+			"end": "okayama",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tottori-masuda-1",
+			"start": "tottori",
+			"end": "masuda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "okayama-osaka-1",
+			"start": "okayama",
+			"end": "osaka",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "osaka-takamatsu-1",
+			"start": "osaka",
+			"end": "takamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "okayama-takamatsu-1",
+			"start": "okayama",
+			"end": "takamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "okayama-takamatsu",
+			"claim": "route"
+		},
+		{
+			"id": "okayama-takamatsu-2",
+			"start": "okayama",
+			"end": "takamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "okayama-takamatsu",
+			"claim": "route"
+		},
+		{
+			"id": "okayama-hiroshima-1",
+			"start": "okayama",
+			"end": "hiroshima",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "hiroshima-masuda-1",
+			"start": "hiroshima",
+			"end": "masuda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hiroshima-matsuyama-1",
+			"start": "hiroshima",
+			"end": "matsuyama",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "hiroshima-matsuyama",
+			"claim": "route"
+		},
+		{
+			"id": "hiroshima-matsuyama-2",
+			"start": "hiroshima",
+			"end": "matsuyama",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "hiroshima-matsuyama",
+			"claim": "route"
+		},
+		{
+			"id": "hiroshima-kokura-1",
+			"start": "hiroshima",
+			"end": "kokura",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "kokura-masuda-1",
+			"start": "kokura",
+			"end": "masuda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "kokura-masuda",
+			"claim": "route"
+		},
+		{
+			"id": "kokura-masuda-2",
+			"start": "kokura",
+			"end": "masuda",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "kokura-masuda",
+			"claim": "route"
+		},
+		{
+			"id": "kokura-matsuyama-1",
+			"start": "kokura",
+			"end": "matsuyama",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "matsuyama-takamatsu-1",
+			"start": "matsuyama",
+			"end": "takamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "matsuyama-kochi-1",
+			"start": "matsuyama",
+			"end": "kochi",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kochi-takamatsu-1",
+			"start": "kochi",
+			"end": "takamatsu",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kokura-1-hakata-1",
+			"start": "kokura",
+			"end": "hakata",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "kokura-1-oita-1",
+			"start": "kokura",
+			"end": "oita",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kokura-1-oita",
+			"claim": "route"
+		},
+		{
+			"id": "kokura-1-oita-2",
+			"start": "kokura",
+			"end": "oita",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "kokura-1-oita",
+			"claim": "route"
+		},
+		{
+			"id": "hakata-nagasaki-1",
+			"start": "hakata",
+			"end": "nagasaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "hakata-nagasaki",
+			"claim": "route"
+		},
+		{
+			"id": "hakata-nagasaki-2",
+			"start": "hakata",
+			"end": "nagasaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "hakata-nagasaki",
+			"claim": "route"
+		},
+		{
+			"id": "hakata-kumamoto-1",
+			"start": "hakata",
+			"end": "kumamoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "nagasaki-kumamoto-1",
+			"start": "nagasaki",
+			"end": "kumamoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "nagasaki-kumamoto",
+			"claim": "route"
+		},
+		{
+			"id": "nagasaki-kumamoto-2",
+			"start": "nagasaki",
+			"end": "kumamoto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "nagasaki-kumamoto",
+			"claim": "route"
+		},
+		{
+			"id": "kumamoto-oita-1",
+			"start": "kumamoto",
+			"end": "oita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "kumamoto-oita",
+			"claim": "route"
+		},
+		{
+			"id": "kumamoto-oita-2",
+			"start": "kumamoto",
+			"end": "oita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "kumamoto-oita",
+			"claim": "route"
+		},
+		{
+			"id": "kumamoto-kagoshima-chuo-1",
+			"start": "kumamoto",
+			"end": "kagoshima-chuo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				},
+				{
+					"type": "bullet-train"
+				}
+			],
+			"claim": "shared-bullet-train"
+		},
+		{
+			"id": "kumamoto-miyazaki-1",
+			"start": "kumamoto",
+			"end": "miyazaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kagoshima-chuo-miyazaki-1",
+			"start": "kagoshima-chuo",
+			"end": "miyazaki",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "miyazaki-oita-1",
+			"start": "miyazaki",
+			"end": "oita",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ikebukuro-ueno-1",
+			"start": "ikebukuro",
+			"end": "ueno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "ikebukuro-ueno",
+			"claim": "route"
+		},
+		{
+			"id": "ikebukuro-ueno-2",
+			"start": "ikebukuro",
+			"end": "ueno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "ikebukuro-ueno",
+			"claim": "route"
+		},
+		{
+			"id": "ikebukuro-shinjuku-1",
+			"start": "ikebukuro",
+			"end": "shinjuku",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "ikebukuro-shinjuku",
+			"claim": "route"
+		},
+		{
+			"id": "ikebukuro-shinjuku-2",
+			"start": "ikebukuro",
+			"end": "shinjuku",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "ikebukuro-shinjuku",
+			"claim": "route"
+		},
+		{
+			"id": "ikebukuro-yotsuya-1",
+			"start": "ikebukuro",
+			"end": "yotsuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "shinjuku-yotsuya-1",
+			"start": "shinjuku",
+			"end": "yotsuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "shinjuku-yotsuya",
+			"claim": "route"
+		},
+		{
+			"id": "shinjuku-yotsuya-2",
+			"start": "shinjuku",
+			"end": "yotsuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "shinjuku-yotsuya",
+			"claim": "route"
+		},
+		{
+			"id": "shinjuku-shibuya-1",
+			"start": "shinjuku",
+			"end": "shibuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "shinjuku-shibuya",
+			"claim": "route"
+		},
+		{
+			"id": "shinjuku-shibuya-2",
+			"start": "shinjuku",
+			"end": "shibuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "shinjuku-shibuya",
+			"claim": "route"
+		},
+		{
+			"id": "yotsuya-shibuya-1",
+			"start": "yotsuya",
+			"end": "shibuya",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "yotsuya-tokyo-1-1",
+			"start": "yotsuya",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "yotsuya-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "yotsuya-tokyo-1-2",
+			"start": "yotsuya",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "yotsuya-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "shibuya-tokyo-1-1",
+			"start": "shibuya",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "shibuya-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "shibuya-tokyo-1-2",
+			"start": "shibuya",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "shibuya-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "ueno-tokyo-1-1",
+			"start": "ueno",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "ueno-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "ueno-tokyo-1-2",
+			"start": "ueno",
+			"end": "tokyo",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "ueno-tokyo-1",
+			"claim": "route"
+		},
+		{
+			"id": "ueno-kita-senju-1",
+			"start": "ueno",
+			"end": "kita-senju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "ueno-kita-senju",
+			"claim": "route"
+		},
+		{
+			"id": "ueno-kita-senju-2",
+			"start": "ueno",
+			"end": "kita-senju",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ueno-kita-senju",
+			"claim": "route"
+		},
+		{
+			"id": "ueno-suitengumae-1",
+			"start": "ueno",
+			"end": "suitengumae",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kita-senju-asakusa-1",
+			"start": "kita-senju",
+			"end": "asakusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kita-senju-asakusa",
+			"claim": "route"
+		},
+		{
+			"id": "kita-senju-asakusa-2",
+			"start": "kita-senju",
+			"end": "asakusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "kita-senju-asakusa",
+			"claim": "route"
+		},
+		{
+			"id": "asakusa-suitengumae-1",
+			"start": "asakusa",
+			"end": "suitengumae",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "asakusa-suitengumae",
+			"claim": "route"
+		},
+		{
+			"id": "asakusa-suitengumae-2",
+			"start": "asakusa",
+			"end": "suitengumae",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "asakusa-suitengumae",
+			"claim": "route"
+		},
+		{
+			"id": "asakusa-monzen-nakacho-1",
+			"start": "asakusa",
+			"end": "monzen-nakacho",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "tokyo-1-suitengumae-1",
+			"start": "tokyo",
+			"end": "suitengumae",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "tokyo-1-suitengumae",
+			"claim": "route"
+		},
+		{
+			"id": "tokyo-1-suitengumae-2",
+			"start": "tokyo",
+			"end": "suitengumae",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "tokyo-1-suitengumae",
+			"claim": "route"
+		},
+		{
+			"id": "tokyo-1-ginza-1",
+			"start": "tokyo",
+			"end": "ginza",
+			"startPosition": 1,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suitengumae-ginza-1",
+			"start": "suitengumae",
+			"end": "ginza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "suitengumae-monzen-nakacho-1",
+			"start": "suitengumae",
+			"end": "monzen-nakacho",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "suitengumae-monzen-nakacho",
+			"claim": "route"
+		},
+		{
+			"id": "suitengumae-monzen-nakacho-2",
+			"start": "suitengumae",
+			"end": "monzen-nakacho",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "suitengumae-monzen-nakacho",
+			"claim": "route"
+		},
+		{
+			"id": "ginza-monzen-nakacho-1",
+			"start": "ginza",
+			"end": "monzen-nakacho",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "matsumoto-nagoya",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tokyo-narita",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tottori-osaka",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "okayama-takamatsu",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hiroshima-matsuyama",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kokura-masuda",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kokura-1-oita",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hakata-nagasaki",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nagasaki-kumamoto",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kumamoto-oita",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ikebukuro-ueno",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ikebukuro-shinjuku",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "shinjuku-yotsuya",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "shinjuku-shibuya",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "yotsuya-tokyo-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "shibuya-tokyo-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ueno-tokyo-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ueno-kita-senju",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kita-senju-asakusa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "asakusa-suitengumae",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tokyo-1-suitengumae",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "suitengumae-monzen-nakacho",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

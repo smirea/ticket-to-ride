@@ -1,0 +1,4614 @@
+{
+	"schemaVersion": 1,
+	"id": "old-west",
+	"name": "Old West",
+	"image": {
+		"file": "map.png",
+		"width": 1772,
+		"height": 2085
+	},
+	"players": [2, 3, 4, 5, 6],
+	"mechanics": ["ferries", "city-control", "alvin"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "seattle",
+			"name": "Seattle",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18733,
+					"y": 0.07234
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "spokane",
+			"name": "Spokane",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39714,
+					"y": 0.09549
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "portland",
+			"name": "Portland",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16281,
+					"y": 0.18461
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "eugene",
+			"name": "Eugene",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.12398,
+					"y": 0.25116
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bend",
+			"name": "Bend",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.21049,
+					"y": 0.26852
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "missoula",
+			"name": "Missoula",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51907,
+					"y": 0.15162
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "great-falls",
+			"name": "Great Falls",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64373,
+					"y": 0.1088
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "helena",
+			"name": "Helena",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60695,
+					"y": 0.17014
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wolf-point",
+			"name": "Wolf Point",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89101,
+					"y": 0.11285
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bozeman",
+			"name": "Bozeman",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64237,
+					"y": 0.22685
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "billings",
+			"name": "Billings",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.76294,
+					"y": 0.21412
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "gillette",
+			"name": "Gillette",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.89305,
+					"y": 0.2963
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "boise",
+			"name": "Boise",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41349,
+					"y": 0.30845
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "idaho-falls",
+			"name": "Idaho Falls",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57357,
+					"y": 0.35938
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "ashland",
+			"name": "Ashland",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.11717,
+					"y": 0.35764
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "redding",
+			"name": "Redding",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.1158,
+					"y": 0.43229
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "winnemucca",
+			"name": "Winnemucca",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.33856,
+					"y": 0.44155
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "casper",
+			"name": "Casper",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84469,
+					"y": 0.37153
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "green-river",
+			"name": "Green River",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70163,
+					"y": 0.43692
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "cheyenne",
+			"name": "Cheyenne",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9203,
+					"y": 0.45486
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "salt-lake-city",
+			"name": "Salt Lake City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59809,
+					"y": 0.47396
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "carson-city",
+			"name": "Carson City",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23365,
+					"y": 0.51968
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sacramento",
+			"name": "Sacramento",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.14441,
+					"y": 0.54051
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "san-francisco",
+			"name": "San Francisco",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.07153,
+					"y": 0.58391
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fresno",
+			"name": "Fresno",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.20232,
+					"y": 0.6441
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "st-george",
+			"name": "St. George",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.52793,
+					"y": 0.64525
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "grand-junction",
+			"name": "Grand Junction",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.73569,
+					"y": 0.55613
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "denver",
+			"name": "Denver",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90804,
+					"y": 0.52951
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pueblo",
+			"name": "Pueblo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.92575,
+					"y": 0.60127
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "durango",
+			"name": "Durango",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.75954,
+					"y": 0.65914
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "las-vegas",
+			"name": "Las Vegas",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.40872,
+					"y": 0.69907
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bakersfield",
+			"name": "Bakersfield",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.22411,
+					"y": 0.71933
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "flagstaff",
+			"name": "Flagstaff",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58447,
+					"y": 0.75405
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "santa-fe",
+			"name": "Santa Fe",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.8767,
+					"y": 0.72859
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "albuquerque",
+			"name": "Albuquerque",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.81676,
+					"y": 0.78067
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "los-angeles",
+			"name": "Los Angeles",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25341,
+					"y": 0.79225
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "phoenix",
+			"name": "Phoenix",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55722,
+					"y": 0.84086
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "san-diego",
+			"name": "San Diego",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.29905,
+					"y": 0.86516
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "tucson",
+			"name": "Tucson",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6049,
+					"y": 0.91204
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "roswell",
+			"name": "Roswell",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.9421,
+					"y": 0.85243
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "las-cruces",
+			"name": "Las Cruces",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82493,
+					"y": 0.90104
+				}
+			],
+			"connectivity": "shared"
+		}
+	],
+	"connections": [
+		{
+			"id": "seattle-spokane-1",
+			"start": "seattle",
+			"end": "spokane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "seattle-spokane",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-spokane-2",
+			"start": "seattle",
+			"end": "spokane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "seattle-spokane",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-spokane-3",
+			"start": "seattle",
+			"end": "spokane",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "seattle-spokane",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-portland-1",
+			"start": "seattle",
+			"end": "portland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "seattle-portland",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-portland-2",
+			"start": "seattle",
+			"end": "portland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "seattle-portland",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-portland-3",
+			"start": "seattle",
+			"end": "portland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "seattle-portland",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-boise-1",
+			"start": "seattle",
+			"end": "boise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "seattle-boise",
+			"claim": "route"
+		},
+		{
+			"id": "seattle-boise-2",
+			"start": "seattle",
+			"end": "boise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "seattle-boise",
+			"claim": "route"
+		},
+		{
+			"id": "spokane-great-falls-1",
+			"start": "spokane",
+			"end": "great-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "spokane-missoula-1",
+			"start": "spokane",
+			"end": "missoula",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "spokane-missoula",
+			"claim": "route"
+		},
+		{
+			"id": "spokane-missoula-2",
+			"start": "spokane",
+			"end": "missoula",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "spokane-missoula",
+			"claim": "route"
+		},
+		{
+			"id": "missoula-great-falls-1",
+			"start": "missoula",
+			"end": "great-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "missoula-helena-1",
+			"start": "missoula",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "missoula-helena",
+			"claim": "route"
+		},
+		{
+			"id": "missoula-helena-2",
+			"start": "missoula",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "missoula-helena",
+			"claim": "route"
+		},
+		{
+			"id": "missoula-boise-1",
+			"start": "missoula",
+			"end": "boise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "great-falls-helena-1",
+			"start": "great-falls",
+			"end": "helena",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "great-falls-wolf-point-1",
+			"start": "great-falls",
+			"end": "wolf-point",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "great-falls-billings-1",
+			"start": "great-falls",
+			"end": "billings",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wolf-point-billings-1",
+			"start": "wolf-point",
+			"end": "billings",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "wolf-point-gillette-1",
+			"start": "wolf-point",
+			"end": "gillette",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "helena-bozeman-1",
+			"start": "helena",
+			"end": "bozeman",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helena-bozeman",
+			"claim": "route"
+		},
+		{
+			"id": "helena-bozeman-2",
+			"start": "helena",
+			"end": "bozeman",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "helena-bozeman",
+			"claim": "route"
+		},
+		{
+			"id": "helena-idaho-falls-1",
+			"start": "helena",
+			"end": "idaho-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bozeman-billings-1",
+			"start": "bozeman",
+			"end": "billings",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "bozeman-billings",
+			"claim": "route"
+		},
+		{
+			"id": "bozeman-billings-2",
+			"start": "bozeman",
+			"end": "billings",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bozeman-billings",
+			"claim": "route"
+		},
+		{
+			"id": "bozeman-idaho-falls-1",
+			"start": "bozeman",
+			"end": "idaho-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bozeman-idaho-falls",
+			"claim": "route"
+		},
+		{
+			"id": "bozeman-idaho-falls-2",
+			"start": "bozeman",
+			"end": "idaho-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "bozeman-idaho-falls",
+			"claim": "route"
+		},
+		{
+			"id": "billings-gillette-1",
+			"start": "billings",
+			"end": "gillette",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "billings-casper-1",
+			"start": "billings",
+			"end": "casper",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "billings-casper",
+			"claim": "route"
+		},
+		{
+			"id": "billings-casper-2",
+			"start": "billings",
+			"end": "casper",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "billings-casper",
+			"claim": "route"
+		},
+		{
+			"id": "gillette-casper-1",
+			"start": "gillette",
+			"end": "casper",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "casper-green-river-1",
+			"start": "casper",
+			"end": "green-river",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "casper-cheyenne-1",
+			"start": "casper",
+			"end": "cheyenne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "casper-cheyenne",
+			"claim": "route"
+		},
+		{
+			"id": "casper-cheyenne-2",
+			"start": "casper",
+			"end": "cheyenne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "casper-cheyenne",
+			"claim": "route"
+		},
+		{
+			"id": "portland-eugene-1",
+			"start": "portland",
+			"end": "eugene",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "portland-eugene",
+			"claim": "route"
+		},
+		{
+			"id": "portland-eugene-2",
+			"start": "portland",
+			"end": "eugene",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "portland-eugene",
+			"claim": "route"
+		},
+		{
+			"id": "portland-eugene-3",
+			"start": "portland",
+			"end": "eugene",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "portland-eugene",
+			"claim": "route"
+		},
+		{
+			"id": "portland-bend-1",
+			"start": "portland",
+			"end": "bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "portland-bend",
+			"claim": "route"
+		},
+		{
+			"id": "portland-bend-2",
+			"start": "portland",
+			"end": "bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "portland-bend",
+			"claim": "route"
+		},
+		{
+			"id": "eugene-bend-1",
+			"start": "eugene",
+			"end": "bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "eugene-bend",
+			"claim": "route"
+		},
+		{
+			"id": "eugene-bend-2",
+			"start": "eugene",
+			"end": "bend",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "eugene-bend",
+			"claim": "route"
+		},
+		{
+			"id": "eugene-ashland-1",
+			"start": "eugene",
+			"end": "ashland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "eugene-ashland",
+			"claim": "route"
+		},
+		{
+			"id": "eugene-ashland-2",
+			"start": "eugene",
+			"end": "ashland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "eugene-ashland",
+			"claim": "route"
+		},
+		{
+			"id": "eugene-ashland-3",
+			"start": "eugene",
+			"end": "ashland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "eugene-ashland",
+			"claim": "route"
+		},
+		{
+			"id": "bend-ashland-1",
+			"start": "bend",
+			"end": "ashland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bend-boise-1",
+			"start": "bend",
+			"end": "boise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bend-boise",
+			"claim": "route"
+		},
+		{
+			"id": "bend-boise-2",
+			"start": "bend",
+			"end": "boise",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bend-boise",
+			"claim": "route"
+		},
+		{
+			"id": "boise-idaho-falls-1",
+			"start": "boise",
+			"end": "idaho-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "boise-idaho-falls",
+			"claim": "route"
+		},
+		{
+			"id": "boise-idaho-falls-2",
+			"start": "boise",
+			"end": "idaho-falls",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "boise-idaho-falls",
+			"claim": "route"
+		},
+		{
+			"id": "boise-winnemucca-1",
+			"start": "boise",
+			"end": "winnemucca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ashland-redding-1",
+			"start": "ashland",
+			"end": "redding",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "ashland-redding",
+			"claim": "route"
+		},
+		{
+			"id": "ashland-redding-2",
+			"start": "ashland",
+			"end": "redding",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "ashland-redding",
+			"claim": "route"
+		},
+		{
+			"id": "ashland-redding-3",
+			"start": "ashland",
+			"end": "redding",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ashland-redding",
+			"claim": "route"
+		},
+		{
+			"id": "redding-winnemucca-1",
+			"start": "redding",
+			"end": "winnemucca",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "redding-carson-city-1",
+			"start": "redding",
+			"end": "carson-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "redding-sacramento-1",
+			"start": "redding",
+			"end": "sacramento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "redding-sacramento",
+			"claim": "route"
+		},
+		{
+			"id": "redding-sacramento-2",
+			"start": "redding",
+			"end": "sacramento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "redding-sacramento",
+			"claim": "route"
+		},
+		{
+			"id": "redding-sacramento-3",
+			"start": "redding",
+			"end": "sacramento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "redding-sacramento",
+			"claim": "route"
+		},
+		{
+			"id": "redding-san-francisco-1",
+			"start": "redding",
+			"end": "san-francisco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "winnemucca-carson-city-1",
+			"start": "winnemucca",
+			"end": "carson-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "winnemucca-carson-city",
+			"claim": "route"
+		},
+		{
+			"id": "winnemucca-carson-city-2",
+			"start": "winnemucca",
+			"end": "carson-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "winnemucca-carson-city",
+			"claim": "route"
+		},
+		{
+			"id": "winnemucca-salt-lake-city-1",
+			"start": "winnemucca",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "winnemucca-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "winnemucca-salt-lake-city-2",
+			"start": "winnemucca",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "winnemucca-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "idaho-falls-salt-lake-city-1",
+			"start": "idaho-falls",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "idaho-falls-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "idaho-falls-salt-lake-city-2",
+			"start": "idaho-falls",
+			"end": "salt-lake-city",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "idaho-falls-salt-lake-city",
+			"claim": "route"
+		},
+		{
+			"id": "idaho-falls-green-river-1",
+			"start": "idaho-falls",
+			"end": "green-river",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-green-river-1",
+			"start": "salt-lake-city",
+			"end": "green-river",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "salt-lake-city-green-river",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-green-river-2",
+			"start": "salt-lake-city",
+			"end": "green-river",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "salt-lake-city-green-river",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-denver-1",
+			"start": "salt-lake-city",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "salt-lake-city-denver",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-denver-2",
+			"start": "salt-lake-city",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "salt-lake-city-denver",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-grand-junction-1",
+			"start": "salt-lake-city",
+			"end": "grand-junction",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-st-george-1",
+			"start": "salt-lake-city",
+			"end": "st-george",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "salt-lake-city-st-george",
+			"claim": "route"
+		},
+		{
+			"id": "salt-lake-city-st-george-2",
+			"start": "salt-lake-city",
+			"end": "st-george",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "salt-lake-city-st-george",
+			"claim": "route"
+		},
+		{
+			"id": "green-river-cheyenne-1",
+			"start": "green-river",
+			"end": "cheyenne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "green-river-cheyenne",
+			"claim": "route"
+		},
+		{
+			"id": "green-river-cheyenne-2",
+			"start": "green-river",
+			"end": "cheyenne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "green-river-cheyenne",
+			"claim": "route"
+		},
+		{
+			"id": "cheyenne-denver-1",
+			"start": "cheyenne",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "cheyenne-denver",
+			"claim": "route"
+		},
+		{
+			"id": "cheyenne-denver-2",
+			"start": "cheyenne",
+			"end": "denver",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "cheyenne-denver",
+			"claim": "route"
+		},
+		{
+			"id": "denver-pueblo-1",
+			"start": "denver",
+			"end": "pueblo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "denver-pueblo",
+			"claim": "route"
+		},
+		{
+			"id": "denver-pueblo-2",
+			"start": "denver",
+			"end": "pueblo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "denver-pueblo",
+			"claim": "route"
+		},
+		{
+			"id": "denver-grand-junction-1",
+			"start": "denver",
+			"end": "grand-junction",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grand-junction-pueblo-1",
+			"start": "grand-junction",
+			"end": "pueblo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grand-junction-durango-1",
+			"start": "grand-junction",
+			"end": "durango",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grand-junction-st-george-1",
+			"start": "grand-junction",
+			"end": "st-george",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pueblo-durango-1",
+			"start": "pueblo",
+			"end": "durango",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pueblo-santa-fe-1",
+			"start": "pueblo",
+			"end": "santa-fe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "pueblo-santa-fe",
+			"claim": "route"
+		},
+		{
+			"id": "pueblo-santa-fe-2",
+			"start": "pueblo",
+			"end": "santa-fe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "pueblo-santa-fe",
+			"claim": "route"
+		},
+		{
+			"id": "carson-city-sacramento-1",
+			"start": "carson-city",
+			"end": "sacramento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "carson-city-sacramento",
+			"claim": "route"
+		},
+		{
+			"id": "carson-city-sacramento-2",
+			"start": "carson-city",
+			"end": "sacramento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "carson-city-sacramento",
+			"claim": "route"
+		},
+		{
+			"id": "carson-city-fresno-1",
+			"start": "carson-city",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "carson-city-las-vegas-1",
+			"start": "carson-city",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "carson-city-las-vegas",
+			"claim": "route"
+		},
+		{
+			"id": "carson-city-las-vegas-2",
+			"start": "carson-city",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "carson-city-las-vegas",
+			"claim": "route"
+		},
+		{
+			"id": "sacramento-san-francisco-1",
+			"start": "sacramento",
+			"end": "san-francisco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "sacramento-san-francisco",
+			"claim": "route"
+		},
+		{
+			"id": "sacramento-san-francisco-2",
+			"start": "sacramento",
+			"end": "san-francisco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "sacramento-san-francisco",
+			"claim": "route"
+		},
+		{
+			"id": "sacramento-fresno-1",
+			"start": "sacramento",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "sacramento-fresno",
+			"claim": "route"
+		},
+		{
+			"id": "sacramento-fresno-2",
+			"start": "sacramento",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "sacramento-fresno",
+			"claim": "route"
+		},
+		{
+			"id": "sacramento-fresno-3",
+			"start": "sacramento",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "sacramento-fresno",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-fresno-1",
+			"start": "san-francisco",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "san-francisco-fresno",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-fresno-2",
+			"start": "san-francisco",
+			"end": "fresno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "san-francisco-fresno",
+			"claim": "route"
+		},
+		{
+			"id": "san-francisco-los-angeles-1",
+			"start": "san-francisco",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "locomotive",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fresno-bakersfield-1",
+			"start": "fresno",
+			"end": "bakersfield",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "fresno-bakersfield",
+			"claim": "route"
+		},
+		{
+			"id": "fresno-bakersfield-2",
+			"start": "fresno",
+			"end": "bakersfield",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "fresno-bakersfield",
+			"claim": "route"
+		},
+		{
+			"id": "fresno-bakersfield-3",
+			"start": "fresno",
+			"end": "bakersfield",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "fresno-bakersfield",
+			"claim": "route"
+		},
+		{
+			"id": "bakersfield-las-vegas-1",
+			"start": "bakersfield",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bakersfield-los-angeles-1",
+			"start": "bakersfield",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bakersfield-los-angeles",
+			"claim": "route"
+		},
+		{
+			"id": "bakersfield-los-angeles-2",
+			"start": "bakersfield",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "bakersfield-los-angeles",
+			"claim": "route"
+		},
+		{
+			"id": "bakersfield-los-angeles-3",
+			"start": "bakersfield",
+			"end": "los-angeles",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "bakersfield-los-angeles",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-las-vegas-1",
+			"start": "los-angeles",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "los-angeles-las-vegas",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-las-vegas-2",
+			"start": "los-angeles",
+			"end": "las-vegas",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "los-angeles-las-vegas",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-phoenix-1",
+			"start": "los-angeles",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "los-angeles-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-phoenix-2",
+			"start": "los-angeles",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "los-angeles-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-san-diego-1",
+			"start": "los-angeles",
+			"end": "san-diego",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "los-angeles-san-diego",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-san-diego-2",
+			"start": "los-angeles",
+			"end": "san-diego",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "los-angeles-san-diego",
+			"claim": "route"
+		},
+		{
+			"id": "los-angeles-san-diego-3",
+			"start": "los-angeles",
+			"end": "san-diego",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "los-angeles-san-diego",
+			"claim": "route"
+		},
+		{
+			"id": "san-diego-phoenix-1",
+			"start": "san-diego",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "san-diego-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "san-diego-phoenix-2",
+			"start": "san-diego",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "san-diego-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "san-diego-tucson-1",
+			"start": "san-diego",
+			"end": "tucson",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "las-vegas-st-george-1",
+			"start": "las-vegas",
+			"end": "st-george",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "las-vegas-st-george",
+			"claim": "route"
+		},
+		{
+			"id": "las-vegas-st-george-2",
+			"start": "las-vegas",
+			"end": "st-george",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "las-vegas-st-george",
+			"claim": "route"
+		},
+		{
+			"id": "las-vegas-flagstaff-1",
+			"start": "las-vegas",
+			"end": "flagstaff",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "las-vegas-flagstaff",
+			"claim": "route"
+		},
+		{
+			"id": "las-vegas-flagstaff-2",
+			"start": "las-vegas",
+			"end": "flagstaff",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "las-vegas-flagstaff",
+			"claim": "route"
+		},
+		{
+			"id": "st-george-flagstaff-1",
+			"start": "st-george",
+			"end": "flagstaff",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "flagstaff-durango-1",
+			"start": "flagstaff",
+			"end": "durango",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "flagstaff-albuquerque-1",
+			"start": "flagstaff",
+			"end": "albuquerque",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "flagstaff-albuquerque",
+			"claim": "route"
+		},
+		{
+			"id": "flagstaff-albuquerque-2",
+			"start": "flagstaff",
+			"end": "albuquerque",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "flagstaff-albuquerque",
+			"claim": "route"
+		},
+		{
+			"id": "flagstaff-phoenix-1",
+			"start": "flagstaff",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "flagstaff-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "flagstaff-phoenix-2",
+			"start": "flagstaff",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "flagstaff-phoenix",
+			"claim": "route"
+		},
+		{
+			"id": "durango-albuquerque-1",
+			"start": "durango",
+			"end": "albuquerque",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "santa-fe-albuquerque-1",
+			"start": "santa-fe",
+			"end": "albuquerque",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "santa-fe-albuquerque",
+			"claim": "route"
+		},
+		{
+			"id": "santa-fe-albuquerque-2",
+			"start": "santa-fe",
+			"end": "albuquerque",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "santa-fe-albuquerque",
+			"claim": "route"
+		},
+		{
+			"id": "santa-fe-roswell-1",
+			"start": "santa-fe",
+			"end": "roswell",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albuquerque-phoenix-1",
+			"start": "albuquerque",
+			"end": "phoenix",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albuquerque-tucson-1",
+			"start": "albuquerque",
+			"end": "tucson",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "albuquerque-las-cruces-1",
+			"start": "albuquerque",
+			"end": "las-cruces",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "albuquerque-las-cruces",
+			"claim": "route"
+		},
+		{
+			"id": "albuquerque-las-cruces-2",
+			"start": "albuquerque",
+			"end": "las-cruces",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "albuquerque-las-cruces",
+			"claim": "route"
+		},
+		{
+			"id": "albuquerque-roswell-1",
+			"start": "albuquerque",
+			"end": "roswell",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "phoenix-tucson-1",
+			"start": "phoenix",
+			"end": "tucson",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "phoenix-tucson",
+			"claim": "route"
+		},
+		{
+			"id": "phoenix-tucson-2",
+			"start": "phoenix",
+			"end": "tucson",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "phoenix-tucson",
+			"claim": "route"
+		},
+		{
+			"id": "tucson-las-cruces-1",
+			"start": "tucson",
+			"end": "las-cruces",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "las-cruces-roswell-1",
+			"start": "las-cruces",
+			"end": "roswell",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "seattle-spokane",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "seattle-portland",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "seattle-boise",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "spokane-missoula",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "missoula-helena",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "helena-bozeman",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bozeman-billings",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bozeman-idaho-falls",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "billings-casper",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "casper-cheyenne",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "portland-eugene",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "portland-bend",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "eugene-bend",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "eugene-ashland",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "bend-boise",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "boise-idaho-falls",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ashland-redding",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "redding-sacramento",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "winnemucca-carson-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "winnemucca-salt-lake-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "idaho-falls-salt-lake-city",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salt-lake-city-green-river",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salt-lake-city-denver",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salt-lake-city-st-george",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "green-river-cheyenne",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cheyenne-denver",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "denver-pueblo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pueblo-santa-fe",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "carson-city-sacramento",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "carson-city-las-vegas",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sacramento-san-francisco",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sacramento-fresno",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "san-francisco-fresno",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "fresno-bakersfield",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "bakersfield-los-angeles",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "los-angeles-las-vegas",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "los-angeles-phoenix",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "los-angeles-san-diego",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				},
+				{
+					"players": 6,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "san-diego-phoenix",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "las-vegas-st-george",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "las-vegas-flagstaff",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "flagstaff-albuquerque",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "flagstaff-phoenix",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "santa-fe-albuquerque",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "albuquerque-las-cruces",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "phoenix-tucson",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				},
+				{
+					"players": 6,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

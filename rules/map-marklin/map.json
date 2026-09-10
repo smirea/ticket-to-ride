@@ -1,0 +1,3454 @@
+{
+	"schemaVersion": 1,
+	"id": "marklin",
+	"name": "Märklin",
+	"image": {
+		"file": "map.png",
+		"width": 1416,
+		"height": 2048
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["passengers", "merchandise"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "kiel",
+			"name": "Kiel",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50305,
+					"y": 0.12757
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "rostock",
+			"name": "Rostock",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71723,
+					"y": 0.13179
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "bremerhaven",
+			"name": "Bremerhaven",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.36433,
+					"y": 0.21086
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "emden",
+			"name": "Emden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.2096,
+					"y": 0.2272
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "hamburg",
+			"name": "Hamburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.52591,
+					"y": 0.21191
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "schwerin",
+			"name": "Schwerin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64329,
+					"y": 0.20242
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "bremen",
+			"name": "Bremen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.37043,
+					"y": 0.26621
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "berlin",
+			"name": "Berlin",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84299,
+					"y": 0.32367
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [7, 6, 5, 4]
+		},
+		{
+			"id": "munster",
+			"name": "Münster",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.25915,
+					"y": 0.37428
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "hannover",
+			"name": "Hannover",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.47104,
+					"y": 0.35424
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "magdeburg",
+			"name": "Magdeburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.68979,
+					"y": 0.37691
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "dortmund",
+			"name": "Dortmund",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.24314,
+					"y": 0.43279
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "dusseldorf",
+			"name": "Düsseldorf",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16768,
+					"y": 0.45651
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "kassel",
+			"name": "Kassel",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.45274,
+					"y": 0.46969
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "leipzig",
+			"name": "Leipzig",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.74162,
+					"y": 0.4544
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "dresden",
+			"name": "Dresden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.90396,
+					"y": 0.49552
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "koln",
+			"name": "Köln",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16159,
+					"y": 0.51608
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "erfurt",
+			"name": "Erfurt",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60366,
+					"y": 0.50712
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "chemnitz",
+			"name": "Chemnitz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82698,
+					"y": 0.51924
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "koblenz",
+			"name": "Koblenz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.17759,
+					"y": 0.5767
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "frankfurt",
+			"name": "Frankfurt",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35366,
+					"y": 0.59779
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "mainz",
+			"name": "Mainz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28506,
+					"y": 0.62836
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "wurzburg",
+			"name": "Würzburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.48095,
+					"y": 0.62889
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "nurnberg",
+			"name": "Nürnberg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60823,
+					"y": 0.6563
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "saarbrucken",
+			"name": "Saarbrücken",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.13948,
+					"y": 0.69636
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "mannheim",
+			"name": "Mannheim",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3186,
+					"y": 0.6816
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "karlsruhe",
+			"name": "Karlsruhe",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31402,
+					"y": 0.74064
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [3, 2, 1]
+		},
+		{
+			"id": "stuttgart",
+			"name": "Stuttgart",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.39863,
+					"y": 0.75329
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "regensburg",
+			"name": "Regensburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.77668,
+					"y": 0.72588
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "ulm",
+			"name": "Ulm",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.50305,
+					"y": 0.80337
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "augsburg",
+			"name": "Augsburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.58308,
+					"y": 0.8097
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "munchen",
+			"name": "München",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71265,
+					"y": 0.83131
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [4, 3, 2]
+		},
+		{
+			"id": "freiburg",
+			"name": "Freiburg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.2561,
+					"y": 0.85978
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "konstanz",
+			"name": "Konstanz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.3872,
+					"y": 0.87981
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "lindau",
+			"name": "Lindau",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46723,
+					"y": 0.89457
+				}
+			],
+			"connectivity": "shared",
+			"merchandise": [2]
+		},
+		{
+			"id": "denmark",
+			"name": "Dänemark",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.44512,
+					"y": 0.0543
+				},
+				{
+					"x": 0.50534,
+					"y": 0.05535
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "netherlands",
+			"name": "Nederland",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.12881,
+					"y": 0.29099
+				},
+				{
+					"x": 0.14558,
+					"y": 0.34475
+				},
+				{
+					"x": 0.1128,
+					"y": 0.34581
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "france",
+			"name": "France",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.12119,
+					"y": 0.75013
+				},
+				{
+					"x": 0.19436,
+					"y": 0.78334
+				},
+				{
+					"x": 0.13415,
+					"y": 0.83553
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "switzerland",
+			"name": "Schweiz",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.21037,
+					"y": 0.92778
+				},
+				{
+					"x": 0.32393,
+					"y": 0.9146
+				},
+				{
+					"x": 0.35747,
+					"y": 0.932
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "austria",
+			"name": "Österreich",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.91235,
+					"y": 0.84871
+				},
+				{
+					"x": 0.84223,
+					"y": 0.91882
+				},
+				{
+					"x": 0.58537,
+					"y": 0.92356
+				}
+			],
+			"connectivity": "separate"
+		}
+	],
+	"connections": [
+		{
+			"id": "kiel-denmark-1-1",
+			"start": "kiel",
+			"end": "denmark",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremerhaven-denmark-0-1",
+			"start": "bremerhaven",
+			"end": "denmark",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kiel-rostock-1",
+			"start": "kiel",
+			"end": "rostock",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kiel-schwerin-1",
+			"start": "kiel",
+			"end": "schwerin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kiel-hamburg-1",
+			"start": "kiel",
+			"end": "hamburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "kiel-hamburg",
+			"claim": "route"
+		},
+		{
+			"id": "kiel-hamburg-2",
+			"start": "kiel",
+			"end": "hamburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "kiel-hamburg",
+			"claim": "route"
+		},
+		{
+			"id": "kiel-bremerhaven-1",
+			"start": "kiel",
+			"end": "bremerhaven",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremerhaven-hamburg-1",
+			"start": "bremerhaven",
+			"end": "hamburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremerhaven-emden-1",
+			"start": "bremerhaven",
+			"end": "emden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremerhaven-bremen-1",
+			"start": "bremerhaven",
+			"end": "bremen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "emden-netherlands-0-1",
+			"start": "emden",
+			"end": "netherlands",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "emden-bremen-1",
+			"start": "emden",
+			"end": "bremen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "emden-munster-1",
+			"start": "emden",
+			"end": "munster",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-schwerin-1",
+			"start": "hamburg",
+			"end": "schwerin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-berlin-1",
+			"start": "hamburg",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "hamburg-berlin",
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-berlin-2",
+			"start": "hamburg",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "hamburg-berlin",
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-bremen-1",
+			"start": "hamburg",
+			"end": "bremen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-hannover-1",
+			"start": "hamburg",
+			"end": "hannover",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "hamburg-hannover",
+			"claim": "route"
+		},
+		{
+			"id": "hamburg-hannover-2",
+			"start": "hamburg",
+			"end": "hannover",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "hamburg-hannover",
+			"claim": "route"
+		},
+		{
+			"id": "rostock-schwerin-1",
+			"start": "rostock",
+			"end": "schwerin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "rostock-berlin-1",
+			"start": "rostock",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "schwerin-berlin-1",
+			"start": "schwerin",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremen-munster-1",
+			"start": "bremen",
+			"end": "munster",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bremen-hannover-1",
+			"start": "bremen",
+			"end": "hannover",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munster-netherlands-1-1",
+			"start": "munster",
+			"end": "netherlands",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munster-hannover-1",
+			"start": "munster",
+			"end": "hannover",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munster-dortmund-1",
+			"start": "munster",
+			"end": "dortmund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "munster-dortmund",
+			"claim": "route"
+		},
+		{
+			"id": "munster-dortmund-2",
+			"start": "munster",
+			"end": "dortmund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "munster-dortmund",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-netherlands-2-1",
+			"start": "dusseldorf",
+			"end": "netherlands",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-dortmund-1",
+			"start": "dusseldorf",
+			"end": "dortmund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-dortmund",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-dortmund-2",
+			"start": "dusseldorf",
+			"end": "dortmund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-dortmund",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-dortmund-3",
+			"start": "dusseldorf",
+			"end": "dortmund",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-dortmund",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-koln-1",
+			"start": "dusseldorf",
+			"end": "koln",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-koln",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-koln-2",
+			"start": "dusseldorf",
+			"end": "koln",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-koln",
+			"claim": "route"
+		},
+		{
+			"id": "dusseldorf-koln-3",
+			"start": "dusseldorf",
+			"end": "koln",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "dusseldorf-koln",
+			"claim": "route"
+		},
+		{
+			"id": "dortmund-kassel-1",
+			"start": "dortmund",
+			"end": "kassel",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hannover-kassel-1",
+			"start": "hannover",
+			"end": "kassel",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "hannover-kassel",
+			"claim": "route"
+		},
+		{
+			"id": "hannover-kassel-2",
+			"start": "hannover",
+			"end": "kassel",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "hannover-kassel",
+			"claim": "route"
+		},
+		{
+			"id": "hannover-berlin-1",
+			"start": "hannover",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hannover-magdeburg-1",
+			"start": "hannover",
+			"end": "magdeburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "hannover-erfurt-1",
+			"start": "hannover",
+			"end": "erfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "hannover-erfurt",
+			"claim": "route"
+		},
+		{
+			"id": "hannover-erfurt-2",
+			"start": "hannover",
+			"end": "erfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "hannover-erfurt",
+			"claim": "route"
+		},
+		{
+			"id": "magdeburg-berlin-1",
+			"start": "magdeburg",
+			"end": "berlin",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "magdeburg-leipzig-1",
+			"start": "magdeburg",
+			"end": "leipzig",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "berlin-leipzig-1",
+			"start": "berlin",
+			"end": "leipzig",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "berlin-dresden-1",
+			"start": "berlin",
+			"end": "dresden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leipzig-dresden-1",
+			"start": "leipzig",
+			"end": "dresden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leipzig-chemnitz-1",
+			"start": "leipzig",
+			"end": "chemnitz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "leipzig-erfurt-1",
+			"start": "leipzig",
+			"end": "erfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dresden-chemnitz-1",
+			"start": "dresden",
+			"end": "chemnitz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "dresden-regensburg-1",
+			"start": "dresden",
+			"end": "regensburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chemnitz-regensburg-1",
+			"start": "chemnitz",
+			"end": "regensburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "chemnitz-erfurt-1",
+			"start": "chemnitz",
+			"end": "erfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kassel-erfurt-1",
+			"start": "kassel",
+			"end": "erfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kassel-frankfurt-1",
+			"start": "kassel",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "kassel-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "kassel-frankfurt-2",
+			"start": "kassel",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "kassel-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "koln-frankfurt-1",
+			"start": "koln",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koln-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "koln-frankfurt-2",
+			"start": "koln",
+			"end": "frankfurt",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koln-frankfurt",
+			"claim": "route"
+		},
+		{
+			"id": "koln-koblenz-1",
+			"start": "koln",
+			"end": "koblenz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koln-koblenz",
+			"claim": "route"
+		},
+		{
+			"id": "koln-koblenz-2",
+			"start": "koln",
+			"end": "koblenz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koln-koblenz",
+			"claim": "route"
+		},
+		{
+			"id": "koblenz-mainz-1",
+			"start": "koblenz",
+			"end": "mainz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koblenz-mainz",
+			"claim": "route"
+		},
+		{
+			"id": "koblenz-mainz-2",
+			"start": "koblenz",
+			"end": "mainz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "koblenz-mainz",
+			"claim": "route"
+		},
+		{
+			"id": "koblenz-saarbrucken-1",
+			"start": "koblenz",
+			"end": "saarbrucken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-mainz-1",
+			"start": "frankfurt",
+			"end": "mainz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-mainz",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-mainz-2",
+			"start": "frankfurt",
+			"end": "mainz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-mainz",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-mannheim-1",
+			"start": "frankfurt",
+			"end": "mannheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-mannheim",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-mannheim-2",
+			"start": "frankfurt",
+			"end": "mannheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-mannheim",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-wurzburg-1",
+			"start": "frankfurt",
+			"end": "wurzburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-wurzburg",
+			"claim": "route"
+		},
+		{
+			"id": "frankfurt-wurzburg-2",
+			"start": "frankfurt",
+			"end": "wurzburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "frankfurt-wurzburg",
+			"claim": "route"
+		},
+		{
+			"id": "wurzburg-nurnberg-1",
+			"start": "wurzburg",
+			"end": "nurnberg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "wurzburg-nurnberg",
+			"claim": "route"
+		},
+		{
+			"id": "wurzburg-nurnberg-2",
+			"start": "wurzburg",
+			"end": "nurnberg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "wurzburg-nurnberg",
+			"claim": "route"
+		},
+		{
+			"id": "erfurt-nurnberg-1",
+			"start": "erfurt",
+			"end": "nurnberg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "erfurt-nurnberg",
+			"claim": "route"
+		},
+		{
+			"id": "erfurt-nurnberg-2",
+			"start": "erfurt",
+			"end": "nurnberg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "erfurt-nurnberg",
+			"claim": "route"
+		},
+		{
+			"id": "erfurt-regensburg-1",
+			"start": "erfurt",
+			"end": "regensburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nurnberg-regensburg-1",
+			"start": "nurnberg",
+			"end": "regensburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nurnberg-augsburg-1",
+			"start": "nurnberg",
+			"end": "augsburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "nurnberg-munchen-1",
+			"start": "nurnberg",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "nurnberg-munchen",
+			"claim": "route"
+		},
+		{
+			"id": "nurnberg-munchen-2",
+			"start": "nurnberg",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "nurnberg-munchen",
+			"claim": "route"
+		},
+		{
+			"id": "mainz-saarbrucken-1",
+			"start": "mainz",
+			"end": "saarbrucken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mainz-mannheim-1",
+			"start": "mainz",
+			"end": "mannheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mainz-mannheim",
+			"claim": "route"
+		},
+		{
+			"id": "mainz-mannheim-2",
+			"start": "mainz",
+			"end": "mannheim",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mainz-mannheim",
+			"claim": "route"
+		},
+		{
+			"id": "mannheim-saarbrucken-1",
+			"start": "mannheim",
+			"end": "saarbrucken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mannheim-karlsruhe-1",
+			"start": "mannheim",
+			"end": "karlsruhe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "mannheim-stuttgart-1",
+			"start": "mannheim",
+			"end": "stuttgart",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mannheim-stuttgart",
+			"claim": "route"
+		},
+		{
+			"id": "mannheim-stuttgart-2",
+			"start": "mannheim",
+			"end": "stuttgart",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "mannheim-stuttgart",
+			"claim": "route"
+		},
+		{
+			"id": "saarbrucken-karlsruhe-1",
+			"start": "saarbrucken",
+			"end": "karlsruhe",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "saarbrucken-france-0-1",
+			"start": "saarbrucken",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlsruhe-france-1-1",
+			"start": "karlsruhe",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlsruhe-freiburg-1",
+			"start": "karlsruhe",
+			"end": "freiburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "karlsruhe-stuttgart-1",
+			"start": "karlsruhe",
+			"end": "stuttgart",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stuttgart-freiburg-1",
+			"start": "stuttgart",
+			"end": "freiburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stuttgart-konstanz-1",
+			"start": "stuttgart",
+			"end": "konstanz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "stuttgart-ulm-1",
+			"start": "stuttgart",
+			"end": "ulm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stuttgart-ulm",
+			"claim": "route"
+		},
+		{
+			"id": "stuttgart-ulm-2",
+			"start": "stuttgart",
+			"end": "ulm",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "stuttgart-ulm",
+			"claim": "route"
+		},
+		{
+			"id": "ulm-augsburg-1",
+			"start": "ulm",
+			"end": "augsburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ulm-augsburg",
+			"claim": "route"
+		},
+		{
+			"id": "ulm-augsburg-2",
+			"start": "ulm",
+			"end": "augsburg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "ulm-augsburg",
+			"claim": "route"
+		},
+		{
+			"id": "ulm-lindau-1",
+			"start": "ulm",
+			"end": "lindau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "augsburg-munchen-1",
+			"start": "augsburg",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "augsburg-munchen",
+			"claim": "route"
+		},
+		{
+			"id": "augsburg-munchen-2",
+			"start": "augsburg",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "augsburg-munchen",
+			"claim": "route"
+		},
+		{
+			"id": "regensburg-munchen-1",
+			"start": "regensburg",
+			"end": "munchen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "regensburg-austria-0-1",
+			"start": "regensburg",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munchen-austria-1-1",
+			"start": "munchen",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "munchen-lindau-1",
+			"start": "munchen",
+			"end": "lindau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "freiburg-france-2-1",
+			"start": "freiburg",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "freiburg-konstanz-1",
+			"start": "freiburg",
+			"end": "konstanz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "freiburg-switzerland-0-1",
+			"start": "freiburg",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "konstanz-switzerland-1-1",
+			"start": "konstanz",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "konstanz-lindau-1",
+			"start": "konstanz",
+			"end": "lindau",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lindau-switzerland-2-1",
+			"start": "lindau",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lindau-austria-2-1",
+			"start": "lindau",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "kiel-hamburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hamburg-berlin",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hamburg-hannover",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "munster-dortmund",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "dusseldorf-dortmund",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "dusseldorf-koln",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "hannover-kassel",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "hannover-erfurt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "kassel-frankfurt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "koln-frankfurt",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "koln-koblenz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "koblenz-mainz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "frankfurt-mainz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "frankfurt-mannheim",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "frankfurt-wurzburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "wurzburg-nurnberg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "erfurt-nurnberg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "nurnberg-munchen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mainz-mannheim",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "mannheim-stuttgart",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "stuttgart-ulm",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ulm-augsburg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "augsburg-munchen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

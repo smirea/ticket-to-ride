@@ -1,0 +1,4313 @@
+{
+	"schemaVersion": 1,
+	"id": "italy",
+	"name": "Italy",
+	"image": {
+		"file": "map.png",
+		"width": 835,
+		"height": 1500
+	},
+	"players": [2, 3, 4, 5],
+	"mechanics": ["ferries", "region-bonus"],
+	"regions": [
+		{
+			"id": "piemonte",
+			"name": "Piemonte"
+		},
+		{
+			"id": "lombardia",
+			"name": "Lombardia"
+		},
+		{
+			"id": "trentino-alto-adige",
+			"name": "Trentino-Alto Adige"
+		},
+		{
+			"id": "veneto",
+			"name": "Veneto"
+		},
+		{
+			"id": "friuli-venezia-giulia",
+			"name": "Friuli-Venezia Giulia"
+		},
+		{
+			"id": "emilia-romagna",
+			"name": "Emilia-Romagna"
+		},
+		{
+			"id": "liguria",
+			"name": "Liguria"
+		},
+		{
+			"id": "toscana",
+			"name": "Toscana"
+		},
+		{
+			"id": "umbria",
+			"name": "Umbria"
+		},
+		{
+			"id": "marche",
+			"name": "Marche"
+		},
+		{
+			"id": "abruzzo",
+			"name": "Abruzzo"
+		},
+		{
+			"id": "lazio",
+			"name": "Lazio"
+		},
+		{
+			"id": "campania",
+			"name": "Campania"
+		},
+		{
+			"id": "puglia",
+			"name": "Puglia",
+			"extraRegionCountWhenComplete": 1
+		},
+		{
+			"id": "calabria",
+			"name": "Calabria"
+		},
+		{
+			"id": "sicilia",
+			"name": "Sicilia",
+			"extraRegionCountWhenComplete": 1
+		},
+		{
+			"id": "sardegna",
+			"name": "Sardegna",
+			"extraRegionCountWhenComplete": 1
+		}
+	],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "torino",
+			"name": "Torino",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.22874,
+					"y": 0.10267
+				}
+			],
+			"connectivity": "shared",
+			"region": "piemonte"
+		},
+		{
+			"id": "milano",
+			"name": "Milano",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41078,
+					"y": 0.13067
+				}
+			],
+			"connectivity": "shared",
+			"region": "lombardia"
+		},
+		{
+			"id": "bergamo",
+			"name": "Bergamo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.5006,
+					"y": 0.132
+				}
+			],
+			"connectivity": "shared",
+			"region": "lombardia"
+		},
+		{
+			"id": "bolzano",
+			"name": "Bolzano",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71856,
+					"y": 0.12067
+				}
+			],
+			"connectivity": "shared",
+			"region": "trentino-alto-adige"
+		},
+		{
+			"id": "verona",
+			"name": "Verona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57964,
+					"y": 0.19667
+				}
+			],
+			"connectivity": "shared",
+			"region": "veneto"
+		},
+		{
+			"id": "venezia",
+			"name": "Venezia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.6982,
+					"y": 0.236
+				}
+			],
+			"connectivity": "shared",
+			"region": "veneto"
+		},
+		{
+			"id": "tarvisio",
+			"name": "Tarvisio",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.91257,
+					"y": 0.19733
+				}
+			],
+			"connectivity": "shared",
+			"region": "friuli-venezia-giulia"
+		},
+		{
+			"id": "trieste",
+			"name": "Trieste",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.87784,
+					"y": 0.274
+				}
+			],
+			"connectivity": "shared",
+			"region": "friuli-venezia-giulia"
+		},
+		{
+			"id": "genova",
+			"name": "Genova",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30778,
+					"y": 0.2
+				}
+			],
+			"connectivity": "shared",
+			"region": "liguria"
+		},
+		{
+			"id": "parma",
+			"name": "Parma",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46108,
+					"y": 0.21333
+				}
+			],
+			"connectivity": "shared",
+			"region": "emilia-romagna"
+		},
+		{
+			"id": "bologna",
+			"name": "Bologna",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.53653,
+					"y": 0.27933
+				}
+			],
+			"connectivity": "shared",
+			"region": "emilia-romagna"
+		},
+		{
+			"id": "ravenna",
+			"name": "Ravenna",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.61916,
+					"y": 0.31067
+				}
+			],
+			"connectivity": "shared",
+			"region": "emilia-romagna"
+		},
+		{
+			"id": "pisa",
+			"name": "Pisa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.38563,
+					"y": 0.29667
+				}
+			],
+			"connectivity": "shared",
+			"region": "toscana"
+		},
+		{
+			"id": "firenze",
+			"name": "Firenze",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.46347,
+					"y": 0.328
+				}
+			],
+			"connectivity": "shared",
+			"region": "toscana"
+		},
+		{
+			"id": "grosseto",
+			"name": "Grosseto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.37006,
+					"y": 0.402
+				}
+			],
+			"connectivity": "shared",
+			"region": "toscana"
+		},
+		{
+			"id": "perugia",
+			"name": "Perugia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.52216,
+					"y": 0.412
+				}
+			],
+			"connectivity": "shared",
+			"region": "umbria"
+		},
+		{
+			"id": "ancona",
+			"name": "Ancona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67305,
+					"y": 0.41867
+				}
+			],
+			"connectivity": "shared",
+			"region": "marche"
+		},
+		{
+			"id": "roma",
+			"name": "Roma",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.42754,
+					"y": 0.51133
+				}
+			],
+			"connectivity": "shared",
+			"region": "lazio"
+		},
+		{
+			"id": "pescara",
+			"name": "Pescara",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65868,
+					"y": 0.53
+				}
+			],
+			"connectivity": "shared",
+			"region": "abruzzo"
+		},
+		{
+			"id": "olbia",
+			"name": "Olbia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.21437,
+					"y": 0.43133
+				}
+			],
+			"connectivity": "shared",
+			"region": "sardegna"
+		},
+		{
+			"id": "sassari",
+			"name": "Sassari",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.07784,
+					"y": 0.45667
+				}
+			],
+			"connectivity": "shared",
+			"region": "sardegna"
+		},
+		{
+			"id": "cagliari",
+			"name": "Cagliari",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.18084,
+					"y": 0.586
+				}
+			],
+			"connectivity": "shared",
+			"region": "sardegna"
+		},
+		{
+			"id": "napoli",
+			"name": "Napoli",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.51497,
+					"y": 0.64533
+				}
+			],
+			"connectivity": "shared",
+			"region": "campania"
+		},
+		{
+			"id": "salerno",
+			"name": "Salerno",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55928,
+					"y": 0.68467
+				}
+			],
+			"connectivity": "shared",
+			"region": "campania"
+		},
+		{
+			"id": "foggia",
+			"name": "Foggia",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70539,
+					"y": 0.63867
+				}
+			],
+			"connectivity": "shared",
+			"region": "puglia"
+		},
+		{
+			"id": "bari",
+			"name": "Bari",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.82515,
+					"y": 0.72
+				}
+			],
+			"connectivity": "shared",
+			"region": "puglia"
+		},
+		{
+			"id": "taranto",
+			"name": "Taranto",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.80719,
+					"y": 0.77467
+				}
+			],
+			"connectivity": "shared",
+			"region": "puglia"
+		},
+		{
+			"id": "lecce",
+			"name": "Lecce",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.91617,
+					"y": 0.82133
+				}
+			],
+			"connectivity": "shared",
+			"region": "puglia"
+		},
+		{
+			"id": "cosenza",
+			"name": "Cosenza",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.5976,
+					"y": 0.83867
+				}
+			],
+			"connectivity": "shared",
+			"region": "calabria"
+		},
+		{
+			"id": "palermo",
+			"name": "Palermo",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.20599,
+					"y": 0.81867
+				}
+			],
+			"connectivity": "shared",
+			"region": "sicilia"
+		},
+		{
+			"id": "agrigento",
+			"name": "Agrigento",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.15329,
+					"y": 0.89667
+				}
+			],
+			"connectivity": "shared",
+			"region": "sicilia"
+		},
+		{
+			"id": "catania",
+			"name": "Catania",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32695,
+					"y": 0.932
+				}
+			],
+			"connectivity": "shared",
+			"region": "sicilia"
+		},
+		{
+			"id": "messina",
+			"name": "Messina",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.44671,
+					"y": 0.898
+				}
+			],
+			"connectivity": "shared",
+			"region": "sicilia"
+		},
+		{
+			"id": "siracusa",
+			"name": "Siracusa",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.30898,
+					"y": 0.978
+				}
+			],
+			"connectivity": "shared",
+			"region": "sicilia"
+		},
+		{
+			"id": "france",
+			"name": "Francia",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.09341,
+					"y": 0.09067
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "switzerland",
+			"name": "Svizzera",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.31497,
+					"y": 0.01467
+				},
+				{
+					"x": 0.57964,
+					"y": 0.07133
+				},
+				{
+					"x": 0.3988,
+					"y": 0.02067
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "austria",
+			"name": "Austria",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.86228,
+					"y": 0.13133
+				},
+				{
+					"x": 0.91737,
+					"y": 0.14533
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "croatia",
+			"name": "Croazia",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.92335,
+					"y": 0.34733
+				},
+				{
+					"x": 0.92575,
+					"y": 0.43067
+				},
+				{
+					"x": 0.91377,
+					"y": 0.50133
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "monaco",
+			"name": "Monaco",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.11138,
+					"y": 0.19733
+				}
+			],
+			"connectivity": "separate"
+		}
+	],
+	"connections": [
+		{
+			"id": "torino-france-0-1",
+			"start": "torino",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "torino-france-0",
+			"claim": "route"
+		},
+		{
+			"id": "torino-france-0-2",
+			"start": "torino",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "torino-france-0",
+			"claim": "route"
+		},
+		{
+			"id": "torino-switzerland-0-1",
+			"start": "torino",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "torino-milano-1",
+			"start": "torino",
+			"end": "milano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "torino-milano",
+			"claim": "route"
+		},
+		{
+			"id": "torino-milano-2",
+			"start": "torino",
+			"end": "milano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "torino-milano",
+			"claim": "route"
+		},
+		{
+			"id": "torino-genova-1",
+			"start": "torino",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "torino-genova",
+			"claim": "route"
+		},
+		{
+			"id": "torino-genova-2",
+			"start": "torino",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "torino-genova",
+			"claim": "route"
+		},
+		{
+			"id": "torino-monaco-1",
+			"start": "torino",
+			"end": "monaco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "milano-switzerland-2-1",
+			"start": "milano",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "milano-bergamo-1",
+			"start": "milano",
+			"end": "bergamo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "milano-bergamo",
+			"claim": "route"
+		},
+		{
+			"id": "milano-bergamo-2",
+			"start": "milano",
+			"end": "bergamo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "milano-bergamo",
+			"claim": "route"
+		},
+		{
+			"id": "milano-genova-1",
+			"start": "milano",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "milano-genova",
+			"claim": "route"
+		},
+		{
+			"id": "milano-genova-2",
+			"start": "milano",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "milano-genova",
+			"claim": "route"
+		},
+		{
+			"id": "milano-parma-1",
+			"start": "milano",
+			"end": "parma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bergamo-switzerland-1-1",
+			"start": "bergamo",
+			"end": "switzerland",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bergamo-bolzano-1",
+			"start": "bergamo",
+			"end": "bolzano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bergamo-verona-1",
+			"start": "bergamo",
+			"end": "verona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "bergamo-verona",
+			"claim": "route"
+		},
+		{
+			"id": "bergamo-verona-2",
+			"start": "bergamo",
+			"end": "verona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bergamo-verona",
+			"claim": "route"
+		},
+		{
+			"id": "bergamo-parma-1",
+			"start": "bergamo",
+			"end": "parma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bolzano-austria-0-1",
+			"start": "bolzano",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bolzano-tarvisio-1",
+			"start": "bolzano",
+			"end": "tarvisio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bolzano-venezia-1",
+			"start": "bolzano",
+			"end": "venezia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bolzano-verona-1",
+			"start": "bolzano",
+			"end": "verona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "verona-venezia-1",
+			"start": "verona",
+			"end": "venezia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "verona-venezia",
+			"claim": "route"
+		},
+		{
+			"id": "verona-venezia-2",
+			"start": "verona",
+			"end": "venezia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "verona-venezia",
+			"claim": "route"
+		},
+		{
+			"id": "verona-bologna-1",
+			"start": "verona",
+			"end": "bologna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "verona-bologna",
+			"claim": "route"
+		},
+		{
+			"id": "verona-bologna-2",
+			"start": "verona",
+			"end": "bologna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "verona-bologna",
+			"claim": "route"
+		},
+		{
+			"id": "parma-genova-1",
+			"start": "parma",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "parma-genova",
+			"claim": "route"
+		},
+		{
+			"id": "parma-genova-2",
+			"start": "parma",
+			"end": "genova",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "parma-genova",
+			"claim": "route"
+		},
+		{
+			"id": "parma-pisa-1",
+			"start": "parma",
+			"end": "pisa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "parma-firenze-1",
+			"start": "parma",
+			"end": "firenze",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "parma-bologna-1",
+			"start": "parma",
+			"end": "bologna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "parma-bologna",
+			"claim": "route"
+		},
+		{
+			"id": "parma-bologna-2",
+			"start": "parma",
+			"end": "bologna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "parma-bologna",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-tarvisio-1",
+			"start": "venezia",
+			"end": "tarvisio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "venezia-tarvisio",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-tarvisio-2",
+			"start": "venezia",
+			"end": "tarvisio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "venezia-tarvisio",
+			"claim": "route"
+		},
+		{
+			"id": "tarvisio-austria-1-1",
+			"start": "tarvisio",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "tarvisio-austria-1",
+			"claim": "route"
+		},
+		{
+			"id": "tarvisio-austria-1-2",
+			"start": "tarvisio",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "tarvisio-austria-1",
+			"claim": "route"
+		},
+		{
+			"id": "tarvisio-trieste-1",
+			"start": "tarvisio",
+			"end": "trieste",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "venezia-trieste-1",
+			"start": "venezia",
+			"end": "trieste",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "venezia-trieste",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-trieste-2",
+			"start": "venezia",
+			"end": "trieste",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "venezia-trieste",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-ravenna-1",
+			"start": "venezia",
+			"end": "ravenna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "venezia-ravenna",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-ravenna-2",
+			"start": "venezia",
+			"end": "ravenna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "venezia-ravenna",
+			"claim": "route"
+		},
+		{
+			"id": "venezia-ancona-1",
+			"start": "venezia",
+			"end": "ancona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "trieste-croatia-0-1",
+			"start": "trieste",
+			"end": "croatia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "trieste-croatia-0",
+			"claim": "route"
+		},
+		{
+			"id": "trieste-croatia-0-2",
+			"start": "trieste",
+			"end": "croatia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "trieste-croatia-0",
+			"claim": "route"
+		},
+		{
+			"id": "trieste-ancona-1",
+			"start": "trieste",
+			"end": "ancona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bologna-ravenna-1",
+			"start": "bologna",
+			"end": "ravenna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "bologna-ravenna",
+			"claim": "route"
+		},
+		{
+			"id": "bologna-ravenna-2",
+			"start": "bologna",
+			"end": "ravenna",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bologna-ravenna",
+			"claim": "route"
+		},
+		{
+			"id": "bologna-firenze-1",
+			"start": "bologna",
+			"end": "firenze",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ravenna-firenze-1",
+			"start": "ravenna",
+			"end": "firenze",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ravenna-perugia-1",
+			"start": "ravenna",
+			"end": "perugia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ravenna-ancona-1",
+			"start": "ravenna",
+			"end": "ancona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "ravenna-ancona",
+			"claim": "route"
+		},
+		{
+			"id": "ravenna-ancona-2",
+			"start": "ravenna",
+			"end": "ancona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "ravenna-ancona",
+			"claim": "route"
+		},
+		{
+			"id": "genova-monaco-1",
+			"start": "genova",
+			"end": "monaco",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "genova-pisa-1",
+			"start": "genova",
+			"end": "pisa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "genova-pisa",
+			"claim": "route"
+		},
+		{
+			"id": "genova-pisa-2",
+			"start": "genova",
+			"end": "pisa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "genova-pisa",
+			"claim": "route"
+		},
+		{
+			"id": "genova-olbia-1",
+			"start": "genova",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "genova-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "genova-olbia-2",
+			"start": "genova",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "genova-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "pisa-firenze-1",
+			"start": "pisa",
+			"end": "firenze",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pisa-grosseto-1",
+			"start": "pisa",
+			"end": "grosseto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "pisa-grosseto",
+			"claim": "route"
+		},
+		{
+			"id": "pisa-grosseto-2",
+			"start": "pisa",
+			"end": "grosseto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "pisa-grosseto",
+			"claim": "route"
+		},
+		{
+			"id": "firenze-grosseto-1",
+			"start": "firenze",
+			"end": "grosseto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "firenze-perugia-1",
+			"start": "firenze",
+			"end": "perugia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grosseto-perugia-1",
+			"start": "grosseto",
+			"end": "perugia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "grosseto-roma-1",
+			"start": "grosseto",
+			"end": "roma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "grosseto-roma",
+			"claim": "route"
+		},
+		{
+			"id": "grosseto-roma-2",
+			"start": "grosseto",
+			"end": "roma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "grosseto-roma",
+			"claim": "route"
+		},
+		{
+			"id": "perugia-roma-1",
+			"start": "perugia",
+			"end": "roma",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perugia-ancona-1",
+			"start": "perugia",
+			"end": "ancona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "perugia-pescara-1",
+			"start": "perugia",
+			"end": "pescara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "ancona-pescara-1",
+			"start": "ancona",
+			"end": "pescara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "ancona-pescara",
+			"claim": "route"
+		},
+		{
+			"id": "ancona-pescara-2",
+			"start": "ancona",
+			"end": "pescara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "ancona-pescara",
+			"claim": "route"
+		},
+		{
+			"id": "ancona-croatia-1-1",
+			"start": "ancona",
+			"end": "croatia",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "roma-pescara-1",
+			"start": "roma",
+			"end": "pescara",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "roma-napoli-1",
+			"start": "roma",
+			"end": "napoli",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "roma-napoli",
+			"claim": "route"
+		},
+		{
+			"id": "roma-napoli-2",
+			"start": "roma",
+			"end": "napoli",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "roma-napoli",
+			"claim": "route"
+		},
+		{
+			"id": "roma-napoli-3",
+			"start": "roma",
+			"end": "napoli",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "roma-napoli",
+			"claim": "route"
+		},
+		{
+			"id": "roma-olbia-1",
+			"start": "roma",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "roma-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "roma-olbia-2",
+			"start": "roma",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "roma-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "roma-cagliari-1",
+			"start": "roma",
+			"end": "cagliari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "sassari-olbia-1",
+			"start": "sassari",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "sassari-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "sassari-olbia-2",
+			"start": "sassari",
+			"end": "olbia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "sassari-olbia",
+			"claim": "route"
+		},
+		{
+			"id": "sassari-cagliari-1",
+			"start": "sassari",
+			"end": "cagliari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "sassari-cagliari",
+			"claim": "route"
+		},
+		{
+			"id": "sassari-cagliari-2",
+			"start": "sassari",
+			"end": "cagliari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "sassari-cagliari",
+			"claim": "route"
+		},
+		{
+			"id": "olbia-cagliari-1",
+			"start": "olbia",
+			"end": "cagliari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "olbia-cagliari",
+			"claim": "route"
+		},
+		{
+			"id": "olbia-cagliari-2",
+			"start": "olbia",
+			"end": "cagliari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "olbia-cagliari",
+			"claim": "route"
+		},
+		{
+			"id": "cagliari-napoli-1",
+			"start": "cagliari",
+			"end": "napoli",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "cagliari-palermo-1",
+			"start": "cagliari",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "cagliari-palermo",
+			"claim": "route"
+		},
+		{
+			"id": "cagliari-palermo-2",
+			"start": "cagliari",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "cagliari-palermo",
+			"claim": "route"
+		},
+		{
+			"id": "pescara-napoli-1",
+			"start": "pescara",
+			"end": "napoli",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pescara-foggia-1",
+			"start": "pescara",
+			"end": "foggia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "pescara-foggia",
+			"claim": "route"
+		},
+		{
+			"id": "pescara-foggia-2",
+			"start": "pescara",
+			"end": "foggia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "pescara-foggia",
+			"claim": "route"
+		},
+		{
+			"id": "napoli-foggia-1",
+			"start": "napoli",
+			"end": "foggia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "napoli-salerno-1",
+			"start": "napoli",
+			"end": "salerno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "napoli-salerno",
+			"claim": "route"
+		},
+		{
+			"id": "napoli-salerno-2",
+			"start": "napoli",
+			"end": "salerno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "napoli-salerno",
+			"claim": "route"
+		},
+		{
+			"id": "napoli-palermo-1",
+			"start": "napoli",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "napoli-palermo",
+			"claim": "route"
+		},
+		{
+			"id": "napoli-palermo-2",
+			"start": "napoli",
+			"end": "palermo",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "napoli-palermo",
+			"claim": "route"
+		},
+		{
+			"id": "salerno-foggia-1",
+			"start": "salerno",
+			"end": "foggia",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salerno-taranto-1",
+			"start": "salerno",
+			"end": "taranto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "salerno-cosenza-1",
+			"start": "salerno",
+			"end": "cosenza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "salerno-cosenza",
+			"claim": "route"
+		},
+		{
+			"id": "salerno-cosenza-2",
+			"start": "salerno",
+			"end": "cosenza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "salerno-cosenza",
+			"claim": "route"
+		},
+		{
+			"id": "salerno-messina-1",
+			"start": "salerno",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "foggia-bari-1",
+			"start": "foggia",
+			"end": "bari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "foggia-bari",
+			"claim": "route"
+		},
+		{
+			"id": "foggia-bari-2",
+			"start": "foggia",
+			"end": "bari",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "foggia-bari",
+			"claim": "route"
+		},
+		{
+			"id": "bari-croatia-2-1",
+			"start": "bari",
+			"end": "croatia",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bari-taranto-1",
+			"start": "bari",
+			"end": "taranto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "bari-taranto",
+			"claim": "route"
+		},
+		{
+			"id": "bari-taranto-2",
+			"start": "bari",
+			"end": "taranto",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "bari-taranto",
+			"claim": "route"
+		},
+		{
+			"id": "bari-lecce-1",
+			"start": "bari",
+			"end": "lecce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "bari-lecce",
+			"claim": "route"
+		},
+		{
+			"id": "bari-lecce-2",
+			"start": "bari",
+			"end": "lecce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "bari-lecce",
+			"claim": "route"
+		},
+		{
+			"id": "taranto-lecce-1",
+			"start": "taranto",
+			"end": "lecce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "taranto-lecce",
+			"claim": "route"
+		},
+		{
+			"id": "taranto-lecce-2",
+			"start": "taranto",
+			"end": "lecce",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "taranto-lecce",
+			"claim": "route"
+		},
+		{
+			"id": "taranto-cosenza-1",
+			"start": "taranto",
+			"end": "cosenza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "taranto-cosenza",
+			"claim": "route"
+		},
+		{
+			"id": "taranto-cosenza-2",
+			"start": "taranto",
+			"end": "cosenza",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "taranto-cosenza",
+			"claim": "route"
+		},
+		{
+			"id": "cosenza-messina-1",
+			"start": "cosenza",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "cosenza-messina",
+			"claim": "route"
+		},
+		{
+			"id": "cosenza-messina-2",
+			"start": "cosenza",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "cosenza-messina",
+			"claim": "route"
+		},
+		{
+			"id": "palermo-messina-1",
+			"start": "palermo",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "palermo-messina",
+			"claim": "route"
+		},
+		{
+			"id": "palermo-messina-2",
+			"start": "palermo",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "palermo-messina",
+			"claim": "route"
+		},
+		{
+			"id": "palermo-catania-1",
+			"start": "palermo",
+			"end": "catania",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "palermo-agrigento-1",
+			"start": "palermo",
+			"end": "agrigento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "palermo-agrigento",
+			"claim": "route"
+		},
+		{
+			"id": "palermo-agrigento-2",
+			"start": "palermo",
+			"end": "agrigento",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "palermo-agrigento",
+			"claim": "route"
+		},
+		{
+			"id": "agrigento-catania-1",
+			"start": "agrigento",
+			"end": "catania",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "agrigento-siracusa-1",
+			"start": "agrigento",
+			"end": "siracusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "agrigento-siracusa",
+			"claim": "route"
+		},
+		{
+			"id": "agrigento-siracusa-2",
+			"start": "agrigento",
+			"end": "siracusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "agrigento-siracusa",
+			"claim": "route"
+		},
+		{
+			"id": "catania-messina-1",
+			"start": "catania",
+			"end": "messina",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "catania-siracusa-1",
+			"start": "catania",
+			"end": "siracusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "messina-siracusa-1",
+			"start": "messina",
+			"end": "siracusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "messina-siracusa",
+			"claim": "route"
+		},
+		{
+			"id": "messina-siracusa-2",
+			"start": "messina",
+			"end": "siracusa",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "wave",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "messina-siracusa",
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "torino-france-0",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "torino-milano",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "torino-genova",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "milano-bergamo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "milano-genova",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bergamo-verona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "verona-venezia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "verona-bologna",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "parma-genova",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "parma-bologna",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "venezia-tarvisio",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "tarvisio-austria-1",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "venezia-trieste",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "venezia-ravenna",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "trieste-croatia-0",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bologna-ravenna",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ravenna-ancona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "genova-pisa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "genova-olbia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pisa-grosseto",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "grosseto-roma",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "ancona-pescara",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "roma-napoli",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 3
+				},
+				{
+					"players": 5,
+					"tracks": 3
+				}
+			]
+		},
+		{
+			"id": "roma-olbia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sassari-olbia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "sassari-cagliari",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "olbia-cagliari",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cagliari-palermo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "pescara-foggia",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "napoli-salerno",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "napoli-palermo",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "salerno-cosenza",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "foggia-bari",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bari-taranto",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bari-lecce",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "taranto-lecce",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "taranto-cosenza",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "cosenza-messina",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "palermo-messina",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "palermo-agrigento",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "agrigento-siracusa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "messina-siracusa",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 1
+				},
+				{
+					"players": 4,
+					"tracks": 2
+				},
+				{
+					"players": 5,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}

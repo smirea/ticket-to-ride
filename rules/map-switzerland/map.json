@@ -1,0 +1,2530 @@
+{
+	"schemaVersion": 1,
+	"id": "switzerland",
+	"name": "Switzerland",
+	"image": {
+		"file": "map.png",
+		"width": 2600,
+		"height": 1728
+	},
+	"players": [2, 3],
+	"mechanics": ["tunnels"],
+	"regions": [],
+	"companies": [],
+	"nodes": [
+		{
+			"id": "basel",
+			"name": "Basel",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.35514,
+					"y": 0.18047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "delemont",
+			"name": "Delémont",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28349,
+					"y": 0.27266
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "la-chaux-de-fonds",
+			"name": "La Chaux-de-Fonds",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.17601,
+					"y": 0.37734
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "solothurn",
+			"name": "Solothurn",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.34164,
+					"y": 0.3125
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "olten",
+			"name": "Olten",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.40914,
+					"y": 0.29297
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "baden",
+			"name": "Baden",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.4839,
+					"y": 0.21094
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "schaffhausen",
+			"name": "Schaffhausen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.55192,
+					"y": 0.09453
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "kreuzlingen",
+			"name": "Kreuzlingen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.67913,
+					"y": 0.13437
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "winterthur",
+			"name": "Winterthur",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57996,
+					"y": 0.18047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "st-gallen",
+			"name": "St. Gallen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.70924,
+					"y": 0.22187
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zurich",
+			"name": "Zürich",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.5405,
+					"y": 0.25625
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "zug",
+			"name": "Zug",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.54154,
+					"y": 0.35234
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "pfaffikon",
+			"name": "Pfäffikon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.60592,
+					"y": 0.35234
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "luzern",
+			"name": "Luzern",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.49585,
+					"y": 0.41328
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "schwyz",
+			"name": "Schwyz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.56438,
+					"y": 0.43672
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "vaduz",
+			"name": "Vaduz",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.75337,
+					"y": 0.35313
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sargans",
+			"name": "Sargans",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.71755,
+					"y": 0.42812
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "chur",
+			"name": "Chur",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.74403,
+					"y": 0.50938
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "davos",
+			"name": "Davos",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.84008,
+					"y": 0.50781
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "neuchatel",
+			"name": "Neuchâtel",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.22066,
+					"y": 0.44062
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bern",
+			"name": "Bern",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.32606,
+					"y": 0.46094
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "yverdon",
+			"name": "Yverdon",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.16147,
+					"y": 0.53281
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "fribourg",
+			"name": "Fribourg",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.28037,
+					"y": 0.53047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lausanne",
+			"name": "Lausanne",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.17342,
+					"y": 0.63906
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "geneve",
+			"name": "Genève",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.05711,
+					"y": 0.79531
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "interlaken",
+			"name": "Interlaken",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.41381,
+					"y": 0.59141
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "wassen",
+			"name": "Wassen",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.57009,
+					"y": 0.58047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "brig",
+			"name": "Brig",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.43458,
+					"y": 0.73047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "sion",
+			"name": "Sion",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.31256,
+					"y": 0.76484
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "martigny",
+			"name": "Martigny",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.23728,
+					"y": 0.84766
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "locarno",
+			"name": "Locarno",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.59865,
+					"y": 0.81641
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "bellinzona",
+			"name": "Bellinzona",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.65836,
+					"y": 0.79531
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "lugano",
+			"name": "Lugano",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.64642,
+					"y": 0.88047
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "brusio",
+			"name": "Brusio",
+			"type": "city",
+			"positions": [
+				{
+					"x": 0.86501,
+					"y": 0.75703
+				}
+			],
+			"connectivity": "shared"
+		},
+		{
+			"id": "france",
+			"name": "France",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.29387,
+					"y": 0.12969
+				},
+				{
+					"x": 0.08827,
+					"y": 0.31328
+				},
+				{
+					"x": 0.04829,
+					"y": 0.88047
+				},
+				{
+					"x": 0.17653,
+					"y": 0.95391
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "germany",
+			"name": "Deutschland",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.36189,
+					"y": 0.09375
+				},
+				{
+					"x": 0.59761,
+					"y": 0.04766
+				},
+				{
+					"x": 0.65161,
+					"y": 0.05469
+				},
+				{
+					"x": 0.72015,
+					"y": 0.06953
+				},
+				{
+					"x": 0.78557,
+					"y": 0.14297
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "austria",
+			"name": "Österreich",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.86604,
+					"y": 0.31094
+				},
+				{
+					"x": 0.8136,
+					"y": 0.34219
+				},
+				{
+					"x": 0.96106,
+					"y": 0.44531
+				}
+			],
+			"connectivity": "separate"
+		},
+		{
+			"id": "italy",
+			"name": "Italia",
+			"type": "country",
+			"positions": [
+				{
+					"x": 0.96521,
+					"y": 0.54844
+				},
+				{
+					"x": 0.91225,
+					"y": 0.87891
+				},
+				{
+					"x": 0.51038,
+					"y": 0.89297
+				},
+				{
+					"x": 0.57477,
+					"y": 0.95078
+				},
+				{
+					"x": 0.70249,
+					"y": 0.92266
+				}
+			],
+			"connectivity": "separate"
+		}
+	],
+	"connections": [
+		{
+			"id": "basel-germany-0-1",
+			"start": "basel",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "basel-baden-1",
+			"start": "basel",
+			"end": "baden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "basel-olten-1",
+			"start": "basel",
+			"end": "olten",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "basel-delemont-1",
+			"start": "basel",
+			"end": "delemont",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "delemont-france-0-1",
+			"start": "delemont",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "delemont-la-chaux-de-fonds-1",
+			"start": "delemont",
+			"end": "la-chaux-de-fonds",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "delemont-solothurn-1",
+			"start": "delemont",
+			"end": "solothurn",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "la-chaux-de-fonds-france-1-1",
+			"start": "la-chaux-de-fonds",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "la-chaux-de-fonds-yverdon-1",
+			"start": "la-chaux-de-fonds",
+			"end": "yverdon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "la-chaux-de-fonds-neuchatel-1",
+			"start": "la-chaux-de-fonds",
+			"end": "neuchatel",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "solothurn-olten-1",
+			"start": "solothurn",
+			"end": "olten",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "solothurn-bern-1",
+			"start": "solothurn",
+			"end": "bern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "solothurn-neuchatel-1",
+			"start": "solothurn",
+			"end": "neuchatel",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olten-baden-1",
+			"start": "olten",
+			"end": "baden",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olten-zurich-1",
+			"start": "olten",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "olten-luzern-1",
+			"start": "olten",
+			"end": "luzern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "baden-zurich-1",
+			"start": "baden",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zurich-schaffhausen-1",
+			"start": "zurich",
+			"end": "schaffhausen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "schaffhausen-germany-1-1",
+			"start": "schaffhausen",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "schaffhausen-kreuzlingen-1",
+			"start": "schaffhausen",
+			"end": "kreuzlingen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "schaffhausen-winterthur-1",
+			"start": "schaffhausen",
+			"end": "winterthur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "schaffhausen-winterthur",
+			"claim": "route"
+		},
+		{
+			"id": "schaffhausen-winterthur-2",
+			"start": "schaffhausen",
+			"end": "winterthur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "schaffhausen-winterthur",
+			"claim": "route"
+		},
+		{
+			"id": "kreuzlingen-germany-2-1",
+			"start": "kreuzlingen",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kreuzlingen-germany-3-1",
+			"start": "kreuzlingen",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 3,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kreuzlingen-winterthur-1",
+			"start": "kreuzlingen",
+			"end": "winterthur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "kreuzlingen-st-gallen-1",
+			"start": "kreuzlingen",
+			"end": "st-gallen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "winterthur-zurich-1",
+			"start": "winterthur",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "winterthur-zurich",
+			"claim": "route"
+		},
+		{
+			"id": "winterthur-zurich-2",
+			"start": "winterthur",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "winterthur-zurich",
+			"claim": "route"
+		},
+		{
+			"id": "winterthur-st-gallen-1",
+			"start": "winterthur",
+			"end": "st-gallen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "st-gallen-germany-4-1",
+			"start": "st-gallen",
+			"end": "germany",
+			"startPosition": 0,
+			"endPosition": 4,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "st-gallen-austria-0-1",
+			"start": "st-gallen",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "st-gallen-vaduz-1",
+			"start": "st-gallen",
+			"end": "vaduz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "st-gallen-pfaffikon-1",
+			"start": "st-gallen",
+			"end": "pfaffikon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "st-gallen-zurich-1",
+			"start": "st-gallen",
+			"end": "zurich",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zurich-pfaffikon-1",
+			"start": "zurich",
+			"end": "pfaffikon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "zurich-zug-1",
+			"start": "zurich",
+			"end": "zug",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "zurich-zug",
+			"claim": "route"
+		},
+		{
+			"id": "zurich-zug-2",
+			"start": "zurich",
+			"end": "zug",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "zurich-zug",
+			"claim": "route"
+		},
+		{
+			"id": "zug-luzern-1",
+			"start": "zug",
+			"end": "luzern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "zug-luzern",
+			"claim": "route"
+		},
+		{
+			"id": "zug-luzern-2",
+			"start": "zug",
+			"end": "luzern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "zug-luzern",
+			"claim": "route"
+		},
+		{
+			"id": "zug-schwyz-1",
+			"start": "zug",
+			"end": "schwyz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "zug-schwyz",
+			"claim": "route"
+		},
+		{
+			"id": "zug-schwyz-2",
+			"start": "zug",
+			"end": "schwyz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"parallelGroup": "zug-schwyz",
+			"claim": "route"
+		},
+		{
+			"id": "luzern-schwyz-1",
+			"start": "luzern",
+			"end": "schwyz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pfaffikon-schwyz-1",
+			"start": "pfaffikon",
+			"end": "schwyz",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "pfaffikon-sargans-1",
+			"start": "pfaffikon",
+			"end": "sargans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "vaduz-austria-1-1",
+			"start": "vaduz",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "vaduz-sargans-1",
+			"start": "vaduz",
+			"end": "sargans",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sargans-davos-1",
+			"start": "sargans",
+			"end": "davos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sargans-chur-1",
+			"start": "sargans",
+			"end": "chur",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "chur-davos-1",
+			"start": "chur",
+			"end": "davos",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "davos-austria-2-1",
+			"start": "davos",
+			"end": "austria",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "davos-italy-0-1",
+			"start": "davos",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "davos-brusio-1",
+			"start": "davos",
+			"end": "brusio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "chur-brusio-1",
+			"start": "chur",
+			"end": "brusio",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "brusio-italy-1-1",
+			"start": "brusio",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 1,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "chur-wassen-1",
+			"start": "chur",
+			"end": "wassen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "schwyz-wassen-1",
+			"start": "schwyz",
+			"end": "wassen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"parallelGroup": "schwyz-wassen",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "schwyz-wassen-2",
+			"start": "schwyz",
+			"end": "wassen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				},
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "schwyz-wassen",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "luzern-interlaken-1",
+			"start": "luzern",
+			"end": "interlaken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "luzern-bern-1",
+			"start": "luzern",
+			"end": "bern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "luzern-bern",
+			"claim": "route"
+		},
+		{
+			"id": "luzern-bern-2",
+			"start": "luzern",
+			"end": "bern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "luzern-bern",
+			"claim": "route"
+		},
+		{
+			"id": "neuchatel-bern-1",
+			"start": "neuchatel",
+			"end": "bern",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "neuchatel-yverdon-1",
+			"start": "neuchatel",
+			"end": "yverdon",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "neuchatel-lausanne-1",
+			"start": "neuchatel",
+			"end": "lausanne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "bern-fribourg-1",
+			"start": "bern",
+			"end": "fribourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"parallelGroup": "bern-fribourg",
+			"claim": "route"
+		},
+		{
+			"id": "bern-fribourg-2",
+			"start": "bern",
+			"end": "fribourg",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "bern-fribourg",
+			"claim": "route"
+		},
+		{
+			"id": "bern-interlaken-1",
+			"start": "bern",
+			"end": "interlaken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "fribourg-lausanne-1",
+			"start": "fribourg",
+			"end": "lausanne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "fribourg-lausanne",
+			"claim": "route"
+		},
+		{
+			"id": "fribourg-lausanne-2",
+			"start": "fribourg",
+			"end": "lausanne",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				},
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"parallelGroup": "fribourg-lausanne",
+			"claim": "route"
+		},
+		{
+			"id": "yverdon-geneve-1",
+			"start": "yverdon",
+			"end": "geneve",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lausanne-geneve-1",
+			"start": "lausanne",
+			"end": "geneve",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				},
+				{
+					"type": "car",
+					"color": "blue"
+				}
+			],
+			"parallelGroup": "lausanne-geneve",
+			"claim": "route"
+		},
+		{
+			"id": "lausanne-geneve-2",
+			"start": "lausanne",
+			"end": "geneve",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"parallelGroup": "lausanne-geneve",
+			"claim": "route"
+		},
+		{
+			"id": "geneve-france-2-1",
+			"start": "geneve",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"claim": "route"
+		},
+		{
+			"id": "lausanne-martigny-1",
+			"start": "lausanne",
+			"end": "martigny",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "martigny-france-3-1",
+			"start": "martigny",
+			"end": "france",
+			"startPosition": 0,
+			"endPosition": 3,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "martigny-sion-1",
+			"start": "martigny",
+			"end": "sion",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "sion-brig-1",
+			"start": "sion",
+			"end": "brig",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				},
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "brig-interlaken-1",
+			"start": "brig",
+			"end": "interlaken",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "brig-wassen-1",
+			"start": "brig",
+			"end": "wassen",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				},
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "brig-italy-2-1",
+			"start": "brig",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 2,
+			"links": [
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				},
+				{
+					"type": "car",
+					"color": "green"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "brig-locarno-1",
+			"start": "brig",
+			"end": "locarno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "wassen-bellinzona-1",
+			"start": "wassen",
+			"end": "bellinzona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "wassen-bellinzona",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "wassen-bellinzona-2",
+			"start": "wassen",
+			"end": "bellinzona",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				},
+				{
+					"type": "car",
+					"color": "gray"
+				}
+			],
+			"parallelGroup": "wassen-bellinzona",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "bellinzona-locarno-1",
+			"start": "bellinzona",
+			"end": "locarno",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "black"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "bellinzona-lugano-1",
+			"start": "bellinzona",
+			"end": "lugano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "red"
+				}
+			],
+			"parallelGroup": "bellinzona-lugano",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "bellinzona-lugano-2",
+			"start": "bellinzona",
+			"end": "lugano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "yellow"
+				}
+			],
+			"parallelGroup": "bellinzona-lugano",
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "locarno-lugano-1",
+			"start": "locarno",
+			"end": "lugano",
+			"startPosition": 0,
+			"endPosition": 0,
+			"links": [
+				{
+					"type": "car",
+					"color": "purple"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "locarno-italy-3-1",
+			"start": "locarno",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 3,
+			"links": [
+				{
+					"type": "car",
+					"color": "orange"
+				},
+				{
+					"type": "car",
+					"color": "orange"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		},
+		{
+			"id": "lugano-italy-4-1",
+			"start": "lugano",
+			"end": "italy",
+			"startPosition": 0,
+			"endPosition": 4,
+			"links": [
+				{
+					"type": "car",
+					"color": "white"
+				},
+				{
+					"type": "car",
+					"color": "white"
+				}
+			],
+			"tunnel": {
+				"reveal": 3
+			},
+			"claim": "route"
+		}
+	],
+	"parallelGroups": [
+		{
+			"id": "schaffhausen-winterthur",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "winterthur-zurich",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zurich-zug",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zug-luzern",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "zug-schwyz",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "schwyz-wassen",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "luzern-bern",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bern-fribourg",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "fribourg-lausanne",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "lausanne-geneve",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "wassen-bellinzona",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		},
+		{
+			"id": "bellinzona-lugano",
+			"limits": [
+				{
+					"players": 2,
+					"tracks": 1
+				},
+				{
+					"players": 3,
+					"tracks": 2
+				}
+			]
+		}
+	]
+}
