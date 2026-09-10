@@ -698,7 +698,7 @@ describe('persistence and full simulation', () => {
 		delete legacy.history;
 		delete legacy.openingTicketOffers;
 		const restored = restoreGameState(legacy);
-		expect(restored.version).toBe(2);
+		expect(restored.version).toBe(3);
 		expect(restored.finalRound).toBeNull();
 		expect(restored.finalResults).toBeNull();
 		expect(restored.history).toEqual([]);

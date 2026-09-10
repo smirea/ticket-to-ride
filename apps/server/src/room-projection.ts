@@ -40,6 +40,11 @@ function projectGame(game: GameState, viewerId: string): GameState {
 		? { [viewerId]: [...game.openingTicketOffers[viewerId]!] }
 		: {};
 	projected.history = game.history.map(redactAction);
+	projected.events = game.events.map(event =>
+		event.type === 'keep-tickets' && event.playerId !== viewerId
+			? { type: event.type, playerId: event.playerId, turnNumber: event.turnNumber, count: event.count }
+			: structuredClone(event),
+	);
 	if (projected.phase.type === 'ticket-selection' && projected.phase.playerId !== viewerId) {
 		projected.phase.ticketIds = privateTicketIds('offer', projected.phase.ticketIds.length);
 	}

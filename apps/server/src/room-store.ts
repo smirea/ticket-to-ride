@@ -1,3 +1,4 @@
+import { restoreGameState } from '@repo/shared';
 import { Database } from 'bun:sqlite';
 import type { AcceptedGameAction, RoomState, SubmitGameActionRequest } from '@repo/shared';
 
@@ -66,7 +67,7 @@ export class RoomStore {
 
 	getRoom(code: string): RoomState | null {
 		const row = this.database.query<RoomRow, [string]>('SELECT state_json FROM rooms WHERE code = ?').get(code);
-		return row ? (JSON.parse(row.state_json) as RoomState) : null;
+		return row ? restoreRoom(row.state_json) : null;
 	}
 
 	getCurrentRoom(clientId: string): RoomState | null {
@@ -80,7 +81,7 @@ export class RoomStore {
 				 LIMIT 1`,
 			)
 			.get(clientId);
-		return row ? (JSON.parse(row.state_json) as RoomState) : null;
+		return row ? restoreRoom(row.state_json) : null;
 	}
 
 	createRoom(room: RoomState): void {
@@ -172,4 +173,10 @@ function rowToAcceptedAction(row: ActionRow): AcceptedGameAction {
 		resultingRevision: row.resulting_revision,
 		acceptedAt: row.accepted_at,
 	};
+}
+
+function restoreRoom(serialized: string): RoomState {
+	const room = JSON.parse(serialized) as RoomState;
+	if (room.game) room.game = restoreGameState(room.game);
+	return room;
 }

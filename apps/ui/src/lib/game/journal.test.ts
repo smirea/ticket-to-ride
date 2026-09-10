@@ -1,88 +1,64 @@
 import { expect, test } from 'bun:test';
-import { createGame, USA_ROUTES, USA_TICKETS } from '@repo/shared';
+import {
+	applyGameAction,
+	createDebugClaimScenario,
+	createGame,
+	formatGameEvent,
+	restoreGameState,
+	USA_TICKETS,
+} from '@repo/shared';
 import { journalRows } from './journal';
 
-function scenario() {
+test('groups by player ID and turn, even when names collide and adjacent turns belong to the same player', () => {
 	const state = createGame();
-	state.players[0]!.name = 'Ada';
-	state.players[1]!.name = 'Bert';
-	state.log = [];
-	state.history = [];
-	return state;
-}
-
-test('groups two-card turns newest first without crossing a rival or a locomotive turn', () => {
-	const state = scenario();
-	state.log = [
-		'Ada drew a face-up red card.',
-		'Ada drew from the train deck.',
-		'Bert drew a face-up locomotive card.',
-		'Ada drew from the train deck.',
-		'Ada drew from the train deck.',
-		'Ada drew a face-up locomotive card.',
-		'Ada drew from the train deck.',
+	state.players[0]!.name = state.players[1]!.name = 'Same name';
+	state.events = [
+		{ type: 'draw-face-up', playerId: 'player', turnNumber: 1, card: 'red' },
+		{ type: 'draw-train-deck', playerId: 'player', turnNumber: 1 },
+		{ type: 'draw-face-up', playerId: 'bot-1', turnNumber: 2, card: 'locomotive' },
+		{ type: 'draw-train-deck', playerId: 'player', turnNumber: 3 },
+		{ type: 'draw-train-deck', playerId: 'player', turnNumber: 4 },
 	];
-	expect(journalRows(state, state.players[0]!.id).map(row => row.cards)).toEqual([
-		['deck'],
-		['locomotive'],
-		['deck', 'deck'],
-		['locomotive'],
-		['red', 'deck'],
-	]);
+	const rows = journalRows(state, 'player');
+	expect(rows.map(row => row.cards)).toEqual([['deck'], ['deck'], ['locomotive'], ['red', 'deck']]);
+	expect(rows[2]!.player?.id).toBe('bot-1');
+	expect(formatGameEvent(state.events[0]!, state.players)).toBe('Same name drew a face-up red card.');
 });
 
-test('never combines more than two draws or combines through another action', () => {
-	const state = scenario();
-	state.log = [
-		'Ada drew from the train deck.',
-		'Ada drew from the train deck.',
-		'Ada drew from the train deck.',
-		'Ada triggered the final round.',
-		'Ada drew from the train deck.',
+test('ticket events retain owned identities and group only within their turn', () => {
+	const state = createGame();
+	const ticket = USA_TICKETS[0]!;
+	state.events = [
+		{ type: 'draw-destination-tickets', playerId: 'player', turnNumber: 3, count: 3 },
+		{ type: 'keep-tickets', playerId: 'player', turnNumber: 3, count: 1, ticketIds: [ticket.id] },
 	];
-	expect(journalRows(state, state.players[0]!.id).map(row => row.cards?.length)).toEqual([1, undefined, 1, 2]);
+	expect(journalRows(state, 'player')).toHaveLength(1);
+	expect(journalRows(state, 'player')[0]!.tickets).toEqual([ticket]);
+	expect(journalRows(state, 'bot-1')[0]!.tickets).toBeUndefined();
+	state.events[1] = { type: 'keep-tickets', playerId: 'player', turnNumber: 3, count: 1 };
+	expect(journalRows(state, 'player')[0]!.tickets).toBeUndefined();
 });
 
-test('groups ticket draw and keep, but exposes only explicit, owned viewer ticket IDs', () => {
-	const state = scenario();
-	const ticket = USA_TICKETS[0]!;
-	state.players[1]!.tickets = [ticket.id];
-	state.log = ['Bert drew 3 destination tickets.', 'Bert kept 1 destination ticket.'];
-	state.history = [{ type: 'draw-destination-tickets' }, { type: 'keep-tickets', ticketIds: [ticket.id] }];
-	expect(journalRows(state, state.players[0]!.id)[0]!.tickets).toBeUndefined();
-	expect(journalRows(state, state.players[1]!.id)[0]!.tickets).toEqual([ticket]);
-	state.history[1] = { type: 'keep-tickets', ticketIds: [] };
-	expect(journalRows(state, state.players[1]!.id)[0]!.tickets).toBeUndefined();
-	state.history[1] = { type: 'keep-tickets', ticketIds: [USA_TICKETS[1]!.id] };
-	expect(journalRows(state, state.players[1]!.id)[0]!.tickets).toBeUndefined();
+test('records resolved payment details before cards leave the hand', () => {
+	const state = createDebugClaimScenario();
+	state.players[0]!.hand.purple = 2;
+	state.players[0]!.hand.locomotive = 1;
+	const result = applyGameAction(state, {
+		type: 'claim-route',
+		routeId: 'san-francisco-los-angeles-purple-b',
+		paymentColor: 'purple',
+	});
+	if (!result.ok) throw new Error(result.error);
+	const row = journalRows(result.state, 'player')[0]!;
+	expect(row.payment).toEqual({ color: 'purple', cars: 2, locomotives: 1 });
+	expect(row.points).toBe(4);
+	expect(row.text).toBe('San Francisco–Los Angeles');
 });
 
-test('does not infer ticket identities from duplicate names, missing history or mismatched sequences', () => {
-	const state = scenario();
-	const ticket = USA_TICKETS[0]!;
-	state.players[0]!.tickets = [ticket.id];
-	state.log = ['Ada kept 1 destination ticket.'];
-	expect(journalRows(state, state.players[0]!.id)[0]!.tickets).toBeUndefined();
-	state.history = [{ type: 'draw-train-deck' }];
-	expect(journalRows(state, state.players[0]!.id)[0]!.tickets).toBeUndefined();
-	state.history = [{ type: 'keep-tickets', ticketIds: [ticket.id] }];
-	state.players[1]!.name = 'Ada';
-	expect(journalRows(state, state.players[0]!.id)[0]!.player).toBeUndefined();
-	expect(journalRows(state, state.players[0]!.id)[0]!.tickets).toBeUndefined();
-});
-
-test('uses exact aligned claim payments and never reconstructs omitted wild counts from a hand', () => {
-	const state = scenario();
-	const route = USA_ROUTES.find(route => route.id === 'seattle-calgary-gray')!;
-	state.log = ['Ada claimed Seattle–Calgary.'];
-	state.claimedRoutes[route.id] = state.players[0]!.id;
-	state.history = [{ type: 'claim-route', routeId: route.id, paymentColor: 'blue', locomotives: 1 }];
-	let row = journalRows(state, state.players[0]!.id)[0]!;
-	expect(row.routeId).toBe(route.id);
-	expect(row.points).toBe(7);
-	expect(row.payment).toEqual({ color: 'blue', cars: 3, locomotives: 1 });
-	state.history = [{ type: 'claim-route', routeId: route.id, paymentColor: 'blue' }];
-	expect(journalRows(state, state.players[0]!.id)[0]!.payment).toEqual({ color: 'blue' });
-	state.log = ['Ada claimed Vancouver–Seattle.'];
-	expect(journalRows(state, state.players[0]!.id)[0]!.routeId).toBeUndefined();
+test('legacy logs remain literal notes without inferring actions or identities', () => {
+	const old = { ...createGame(), version: 2, events: undefined, log: ['You kept 2 destination tickets.'] };
+	const state = restoreGameState(old);
+	expect(state.events).toEqual([{ type: 'note', text: 'You kept 2 destination tickets.' }]);
+	expect(journalRows(state, 'player')[0]!.player).toBeUndefined();
+	expect('log' in state).toBe(false);
 });
