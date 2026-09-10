@@ -39,7 +39,12 @@ function setup(filename = ':memory:'): TestContext {
 			if (clientId) headers.set(CLIENT_ID_HEADER, clientId);
 			if (body !== undefined) headers.set('content-type', 'application/json');
 			const init: RequestInit = { method, headers };
-			if (body !== undefined) init.body = JSON.stringify(body);
+			if (body !== undefined) {
+				if (path.endsWith('/actions') && typeof body === 'object' && body !== null) {
+					body = { expectedRevision: store.getRoom(path.split('/')[3]!)?.revision, ...body };
+				}
+				init.body = JSON.stringify(body);
+			}
 			return handler(new Request(`http://test.local${path}`, init));
 		},
 	};
@@ -157,6 +162,25 @@ describe('authoritative game actions', () => {
 		expect((await responseRoom(duplicate)).revision).toBe(afterAction.revision);
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
 
+		const mismatched = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
+			actionId: 'alice-opening',
+			expectedRevision: room.revision,
+			action: { type: 'draw-train-deck' },
+		});
+		expect(mismatched.status).toBe(409);
+		const retryWithOldRevision = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
+			actionId: 'alice-opening',
+			expectedRevision: room.revision,
+			action: { type: 'keep-tickets', ticketIds: aliceTickets },
+		});
+		expect(retryWithOldRevision.status).toBe(200);
+		const stale = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
+			actionId: 'bob-stale',
+			expectedRevision: room.revision,
+			action: { type: 'keep-tickets', ticketIds: [] },
+		});
+		expect(stale.status).toBe(409);
+		expect(context.store.getRoom(room.code)?.revision).toBe(afterAction.revision);
 		const currentRoom = context.store.getRoom(room.code);
 		if (currentRoom?.game?.phase.type !== 'ticket-selection') throw new Error('Expected Bob opening tickets.');
 		const invalid = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {

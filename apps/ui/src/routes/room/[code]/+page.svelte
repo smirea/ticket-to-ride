@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { RoomActionOutbox } from '$lib/room-action-outbox';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Brand from '$lib/game/Brand.svelte';
@@ -44,6 +45,8 @@
 	let slowAction = $state(false);
 	let eventSource: EventSource | null = null;
 	let disposed = false;
+	let outbox: RoomActionOutbox | undefined;
+	let unconfirmedMove = $state(false);
 
 	const viewer = $derived(identity && room ? room.players.find(player => player.id === identity?.clientId) : undefined);
 	const activePlayers = $derived(room?.players.filter(player => player.status === 'active') ?? []);
@@ -56,6 +59,12 @@
 		disposed = false;
 		lobbyHref = preserveDebugId('/lobby');
 		identity = { clientId: getClientId() };
+		outbox = new RoomActionOutbox(
+			request => submitRoomAction(roomCode, request),
+			sessionStorage,
+			`ticket-to-ride:pending-action:${identity.clientId}:${roomCode}`,
+		);
+		unconfirmedMove = outbox.pending;
 
 		const handleOnline = () => {
 			if (connection === 'offline' || connection === 'retrying') reconnect();
@@ -78,6 +87,7 @@
 		try {
 			applySnapshot(await getRoom(roomCode));
 			connectEvents();
+			if (outbox?.pending) void retryMove();
 		} catch (cause) {
 			connection = navigator.onLine ? 'retrying' : 'offline';
 			error = messageFrom(cause);
@@ -94,7 +104,7 @@
 		source.onopen = () => {
 			if (eventSource !== source) return;
 			connection = 'live';
-			error = '';
+			if (!outbox?.pending) error = '';
 			if (notice === reconnectingNotice) notice = '';
 		};
 		source.onerror = () => {
@@ -106,7 +116,7 @@
 			if (event?.type !== 'snapshot') return;
 			applySnapshot(event.room);
 			connection = 'live';
-			error = '';
+			if (!outbox?.pending) error = '';
 			if (notice === reconnectingNotice) notice = '';
 		});
 		source.addEventListener('closed', rawEvent => {
@@ -229,22 +239,34 @@
 	}
 
 	async function submitAction(action: GameAction) {
+		if (!outbox || !room) return false;
+		return runMove(() => outbox!.submit(action, room!.revision));
+	}
+
+	async function retryMove() {
+		if (!outbox?.pending) return false;
+		return runMove(() => outbox!.retry());
+	}
+
+	async function runMove(operation: () => Promise<{ room: RoomState }>) {
 		if (!identity || pending) return false;
 		pending = 'action';
 		error = '';
 		notice = 'Submitting move…';
-		const actionId = crypto.randomUUID();
 		try {
-			const response = await submitRoomAction(roomCode, action, actionId);
+			const response = await operation();
 			applySnapshot(response.room);
-			notice = '';
 			return true;
 		} catch (cause) {
 			error = messageFrom(cause);
-			notice = '';
+			try {
+				applySnapshot(await getRoom(roomCode));
+			} catch {}
 			return false;
 		} finally {
+			unconfirmedMove = outbox?.pending ?? false;
 			pending = null;
+			notice = '';
 		}
 	}
 
@@ -308,7 +330,7 @@
 				</div>
 			</div>
 		</details>
-		{#if error || slowAction || connection !== 'live'}
+		{#if error || unconfirmedMove || slowAction || connection !== 'live'}
 			<div
 				class:error={Boolean(error)}
 				class="game-message"
@@ -324,6 +346,9 @@
 								? notice || 'This room has closed.'
 								: `${connectionLabel()}…`)}
 				/>
+				{#if unconfirmedMove}<button type="button" class="small-button" disabled={Boolean(pending)} onclick={retryMove}
+						>Retry unconfirmed move</button
+					>{/if}
 			</div>
 		{/if}
 		<GameScreen state={game} viewerId={identity.clientId} {send} />

@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from 'node:util';
 import {
 	PLAYER_COLORS,
 	TRAIN_COLORS,
@@ -208,12 +209,19 @@ export class RoomService {
 			throw new RoomError('actionId is invalid.', 400);
 		}
 		validateGameAction(request.action);
+		if (!Number.isSafeInteger(request.expectedRevision) || request.expectedRevision < 1) {
+			throw new RoomError('expectedRevision is invalid.', 400);
+		}
 		const room = this.requireRoom(code);
 		const duplicate = this.store.getAcceptedAction(room.code, request.actionId);
 		if (duplicate) {
-			if (duplicate.playerId !== clientId) throw new RoomError('actionId was already used.', 409);
+			if (duplicate.playerId !== clientId || !isDeepStrictEqual(duplicate.action, request.action)) {
+				throw new RoomError('actionId was already used for another move.', 409);
+			}
 			return room;
 		}
+		if (request.expectedRevision !== room.revision)
+			throw new RoomError('The table changed. Choose your move again.', 409);
 		if (room.phase !== 'playing' || !room.game) throw new RoomError('The room is not in an active game.', 409);
 		requireActivePlayer(room, clientId);
 		const currentPlayer = room.game.players[room.game.currentPlayerIndex];

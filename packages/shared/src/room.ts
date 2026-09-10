@@ -55,6 +55,7 @@ export interface UpdateRoomSettingsRequest {
 }
 
 export interface SubmitGameActionRequest {
+	expectedRevision: number;
 	actionId: string;
 	action: GameAction;
 }

@@ -3,7 +3,6 @@ import {
 	PLAYER_COLORS,
 	type CreateRoomRequest,
 	type CurrentRoomResponse,
-	type GameAction,
 	type JoinRoomRequest,
 	type RoomDepartureResponse,
 	type RoomPlayerProfile,
@@ -92,7 +91,7 @@ export async function roomApiRequest<T>(path: string, init: RequestInit = {}): P
 	if (init.body !== undefined && !headers.has('content-type')) headers.set('content-type', 'application/json');
 	let response: Response;
 	try {
-		response = await fetch(path, { ...init, headers });
+		response = await fetch(path, { ...init, headers, signal: init.signal ?? AbortSignal.timeout(15_000) });
 	} catch {
 		throw new RoomApiError('Could not reach the game server.', 0);
 	}
@@ -155,12 +154,10 @@ export async function startRoom(code: string): Promise<RoomState> {
 
 export async function submitRoomAction(
 	code: string,
-	action: GameAction,
-	actionId = crypto.randomUUID(),
+	request: SubmitGameActionRequest,
 ): Promise<{ room: RoomState; acceptedActionId: string }> {
-	const request: SubmitGameActionRequest = { actionId, action };
 	const response = await roomCommand(`/api/rooms/${roomCodePath(code)}/actions`, request);
-	return { room: response.room, acceptedActionId: response.acceptedActionId ?? actionId };
+	return { room: response.room, acceptedActionId: response.acceptedActionId ?? request.actionId };
 }
 
 async function roomCommand(path: string, body?: object): Promise<Extract<RoomResponse, { ok: true }>> {
