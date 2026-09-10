@@ -1,0 +1,61 @@
+{
+	"id": "san-francisco",
+	"name": "San Francisco",
+	"group": "City games",
+	"bgg": {
+		"id": "362541",
+		"name": "Ticket to Ride: San Francisco",
+		"canonical_link": "https://boardgamegeek.com/boardgame/362541/ticket-to-ride-san-francisco",
+		"yearpublished": "2022",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2024/07/720064-T2RSF-Rules-EN.pdf",
+		"pages": 2,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "san-francisco-map.png",
+		"source_url": "https://cf.geekdo-images.com/Uwfq-RCY49kDMvqAEQ3mDQ__original/img/wYEMGh521zF6f2l0uWhS3JJ0mrQ=/0x0/filters:format(png)/pic6850094.png",
+		"source_page": "https://boardgamegeek.com/image/6850094/ticket-to-ride-san-francisco",
+		"caption": "Ticket to Ride: San Francisco, Days of Wonder, 2022 — game board (image provided by the publisher)",
+		"original_size": [1575, 1575],
+		"size": [1575, 1575],
+		"type": "board-image",
+		"bgg_image_id": 6850094,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"rules.md": {
+			"bytes": 942,
+			"sha256": "f85d4b552585506f048dcf405103bf83a3bcb52abe0decef0b2df51b9eae5878"
+		},
+		"rules.pdf": {
+			"bytes": 12194968,
+			"sha256": "114cc7ec828a28b06de2f0cbabb5252bfef0a6235a6bbf6691152f6b05c3d5db"
+		},
+		"san-francisco-map.png": {
+			"bytes": 4272692,
+			"sha256": "b6f94a4d801887f9f628fcd8c2ed35dc81cec20ad7f9bc177acdbd3c6e86ef25"
+		}
+	}
+}

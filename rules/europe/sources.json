@@ -1,0 +1,59 @@
+{
+	"id": "europe",
+	"name": "Europe (refreshed)",
+	"group": "Standalone and edition variants",
+	"bgg": {
+		"id": "14996",
+		"name": "Ticket to Ride: Europe",
+		"canonical_link": "https://boardgamegeek.com/boardgame/14996/ticket-to-ride-europe",
+		"yearpublished": "2005",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2026/08/7281N_TICKET2RIDEeuropeV2_RULES_EN_20250429.pdf",
+		"pages": 4,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "europe-map.png",
+		"size": [1477, 922],
+		"type": "rulebook-board-crop",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2026/08/7281N_TICKET2RIDEeuropeV2_RULES_EN_20250429.pdf",
+		"pdf_page": 2,
+		"crop_normalized": [0.2, 0.36, 0.82, 0.65],
+		"quality": "Illustration; verify labels and route data against physical components."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"europe-map.png": {
+			"bytes": 595465,
+			"sha256": "a167290f0f7e6486d43387b31dd5e1db2bb2f74bd45b79d1e4dc31a31be05c17"
+		},
+		"rules.md": {
+			"bytes": 978,
+			"sha256": "3a101f5bff23541e9cce98e9ec01c0633f214f8eac523d1dc171888b8cacce49"
+		},
+		"rules.pdf": {
+			"bytes": 8910941,
+			"sha256": "c2e66c703b9d1e2921dfb9e4e26718012fe6eb04a39fff48acc091fc05fb8aff"
+		}
+	}
+}

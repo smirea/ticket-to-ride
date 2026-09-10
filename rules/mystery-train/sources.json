@@ -1,0 +1,58 @@
+{
+	"id": "mystery-train",
+	"name": "Mystery Train",
+	"group": "Modules and promos",
+	"bgg": {
+		"id": "13297",
+		"name": "Ticket to Ride: Mystery Train Expansion",
+		"canonical_link": "https://boardgamegeek.com/boardgame/13297/ticket-to-ride-mystery-train-expansion",
+		"yearpublished": "2004",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://ncdn0.daysofwonder.com/tickettoride/en/img/tt_mysterytrain_en.pdf",
+		"pages": 2,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "mystery-train-map.png",
+		"size": [1024, 683],
+		"type": "shared-base-map",
+		"reuses_map": "usa-classic",
+		"source_url": "https://cf.geekdo-images.com/U2eaeOCVGYFDhPgaIY6CmQ__original/img/HbB8LneSsfjCiXK-jhs3fx7hi0o=/0x0/filters:format(jpeg)/pic38674.jpg",
+		"quality": "Expansion has no separate geographic board. See base entry provenance."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"mystery-train-map.png": {
+			"bytes": 1785149,
+			"sha256": "2853759d2337d4fe59fe7bc4d73ad7807aa0dddbc647cbb96c97acc8cadadb04"
+		},
+		"rules.md": {
+			"bytes": 997,
+			"sha256": "8b3616ad47607e09460ec5f8c90bb600be0c668f914e2301f817487f06d9e21b"
+		},
+		"rules.pdf": {
+			"bytes": 1699475,
+			"sha256": "7da9a5a5fdd6bd447dedeaea1d944e318a1eac17ecaaa61fd3b4cc04bef2b814"
+		}
+	}
+}

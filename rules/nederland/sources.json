@@ -1,0 +1,58 @@
+{
+	"id": "nederland",
+	"name": "Nederland",
+	"group": "Map expansions",
+	"bgg": {
+		"id": "147938",
+		"name": "Ticket to Ride Map Collection 4: Nederland",
+		"canonical_link": "https://boardgamegeek.com/boardgame/147938/ticket-to-ride-map-collection-4-nederland",
+		"yearpublished": "2013",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["usa-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2025/04/720120-T2RMC4-Rules-EN-2019.pdf",
+		"pages": 3,
+		"language": "en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "nederland-map.png",
+		"size": [1200, 754],
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/image-converter/2024/07/720120-T2RMC4-spreadbox-ML.webp",
+		"source_page": "https://www.daysofwonder.com/game/ticket-to-ride-nederland/",
+		"type": "publisher-component-photo",
+		"quality": "Board shown with components; some detail may be obscured."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"nederland-map.png": {
+			"bytes": 868526,
+			"sha256": "3a456f0ced43451891c03f46ee59fc41ba9cf2a42f5587a0c58a52fc7c22c07e"
+		},
+		"rules.md": {
+			"bytes": 1006,
+			"sha256": "6c4b357eb2199f05bef231e4d62b3b087f984a49ab8469f16818a9b3e6e9c0ec"
+		},
+		"rules.pdf": {
+			"bytes": 3347265,
+			"sha256": "5484985cd0e675633cc91ff148bb7d1c9f4b3396fb225d6d230c99cdfed763b8"
+		}
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"id": "marklin",
+	"name": "Märklin",
+	"group": "Standalone and edition variants",
+	"bgg": {
+		"id": "21348",
+		"name": "Ticket to Ride: Märklin",
+		"canonical_link": "https://boardgamegeek.com/boardgame/21348/ticket-to-ride-marklin",
+		"yearpublished": "2006",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.daysofwonder.com/tickettoride/en/img/tm_rules_en.pdf",
+		"pages": 8,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "marklin-map.png",
+		"source_url": "https://cdn.daysofwonder.com/tickettoride/en/img/tm_rules_en.pdf",
+		"size": [1015, 1532],
+		"type": "joined-rulebook-board-crop",
+		"pdf_pages": [2, 3],
+		"crop_normalized_on_joined_pages": [0.395, 0.272, 0.608, 0.73],
+		"quality": "Rulebook board illustration joined across pages 2–3; printed annotations retained."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"marklin-map.png": {
+			"bytes": 1986177,
+			"sha256": "7b98322e923f7bb5d55e115b257eea8b4d0da4bb2413d7e15711272dc12b3cdd"
+		},
+		"rules.md": {
+			"bytes": 938,
+			"sha256": "e0df5377451268768bab980e52ce30680bd3a85198ad3c9480db8b061e46c982"
+		},
+		"rules.pdf": {
+			"bytes": 3247124,
+			"sha256": "5f9a1ffa8581d83fd5f1108c151608e3f10da70ac3903041870e76e77cabb806"
+		}
+	}
+}

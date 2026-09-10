@@ -1,0 +1,58 @@
+{
+	"id": "europa-1912",
+	"name": "Europa 1912",
+	"group": "Modules and promos",
+	"bgg": {
+		"id": "53383",
+		"name": "Ticket to Ride: Europa 1912",
+		"canonical_link": "https://boardgamegeek.com/boardgame/53383/ticket-to-ride-europa-1912",
+		"yearpublished": "2009",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": ["europe-classic"],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/production-daysofwonder/uploads/2025/03/720111-T2R1912-Rules-EN.pdf",
+		"pages": 11,
+		"language": "multilingual-including-en",
+		"scope": "expansion-delta"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "europa-1912-map.png",
+		"size": [800, 533],
+		"type": "shared-base-map",
+		"reuses_map": "europe-classic",
+		"source_url": "https://cf.geekdo-images.com/34etSTfl-aa9hsi1gd2MZw__original/img/nhBqtw6ISU8K544rFQ2jPuyBDtM=/0x0/filters:format(jpeg)/pic70732.jpg",
+		"quality": "Expansion has no separate geographic board. See base entry provenance."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"europa-1912-map.png": {
+			"bytes": 954306,
+			"sha256": "3c668238887b9cfff0e2e8d24cb917a48a6eb1ba8d02e64bc253045f67c1d95f"
+		},
+		"rules.md": {
+			"bytes": 976,
+			"sha256": "d29333ee570249385841554c09cab16e8f62a233806c8fa69e3ec6c37f5e706a"
+		},
+		"rules.pdf": {
+			"bytes": 872174,
+			"sha256": "200717d8bb729d8a79b36d1fb137f629e8458a70c6ec1f5098d00b96ae29f0c3"
+		}
+	}
+}

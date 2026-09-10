@@ -1,0 +1,61 @@
+{
+	"id": "first-journey-usa",
+	"name": "First Journey Usa",
+	"group": "Family games",
+	"bgg": {
+		"id": "205125",
+		"name": "Ticket to Ride: First Journey (U.S.)",
+		"canonical_link": "https://boardgamegeek.com/boardgame/205125/ticket-to-ride-first-journey-us",
+		"yearpublished": "2016",
+		"minplayers": "2",
+		"maxplayers": "4"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://cdn.svc.asmodee.net/staging-daysofwonder/uploads/2024/07/tk_rules_en_2018.pdf",
+		"pages": 2,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "first-journey-usa-map.png",
+		"source_url": "https://cf.geekdo-images.com/cJwtIE4o2NYLFmO9zoFJsA__original/img/7BPtygv-_G6v_nE8SBRbNqQVf00=/0x0/filters:format(jpeg)/pic3124185.jpg",
+		"source_page": "https://boardgamegeek.com/image/3124185/ticket-to-ride-first-journey-us",
+		"caption": "First Journey Game Board",
+		"original_size": [4810, 3111],
+		"size": [2600, 1682],
+		"type": "board-image",
+		"bgg_image_id": 3124185,
+		"quality": "Visual reference, not verified graph data. Some photos include placed pieces."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"first-journey-usa-map.png": {
+			"bytes": 6739081,
+			"sha256": "df9ff7c27ae4c09acb9abf30cc51c0c284eab42d93e1b913769ecc736d337961"
+		},
+		"rules.md": {
+			"bytes": 984,
+			"sha256": "d96a82099f496d0ef01b1d2078c8f2ff4edde6cbc355feae0a4b114c0d7e81bc"
+		},
+		"rules.pdf": {
+			"bytes": 1272560,
+			"sha256": "ade760ff3d1a89b0114c3b3ed349a9bbf0d9bd3ed8191086aec801dab3b1a0e1"
+		}
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"id": "europe-15th-anniversary",
+	"name": "Europe 15th Anniversary",
+	"group": "Standalone and edition variants",
+	"bgg": {
+		"id": "329841",
+		"name": "Ticket to Ride: Europe – 15th Anniversary",
+		"canonical_link": "https://boardgamegeek.com/boardgame/329841/ticket-to-ride-europe-15th-anniversary",
+		"yearpublished": "2021",
+		"minplayers": "2",
+		"maxplayers": "5"
+	},
+	"aliases": [],
+	"retrieved_on": "2026-09-10",
+	"asset_status": "three-required-assets-present",
+	"implementation_status": "research-required",
+	"prerequisite_rules": [],
+	"dependency_note": "These are rules-reading prerequisites; check the source for compatible physical sets. Do not assume every base-game mechanism carries over.",
+	"rules": {
+		"path": "rules.pdf",
+		"source_url": "https://ncdn0.daysofwonder.com/tickettoride/en/img/t2re15-rules-EN.pdf",
+		"pages": 8,
+		"language": "en",
+		"scope": "standalone-rulebook"
+	},
+	"markdown": {
+		"path": "rules.md",
+		"type": "original-implementation-brief",
+		"is_full_transcription": false
+	},
+	"map": {
+		"path": "europe-15th-anniversary-map.png",
+		"size": [1471, 1052],
+		"type": "rulebook-board-crop",
+		"source_url": "https://ncdn0.daysofwonder.com/tickettoride/en/img/t2re15-rules-EN.pdf",
+		"pdf_page": 3,
+		"crop_normalized": [0.275, 0.505, 0.73, 0.83],
+		"quality": "Illustration; verify labels and route data against physical components."
+	},
+	"supplemental": {},
+	"implementation_gaps": [
+		"Complete destination/card inventory and machine-readable route graph have not been transcribed or verified."
+	],
+	"missing_assets": null,
+	"files": {
+		"europe-15th-anniversary-map.png": {
+			"bytes": 1169787,
+			"sha256": "efb7ec0fea192d8e996355895bc7fec06af97ba280f8d9f6255453fa90673f86"
+		},
+		"rules.md": {
+			"bytes": 965,
+			"sha256": "6e226300ad588296ac15db13910e7b3f9ac32c633aa51a5fabc81faf15d0d062"
+		},
+		"rules.pdf": {
+			"bytes": 15973849,
+			"sha256": "9dc1f4210477d61dcd9b1baed990f4080fe372b657f6531f6e57c98197487fae"
+		}
+	}
+}
