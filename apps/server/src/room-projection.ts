@@ -35,7 +35,6 @@ function projectGame(game: GameState, viewerId: string): GameState {
 	projected.trainDeck.fill('red');
 	projected.trainDiscard.fill('red');
 	projected.destinationDeck = privateTicketIds('deck', projected.destinationDeck.length);
-	projected.destinationDiscard = privateTicketIds('discard', projected.destinationDiscard.length);
 	projected.openingTicketOffers = game.openingTicketOffers[viewerId]
 		? { [viewerId]: [...game.openingTicketOffers[viewerId]!] }
 		: {};

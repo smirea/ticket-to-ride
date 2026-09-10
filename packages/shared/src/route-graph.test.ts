@@ -38,7 +38,7 @@ test('path planning handles zero-cost owned cycles and breaks ties deterministic
 		{ id: 'cd', cityA: 'c', cityB: 'd', color: 'gray' as const, length: 2 },
 		{ id: 'bd', cityA: 'b', cityB: 'd', color: 'gray' as const, length: 2 },
 	];
-	const cost = (route: (typeof routes)[number]) => (route.cityB === 'd' ? 2 : 0);
+	const cost = (route: { cityB: string }) => (route.cityB === 'd' ? 2 : 0);
 	const path = findRoutePath(createRouteGraph(routes), 'a', 'd', cost)!;
 	const reversed = findRoutePath(createRouteGraph([...routes].reverse()), 'a', 'd', cost)!;
 	expect(path.cost).toBe(2);
