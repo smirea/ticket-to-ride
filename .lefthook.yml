@@ -1,5 +1,10 @@
 pre-commit:
-  parallel: true
   commands:
     lint:
-      run: bun run lint
+      glob: '*.{ts,js,svelte}'
+      run: bunx oxlint --fix {staged_files}
+      stage_fixed: true
+    format:
+      glob: '*.{ts,js,svelte,json,css,md,yml,yaml}'
+      run: bunx oxfmt --write {staged_files}
+      stage_fixed: true
