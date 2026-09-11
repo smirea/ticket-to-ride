@@ -2,13 +2,28 @@
 
 Each `map-<id>/` folder represents one board. Start with `map.json` for the graph, `map.png` for visual verification, and `rules.md` for the map's gameplay. Expansion rulebooks may require the base game rules as well.
 
-| File        | Purpose                                                                                                |
-| ----------- | ------------------------------------------------------------------------------------------------------ |
-| `map.json`  | Typed board topology, normalized node positions, physical route spaces, and board-specific attributes. |
-| `map.png`   | Full board reference; JSON coordinates refer to this exact image.                                      |
-| `rules.pdf` | Original rulebook.                                                                                     |
-| `rules.md`  | Parsed rulebook, source links, and linked page images.                                                 |
-| `images/`   | Rulebook page images and diagrams referenced by the Markdown.                                          |
+| File                | Purpose                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------ |
+| `map.json`          | Typed board topology, normalized node positions, physical route spaces, and board-specific attributes. |
+| `map-generated.png` | Generated terrain-only artwork matching the default USA relief style; no labels, cities, or tracks.    |
+| `map.png`           | Full board reference; JSON coordinates refer to this exact image.                                      |
+| `rules.pdf`         | Original rulebook.                                                                                     |
+| `rules.md`          | Parsed rulebook, source links, and linked page images.                                                 |
+| `images/`           | Rulebook page images and diagrams referenced by the Markdown.                                          |
+
+## Generated terrain artwork
+
+Each `map-generated.png` is a background illustration generated with the built-in image generation tool. All maps use the existing [`usa-relief-v4.webp`](../apps/ui/static/game-assets/atlas/usa-relief-v4.webp) as their visual style reference and their own `map.png` as the geographic composition reference. They are standalone assets; selecting them in the game and rendering city/route overlays is separate implementation work.
+
+The shared generation brief is below. Each map's prompt adds its geographic extent, characteristic terrain, and any inset layout from its reference board. Stay at Home uses the same painted miniature treatment for rooms and garden.
+
+> Create a terrain-only background for a tabletop railway game, part of one consistent atlas series. Match the USA reference's warm painterly miniature relief, fine brushwork, softly sculpted landforms, clustered trees, golden grassy plains, warm ochre rocky slopes, ivory snowy peaks, turquoise-blue seas, pale sandy shorelines, and slender blue rivers. Use a high overhead near-orthographic view, subtle raised terrain, and soft upper-left daylight. Keep the detail calm enough for city and route overlays.
+>
+> Shared palette: grass `#b8ad55` / `#d2bc64`, forests `#355c39` / `#527544`, earth `#bb854b`, desert `#dfb374`, rock `#8b8171`, snow `#f1e7cc`, water `#087ea5` / `#28abc1`.
+>
+> Use the map's original board only as a geographic composition template: preserve orientation, crop, relative coastlines, islands, lakes, rivers, inset placement, and canvas aspect ratio. Render that region rather than copying USA geography. Extend terrain into score-border and title-panel areas. Produce one full-bleed high-resolution PNG. No words, city markers, rail tracks, route spaces, connecting lines, cards, pieces, flags, logos, score tracks, legends, compass roses, frames, or watermarks. Avoid photorealism, flat vector art, parchment, and dramatic lighting.
+
+Generated geography is illustrative. The original `map.png` remains the coordinate reference for `map.json`; verify alignment when integrating the artwork rather than assuming exact pixel registration.
 
 ## Loading and validation
 
@@ -74,32 +89,32 @@ The existing USA runtime types in [`game.ts`](../packages/shared/src/game.ts) in
 
 Counts below describe this transcription. Tracks include parallel members; nodes include logical countries and unnamed printed junctions.
 
-| Map                                                                    | Nodes | Tracks |
-| ---------------------------------------------------------------------- | ----: | -----: |
-| [Europe](map-europe/map.json)                                          |    47 |    101 |
-| [France](map-france/map.json)                                          |    48 |    156 |
-| [Germany](map-germany/map.json)                                        |    40 |    110 |
-| [Iberia](map-iberia/map.json)                                          |    33 |    103 |
-| [India](map-india/map.json)                                            |    39 |    108 |
-| [Italy](map-italy/map.json)                                            |    39 |    126 |
-| [Japan](map-japan/map.json)                                            |    48 |    113 |
-| [Legendary Asia](map-legendary-asia/map.json)                          |    39 |    100 |
-| [Märklin](map-marklin/map.json)                                        |    40 |    110 |
-| [Nederland](map-nederland/map.json)                                    |    30 |     97 |
-| [Nordic Countries](map-nordic-countries/map.json)                      |    39 |     81 |
-| [Northern Lights](map-northern-lights/map.json)                        |    50 |    160 |
-| [Old West](map-old-west/map.json)                                      |    41 |    139 |
-| [Pennsylvania](map-pennsylvania/map.json)                              |    35 |     95 |
-| [Poland](map-poland/map.json)                                          |    35 |    102 |
-| [Rails & Sails: Great Lakes](map-rails-and-sails-great-lakes/map.json) |    37 |    110 |
-| [Rails & Sails: World](map-rails-and-sails-world/map.json)             |    48 |    130 |
-| [South Korea](map-south-korea/map.json)                                |    33 |     98 |
-| [Stay at Home](map-stay-at-home/map.json)                              |    25 |     73 |
-| [Switzerland](map-switzerland/map.json)                                |    38 |     88 |
-| [Team Asia](map-team-asia/map.json)                                    |    46 |    126 |
-| [The Heart of Africa](map-the-heart-of-africa/map.json)                |    47 |    117 |
-| [United Kingdom](map-united-kingdom/map.json)                          |    48 |    125 |
-| [USA](map-usa/map.json)                                                |    36 |    100 |
+| Map                                                                    | Nodes | Tracks | Artwork                                                      |
+| ---------------------------------------------------------------------- | ----: | -----: | ------------------------------------------------------------ |
+| [Europe](map-europe/map.json)                                          |    47 |    101 | [Terrain](map-europe/map-generated.png)                      |
+| [France](map-france/map.json)                                          |    48 |    156 | [Terrain](map-france/map-generated.png)                      |
+| [Germany](map-germany/map.json)                                        |    40 |    110 | [Terrain](map-germany/map-generated.png)                     |
+| [Iberia](map-iberia/map.json)                                          |    33 |    103 | [Terrain](map-iberia/map-generated.png)                      |
+| [India](map-india/map.json)                                            |    39 |    108 | [Terrain](map-india/map-generated.png)                       |
+| [Italy](map-italy/map.json)                                            |    39 |    126 | [Terrain](map-italy/map-generated.png)                       |
+| [Japan](map-japan/map.json)                                            |    48 |    113 | [Terrain](map-japan/map-generated.png)                       |
+| [Legendary Asia](map-legendary-asia/map.json)                          |    39 |    100 | [Terrain](map-legendary-asia/map-generated.png)              |
+| [Märklin](map-marklin/map.json)                                        |    40 |    110 | [Terrain](map-marklin/map-generated.png)                     |
+| [Nederland](map-nederland/map.json)                                    |    30 |     97 | [Terrain](map-nederland/map-generated.png)                   |
+| [Nordic Countries](map-nordic-countries/map.json)                      |    39 |     81 | [Terrain](map-nordic-countries/map-generated.png)            |
+| [Northern Lights](map-northern-lights/map.json)                        |    50 |    160 | [Terrain](map-northern-lights/map-generated.png)             |
+| [Old West](map-old-west/map.json)                                      |    41 |    139 | [Terrain](map-old-west/map-generated.png)                    |
+| [Pennsylvania](map-pennsylvania/map.json)                              |    35 |     95 | [Terrain](map-pennsylvania/map-generated.png)                |
+| [Poland](map-poland/map.json)                                          |    35 |    102 | [Terrain](map-poland/map-generated.png)                      |
+| [Rails & Sails: Great Lakes](map-rails-and-sails-great-lakes/map.json) |    37 |    110 | [Terrain](map-rails-and-sails-great-lakes/map-generated.png) |
+| [Rails & Sails: World](map-rails-and-sails-world/map.json)             |    48 |    130 | [Terrain](map-rails-and-sails-world/map-generated.png)       |
+| [South Korea](map-south-korea/map.json)                                |    33 |     98 | [Terrain](map-south-korea/map-generated.png)                 |
+| [Stay at Home](map-stay-at-home/map.json)                              |    25 |     73 | [Terrain](map-stay-at-home/map-generated.png)                |
+| [Switzerland](map-switzerland/map.json)                                |    38 |     88 | [Terrain](map-switzerland/map-generated.png)                 |
+| [Team Asia](map-team-asia/map.json)                                    |    46 |    126 | [Terrain](map-team-asia/map-generated.png)                   |
+| [The Heart of Africa](map-the-heart-of-africa/map.json)                |    47 |    117 | [Terrain](map-the-heart-of-africa/map-generated.png)         |
+| [United Kingdom](map-united-kingdom/map.json)                          |    48 |    125 | [Terrain](map-united-kingdom/map-generated.png)              |
+| [USA](map-usa/map.json)                                                |    36 |    100 | [Terrain](map-usa/map-generated.png)                         |
 
 ## Full schema
 
