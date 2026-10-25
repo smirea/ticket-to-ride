@@ -108,7 +108,7 @@ describe('room HTTP lifecycle', () => {
 		expect(context.store.getCurrentRoom('bob')?.revision).toBe(room.revision);
 	});
 
-	test('clears readiness when membership or settings change', async () => {
+	test('keeps readiness across joins and clears it when settings change', async () => {
 		const context = setup();
 		const created = await context.request('POST', '/api/rooms', 'alice', {
 			name: 'Alice',
@@ -120,9 +120,11 @@ describe('room HTTP lifecycle', () => {
 			name: 'Bob',
 			color: 'blue',
 		});
-		expect((await responseRoom(joined)).players.every(player => !player.ready)).toBe(true);
+		expect((await responseRoom(joined)).players.map(player => [player.id, player.ready])).toEqual([
+			['alice', true],
+			['bob', false],
+		]);
 
-		await context.request('POST', `/api/rooms/${room.code}/ready`, 'alice', { ready: true });
 		await context.request('POST', `/api/rooms/${room.code}/ready`, 'bob', { ready: true });
 		const settings = await context.request('POST', `/api/rooms/${room.code}/settings`, 'alice', {
 			seed: 'changed',

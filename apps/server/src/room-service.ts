@@ -105,7 +105,6 @@ export class RoomService {
 		}
 
 		room.players.push(createPlayer(clientId, request, this.timestamp()));
-		clearReadiness(room);
 		this.persist(room);
 		return room;
 	}
@@ -125,7 +124,6 @@ export class RoomService {
 				return null;
 			}
 			if (room.hostId === clientId) room.hostId = room.players[0]!.id;
-			clearReadiness(room);
 		} else {
 			player.status = 'left';
 			player.ready = false;
