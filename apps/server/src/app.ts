@@ -86,7 +86,7 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 
 			if (url.pathname.startsWith('/api/')) return json({ ok: false, error: 'Not found' }, 404);
 			if (!uiBuildPath) return new Response('UI build not found.', { status: 404 });
-			return staticFile(uiBuildPath, url.pathname);
+			return staticFile(uiBuildPath, url.pathname, request);
 		} catch (error) {
 			if (error instanceof RoomError) return json({ ok: false, error: error.message }, error.status);
 			if (error instanceof SyntaxError || error instanceof URIError) {
@@ -112,13 +112,28 @@ function json(body: unknown, status = 200): Response {
 	return Response.json(body, { status });
 }
 
-async function staticFile(uiBuildPath: URL, pathname: string): Promise<Response> {
+async function staticFile(uiBuildPath: URL, pathname: string, request: Request): Promise<Response> {
 	const path = pathname === '/' ? '/index.html' : pathname;
 	const file = Bun.file(new URL(`.${path}`, uiBuildPath));
-	if (await file.exists()) return new Response(file);
+	if (await file.exists()) return cachedFile(file, cacheControl(path), request);
 
 	const index = Bun.file(new URL('./index.html', uiBuildPath));
-	if (await index.exists()) return new Response(index);
+	if (await index.exists()) return cachedFile(index, 'no-cache', request);
 
 	return new Response('UI build not found. Run `bun run build` or use `bun run dev`.', { status: 404 });
+}
+
+// Game assets keep stable names across builds, so they get a week plus revalidation instead of immutable.
+function cacheControl(path: string): string {
+	if (path.startsWith('/_app/immutable/')) return 'public, max-age=31536000, immutable';
+	if (path.startsWith('/game-assets/')) return 'public, max-age=604800, stale-while-revalidate=2592000';
+	return 'no-cache';
+}
+
+function cachedFile(file: ReturnType<typeof Bun.file>, cache: string, request: Request): Response {
+	const lastModified = new Date(Math.floor(file.lastModified / 1000) * 1000);
+	const headers = { 'Cache-Control': cache, 'Last-Modified': lastModified.toUTCString() };
+	const since = request.headers.get('If-Modified-Since');
+	if (since && Date.parse(since) >= lastModified.getTime()) return new Response(null, { status: 304, headers });
+	return new Response(file, { headers });
 }
