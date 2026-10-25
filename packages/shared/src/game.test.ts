@@ -360,6 +360,29 @@ describe('destination tickets', () => {
 });
 
 describe('train card edge cases', () => {
+	test('passes only when nothing can be drawn or claimed, and ends the game once everyone passes', () => {
+		const state = finishTicketSelection(createGame({ seed: 'stalled-table', botCount: 1 }));
+		state.trainDeck = [];
+		state.trainDiscard = [];
+		state.destinationDeck = [];
+		for (const player of state.players) {
+			for (const card of TRAIN_CARDS) player.hand[card] = 0;
+		}
+		expect(applyGameAction({ ...state, destinationDeck: ['boston-miami'] }, { type: 'pass' })).toMatchObject({
+			ok: false,
+			error: 'You still have a move available.',
+		});
+
+		const first = applyGameAction(state, { type: 'pass' });
+		if (!first.ok) throw new Error(first.error);
+		expect(first.state.currentPlayerIndex).toBe(1);
+		expect(chooseBotAction(first.state)).toEqual({ type: 'pass' });
+		const second = applyGameAction(first.state, { type: 'pass' });
+		if (!second.ok) throw new Error(second.error);
+		expect(second.state.phase.type).toBe('game-over');
+		expect(second.state.events.filter(event => event.type === 'pass')).toHaveLength(2);
+	});
+
 	test('restocks a short market once later draws reshuffle the discards', () => {
 		const state = finishTicketSelection(createGame({ seed: 'short-market', botCount: 1 }));
 		state.trainDeck = [];

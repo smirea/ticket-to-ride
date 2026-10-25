@@ -101,7 +101,8 @@ export type GameAction =
 	| { type: 'draw-destination-tickets' }
 	| { type: 'draw-face-up'; index: number }
 	| { type: 'draw-train-deck' }
-	| { type: 'claim-route'; routeId: RouteId; paymentColor: TrainColor; locomotives?: number };
+	| { type: 'claim-route'; routeId: RouteId; paymentColor: TrainColor; locomotives?: number }
+	| { type: 'pass' };
 
 export type ActionResult = { ok: true; state: GameState } | { ok: false; state: GameState; error: string };
 
@@ -455,6 +456,26 @@ function refillFaceUp(state: GameState): void {
 
 export function canDrawTrainCards(state: GameState): boolean {
 	return state.trainDeck.length > 0 || state.trainDiscard.length > 0;
+}
+
+export function hasTurnAction(state: GameState): boolean {
+	const player = currentPlayer(state);
+	return (
+		canDrawTrainCards(state) ||
+		state.destinationDeck.length > 0 ||
+		USA_ROUTES.some(routeItem => TRAIN_COLORS.some(color => canClaimRoute(state, player.id, routeItem.id, color).ok))
+	);
+}
+
+// The rules have no pass; it only exists so a table with nothing left to draw or claim cannot stall.
+function passTurn(state: GameState, action: Extract<GameAction, { type: 'pass' }>): ActionResult {
+	if (hasTurnAction(state)) return fail(state, 'You still have a move available.');
+	const next = cloneState(state);
+	next.events.push({ type: 'pass', playerId: currentPlayer(next).id, turnNumber: next.turnNumber });
+	const result = succeed(next, action);
+	const recent = next.history.slice(-next.players.length);
+	if (recent.length === next.players.length && recent.every(item => item.type === 'pass')) finalizeGame(next);
+	return result;
 }
 
 function drawDestinationIds(deck: TicketId[], count: number): TicketId[] {
@@ -818,6 +839,9 @@ const gameMachineSetup = setup({
 		claimRoute: assign(({ context, event }) =>
 			event.type === 'claim-route' ? resultContext(claimRoute(context.game, event)) : {},
 		),
+		passTurn: assign(({ context, event }) =>
+			event.type === 'pass' ? resultContext(passTurn(context.game, event)) : {},
+		),
 		prepareSecondDraw: assign(({ context }) => {
 			const next = { ...context.game, phase: { type: 'turn', drawsTaken: 1 } as const };
 			return resultContext({ ok: true, state: next });
@@ -858,6 +882,7 @@ export const gameMachine = gameMachineSetup.createMachine({
 				'draw-face-up': { target: 'resolveDraw', actions: 'drawFaceUp' },
 				'draw-train-deck': { target: 'resolveDraw', actions: 'drawTrainDeck' },
 				'claim-route': { target: 'resolveTurn', actions: 'claimRoute' },
+				pass: { target: 'resolveTurn', actions: 'passTurn' },
 			},
 		},
 		turnSecondDraw: {
@@ -879,6 +904,7 @@ export const gameMachine = gameMachineSetup.createMachine({
 		resolveTurn: {
 			always: [
 				{ guard: 'actionFailed', target: 'routeState' },
+				{ guard: 'isGameOver', target: 'routeState' },
 				{ target: 'routeState', actions: 'endTurn' },
 			],
 		},
@@ -1080,6 +1106,7 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 	if (state.phase.drawsTaken === 0 && state.destinationDeck.length > 0) {
 		return { type: 'draw-destination-tickets' };
 	}
+	if (state.phase.drawsTaken === 0 && !hasTurnAction(state)) return { type: 'pass' };
 	return undefined;
 }
 

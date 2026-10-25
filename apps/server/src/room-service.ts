@@ -337,7 +337,9 @@ function normalizeGameAction(action: GameAction): GameAction {
 		if (typeof action.playerId !== 'string') throw new RoomError('playerId is invalid.', 400);
 		return { type: action.type, playerId: action.playerId, ticketIds: [...ticketIds] };
 	}
-	if (action.type === 'draw-destination-tickets' || action.type === 'draw-train-deck') return { type: action.type };
+	if (action.type === 'draw-destination-tickets' || action.type === 'draw-train-deck' || action.type === 'pass') {
+		return { type: action.type };
+	}
 	if (action.type === 'draw-face-up') {
 		if (!Number.isInteger(action.index) || action.index < 0) throw new RoomError('index is invalid.', 400);
 		return { type: action.type, index: action.index };

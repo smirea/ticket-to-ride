@@ -25,6 +25,7 @@ export type GameEvent =
 			points: number;
 	  })
 	| (PlayerEvent & { type: 'final-round' })
+	| (PlayerEvent & { type: 'pass' })
 	| { type: 'game-over'; winnerIds: PlayerId[] }
 	| { type: 'note'; text: string };
 
@@ -53,6 +54,8 @@ export function formatGameEvent(event: GameEvent, players: readonly Pick<Player,
 			return `${player} claimed ${routeName(event.routeId)}.`;
 		case 'final-round':
 			return `${player} triggered the final round.`;
+		case 'pass':
+			return `${player} had no move and passed.`;
 		case 'game-over':
 			return `Game over. ${event.winnerIds.map(name).join(' and ')} ${event.winnerIds.length === 1 ? 'wins' : 'tie for the win'}.`;
 		case 'note':

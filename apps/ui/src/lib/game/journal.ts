@@ -60,6 +60,7 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 			};
 		case 'game-started':
 		case 'final-round':
+		case 'pass':
 		case 'game-over':
 		case 'note':
 			return row;

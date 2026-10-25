@@ -39,7 +39,7 @@
 	import DestinationCard from './DestinationCard.svelte';
 	import TicketCelebration from './TicketCelebration.svelte';
 	import TicketCountIcon from './TicketCountIcon.svelte';
-	import { shortestTicketConnection } from '@repo/shared';
+	import { hasTurnAction, shortestTicketConnection } from '@repo/shared';
 	import TableStatus from './TableStatus.svelte';
 	import RouteScoring from './RouteScoring.svelte';
 	import PlayerPlaque from './PlayerPlaque.svelte';
@@ -153,6 +153,9 @@
 	const paymentOptions = $derived(paymentRoute ? (paymentsByRoute.get(paymentRoute.id) ?? []) : []);
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const isViewerTurn = $derived(gameState.phase.type === 'turn' && currentPlayer?.id === viewerId);
+	const mustPass = $derived(
+		isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 0 && !hasTurnAction(gameState),
+	);
 	const turnReady = $derived(
 		!busy && isViewerTurn && gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 0,
 	);
@@ -650,6 +653,7 @@
 			return `${choosing?.name ?? 'A player'} is choosing tickets`;
 		}
 		if (!isViewerTurn) return `${currentPlayer?.name ?? 'A player'} is playing`;
+		if (mustPass) return 'No move left';
 		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
 	}
 	function selectRoute(route: Route, pointerType?: string) {
@@ -728,6 +732,16 @@
 			busy = false;
 			actionInFlight = undefined;
 			selectedRouteId = undefined;
+		}
+	}
+
+	async function passTurn() {
+		if (!mustPass) return;
+		busy = true;
+		try {
+			await send({ type: 'pass' });
+		} finally {
+			busy = false;
 		}
 	}
 
@@ -984,6 +998,8 @@
 					onkeep={keepTickets}
 				/>
 			</div>
+		{:else if mustPass}
+			<button class="draw-tickets" disabled={busy} onclick={passTurn}><span>Pass turn</span></button>
 		{:else}
 			<button
 				class="draw-tickets"
