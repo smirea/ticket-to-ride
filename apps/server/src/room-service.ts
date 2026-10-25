@@ -220,12 +220,17 @@ export class RoomService {
 			}
 			return room;
 		}
-		if (request.expectedRevision !== room.revision)
+		// Opening picks only touch the actor's own offer, so a pick made against an older revision is still valid.
+		const openingPick = request.action.type === 'keep-opening-tickets';
+		if (!openingPick && request.expectedRevision !== room.revision)
 			throw new RoomError('The table changed. Choose your move again.', 409);
 		if (room.phase !== 'playing' || !room.game) throw new RoomError('The room is not in an active game.', 409);
 		requireActivePlayer(room, clientId);
-		const currentPlayer = room.game.players[room.game.currentPlayerIndex];
-		if (!currentPlayer || currentPlayer.id !== clientId) throw new RoomError('It is not your turn.', 409);
+		if (request.action.type === 'keep-opening-tickets') {
+			if (request.action.playerId !== clientId) throw new RoomError('You can only choose your own tickets.', 403);
+		} else if (room.game.players[room.game.currentPlayerIndex]?.id !== clientId) {
+			throw new RoomError('It is not your turn.', 409);
+		}
 
 		const result = applyGameAction(room.game, request.action);
 		if (!result.ok) throw new RoomError(result.error, 422);
@@ -301,9 +306,12 @@ function validateGameAction(action: GameAction): void {
 	if (!action || typeof action !== 'object' || typeof action.type !== 'string') {
 		throw new RoomError('action is invalid.', 400);
 	}
-	if (action.type === 'keep-tickets') {
+	if (action.type === 'keep-tickets' || action.type === 'keep-opening-tickets') {
 		if (!Array.isArray(action.ticketIds) || action.ticketIds.some(ticketId => typeof ticketId !== 'string')) {
 			throw new RoomError('ticketIds is invalid.', 400);
+		}
+		if (action.type === 'keep-opening-tickets' && typeof action.playerId !== 'string') {
+			throw new RoomError('playerId is invalid.', 400);
 		}
 		return;
 	}

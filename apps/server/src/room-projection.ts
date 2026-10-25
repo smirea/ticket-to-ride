@@ -35,9 +35,12 @@ function projectGame(game: GameState, viewerId: string): GameState {
 	projected.trainDeck.fill('red');
 	projected.trainDiscard.fill('red');
 	projected.destinationDeck = privateTicketIds('deck', projected.destinationDeck.length);
-	projected.openingTicketOffers = game.openingTicketOffers[viewerId]
-		? { [viewerId]: [...game.openingTicketOffers[viewerId]!] }
-		: {};
+	projected.openingTicketOffers = Object.fromEntries(
+		Object.entries(game.openingTicketOffers).map(([playerId, offer]) => [
+			playerId,
+			playerId === viewerId ? [...offer] : privateTicketIds('offer', offer.length),
+		]),
+	);
 	projected.history = game.history.map(redactAction);
 	projected.events = game.events.map(event =>
 		event.type === 'keep-tickets' && event.playerId !== viewerId
@@ -51,7 +54,7 @@ function projectGame(game: GameState, viewerId: string): GameState {
 }
 
 function redactAction(action: GameAction): GameAction {
-	return action.type === 'keep-tickets' ? { type: 'keep-tickets', ticketIds: [] } : structuredClone(action);
+	return 'ticketIds' in action ? { ...structuredClone(action), ticketIds: [] } : structuredClone(action);
 }
 
 function privateTicketIds(collection: string, count: number): TicketId[] {

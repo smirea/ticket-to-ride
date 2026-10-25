@@ -80,16 +80,11 @@
 
 	function scheduleBotAction() {
 		clearTimeout(botTimer);
-		const player = game.players[game.currentPlayerIndex];
-		if (!player?.isBot || game.phase.type === 'game-over') {
-			return;
-		}
+		if (!chooseBotAction(game)) return;
 
 		botTimer = setTimeout(() => {
 			const action = chooseBotAction(game);
-			if (!action) {
-				return;
-			}
+			if (!action) return;
 			const result = applyGameAction(game, action);
 			if (!result.ok) {
 				error = result.error;

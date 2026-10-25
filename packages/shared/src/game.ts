@@ -53,13 +53,8 @@ export interface Player {
 }
 
 export type GamePhase =
-	| {
-			type: 'ticket-selection';
-			playerId: PlayerId;
-			ticketIds: TicketId[];
-			minimum: number;
-			source: 'opening' | 'turn';
-	  }
+	| { type: 'opening-tickets' }
+	| { type: 'ticket-selection'; playerId: PlayerId; ticketIds: TicketId[]; minimum: number }
 	| { type: 'turn'; drawsTaken: 0 | 1 }
 	| { type: 'game-over'; winnerIds: PlayerId[] };
 
@@ -80,7 +75,7 @@ export interface FinalPlayerResult {
 }
 
 export interface GameState {
-	version: 3;
+	version: 4;
 	seed: string;
 	rngState: number;
 	phase: GamePhase;
@@ -91,6 +86,7 @@ export interface GameState {
 	trainDiscard: TrainCard[];
 	faceUpTrainCards: TrainCard[];
 	destinationDeck: TicketId[];
+	// Players still choosing opening tickets; an entry is removed once that player keeps tickets.
 	openingTicketOffers: Record<PlayerId, TicketId[]>;
 	claimedRoutes: Record<RouteId, PlayerId>;
 	events: GameEvent[];
@@ -100,6 +96,7 @@ export interface GameState {
 }
 
 export type GameAction =
+	| { type: 'keep-opening-tickets'; playerId: PlayerId; ticketIds: TicketId[] }
 	| { type: 'keep-tickets'; ticketIds: TicketId[] }
 	| { type: 'draw-destination-tickets' }
 	| { type: 'draw-face-up'; index: number }
@@ -400,7 +397,11 @@ function cloneState(state: GameState): GameState {
 }
 
 function cloneAction(action: GameAction): GameAction {
-	return action.type === 'keep-tickets' ? { ...action, ticketIds: [...action.ticketIds] } : { ...action };
+	return 'ticketIds' in action ? { ...action, ticketIds: [...action.ticketIds] } : { ...action };
+}
+
+export function openingTicketMinimum(offer: readonly TicketId[]): number {
+	return Math.min(2, offer.length);
 }
 
 function createTrainDeck(): TrainCard[] {
@@ -526,19 +527,12 @@ export function createGame(options: CreateGameOptions = {}): GameState {
 	const openingTicketOffers = Object.fromEntries(
 		players.map(player => [player.id, drawDestinationIds(destinationDeck, 3)]),
 	);
-	const firstOffer = openingTicketOffers[players[0]!.id] ?? [];
 
 	const state: GameState = {
-		version: 3,
+		version: 4,
 		seed,
 		rngState,
-		phase: {
-			type: 'ticket-selection',
-			playerId: players[0]!.id,
-			ticketIds: firstOffer,
-			minimum: Math.min(2, firstOffer.length),
-			source: 'opening',
-		},
+		phase: { type: 'opening-tickets' },
 		players,
 		currentPlayerIndex: 0,
 		turnNumber: 1,
@@ -637,31 +631,53 @@ export function getClaimableRoutes(state: GameState, playerId: PlayerId): Route[
 	);
 }
 
-function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep-tickets' }>): ActionResult {
-	if (state.phase.type !== 'ticket-selection') return fail(state, 'No tickets are being selected.');
-	const player = currentPlayer(state);
-	const selection = state.phase;
-	if (selection.playerId !== player.id) return fail(state, 'It is not this player’s selection.');
-	const uniqueTicketIds = [...new Set(action.ticketIds)];
-	if (uniqueTicketIds.length < selection.minimum) {
-		return fail(state, `Keep at least ${selection.minimum} tickets.`);
-	}
-	if (uniqueTicketIds.some(ticketId => !selection.ticketIds.includes(ticketId))) {
+function keepOffer(
+	state: GameState,
+	playerId: PlayerId,
+	offer: readonly TicketId[],
+	minimum: number,
+	keptIds: readonly TicketId[],
+): ActionResult {
+	const uniqueTicketIds = [...new Set(keptIds)];
+	if (uniqueTicketIds.length < minimum) return fail(state, `Keep at least ${minimum} tickets.`);
+	if (uniqueTicketIds.some(ticketId => !offer.includes(ticketId))) {
 		return fail(state, 'A selected ticket was not offered.');
 	}
 	const next = cloneState(state);
-	const nextPlayer = currentPlayer(next);
-	nextPlayer.tickets.push(...uniqueTicketIds);
-	const returned = selection.ticketIds.filter(ticketId => !uniqueTicketIds.includes(ticketId));
-	next.destinationDeck.unshift(...returned);
+	next.players.find(player => player.id === playerId)!.tickets.push(...uniqueTicketIds);
+	next.destinationDeck.unshift(...offer.filter(ticketId => !uniqueTicketIds.includes(ticketId)));
 	next.events.push({
 		type: 'keep-tickets',
-		playerId: nextPlayer.id,
+		playerId,
 		turnNumber: next.turnNumber,
 		count: uniqueTicketIds.length,
 		ticketIds: uniqueTicketIds,
 	});
+	return { ok: true, state: next };
+}
+
+function keepOpeningTickets(
+	state: GameState,
+	action: Extract<GameAction, { type: 'keep-opening-tickets' }>,
+): ActionResult {
+	const offer = state.openingTicketOffers[action.playerId];
+	if (!offer) return fail(state, 'That player has no opening tickets to choose.');
+	const kept = keepOffer(state, action.playerId, offer, openingTicketMinimum(offer), action.ticketIds);
+	if (!kept.ok) return kept;
+	const next = kept.state;
+	delete next.openingTicketOffers[action.playerId];
+	if (Object.keys(next.openingTicketOffers).length === 0) {
+		next.currentPlayerIndex = 0;
+		next.phase = { type: 'turn', drawsTaken: 0 };
+	}
 	return succeed(next, action);
+}
+
+function keepTickets(state: GameState, action: Extract<GameAction, { type: 'keep-tickets' }>): ActionResult {
+	if (state.phase.type !== 'ticket-selection') return fail(state, 'No tickets are being selected.');
+	const { playerId, ticketIds, minimum } = state.phase;
+	const kept = keepOffer(state, playerId, ticketIds, minimum, action.ticketIds);
+	return kept.ok ? succeed(kept.state, action) : kept;
 }
 
 function drawFaceUp(state: GameState, action: Extract<GameAction, { type: 'draw-face-up' }>): ActionResult {
@@ -734,7 +750,6 @@ function drawDestinationTickets(state: GameState, action: GameAction): ActionRes
 		playerId: currentPlayer(next).id,
 		ticketIds: offered,
 		minimum: 1,
-		source: 'turn',
 	};
 	next.events.push({
 		type: 'draw-destination-tickets',
@@ -746,7 +761,7 @@ function drawDestinationTickets(state: GameState, action: GameAction): ActionRes
 }
 
 export type GameMachineState =
-	| 'openingTicketSelection'
+	| 'openingTickets'
 	| 'turnReady'
 	| 'turnSecondDraw'
 	| 'destinationTicketSelection'
@@ -770,10 +785,8 @@ const gameMachineSetup = setup({
 	},
 	guards: {
 		isGameOver: ({ context }) => context.game.phase.type === 'game-over',
-		isOpeningTicketSelection: ({ context }) =>
-			context.game.phase.type === 'ticket-selection' && context.game.phase.source === 'opening',
-		isDestinationTicketSelection: ({ context }) =>
-			context.game.phase.type === 'ticket-selection' && context.game.phase.source === 'turn',
+		isOpeningTickets: ({ context }) => context.game.phase.type === 'opening-tickets',
+		isDestinationTicketSelection: ({ context }) => context.game.phase.type === 'ticket-selection',
 		isSecondDraw: ({ context }) => context.game.phase.type === 'turn' && context.game.phase.drawsTaken === 1,
 		actionFailed: ({ context }) => context.lastResult?.ok === false,
 		drawEndsTurn: ({ context }) =>
@@ -782,6 +795,9 @@ const gameMachineSetup = setup({
 			!canDrawTrainCards(context.game),
 	},
 	actions: {
+		keepOpeningTickets: assign(({ context, event }) =>
+			event.type === 'keep-opening-tickets' ? resultContext(keepOpeningTickets(context.game, event)) : {},
+		),
 		keepTickets: assign(({ context, event }) =>
 			event.type === 'keep-tickets' ? resultContext(keepTickets(context.game, event)) : {},
 		),
@@ -805,29 +821,6 @@ const gameMachineSetup = setup({
 		claimRoute: assign(({ context, event }) =>
 			event.type === 'claim-route' ? resultContext(claimRoute(context.game, event)) : {},
 		),
-		advanceOpeningSelection: assign(({ context }) => {
-			const next = cloneState(context.game);
-			delete next.openingTicketOffers[currentPlayer(next).id];
-			const index = next.players.findIndex(
-				(candidate, index) => index > next.currentPlayerIndex && next.openingTicketOffers[candidate.id],
-			);
-			if (index >= 0) {
-				next.currentPlayerIndex = index;
-				const playerId = currentPlayer(next).id;
-				const ticketIds = next.openingTicketOffers[playerId]!;
-				next.phase = {
-					type: 'ticket-selection',
-					playerId,
-					ticketIds,
-					minimum: Math.min(2, ticketIds.length),
-					source: 'opening',
-				};
-			} else {
-				next.currentPlayerIndex = 0;
-				next.phase = { type: 'turn', drawsTaken: 0 };
-			}
-			return resultContext({ ok: true, state: next });
-		}),
 		prepareSecondDraw: assign(({ context }) => {
 			const next = { ...context.game, phase: { type: 'turn', drawsTaken: 1 } as const };
 			return resultContext({ ok: true, state: next });
@@ -853,20 +846,14 @@ export const gameMachine = gameMachineSetup.createMachine({
 		routeState: {
 			always: [
 				{ guard: 'isGameOver', target: 'gameOver' },
-				{ guard: 'isOpeningTicketSelection', target: 'openingTicketSelection' },
+				{ guard: 'isOpeningTickets', target: 'openingTickets' },
 				{ guard: 'isDestinationTicketSelection', target: 'destinationTicketSelection' },
 				{ guard: 'isSecondDraw', target: 'turnSecondDraw' },
 				{ target: 'turnReady' },
 			],
 		},
-		openingTicketSelection: {
-			on: { 'keep-tickets': { target: 'resolveOpeningSelection', actions: 'keepTickets' } },
-		},
-		resolveOpeningSelection: {
-			always: [
-				{ guard: 'actionFailed', target: 'openingTicketSelection' },
-				{ target: 'routeState', actions: 'advanceOpeningSelection' },
-			],
+		openingTickets: {
+			on: { 'keep-opening-tickets': { target: 'routeState', actions: 'keepOpeningTickets' } },
 		},
 		turnReady: {
 			on: {
@@ -904,12 +891,11 @@ export const gameMachine = gameMachineSetup.createMachine({
 
 function disallowedActionError(machineState: GameMachineState, action: GameAction): string {
 	if (machineState === 'gameOver') return 'The game is over.';
-	if (machineState === 'openingTicketSelection' || machineState === 'destinationTicketSelection') {
-		return action.type === 'keep-tickets'
-			? 'That ticket selection is not available.'
-			: 'Finish selecting tickets first.';
+	const keepsTickets = action.type === 'keep-tickets' || action.type === 'keep-opening-tickets';
+	if (machineState === 'openingTickets' || machineState === 'destinationTicketSelection') {
+		return keepsTickets ? 'That ticket selection is not available.' : 'Finish selecting tickets first.';
 	}
-	if (action.type === 'keep-tickets') return 'No tickets are being selected.';
+	if (keepsTickets) return 'No tickets are being selected.';
 	if (machineState === 'turnSecondDraw') {
 		return action.type === 'claim-route'
 			? 'A route cannot be claimed after drawing.'
@@ -920,9 +906,8 @@ function disallowedActionError(machineState: GameMachineState, action: GameActio
 
 export function getGameMachineState(state: GameState): GameMachineState {
 	if (state.phase.type === 'game-over') return 'gameOver';
-	if (state.phase.type === 'ticket-selection') {
-		return state.phase.source === 'opening' ? 'openingTicketSelection' : 'destinationTicketSelection';
-	}
+	if (state.phase.type === 'opening-tickets') return 'openingTickets';
+	if (state.phase.type === 'ticket-selection') return 'destinationTicketSelection';
 	return state.phase.drawsTaken === 1 ? 'turnSecondDraw' : 'turnReady';
 }
 
@@ -1032,15 +1017,27 @@ function usefulFaceUpIndex(state: GameState, player: Player, routes: Route[]): n
 	);
 }
 
+function botTicketPick(offer: readonly TicketId[], minimum: number): TicketId[] {
+	return [...offer]
+		.sort((left, right) => (getTicket(right)?.points ?? 0) - (getTicket(left)?.points ?? 0))
+		.slice(0, minimum);
+}
+
 export function chooseBotAction(state: GameState): GameAction | undefined {
+	if (state.phase.type === 'opening-tickets') {
+		const bot = state.players.find(player => player.isBot && state.openingTicketOffers[player.id]);
+		if (!bot) return undefined;
+		const offer = state.openingTicketOffers[bot.id]!;
+		return {
+			type: 'keep-opening-tickets',
+			playerId: bot.id,
+			ticketIds: botTicketPick(offer, openingTicketMinimum(offer)),
+		};
+	}
 	const player = currentPlayer(state);
 	if (!player.isBot) return undefined;
 	if (state.phase.type === 'ticket-selection') {
-		if (state.phase.playerId !== player.id) return undefined;
-		const ticketIds = [...state.phase.ticketIds]
-			.sort((left, right) => (getTicket(right)?.points ?? 0) - (getTicket(left)?.points ?? 0))
-			.slice(0, state.phase.minimum);
-		return { type: 'keep-tickets', ticketIds };
+		return { type: 'keep-tickets', ticketIds: botTicketPick(state.phase.ticketIds, state.phase.minimum) };
 	}
 	if (state.phase.type !== 'turn') return undefined;
 
@@ -1072,7 +1069,6 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 export function playBotTurns(state: GameState, maxActions = 100): GameState {
 	let next = state;
 	for (let actions = 0; actions < maxActions; actions += 1) {
-		if (next.phase.type === 'game-over' || !currentPlayer(next).isBot) return next;
 		const action = chooseBotAction(next);
 		if (!action) return next;
 		const result = applyGameAction(next, action);
@@ -1083,14 +1079,14 @@ export function playBotTurns(state: GameState, maxActions = 100): GameState {
 }
 
 export function createDebugClaimScenario(): GameState {
-	let state = createGame({ seed: 'debug-claim', humanName: 'Debug Player', botCount: 1 });
-	if (state.phase.type === 'ticket-selection') {
-		const result = applyGameAction(state, {
-			type: 'keep-tickets',
-			ticketIds: state.phase.ticketIds.slice(0, state.phase.minimum),
-		});
-		if (result.ok) state = result.state;
-	}
+	let state = playBotTurns(createGame({ seed: 'debug-claim', humanName: 'Debug Player', botCount: 1 }));
+	const offer = state.openingTicketOffers.player ?? [];
+	const result = applyGameAction(state, {
+		type: 'keep-opening-tickets',
+		playerId: 'player',
+		ticketIds: offer.slice(0, openingTicketMinimum(offer)),
+	});
+	if (result.ok) state = result.state;
 	state = playBotTurns(state);
 	const debugState = cloneState(state);
 	debugState.players[0]!.hand = emptyHand();
@@ -1220,7 +1216,7 @@ export function restoreGameState(value: unknown): GameState {
 		typeof value !== 'object' ||
 		value === null ||
 		!('version' in value) ||
-		(value.version !== 1 && value.version !== 2 && value.version !== 3) ||
+		![1, 2, 3, 4].includes(value.version as number) ||
 		!('players' in value) ||
 		!Array.isArray(value.players) ||
 		!('phase' in value) ||
@@ -1239,23 +1235,37 @@ export function restoreGameState(value: unknown): GameState {
 	delete restored.log;
 	delete restored.destinationDiscard;
 	const phase = restored.phase as Record<string, unknown>;
-	if (phase.type === 'ticket-selection' && phase.source !== 'opening' && phase.source !== 'turn') {
-		phase.source = 'opening';
-	}
-	const openingTicketOffers =
+	const players = restored.players as Player[];
+	let history: GameAction[] = Array.isArray(restored.history) ? (restored.history as GameAction[]) : [];
+	let openingTicketOffers =
 		typeof restored.openingTicketOffers === 'object' && restored.openingTicketOffers !== null
 			? (restored.openingTicketOffers as Record<PlayerId, TicketId[]>)
-			: phase.type === 'ticket-selection' && phase.source === 'opening'
-				? { [String(phase.playerId)]: [...((phase.ticketIds as TicketId[] | undefined) ?? [])] }
-				: {};
+			: {};
+	if (phase.type === 'ticket-selection' && phase.source !== 'turn') {
+		// Versions before 4 picked opening tickets one player at a time and recorded them as plain keep-tickets.
+		openingTicketOffers = { ...openingTicketOffers, [String(phase.playerId)]: phase.ticketIds as TicketId[] };
+		restored.phase = { type: 'opening-tickets' };
+		restored.currentPlayerIndex = 0;
+	} else if (phase.type === 'ticket-selection') {
+		delete phase.source;
+	}
+	if (restored.version !== 4) {
+		const firstTurnAction = history.findIndex(action => action.type !== 'keep-tickets');
+		const openingKeeps = Math.min(players.length, firstTurnAction < 0 ? history.length : firstTurnAction);
+		history = history.map((action, index) =>
+			index < openingKeeps && action.type === 'keep-tickets'
+				? { type: 'keep-opening-tickets', playerId: players[index]!.id, ticketIds: action.ticketIds }
+				: action,
+		);
+	}
 	return {
 		...(restored as unknown as GameState),
-		version: 3,
+		version: 4,
 		events,
 		openingTicketOffers,
 		finalRound: (restored.finalRound as FinalRound | null | undefined) ?? null,
 		finalResults: (restored.finalResults as FinalPlayerResult[] | null | undefined) ?? null,
-		history: Array.isArray(restored.history) ? (restored.history as GameAction[]) : [],
+		history,
 	};
 }
 
