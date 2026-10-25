@@ -837,6 +837,7 @@
 			player={busy && actionInFlight ? viewer : gameState.phase.type === 'game-over' ? undefined : activePlayer}
 			{viewerId}
 			active={busy || (gameState.phase.type !== 'game-over' && (isViewerTurn || Boolean(ticketSelection)))}
+			yourTurn={isViewerTurn}
 			message={describeTurn()}
 			detail={ticketSelection
 				? `Keep at least ${ticketSelection.minimum}`
