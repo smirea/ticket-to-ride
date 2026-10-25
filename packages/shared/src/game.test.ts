@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test';
+import { readFileSync } from 'node:fs';
 import { createActor } from 'xstate';
 import {
 	DEBUG_ROUTE_ID,
@@ -325,6 +326,28 @@ describe('destination tickets', () => {
 		expect(replayGame(options, started.history)).toEqual({ ok: true, state: started });
 	});
 
+	test('keeps a mid-turn ticket draw intact across a save round trip', () => {
+		const state = finishTicketSelection(createGame({ seed: 'mid-turn-save', botCount: 1 }));
+		const drawn = applyGameAction(state, { type: 'draw-destination-tickets' });
+		if (!drawn.ok || drawn.state.phase.type !== 'ticket-selection') throw new Error('expected a ticket offer');
+		const restored = restoreGameState(JSON.parse(JSON.stringify(drawn.state)));
+		expect(restored).toEqual(drawn.state);
+		expect(applyGameAction(restored, { type: 'keep-tickets', ticketIds: [drawn.state.phase.ticketIds[0]!] }).ok).toBe(
+			true,
+		);
+	});
+
+	test('matches the printed USA board colors', () => {
+		const map = JSON.parse(readFileSync(new URL('../../../rules/map-usa/map.json', import.meta.url), 'utf8')) as {
+			connections: Array<{ start: string; end: string; links: Array<{ color: string }> }>;
+		};
+		const key = (a: string, b: string, length: number, color: string) =>
+			`${[a, b].sort().join('|')}:${length}:${color}`;
+		const printed = map.connections.map(item => key(item.start, item.end, item.links.length, item.links[0]!.color));
+		const engine = USA_ROUTES.map(item => key(item.cityA, item.cityB, item.length, item.color));
+		expect(engine.sort()).toEqual(printed.sort());
+	});
+
 	test('offers every remaining ticket when fewer than three remain', () => {
 		const state = finishTicketSelection(createGame({ seed: 'last-tickets', botCount: 1 }));
 		state.destinationDeck = state.destinationDeck.slice(-2);
@@ -337,6 +360,22 @@ describe('destination tickets', () => {
 });
 
 describe('train card edge cases', () => {
+	test('restocks a short market once later draws reshuffle the discards', () => {
+		const state = finishTicketSelection(createGame({ seed: 'short-market', botCount: 1 }));
+		state.trainDeck = [];
+		state.trainDiscard = [];
+		state.faceUpTrainCards = ['red', 'blue', 'green'];
+		state.players[0]!.hand = { ...state.players[0]!.hand, purple: 3, locomotive: 0 };
+		const claim = applyGameAction(state, {
+			type: 'claim-route',
+			routeId: 'san-francisco-los-angeles-purple-b',
+			paymentColor: 'purple',
+		});
+		if (!claim.ok) throw new Error(claim.error);
+		expect(claim.state.faceUpTrainCards).toHaveLength(5);
+		expect(claim.state.trainDiscard).toHaveLength(0);
+	});
+
 	test('reshuffles the discard pile deterministically when the deck is empty', () => {
 		const state = finishTicketSelection(createGame({ seed: 'reshuffle', botCount: 1 }));
 		state.trainDeck = [];

@@ -208,7 +208,8 @@ export const USA_ROUTES: Route[] = [
 	route('san-francisco', 'los-angeles', 3, 'yellow', 'a'),
 	route('san-francisco', 'los-angeles', 3, 'purple', 'b'),
 	route('salt-lake-city', 'las-vegas', 3, 'orange'),
-	route('salt-lake-city', 'denver', 3, 'orange', 'a'),
+	// The printed board has this route in yellow; the id keeps its old color so saves and route traces still match.
+	{ ...route('salt-lake-city', 'denver', 3, 'yellow', 'a'), id: 'salt-lake-city-denver-orange-a' },
 	route('salt-lake-city', 'denver', 3, 'red', 'b'),
 	route('las-vegas', 'los-angeles', 2, 'gray'),
 	route('los-angeles', 'phoenix', 3, 'gray'),
@@ -565,6 +566,8 @@ function currentPlayer(state: GameState): Player {
 }
 
 function endTurn(state: GameState): void {
+	// Discards reshuffled by later draws must also restock a market that ran short.
+	refillFaceUp(state);
 	const player = currentPlayer(state);
 	if (state.finalRound) {
 		state.finalRound.turnsRemaining -= 1;
@@ -623,12 +626,6 @@ export function canClaimRoute(
 		return { ok: false, error: 'Not enough matching cards.' };
 	}
 	return { ok: true };
-}
-
-export function getClaimableRoutes(state: GameState, playerId: PlayerId): Route[] {
-	return USA_ROUTES.filter(routeItem =>
-		TRAIN_COLORS.some(color => canClaimRoute(state, playerId, routeItem.id, color).ok),
-	);
 }
 
 function keepOffer(
@@ -1017,10 +1014,24 @@ function usefulFaceUpIndex(state: GameState, player: Player, routes: Route[]): n
 	);
 }
 
-function botTicketPick(offer: readonly TicketId[], minimum: number): TicketId[] {
-	return [...offer]
-		.sort((left, right) => (getTicket(right)?.points ?? 0) - (getTicket(left)?.points ?? 0))
-		.slice(0, minimum);
+const BOT_NEW_TICKET_MIN_TRAINS = 15;
+
+function botTicketPick(state: GameState, player: Player, offer: readonly TicketId[], minimum: number): TicketId[] {
+	const midGame = player.tickets.length > 0;
+	const ranked = offer
+		.map(ticketId => ({
+			ticketId,
+			points: getTicket(ticketId)?.points ?? 0,
+			cost: shortestTicketPath(state, player, ticketId)?.remainingCost ?? Number.POSITIVE_INFINITY,
+		}))
+		.sort(
+			(left, right) =>
+				Number(right.cost === 0) - Number(left.cost === 0) ||
+				Number(Number.isFinite(right.cost)) - Number(Number.isFinite(left.cost)) ||
+				(midGame ? left.cost - right.cost : right.points - left.points),
+		);
+	const free = ranked.filter(candidate => candidate.cost === 0).length;
+	return ranked.slice(0, Math.max(minimum, free)).map(candidate => candidate.ticketId);
 }
 
 export function chooseBotAction(state: GameState): GameAction | undefined {
@@ -1031,13 +1042,16 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 		return {
 			type: 'keep-opening-tickets',
 			playerId: bot.id,
-			ticketIds: botTicketPick(offer, openingTicketMinimum(offer)),
+			ticketIds: botTicketPick(state, bot, offer, openingTicketMinimum(offer)),
 		};
 	}
 	const player = currentPlayer(state);
 	if (!player.isBot) return undefined;
 	if (state.phase.type === 'ticket-selection') {
-		return { type: 'keep-tickets', ticketIds: botTicketPick(state.phase.ticketIds, state.phase.minimum) };
+		return {
+			type: 'keep-tickets',
+			ticketIds: botTicketPick(state, player, state.phase.ticketIds, state.phase.minimum),
+		};
 	}
 	if (state.phase.type !== 'turn') return undefined;
 
@@ -1049,6 +1063,9 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 	if (state.phase.drawsTaken === 0) {
 		const routeAction = claimableBotAction(state, player, strategicRoutes);
 		if (routeAction) return routeAction;
+		if (!ticketPlan && player.trains >= BOT_NEW_TICKET_MIN_TRAINS && state.destinationDeck.length > 0) {
+			return { type: 'draw-destination-tickets' };
+		}
 	}
 
 	if (canDrawTrainCards(state)) {
@@ -1233,6 +1250,9 @@ export function restoreGameState(value: unknown): GameState {
 			? restored.log.filter((text): text is string => typeof text === 'string').map(text => ({ type: 'note', text }))
 			: [];
 	delete restored.log;
+	if (Array.isArray(restored.destinationDiscard) && Array.isArray(restored.destinationDeck)) {
+		restored.destinationDeck.unshift(...restored.destinationDiscard);
+	}
 	delete restored.destinationDiscard;
 	const phase = restored.phase as Record<string, unknown>;
 	const players = restored.players as Player[];
@@ -1241,7 +1261,12 @@ export function restoreGameState(value: unknown): GameState {
 		typeof restored.openingTicketOffers === 'object' && restored.openingTicketOffers !== null
 			? (restored.openingTicketOffers as Record<PlayerId, TicketId[]>)
 			: {};
-	if (phase.type === 'ticket-selection' && phase.source !== 'turn') {
+	const legacyOpening =
+		restored.version !== 4 &&
+		phase.type === 'ticket-selection' &&
+		(phase.source === 'opening' ||
+			(phase.source === undefined && history.every(action => action.type === 'keep-tickets')));
+	if (legacyOpening) {
 		// Versions before 4 picked opening tickets one player at a time and recorded them as plain keep-tickets.
 		openingTicketOffers = { ...openingTicketOffers, [String(phase.playerId)]: phase.ticketIds as TicketId[] };
 		restored.phase = { type: 'opening-tickets' };
