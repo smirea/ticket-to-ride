@@ -19,17 +19,22 @@ import {
 	playBotTurns,
 	replayGame,
 	restoreGameState,
+	type CreateGameOptions,
 	type GameState,
 } from './game';
 
-function finishTicketSelection(state: GameState): GameState {
-	if (state.phase.type !== 'ticket-selection') throw new Error('Expected ticket selection.');
+function keepOpening(state: GameState, playerId: string, count = 2): GameState {
 	const result = applyGameAction(state, {
-		type: 'keep-tickets',
-		ticketIds: state.phase.ticketIds.slice(0, state.phase.minimum),
+		type: 'keep-opening-tickets',
+		playerId,
+		ticketIds: state.openingTicketOffers[playerId]!.slice(0, count),
 	});
 	if (!result.ok) throw new Error(result.error);
-	return playBotTurns(result.state);
+	return result.state;
+}
+
+function finishTicketSelection(state: GameState): GameState {
+	return playBotTurns(keepOpening(state, 'player'));
 }
 
 describe('classic USA setup', () => {
@@ -45,7 +50,7 @@ describe('classic USA setup', () => {
 		expect(JSON.parse(JSON.stringify(first))).toEqual(first);
 		expect(first.players.every(player => Object.values(player.hand).reduce((a, b) => a + b) === 4)).toBe(true);
 		expect(first.faceUpTrainCards).toHaveLength(5);
-		expect(first.phase.type).toBe('ticket-selection');
+		expect(first.phase).toEqual({ type: 'opening-tickets' });
 	});
 
 	test('conserves the exact component supply for every supported player count', () => {
@@ -81,31 +86,37 @@ describe('classic USA setup', () => {
 		});
 		expect(state.players.map(player => player.id)).toEqual(['b', 'c', 'a']);
 		expect(state.currentPlayerIndex).toBe(0);
-		expect(state.phase).toMatchObject({ type: 'ticket-selection', playerId: 'b' });
+		expect(state.phase).toEqual({ type: 'opening-tickets' });
+		expect(Object.keys(state.openingTicketOffers)).toEqual(['b', 'c', 'a']);
 	});
 
 	test('keeps at least two of the opening tickets without mutating invalid state', () => {
 		const state = createGame({ seed: 'tickets', botCount: 1 });
-		if (state.phase.type !== 'ticket-selection') throw new Error('Expected ticket selection.');
+		const offer = state.openingTicketOffers.player!;
 		const invalid = applyGameAction(state, {
-			type: 'keep-tickets',
-			ticketIds: state.phase.ticketIds.slice(0, 1),
+			type: 'keep-opening-tickets',
+			playerId: 'player',
+			ticketIds: offer.slice(0, 1),
 		});
-		expect(invalid.ok).toBe(false);
-		expect(invalid.state).toBe(state);
+		expect(invalid).toEqual({ ok: false, state, error: 'Keep at least 2 tickets.' });
 		expect(state.players[0]!.tickets).toHaveLength(0);
 
-		const keptIds = state.phase.ticketIds.slice(0, 2);
-		const valid = applyGameAction(state, { type: 'keep-tickets', ticketIds: keptIds });
-		expect(valid.ok).toBe(true);
-		if (!valid.ok) return;
-		expect(valid.state.players[0]!.tickets).toEqual(keptIds);
-		expect(valid.state.phase.type).toBe('ticket-selection');
-		expect(valid.state.currentPlayerIndex).toBe(1);
-		const afterBots = playBotTurns(valid.state);
+		const valid = keepOpening(state, 'player');
+		expect(valid.players[0]!.tickets).toEqual(offer.slice(0, 2));
+		expect(valid.phase).toEqual({ type: 'opening-tickets' });
+		expect(Object.keys(valid.openingTicketOffers)).toEqual(['bot-1']);
+		const afterBots = playBotTurns(valid);
 		expect(afterBots.phase).toEqual({ type: 'turn', drawsTaken: 0 });
 		expect(afterBots.currentPlayerIndex).toBe(0);
 		expect(afterBots.players[1]!.tickets).toHaveLength(2);
+	});
+
+	test('bots settle their opening tickets while the human is still choosing', () => {
+		const state = playBotTurns(createGame({ seed: 'bots-first', botCount: 3 }));
+		expect(state.phase).toEqual({ type: 'opening-tickets' });
+		expect(Object.keys(state.openingTicketOffers)).toEqual(['player']);
+		expect(state.players.map(player => player.tickets.length)).toEqual([0, 2, 2, 2]);
+		expect(chooseBotAction(state)).toBeUndefined();
 	});
 });
 
@@ -153,7 +164,7 @@ describe('turn rules', () => {
 
 	test('uses XState nodes as the authoritative turn lifecycle', () => {
 		let state = createGame({ seed: 'machine-lifecycle', botCount: 1 });
-		expect(getGameMachineState(state)).toBe('openingTicketSelection');
+		expect(getGameMachineState(state)).toBe('openingTickets');
 		state = finishTicketSelection(state);
 		expect(getGameMachineState(state)).toBe('turnReady');
 
@@ -263,7 +274,7 @@ describe('destination tickets', () => {
 		const draw = applyGameAction(state, { type: 'draw-destination-tickets' });
 		expect(draw.ok).toBe(true);
 		if (!draw.ok || draw.state.phase.type !== 'ticket-selection') return;
-		expect(draw.state.phase).toMatchObject({ minimum: 1, source: 'turn', playerId: 'player' });
+		expect(draw.state.phase).toMatchObject({ minimum: 1, playerId: 'player' });
 		expect(draw.state.phase.ticketIds).toHaveLength(3);
 
 		const invalid = applyGameAction(draw.state, { type: 'keep-tickets', ticketIds: [] });
@@ -279,31 +290,39 @@ describe('destination tickets', () => {
 		expect(keep.state.destinationDeck).toHaveLength(deckBefore.length - 1);
 	});
 
-	test('deals opening tickets to configured human players in sequence', () => {
-		let state = createGame({
+	test('lets every player choose opening tickets in any order before the first turn', () => {
+		const options: CreateGameOptions = {
 			seed: 'local-players',
 			players: [
 				{ id: 'a', name: 'Ada', color: 'red', isBot: false },
 				{ id: 'b', name: 'Bea', color: 'blue', isBot: false },
 			],
+		};
+		const state = createGame(options);
+		const offers = state.openingTicketOffers;
+		expect(applyGameAction(state, { type: 'draw-train-deck' })).toMatchObject({
+			ok: false,
+			error: 'Finish selecting tickets first.',
 		});
-		if (state.phase.type !== 'ticket-selection') throw new Error('Expected first selection.');
-		let result = applyGameAction(state, {
-			type: 'keep-tickets',
-			ticketIds: state.phase.ticketIds.slice(0, 2),
+
+		const bFirst = keepOpening(state, 'b', 3);
+		expect(bFirst.phase).toEqual({ type: 'opening-tickets' });
+		expect(
+			applyGameAction(bFirst, { type: 'keep-opening-tickets', playerId: 'b', ticketIds: offers.b! }),
+		).toMatchObject({
+			ok: false,
+			error: 'That player has no opening tickets to choose.',
 		});
-		if (!result.ok) throw new Error(result.error);
-		state = result.state;
-		expect(state.phase).toMatchObject({ type: 'ticket-selection', playerId: 'b', source: 'opening' });
-		if (state.phase.type !== 'ticket-selection') return;
-		result = applyGameAction(state, {
-			type: 'keep-tickets',
-			ticketIds: state.phase.ticketIds.slice(0, 2),
-		});
-		if (!result.ok) throw new Error(result.error);
-		expect(result.state.phase).toEqual({ type: 'turn', drawsTaken: 0 });
-		expect(result.state.currentPlayerIndex).toBe(0);
-		expect(result.state.players.map(player => player.tickets.length)).toEqual([2, 2]);
+		const started = keepOpening(bFirst, 'a');
+		expect(started.phase).toEqual({ type: 'turn', drawsTaken: 0 });
+		expect(started.currentPlayerIndex).toBe(0);
+		expect(started.openingTicketOffers).toEqual({});
+		expect(started.players.map(player => player.tickets)).toEqual([offers.a!.slice(0, 2), offers.b!]);
+
+		const aFirst = keepOpening(keepOpening(state, 'a'), 'b', 3);
+		expect(aFirst.players).toEqual(started.players);
+		expect(aFirst.phase).toEqual(started.phase);
+		expect(replayGame(options, started.history)).toEqual({ ok: true, state: started });
 	});
 
 	test('offers every remaining ticket when fewer than three remain', () => {
@@ -697,12 +716,52 @@ describe('persistence and full simulation', () => {
 		delete legacy.history;
 		delete legacy.openingTicketOffers;
 		const restored = restoreGameState(legacy);
-		expect(restored.version).toBe(3);
+		expect(restored.version).toBe(4);
 		expect('destinationDiscard' in restored).toBe(false);
 		expect(restored.finalRound).toBeNull();
 		expect(restored.finalResults).toBeNull();
 		expect(restored.history).toEqual([]);
 		expect(restored.openingTicketOffers).toEqual({});
+	});
+
+	test('migrates a save from the sequential opening into simultaneous picks that still replay', () => {
+		const options: CreateGameOptions = {
+			seed: 'legacy-opening',
+			players: [
+				{ id: 'a', name: 'Ada', color: 'red', isBot: false },
+				{ id: 'b', name: 'Bea', color: 'blue', isBot: false },
+				{ id: 'c', name: 'Cy', color: 'green', isBot: false },
+			],
+		};
+		const afterAda = keepOpening(createGame(options), 'a');
+		const legacy = JSON.parse(JSON.stringify(afterAda));
+		legacy.version = 3;
+		legacy.currentPlayerIndex = 1;
+		legacy.phase = {
+			type: 'ticket-selection',
+			playerId: 'b',
+			ticketIds: afterAda.openingTicketOffers.b,
+			minimum: 2,
+			source: 'opening',
+		};
+		legacy.history = [{ type: 'keep-tickets', ticketIds: afterAda.players[0]!.tickets }];
+
+		const restored = restoreGameState(legacy);
+		expect(restored).toEqual(afterAda);
+		const finished = keepOpening(keepOpening(restored, 'c'), 'b');
+		expect(finished.phase).toEqual({ type: 'turn', drawsTaken: 0 });
+		expect(replayGame(options, finished.history)).toEqual({ ok: true, state: finished });
+
+		const sequential = keepOpening(keepOpening(afterAda, 'b'), 'c');
+		const drawn = applyGameAction(sequential, { type: 'draw-destination-tickets' });
+		if (!drawn.ok || drawn.state.phase.type !== 'ticket-selection') throw new Error('Expected a turn selection.');
+		const legacyTurn = JSON.parse(JSON.stringify(drawn.state));
+		legacyTurn.version = 3;
+		legacyTurn.phase.source = 'turn';
+		legacyTurn.history = legacyTurn.history.map((action: { type: string; ticketIds?: string[] }) =>
+			action.type === 'keep-opening-tickets' ? { type: 'keep-tickets', ticketIds: action.ticketIds } : action,
+		);
+		expect(restoreGameState(legacyTurn)).toEqual(drawn.state);
 	});
 
 	test('plays a seeded all-bot game through final scoring deterministically', () => {

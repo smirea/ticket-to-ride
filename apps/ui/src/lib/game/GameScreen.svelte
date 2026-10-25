@@ -3,6 +3,7 @@
 		canClaimRoute,
 		canDrawTrainCards,
 		isTicketComplete,
+		openingTicketMinimum,
 		ROUTE_SCORES,
 		TRAIN_CARDS,
 		USA_CITIES,
@@ -155,14 +156,29 @@
 	);
 	const activeCard = $derived(paymentRoute || hoveredCityId ? undefined : (hoveredCard ?? pinnedCard));
 	const displayHand = $derived(heldHand ?? viewer?.hand);
+	const openingChoosers = $derived(
+		gameState.phase.type === 'opening-tickets'
+			? gameState.players.filter(p => gameState.openingTicketOffers[p.id])
+			: [],
+	);
 	const activePlayer = $derived(
-		gameState.phase.type === 'ticket-selection'
-			? gameState.players.find(p => gameState.phase.type === 'ticket-selection' && p.id === gameState.phase.playerId)
-			: currentPlayer,
+		gameState.phase.type === 'opening-tickets'
+			? openingChoosers.length === 1
+				? openingChoosers[0]
+				: undefined
+			: gameState.phase.type === 'ticket-selection'
+				? gameState.players.find(p => gameState.phase.type === 'ticket-selection' && p.id === gameState.phase.playerId)
+				: currentPlayer,
 	);
-	const ticketSelection = $derived(
-		gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId ? gameState.phase : undefined,
-	);
+	const ticketSelection = $derived.by(() => {
+		if (gameState.phase.type === 'opening-tickets') {
+			const offer = gameState.openingTicketOffers[viewerId];
+			return offer && { ticketIds: offer, minimum: openingTicketMinimum(offer) };
+		}
+		return gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId
+			? gameState.phase
+			: undefined;
+	});
 	const offeredTickets = $derived(ticketSelection?.ticketIds.flatMap(id => ticketById.get(id) ?? []) ?? []);
 	const heldTickets = $derived(
 		[...new Set([...(viewer?.tickets ?? []), ...keptTicketIds])].flatMap(id => ticketById.get(id) ?? []),
@@ -610,6 +626,10 @@
 		if (gameState.phase.type === 'game-over') return 'Journey complete';
 		if (actionInFlight) return actionInFlight;
 		if (ticketSelection) return 'Choose your tickets';
+		if (gameState.phase.type === 'opening-tickets') {
+			const names = openingChoosers.map(player => player.name);
+			return `Waiting for ${names.length > 2 ? `${names.length} players` : names.join(' and ')}`;
+		}
 		if (gameState.phase.type === 'ticket-selection') {
 			const choosing = gameState.players.find(
 				player => gameState.phase.type === 'ticket-selection' && player.id === gameState.phase.playerId,
@@ -760,7 +780,11 @@
 			await tick();
 			flights = [];
 			await pause(100);
-			if ((await send({ type: 'keep-tickets', ticketIds: ids })) === false) {
+			const action: GameAction =
+				gameState.phase.type === 'opening-tickets'
+					? { type: 'keep-opening-tickets', playerId: viewerId, ticketIds: ids }
+					: { type: 'keep-tickets', ticketIds: ids };
+			if ((await send(action)) === false) {
 				for (const id of ids) {
 					const element = document.querySelector<HTMLElement>(`[data-offer-ticket="${id}"]`);
 					if (element) {
@@ -800,7 +824,9 @@
 					{player}
 					{viewerId}
 					{index}
-					active={player.id === activePlayer?.id && gameState.phase.type !== 'game-over'}
+					active={openingChoosers.length
+						? openingChoosers.includes(player)
+						: player.id === activePlayer?.id && gameState.phase.type !== 'game-over'}
 					color={playerColors[player.color]}
 					completedTickets={player.completedTicketCount ??
 						(player.tickets.every(id => ticketById.has(id))

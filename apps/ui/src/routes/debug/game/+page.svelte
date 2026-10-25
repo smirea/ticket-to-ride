@@ -44,10 +44,9 @@
 
 	function loadFullTable() {
 		let next = createGame({ seed: 'full-table-layout', humanName: 'You', botCount: 4 });
-		while (next.phase.type === 'ticket-selection') {
-			const result = applyGameAction(next, { type: 'keep-tickets', ticketIds: next.phase.ticketIds.slice(0, 2) });
-			if (!result.ok) break;
-			next = result.state;
+		for (const [playerId, offer] of Object.entries(next.openingTicketOffers)) {
+			const result = applyGameAction(next, { type: 'keep-opening-tickets', playerId, ticketIds: offer.slice(0, 2) });
+			if (result.ok) next = result.state;
 		}
 		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
 		next.destinationDeck = next.destinationDeck.filter(id => !next.players.some(player => player.tickets.includes(id)));

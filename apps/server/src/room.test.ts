@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { CLIENT_ID_HEADER, chooseBotAction, USA_TICKETS, type RoomState } from '@repo/shared';
+import { CLIENT_ID_HEADER, chooseBotAction, USA_TICKETS, type GameAction, type RoomState } from '@repo/shared';
 import { createRequestHandler } from './app';
 import { RoomService } from './room-service';
 import { RoomStore } from './room-store';
@@ -100,7 +100,7 @@ describe('room HTTP lifecycle', () => {
 			{ id: 'alice', isBot: false },
 			{ id: 'bob', isBot: false },
 		]);
-		expect(room.game?.phase.type).toBe('ticket-selection');
+		expect(room.game?.phase).toEqual({ type: 'opening-tickets' });
 
 		const current = await context.request('GET', '/api/rooms/current?clientId=bob');
 		expect(current.status).toBe(200);
@@ -134,31 +134,32 @@ describe('room HTTP lifecycle', () => {
 });
 
 describe('authoritative game actions', () => {
-	test('enforces turn ownership and only persists accepted idempotent actions', async () => {
+	test('enforces ticket and turn ownership and only persists accepted idempotent actions', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);
-		if (room.game?.phase.type !== 'ticket-selection') throw new Error('Expected opening tickets.');
-		const aliceTickets = room.game.phase.ticketIds.slice(0, room.game.phase.minimum);
+		const offers = context.store.getRoom(room.code)!.game!.openingTicketOffers;
+		const aliceTickets = offers.alice!.slice(0, 2);
+		const aliceKeep = { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: aliceTickets };
 
-		const outOfTurn = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
-			actionId: 'bob-too-early',
-			action: { type: 'keep-tickets', ticketIds: aliceTickets },
+		const impersonation = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
+			actionId: 'bob-as-alice',
+			action: aliceKeep,
 		});
-		expect(outOfTurn.status).toBe(409);
+		expect(impersonation.status).toBe(403);
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(0);
 
 		const accepted = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
 			actionId: 'alice-opening',
-			action: { type: 'keep-tickets', ticketIds: aliceTickets },
+			action: aliceKeep,
 		});
 		expect(accepted.status).toBe(200);
 		const afterAction = await responseRoom(accepted);
-		expect(afterAction.game?.players[afterAction.game.currentPlayerIndex]?.id).toBe('bob');
+		expect(afterAction.game?.phase).toEqual({ type: 'opening-tickets' });
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
 
 		const duplicate = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
 			actionId: 'alice-opening',
-			action: { type: 'keep-tickets', ticketIds: aliceTickets },
+			action: aliceKeep,
 		});
 		expect(duplicate.status).toBe(200);
 		expect((await responseRoom(duplicate)).revision).toBe(afterAction.revision);
@@ -170,27 +171,60 @@ describe('authoritative game actions', () => {
 			action: { type: 'draw-train-deck' },
 		});
 		expect(mismatched.status).toBe(409);
-		const retryWithOldRevision = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
-			actionId: 'alice-opening',
-			expectedRevision: room.revision,
-			action: { type: 'keep-tickets', ticketIds: aliceTickets },
+		const outOfTurn = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
+			actionId: 'bob-too-early',
+			action: { type: 'draw-train-deck' },
 		});
-		expect(retryWithOldRevision.status).toBe(200);
-		const stale = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
-			actionId: 'bob-stale',
-			expectedRevision: room.revision,
-			action: { type: 'keep-tickets', ticketIds: [] },
-		});
-		expect(stale.status).toBe(409);
-		expect(context.store.getRoom(room.code)?.revision).toBe(afterAction.revision);
-		const currentRoom = context.store.getRoom(room.code);
-		if (currentRoom?.game?.phase.type !== 'ticket-selection') throw new Error('Expected Bob opening tickets.');
+		expect(outOfTurn.status).toBe(409);
 		const invalid = await context.request('POST', `/api/rooms/${room.code}/actions`, 'bob', {
 			actionId: 'bob-invalid',
-			action: { type: 'keep-tickets', ticketIds: [] },
+			action: { type: 'keep-opening-tickets', playerId: 'bob', ticketIds: [] },
 		});
 		expect(invalid.status).toBe(422);
+		expect(context.store.getRoom(room.code)?.revision).toBe(afterAction.revision);
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
+	});
+
+	test('accepts simultaneous opening picks in either order and starts once everyone has chosen', async () => {
+		for (const order of [
+			['alice', 'bob'],
+			['bob', 'alice'],
+		]) {
+			const context = setup();
+			const room = await startTwoPlayerRoom(context);
+			const offers = context.store.getRoom(room.code)!.game!.openingTicketOffers;
+			const [first, second] = order as [string, string];
+			const pick = (clientId: string) =>
+				context.request('POST', `/api/rooms/${room.code}/actions`, clientId, {
+					actionId: `${clientId}-opening`,
+					expectedRevision: room.revision,
+					action: { type: 'keep-opening-tickets', playerId: clientId, ticketIds: offers[clientId]!.slice(0, 2) },
+				});
+
+			const firstRoom = await responseRoom(await pick(first));
+			expect(firstRoom.game?.phase).toEqual({ type: 'opening-tickets' });
+			expect(Object.keys(firstRoom.game!.openingTicketOffers)).toEqual([second]);
+
+			const secondRoom = await responseRoom(await pick(second));
+			expect(secondRoom.game?.phase).toEqual({ type: 'turn', drawsTaken: 0 });
+			expect(secondRoom.game?.currentPlayerIndex).toBe(0);
+			expect(secondRoom.game?.openingTicketOffers).toEqual({});
+			const authoritative = context.store.getRoom(room.code)!.game!;
+			expect(authoritative.players.map(player => [player.id, player.tickets])).toEqual([
+				['alice', offers.alice!.slice(0, 2)],
+				['bob', offers.bob!.slice(0, 2)],
+			]);
+			expect(authoritative.history.map(action => action.type === 'keep-opening-tickets' && action.playerId)).toEqual(
+				order,
+			);
+
+			const staleTurn = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
+				actionId: 'alice-stale-draw',
+				expectedRevision: firstRoom.revision,
+				action: { type: 'draw-train-deck' },
+			});
+			expect(staleTurn.status).toBe(409);
+		}
 	});
 
 	test('plays and restores a complete deterministic two-player game', async () => {
@@ -203,12 +237,15 @@ describe('authoritative game actions', () => {
 		while (room.phase === 'playing' && acceptedCount < 10_000) {
 			const authoritativeRoom = context.store.getRoom(room.code);
 			if (!authoritativeRoom?.game) throw new Error('Expected an active game.');
-			const currentPlayer = authoritativeRoom.game.players[authoritativeRoom.game.currentPlayerIndex]!;
-			const otherPlayer = authoritativeRoom.game.players.find(player => player.id !== currentPlayer.id)!;
 			const planningState = structuredClone(authoritativeRoom.game);
-			planningState.players[planningState.currentPlayerIndex]!.isBot = true;
+			for (const player of planningState.players) player.isBot = true;
 			const action = chooseBotAction(planningState);
-			if (!action) throw new Error(`No legal action for ${currentPlayer.id}.`);
+			if (!action) throw new Error('No legal action.');
+			const actorId =
+				action.type === 'keep-opening-tickets'
+					? action.playerId
+					: authoritativeRoom.game.players[authoritativeRoom.game.currentPlayerIndex]!.id;
+			const otherPlayer = authoritativeRoom.game.players.find(player => player.id !== actorId)!;
 			const actionId = `game-${acceptedCount}`;
 			const revisionBefore = room.revision;
 
@@ -216,10 +253,10 @@ describe('authoritative game actions', () => {
 				actionId: `wrong-${acceptedCount}`,
 				action,
 			});
-			expect(wrongTurn.status).toBe(409);
+			expect(wrongTurn.status).toBe(action.type === 'keep-opening-tickets' ? 403 : 409);
 			expect(context.store.getRoom(room.code)?.revision).toBe(revisionBefore);
 
-			const accepted = await context.request('POST', `/api/rooms/${room.code}/actions`, currentPlayer.id, {
+			const accepted = await context.request('POST', `/api/rooms/${room.code}/actions`, actorId, {
 				actionId,
 				action,
 			});
@@ -228,7 +265,7 @@ describe('authoritative game actions', () => {
 			expect(responseSnapshot.revision).toBe(revisionBefore + 1);
 			room = context.store.getRoom(room.code)!;
 
-			const duplicate = await context.request('POST', `/api/rooms/${room.code}/actions`, currentPlayer.id, {
+			const duplicate = await context.request('POST', `/api/rooms/${room.code}/actions`, actorId, {
 				actionId,
 				action,
 			});
@@ -245,7 +282,10 @@ describe('authoritative game actions', () => {
 		expect(room.game.finalResults).toHaveLength(2);
 		const acceptedActions = context.store.listAcceptedActions(room.code);
 		expect(acceptedActions).toHaveLength(acceptedCount);
-		expect(acceptedActions.slice(0, 2).map(item => item.action.type)).toEqual(['keep-tickets', 'keep-tickets']);
+		expect(acceptedActions.slice(0, 2).map(item => item.action.type)).toEqual([
+			'keep-opening-tickets',
+			'keep-opening-tickets',
+		]);
 		expect(acceptedActions.some(item => item.action.type === 'draw-train-deck')).toBe(true);
 		expect(acceptedActions.some(item => item.action.type === 'claim-route')).toBe(true);
 		expect(acceptedActions.map(item => item.action)).toEqual(room.game.history);
@@ -313,8 +353,10 @@ describe('authoritative game actions', () => {
 		expect(aliceRoom.game.destinationDeck).toHaveLength(authoritative.game.destinationDeck.length);
 		expect(aliceRoom.game.destinationDeck.every(ticketId => ticketId.startsWith('private-deck-'))).toBe(true);
 		expect(aliceRoom.settings.seed).toBe('');
+		const privateOffer = ['private-offer-1', 'private-offer-2', 'private-offer-3'];
 		expect(aliceRoom.game.openingTicketOffers).toEqual({
 			alice: authoritative.game.openingTicketOffers.alice,
+			bob: privateOffer,
 		});
 
 		const bobResponse = await context.request('GET', `/api/rooms/${aliceRoom.code}`, 'bob');
@@ -326,20 +368,21 @@ describe('authoritative game actions', () => {
 		expect(totalTrainCards(hiddenAlice)).toBe(totalTrainCards(authoritativeAlice));
 		expect(hiddenAlice.hand).not.toEqual(authoritativeAlice.hand);
 		expect(hiddenAlice.tickets.every(ticketId => ticketId.startsWith('private-player-'))).toBe(true);
-		expect(bobRoom.game.openingTicketOffers).toEqual({ bob: authoritative.game.openingTicketOffers.bob });
-		if (bobRoom.game.phase.type !== 'ticket-selection') throw new Error('Expected Alice ticket selection.');
-		expect(bobRoom.game.phase.ticketIds).toHaveLength(authoritative.game.phase.type === 'ticket-selection' ? 3 : 0);
-		expect(bobRoom.game.phase.ticketIds.every(ticketId => ticketId.startsWith('private-offer-'))).toBe(true);
+		expect(bobRoom.game.openingTicketOffers).toEqual({
+			alice: privateOffer,
+			bob: authoritative.game.openingTicketOffers.bob,
+		});
 		expect(JSON.stringify(bobRoom)).not.toContain(authoritative.game.openingTicketOffers.alice![0]!);
 
 		const aliceOffer = authoritative.game.openingTicketOffers.alice!;
 		const accepted = await context.request('POST', `/api/rooms/${aliceRoom.code}/actions`, 'alice', {
 			actionId: 'alice-private-tickets',
-			action: { type: 'keep-tickets', ticketIds: aliceOffer.slice(0, 2) },
+			action: { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: aliceOffer.slice(0, 2) },
 		});
 		expect(accepted.status).toBe(200);
 		const afterAlice = await responseRoom(accepted);
-		expect(afterAlice.game?.history.at(-1)).toEqual({ type: 'keep-tickets', ticketIds: [] });
+		const redactedKeep: GameAction = { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: [] };
+		expect(afterAlice.game?.history.at(-1)).toEqual(redactedKeep);
 		const ownerEvent = afterAlice.game?.events.find(event => event.type === 'keep-tickets');
 		expect(ownerEvent?.type === 'keep-tickets' && ownerEvent.ticketIds?.length).toBeGreaterThan(0);
 		const otherView = projectRoomForViewer(context.store.getRoom(afterAlice.code)!, 'bob');
@@ -347,14 +390,12 @@ describe('authoritative game actions', () => {
 		expect(privateEvent?.type === 'keep-tickets' && privateEvent.ticketIds).toBeUndefined();
 
 		const afterBob = await responseRoom(await context.request('GET', `/api/rooms/${aliceRoom.code}`, 'bob'));
-		if (!afterBob.game || afterBob.game.phase.type !== 'ticket-selection') {
-			throw new Error('Expected Bob ticket selection.');
-		}
-		expect(afterBob.game.phase.ticketIds).toEqual(authoritative.game.openingTicketOffers.bob);
+		if (!afterBob.game) throw new Error('Expected Bob game projection.');
+		expect(afterBob.game.openingTicketOffers).toEqual({ bob: authoritative.game.openingTicketOffers.bob });
 		const aliceFromBob = afterBob.game.players.find(player => player.id === 'alice')!;
 		expect(aliceFromBob.tickets).toHaveLength(2);
 		expect(aliceFromBob.tickets.every(ticketId => ticketId.startsWith('private-player-'))).toBe(true);
-		expect(afterBob.game.history.at(-1)).toEqual({ type: 'keep-tickets', ticketIds: [] });
+		expect(afterBob.game.history.at(-1)).toEqual(redactedKeep);
 	});
 });
 
@@ -436,17 +477,15 @@ describe('departures and room events', () => {
 		const aliceOffer = authoritative.game.openingTicketOffers.alice!;
 		await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
 			actionId: 'alice-sse-tickets',
-			action: { type: 'keep-tickets', ticketIds: aliceOffer.slice(0, 2) },
+			action: { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: aliceOffer.slice(0, 2) },
 		});
 		const aliceUpdate = await readSnapshot(aliceReader);
 		const bobUpdate = await readSnapshot(bobReader);
 		if (!aliceUpdate.game || !bobUpdate.game) throw new Error('Expected projected updates.');
-		if (aliceUpdate.game.phase.type !== 'ticket-selection' || bobUpdate.game.phase.type !== 'ticket-selection') {
-			throw new Error('Expected Bob ticket selection.');
-		}
-		expect(aliceUpdate.game.phase.ticketIds).toHaveLength(authoritative.game.openingTicketOffers.bob!.length);
-		expect(aliceUpdate.game.phase.ticketIds.every(ticketId => ticketId.startsWith('private-offer-'))).toBe(true);
-		expect(bobUpdate.game.phase.ticketIds).toEqual(authoritative.game.openingTicketOffers.bob);
+		expect(aliceUpdate.game.openingTicketOffers).toEqual({
+			bob: ['private-offer-1', 'private-offer-2', 'private-offer-3'],
+		});
+		expect(bobUpdate.game.openingTicketOffers).toEqual({ bob: authoritative.game.openingTicketOffers.bob });
 		expect(
 			aliceUpdate.game.players
 				.find(player => player.id === 'bob')!
@@ -457,8 +496,9 @@ describe('departures and room events', () => {
 				.find(player => player.id === 'alice')!
 				.tickets.every(ticketId => ticketId.startsWith('private-player-')),
 		).toBe(true);
-		expect(aliceUpdate.game.history.at(-1)).toEqual({ type: 'keep-tickets', ticketIds: [] });
-		expect(bobUpdate.game.history.at(-1)).toEqual({ type: 'keep-tickets', ticketIds: [] });
+		const redactedKeep: GameAction = { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: [] };
+		expect(aliceUpdate.game.history.at(-1)).toEqual(redactedKeep);
+		expect(bobUpdate.game.history.at(-1)).toEqual(redactedKeep);
 
 		await aliceReader.cancel();
 		await bobReader.cancel();
