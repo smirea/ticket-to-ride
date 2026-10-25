@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { MapSchema, type MapDefinition } from '../packages/shared/src/map-schema';
@@ -9,21 +10,26 @@ const folders = (await readdir(rules, { withFileTypes: true }))
 	.sort();
 const maps: MapDefinition[] = [];
 const errors: string[] = [];
+let missingImages = 0;
 for (const folder of folders) {
 	try {
 		const data: unknown = JSON.parse(await readFile(resolve(rules, folder, 'map.json'), 'utf8'));
 		const map = MapSchema.parse(data);
 		if (folder !== `map-${map.id}`) throw new Error('Map ID does not match its folder');
-		const png = await readFile(resolve(rules, folder, map.image.file));
-		if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
-			throw new Error('Map image is not a PNG');
+		// Reference images and PDFs are kept out of git, so a fresh clone checks only the JSON and Markdown.
+		const imagePath = resolve(rules, folder, map.image.file);
+		if (existsSync(imagePath)) {
+			const png = await readFile(imagePath);
+			if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+				throw new Error('Map image is not a PNG');
+			}
+			if (map.image.width !== png.readUInt32BE(16) || map.image.height !== png.readUInt32BE(20)) {
+				throw new Error('Map image dimensions do not match the JSON');
+			}
+		} else {
+			missingImages += 1;
 		}
-		if (map.image.width !== png.readUInt32BE(16) || map.image.height !== png.readUInt32BE(20)) {
-			throw new Error('Map image dimensions do not match the JSON');
-		}
-		for (const file of ['rules.pdf', 'rules.md']) {
-			if (!(await stat(resolve(rules, folder, file))).isFile()) throw new Error(`Missing ${file}`);
-		}
+		if (!(await stat(resolve(rules, folder, 'rules.md'))).isFile()) throw new Error('Missing rules.md');
 		maps.push(map);
 		console.log(`${map.id}: ${map.nodes.length} nodes, ${map.connections.length} tracks`);
 	} catch (error) {
@@ -39,4 +45,5 @@ if (errors.length) {
 	const nodes = maps.reduce((sum, map) => sum + map.nodes.length, 0);
 	const tracks = maps.reduce((sum, map) => sum + map.connections.length, 0);
 	console.log(`Validated ${maps.length} maps: ${nodes} nodes and ${tracks} tracks.`);
+	if (missingImages) console.log(`Skipped image checks for ${missingImages} maps without a local map.png.`);
 }

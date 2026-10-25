@@ -22,3 +22,7 @@ build
 
 # other
 .DS_Store
+
+# Rulebook PDFs and reference images stay local; they made the history over 1 GiB.
+rules/**/*.pdf
+rules/**/*.png

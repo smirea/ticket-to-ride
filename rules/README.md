@@ -2,6 +2,8 @@
 
 Each `map-<id>/` folder represents one board. Start with `map.json` for the graph, `map.png` for visual verification, and `rules.md` for the map's gameplay. Expansion rulebooks may require the base game rules as well.
 
+Only `map.json` and `rules.md` are in git. The PDFs and PNGs (`map.png`, `map-generated.png`, `rules.pdf`, `images/`) are ignored local reference files, because they made the repository history over 1 GiB. A fresh clone has none of them; `rules.md` image links and the image checks in `rules:validate` only work where the local copies exist.
+
 | File                | Purpose                                                                                                |
 | ------------------- | ------------------------------------------------------------------------------------------------------ |
 | `map.json`          | Typed board topology, normalized node positions, physical route spaces, and board-specific attributes. |
@@ -35,7 +37,7 @@ import { MapSchema, type MapDefinition } from '@repo/shared/map-schema';
 const map: MapDefinition = MapSchema.parse(untrustedJson);
 ```
 
-Run `bun run rules:validate` from the repository root after editing any map. It discovers every map folder, validates its JSON, checks graph references and feature consistency, and verifies the image dimensions and required rulebook files. Semantic regression tests live in [`map-schema.test.ts`](../packages/shared/src/map-schema.test.ts).
+Run `bun run rules:validate` from the repository root after editing any map. It discovers every map folder, validates its JSON, checks graph references and feature consistency, requires `rules.md`, and verifies image dimensions when a local `map.png` is present. Semantic regression tests live in [`map-schema.test.ts`](../packages/shared/src/map-schema.test.ts).
 
 The data was transcribed from the reference boards and checked against the rulebooks. Schema validation checks structure and internal consistency; it cannot prove a transcription matches the printed board. Compare affected routes with `map.png` when making changes. These files describe static boards, not complete executable game modes: destination decks, setup, payments, scoring tables, turn actions, and dynamic state still need implementation from the rulebooks.
 
@@ -83,7 +85,7 @@ The data was transcribed from the reference boards and checked against the ruleb
 | `festivalGroup`      | Iberia festival identity; Porto and Coimbra share a group.                                                                                                                           |
 | `mechanics`          | Declared capabilities an implementation needs. It is not a substitute for the rulebook's behavior or setup parameters.                                                               |
 
-The existing USA runtime types in [`game.ts`](../packages/shared/src/game.ts) inspired this format. Runtime `City`/`Route` values are not directly interchangeable: their layout coordinates, route representation, and supported features differ. The USA JSON follows the reference board, including the yellow Salt Lake City–Denver track; the current runtime uses orange for that track.
+The existing USA runtime types in [`game.ts`](../packages/shared/src/game.ts) inspired this format. Runtime `City`/`Route` values are not directly interchangeable: their layout coordinates, route representation, and supported features differ. The runtime USA routes match `map-usa/map.json`, which a test in `game.test.ts` checks.
 
 ## Inventory
 

@@ -44,7 +44,7 @@ Each requested point is recorded in its own commit.
 
 ## Verification
 
-- [x] 73 tests pass, including full deterministic replay, final scoring, room persistence/recovery, private event projection, lost-acknowledgment retries, reload recovery of unconfirmed requests, stale revisions, resolved payments, duplicate player names, and graph traversal through zero-cost owned cycles.
+- [x] 75 tests pass, including full deterministic replay, final scoring, room persistence/recovery, private event projection, lost-acknowledgment retries, reload recovery of unconfirmed requests, stale revisions, resolved payments, duplicate player names, and graph traversal through zero-cost owned cycles.
 - [x] An additional 100 seeded all-bot games complete across 2–5 players after the graph changes.
 - [x] UI and server typechecks pass. Svelte reports no errors or warnings under the current configuration; accessibility warnings are still globally suppressed.
 - [x] Oxlint and formatting checks pass for application/shared source, scripts, and changed configuration.
@@ -63,6 +63,9 @@ Each requested point is recorded in its own commit.
 - [x] Room page retries failed loads with backoff and recovers from EventSource giving up after HTTP errors.
 - [x] Solo play: no re-animated board on reload, bots wait for animations and Settings, touch taps confirm claims, New game cannot resend a stale move.
 - [x] Ticket art and portraits resized to display size (about 2.5 MB less). Pre-push runs tests and typecheck.
+- [x] A pass action exists only when nothing can be drawn or claimed; if every player passes in a row the game is scored.
+- [x] API JSON and event streams are gzipped. The event stream shares one sync-flushed gzip stream per connection: a seeded 5-player game drops from 7.2 MB to 409 KB per viewer.
+- [x] Git history rewritten without rulebook PDFs/PNGs and old `artifacts/` and `docs/` copies: pack size 1.13 GiB → about 20 MiB. Those files stay local and ignored.
 
 ## Remaining work
 
@@ -70,8 +73,6 @@ Each requested point is recorded in its own commit.
 
 - [ ] Separate public player IDs from secret session credentials. The current request identity is exposed in room snapshots and can be reused to impersonate another player.
 - [ ] Host-chosen seeds are still accepted from the room settings form; they should become an explicit debug capability. Default seeds are now random.
-- [ ] There is no pass action. If both train piles and the destination deck are empty and the current player cannot claim anything, the game stalls. Not observed in 600 seeded bot games.
-- [ ] Room snapshots (about 45 KB late in a 5-player game) are sent uncompressed over the API and event stream; only static files are gzipped.
 - [ ] Validate complete persisted game structure before accepting saves; the migration helper still checks only a small outer shape.
 - [ ] Introduce an explicit viewer-facing state type instead of representing private data with red-card and fake-ticket placeholders.
 - [ ] Decide whether the payment chooser should allow spending extra locomotives. It currently deliberately offers the least-wild payment per color even though the engine supports other legal payments.
@@ -84,10 +85,6 @@ Each requested point is recorded in its own commit.
 - [ ] Repeat portrait-tablet and full-game browser regression checks for ticket selection, draws, claims, celebrations, results, and refresh. Historical solo QA completed one 73-turn game; multiple full human playthroughs remain outstanding.
 - [ ] Exercise actual network interruptions and multi-tab interactions end to end. Automated tests cover uncertain acknowledgments and persisted retries, but browser smoke testing does not simulate packet loss.
 - [ ] Complete remaining Steam-reference comparisons for difficulty and results where relevant to the current tabletop design.
-
-### Repository size
-
-- [ ] Git history is about 1.1 GiB, mostly rulebook PDFs and page PNGs under `rules/` plus old `artifacts/` and `docs/` copies. Nothing at runtime reads them; only `map.json` files are used by tests and `scripts/validate-maps.ts`. Shrinking it needs a history rewrite and force-push.
 
 ### Optional future features
 
