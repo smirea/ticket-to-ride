@@ -102,7 +102,7 @@ describe('room HTTP lifecycle', () => {
 		]);
 		expect(room.game?.phase).toEqual({ type: 'opening-tickets' });
 
-		const current = await context.request('GET', '/api/rooms/current?clientId=bob');
+		const current = await context.request('GET', '/api/rooms/current', 'bob');
 		expect(current.status).toBe(200);
 		expect((await responseRoom(current)).code).toBe(room.code);
 		expect(context.store.getCurrentRoom('bob')?.revision).toBe(room.revision);
@@ -183,6 +183,27 @@ describe('authoritative game actions', () => {
 		expect(invalid.status).toBe(422);
 		expect(context.store.getRoom(room.code)?.revision).toBe(afterAction.revision);
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
+	});
+
+	test('stores only the known fields of an action', async () => {
+		const context = setup();
+		const room = await startTwoPlayerRoom(context);
+		const ticketIds = context.store.getRoom(room.code)!.game!.openingTicketOffers.alice!.slice(0, 2);
+		const oversized = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
+			actionId: 'alice-oversized',
+			action: { type: 'keep-opening-tickets', playerId: 'alice', ticketIds: Array(1000).fill(ticketIds[0]) },
+		});
+		expect(oversized.status).toBe(400);
+
+		const padded = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
+			actionId: 'alice-padded',
+			action: { type: 'keep-opening-tickets', playerId: 'alice', ticketIds, junk: 'x'.repeat(10_000) },
+		});
+		expect(padded.status).toBe(200);
+		expect(context.store.listAcceptedActions(room.code).map(item => item.action)).toEqual([
+			{ type: 'keep-opening-tickets', playerId: 'alice', ticketIds },
+		]);
+		expect(JSON.stringify(context.store.getRoom(room.code))).not.toContain('xxxx');
 	});
 
 	test('accepts simultaneous opening picks in either order and starts once everyone has chosen', async () => {
@@ -305,7 +326,7 @@ describe('authoritative game actions', () => {
 		const reopenedService = new RoomService(reopenedStore, new RoomStreams());
 
 		expect(reopenedService.getRoom('alice', room.code)).toEqual(expectedRoom);
-		expect(reopenedService.getCurrentRoom('bob')).toEqual(expectedRoom);
+		expect(reopenedService.getCurrentRoom('bob')).toBeNull();
 		expect(reopenedStore.listAcceptedActions(room.code)).toEqual(expectedActions);
 	});
 
@@ -412,7 +433,7 @@ describe('departures and room events', () => {
 		expect(finished.phase).toBe('finished');
 		expect(finished.finishedReason).toBe('abandoned');
 		expect(context.store.getCurrentRoom('bob')).toBeNull();
-		expect(context.store.getCurrentRoom('alice')?.phase).toBe('finished');
+		expect(context.store.getCurrentRoom('alice')).toBeNull();
 
 		const action = await context.request('POST', `/api/rooms/${room.code}/actions`, 'alice', {
 			actionId: 'after-finish',

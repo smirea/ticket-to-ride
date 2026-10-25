@@ -8,9 +8,23 @@ interface Subscriber {
 }
 
 const encoder = new TextEncoder();
+const HEARTBEAT = encoder.encode(': ping\n\n');
+// A subscriber this many events behind has stopped reading; it reconnects and gets a fresh snapshot.
+const MAX_QUEUED_EVENTS = 8;
 
 export class RoomStreams {
 	private readonly subscribers = new Map<string, Set<Subscriber>>();
+	private readonly heartbeat: ReturnType<typeof setInterval>;
+
+	// Keeps quiet streams under the server idle timeout.
+	constructor(heartbeatMs = 25_000) {
+		this.heartbeat = setInterval(() => this.broadcast(() => HEARTBEAT), heartbeatMs);
+		this.heartbeat.unref?.();
+	}
+
+	stop(): void {
+		clearInterval(this.heartbeat);
+	}
 
 	create(room: RoomState, viewerId: string, signal: AbortSignal): ReadableStream<Uint8Array> {
 		let subscriber: Subscriber | undefined;
@@ -39,13 +53,28 @@ export class RoomStreams {
 		const subscribers = this.subscribers.get(room.code);
 		if (!subscribers) return;
 		for (const subscriber of subscribers) {
-			try {
-				subscriber.controller.enqueue(
-					encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, subscriber.viewerId) }),
-				);
-			} catch {
-				this.remove(room.code, subscriber);
+			this.send(room.code, subscriber, () =>
+				encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, subscriber.viewerId) }),
+			);
+		}
+	}
+
+	private broadcast(payload: () => Uint8Array): void {
+		for (const [code, subscribers] of this.subscribers) {
+			for (const subscriber of subscribers) this.send(code, subscriber, payload);
+		}
+	}
+
+	private send(code: string, subscriber: Subscriber, payload: () => Uint8Array): void {
+		try {
+			if ((subscriber.controller.desiredSize ?? 0) < -MAX_QUEUED_EVENTS) {
+				this.remove(code, subscriber);
+				subscriber.controller.close();
+				return;
 			}
+			subscriber.controller.enqueue(payload());
+		} catch {
+			this.remove(code, subscriber);
 		}
 	}
 

@@ -86,25 +86,26 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 
 			if (url.pathname.startsWith('/api/')) return json({ ok: false, error: 'Not found' }, 404);
 			if (!uiBuildPath) return new Response('UI build not found.', { status: 404 });
-			return staticFile(uiBuildPath, url.pathname, request);
+			return await staticFile(uiBuildPath, url.pathname, request);
 		} catch (error) {
 			if (error instanceof RoomError) return json({ ok: false, error: error.message }, error.status);
-			if (error instanceof SyntaxError || error instanceof URIError) {
-				return json({ ok: false, error: 'Request body is invalid.' }, 400);
-			}
+			if (error instanceof URIError) return json({ ok: false, error: 'Not found' }, 404);
 			console.error(error);
 			return json({ ok: false, error: 'Internal server error.' }, 500);
 		}
 	};
 }
 
+// EventSource cannot send headers, so only the events stream accepts the identity as a query parameter.
 function clientId(request: Request, url: URL): string {
-	return request.headers.get(CLIENT_ID_HEADER) ?? url.searchParams.get('clientId') ?? '';
+	const header = request.headers.get(CLIENT_ID_HEADER);
+	if (header) return header;
+	return url.pathname.endsWith('/events') ? (url.searchParams.get('clientId') ?? '') : '';
 }
 
 async function readJsonObject(request: Request): Promise<Record<string, unknown>> {
-	const body: unknown = await request.json();
-	if (!body || typeof body !== 'object' || Array.isArray(body)) throw new SyntaxError('Expected a JSON object.');
+	const body: unknown = await request.json().catch(() => undefined);
+	if (!body || typeof body !== 'object' || Array.isArray(body)) throw new RoomError('Request body is invalid.', 400);
 	return body as Record<string, unknown>;
 }
 
@@ -113,9 +114,16 @@ function json(body: unknown, status = 200): Response {
 }
 
 async function staticFile(uiBuildPath: URL, pathname: string, request: Request): Promise<Response> {
-	const path = pathname === '/' ? '/index.html' : pathname;
-	const file = Bun.file(new URL(`.${path}`, uiBuildPath));
+	const path = pathname === '/' ? '/index.html' : decodeURIComponent(pathname);
+	const fileUrl = new URL(`.${path}`, uiBuildPath);
+	if (path.includes('\0') || !fileUrl.href.startsWith(uiBuildPath.href))
+		return new Response('Not found', { status: 404 });
+	const file = Bun.file(fileUrl);
 	if (await file.exists()) return cachedFile(file, cacheControl(path), request);
+	// Only page routes fall back to the SPA shell; a missing asset must not come back as HTML.
+	if (/\.[a-z0-9]+$/i.test(path) || path.startsWith('/_app/') || path.startsWith('/game-assets/')) {
+		return new Response('Not found', { status: 404 });
+	}
 
 	const index = Bun.file(new URL('./index.html', uiBuildPath));
 	if (await index.exists()) return cachedFile(index, 'no-cache', request);
@@ -130,10 +138,28 @@ function cacheControl(path: string): string {
 	return 'no-cache';
 }
 
-function cachedFile(file: ReturnType<typeof Bun.file>, cache: string, request: Request): Response {
+const COMPRESSIBLE = /\.(?:js|css|html|json|svg|txt)$/;
+const gzipCache = new Map<string, { modified: number; body: Uint8Array<ArrayBuffer> }>();
+
+async function cachedFile(file: ReturnType<typeof Bun.file>, cache: string, request: Request): Promise<Response> {
 	const lastModified = new Date(Math.floor(file.lastModified / 1000) * 1000);
-	const headers = { 'Cache-Control': cache, 'Last-Modified': lastModified.toUTCString() };
+	const headers: Record<string, string> = {
+		'Cache-Control': cache,
+		'Last-Modified': lastModified.toUTCString(),
+		Vary: 'Accept-Encoding',
+	};
 	const since = request.headers.get('If-Modified-Since');
 	if (since && Date.parse(since) >= lastModified.getTime()) return new Response(null, { status: 304, headers });
-	return new Response(file, { headers });
+	const path = file.name ?? '';
+	if (file.size < 1024 || !COMPRESSIBLE.test(path) || !request.headers.get('Accept-Encoding')?.includes('gzip')) {
+		return new Response(file, { headers });
+	}
+	let compressed = gzipCache.get(path);
+	if (compressed?.modified !== file.lastModified) {
+		compressed = { modified: file.lastModified, body: Bun.gzipSync(await file.bytes()) };
+		gzipCache.set(path, compressed);
+	}
+	return new Response(compressed.body, {
+		headers: { ...headers, 'Content-Encoding': 'gzip', 'Content-Type': file.type },
+	});
 }

@@ -68,7 +68,7 @@ export class RoomService {
 
 		const settings = validateSettings({
 			maxPlayers: request.settings?.maxPlayers ?? 5,
-			seed: request.settings?.seed ?? `room-${code}`,
+			seed: request.settings?.seed ?? crypto.randomUUID(),
 		});
 		const timestamp = this.timestamp();
 		const room: RoomState = {
@@ -111,9 +111,10 @@ export class RoomService {
 
 	leaveRoom(clientId: string, code: string): RoomState | null {
 		validateClientId(clientId);
-		const room = this.requireRoom(code);
-		const player = requirePlayer(room, clientId);
-		if (player.status !== 'active') return room;
+		const room = this.store.getRoom(code.toUpperCase());
+		// A retried leave whose first response was lost finds the player already gone.
+		const player = room?.players.find(item => item.id === clientId);
+		if (!room || !player || player.status !== 'active') return null;
 		if (room.phase === 'playing') throw new RoomError('Abandon the active game explicitly.', 409);
 
 		if (room.phase === 'lobby') {
@@ -152,6 +153,7 @@ export class RoomService {
 		const room = this.requireRoom(code);
 		if (room.phase !== 'lobby') throw new RoomError('Readiness only applies in the lobby.', 409);
 		const player = requireActivePlayer(room, clientId);
+		if (player.ready === request.ready) return room;
 		player.ready = request.ready;
 		this.persist(room);
 		return room;
@@ -169,6 +171,7 @@ export class RoomService {
 		if (settings.maxPlayers < activeRoomPlayers(room).length) {
 			throw new RoomError('maxPlayers cannot be smaller than the current player count.', 400);
 		}
+		if (isDeepStrictEqual(settings, room.settings)) return room;
 		room.settings = settings;
 		clearReadiness(room);
 		this.persist(room);
@@ -178,8 +181,9 @@ export class RoomService {
 	startRoom(clientId: string, code: string): RoomState {
 		validateClientId(clientId);
 		const room = this.requireRoom(code);
-		if (room.phase !== 'lobby') throw new RoomError('This room has already started.', 409);
 		if (room.hostId !== clientId) throw new RoomError('Only the room host can start the game.', 403);
+		if (room.phase === 'playing') return room;
+		if (room.phase !== 'lobby') throw new RoomError('This room has already finished.', 409);
 		const players = activeRoomPlayers(room);
 		if (players.length < 2) throw new RoomError('At least two players are required.', 409);
 		if (players.some(player => !player.ready)) throw new RoomError('Every player must be ready.', 409);
@@ -206,31 +210,31 @@ export class RoomService {
 		if (typeof request.actionId !== 'string' || !ACTION_ID_PATTERN.test(request.actionId)) {
 			throw new RoomError('actionId is invalid.', 400);
 		}
-		validateGameAction(request.action);
+		const action = normalizeGameAction(request.action);
 		if (!Number.isSafeInteger(request.expectedRevision) || request.expectedRevision < 1) {
 			throw new RoomError('expectedRevision is invalid.', 400);
 		}
 		const room = this.requireRoom(code);
 		const duplicate = this.store.getAcceptedAction(room.code, request.actionId);
 		if (duplicate) {
-			if (duplicate.playerId !== clientId || !isDeepStrictEqual(duplicate.action, request.action)) {
+			if (duplicate.playerId !== clientId || !isDeepStrictEqual(duplicate.action, action)) {
 				throw new RoomError('actionId was already used for another move.', 409);
 			}
 			return room;
 		}
 		// Opening picks only touch the actor's own offer, so a pick made against an older revision is still valid.
-		const openingPick = request.action.type === 'keep-opening-tickets';
+		const openingPick = action.type === 'keep-opening-tickets';
 		if (!openingPick && request.expectedRevision !== room.revision)
 			throw new RoomError('The table changed. Choose your move again.', 409);
 		if (room.phase !== 'playing' || !room.game) throw new RoomError('The room is not in an active game.', 409);
 		requireActivePlayer(room, clientId);
-		if (request.action.type === 'keep-opening-tickets') {
-			if (request.action.playerId !== clientId) throw new RoomError('You can only choose your own tickets.', 403);
+		if (action.type === 'keep-opening-tickets') {
+			if (action.playerId !== clientId) throw new RoomError('You can only choose your own tickets.', 403);
 		} else if (room.game.players[room.game.currentPlayerIndex]?.id !== clientId) {
 			throw new RoomError('It is not your turn.', 409);
 		}
 
-		const result = applyGameAction(room.game, request.action);
+		const result = applyGameAction(room.game, action);
 		if (!result.ok) throw new RoomError(result.error, 422);
 		room.game = result.state;
 		if (room.game.phase.type === 'game-over') {
@@ -240,7 +244,7 @@ export class RoomService {
 		}
 		const acceptedAt = this.timestamp();
 		this.bump(room, acceptedAt);
-		this.store.saveRoom(room, { playerId: clientId, request, acceptedAt });
+		this.store.saveRoom(room, { playerId: clientId, actionId: request.actionId, action, acceptedAt });
 		this.streams.publish(room);
 		return room;
 	}
@@ -300,32 +304,38 @@ function validateSettings(settings: RoomSettings): RoomSettings {
 	return { maxPlayers: settings.maxPlayers, seed: settings.seed.trim() };
 }
 
-function validateGameAction(action: GameAction): void {
+// Rebuilds the action from known fields so extra payload never reaches the stored history.
+function normalizeGameAction(action: GameAction): GameAction {
 	if (!action || typeof action !== 'object' || typeof action.type !== 'string') {
 		throw new RoomError('action is invalid.', 400);
 	}
 	if (action.type === 'keep-tickets' || action.type === 'keep-opening-tickets') {
-		if (!Array.isArray(action.ticketIds) || action.ticketIds.some(ticketId => typeof ticketId !== 'string')) {
+		const { ticketIds } = action;
+		if (
+			!Array.isArray(ticketIds) ||
+			ticketIds.length > 3 ||
+			ticketIds.some(ticketId => typeof ticketId !== 'string' || ticketId.length > 64)
+		) {
 			throw new RoomError('ticketIds is invalid.', 400);
 		}
-		if (action.type === 'keep-opening-tickets' && typeof action.playerId !== 'string') {
-			throw new RoomError('playerId is invalid.', 400);
-		}
-		return;
+		if (action.type === 'keep-tickets') return { type: action.type, ticketIds: [...ticketIds] };
+		if (typeof action.playerId !== 'string') throw new RoomError('playerId is invalid.', 400);
+		return { type: action.type, playerId: action.playerId, ticketIds: [...ticketIds] };
 	}
-	if (action.type === 'draw-destination-tickets' || action.type === 'draw-train-deck') return;
+	if (action.type === 'draw-destination-tickets' || action.type === 'draw-train-deck') return { type: action.type };
 	if (action.type === 'draw-face-up') {
 		if (!Number.isInteger(action.index) || action.index < 0) throw new RoomError('index is invalid.', 400);
-		return;
+		return { type: action.type, index: action.index };
 	}
 	if (action.type === 'claim-route') {
-		if (typeof action.routeId !== 'string' || !TRAIN_COLORS.includes(action.paymentColor)) {
+		const { routeId, paymentColor, locomotives } = action;
+		if (typeof routeId !== 'string' || routeId.length > 128 || !TRAIN_COLORS.includes(paymentColor)) {
 			throw new RoomError('route claim is invalid.', 400);
 		}
-		if (action.locomotives !== undefined && (!Number.isInteger(action.locomotives) || action.locomotives < 0)) {
+		if (locomotives !== undefined && (!Number.isInteger(locomotives) || locomotives < 0)) {
 			throw new RoomError('locomotive count is invalid.', 400);
 		}
-		return;
+		return { type: action.type, routeId, paymentColor, ...(locomotives === undefined ? {} : { locomotives }) };
 	}
 	throw new RoomError('action type is invalid.', 400);
 }

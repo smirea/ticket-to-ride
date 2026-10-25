@@ -1,6 +1,6 @@
 import { restoreGameState } from '@repo/shared';
 import { Database } from 'bun:sqlite';
-import type { AcceptedGameAction, RoomState, SubmitGameActionRequest } from '@repo/shared';
+import type { AcceptedGameAction, GameAction, RoomState } from '@repo/shared';
 
 interface RoomRow {
 	state_json: string;
@@ -18,7 +18,8 @@ interface ActionRow {
 
 export interface PersistedGameAction {
 	playerId: string;
-	request: SubmitGameActionRequest;
+	actionId: string;
+	action: GameAction;
 	acceptedAt: string;
 }
 
@@ -28,6 +29,8 @@ export class RoomStore {
 	constructor(filename: string) {
 		this.database = new Database(filename, { create: true });
 		this.database.exec('PRAGMA foreign_keys = ON');
+		this.database.exec('PRAGMA journal_mode = WAL');
+		this.database.exec('PRAGMA synchronous = NORMAL');
 		this.database.exec(`
 			CREATE TABLE IF NOT EXISTS rooms (
 				code TEXT PRIMARY KEY,
@@ -116,9 +119,9 @@ export class RoomStore {
 					)
 					.run(
 						room.code,
-						acceptedAction.request.actionId,
+						acceptedAction.actionId,
 						acceptedAction.playerId,
-						JSON.stringify(acceptedAction.request.action),
+						JSON.stringify(acceptedAction.action),
 						room.revision,
 						acceptedAction.acceptedAt,
 					);
@@ -158,7 +161,7 @@ export class RoomStore {
 		this.database.query('DELETE FROM room_members WHERE room_code = ?').run(room.code);
 		const insert = this.database.query('INSERT INTO room_members (room_code, client_id, current) VALUES (?, ?, ?)');
 		for (const player of room.players) {
-			insert.run(room.code, player.id, player.status === 'active' ? 1 : 0);
+			insert.run(room.code, player.id, player.status === 'active' && room.phase !== 'finished' ? 1 : 0);
 		}
 	}
 }
