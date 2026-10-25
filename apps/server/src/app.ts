@@ -16,6 +16,26 @@ export interface AppOptions {
 }
 
 export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
+	const handle = routeRequest({ service, uiBuildPath });
+	return async (request: Request): Promise<Response> => compressJson(request, await handle(request));
+}
+
+function acceptsGzip(request: Request): boolean {
+	return request.headers.get('Accept-Encoding')?.includes('gzip') ?? false;
+}
+
+async function compressJson(request: Request, response: Response): Promise<Response> {
+	if (!acceptsGzip(request) || !response.headers.get('Content-Type')?.startsWith('application/json')) return response;
+	const body = await response.arrayBuffer();
+	if (body.byteLength < 1024) return new Response(body, response);
+	const headers = new Headers(response.headers);
+	headers.set('Content-Encoding', 'gzip');
+	headers.set('Vary', 'Accept-Encoding');
+	headers.delete('Content-Length');
+	return new Response(Bun.gzipSync(body), { status: response.status, headers });
+}
+
+function routeRequest({ service, uiBuildPath }: AppOptions) {
 	return async (request: Request): Promise<Response> => {
 		const url = new URL(request.url);
 		try {
@@ -48,11 +68,13 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 				}
 				if (request.method === 'GET' && command === 'events') {
 					const room = service.getRoom(identity, code);
-					return new Response(service.streams.create(room, identity, request.signal), {
+					const gzip = acceptsGzip(request);
+					return new Response(service.streams.create(room, identity, request.signal, gzip), {
 						headers: {
 							'Cache-Control': 'no-cache, no-transform',
 							Connection: 'keep-alive',
 							'Content-Type': 'text/event-stream',
+							...(gzip ? { 'Content-Encoding': 'gzip', Vary: 'Accept-Encoding' } : {}),
 						},
 					});
 				}
@@ -156,7 +178,7 @@ async function cachedFile(file: ReturnType<typeof Bun.file>, cache: string, requ
 	const since = request.headers.get('If-Modified-Since');
 	if (since && Date.parse(since) >= lastModified.getTime()) return new Response(null, { status: 304, headers });
 	const path = file.name ?? '';
-	if (file.size < 1024 || !COMPRESSIBLE.test(path) || !request.headers.get('Accept-Encoding')?.includes('gzip')) {
+	if (file.size < 1024 || !COMPRESSIBLE.test(path) || !acceptsGzip(request)) {
 		return new Response(file, { headers });
 	}
 	let compressed = gzipCache.get(path);

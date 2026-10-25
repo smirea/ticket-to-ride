@@ -1,10 +1,13 @@
 import type { RoomEvent, RoomState } from '@repo/shared';
+import { constants, createGzip } from 'node:zlib';
 import { projectRoomForViewer } from './room-projection';
 
 interface Subscriber {
-	controller: ReadableStreamDefaultController<Uint8Array>;
-	close: () => void;
 	viewerId: string;
+	backlog: () => number;
+	write: (bytes: Uint8Array) => void;
+	end: () => void;
+	dispose: () => void;
 }
 
 const encoder = new TextEncoder();
@@ -26,26 +29,28 @@ export class RoomStreams {
 		clearInterval(this.heartbeat);
 	}
 
-	create(room: RoomState, viewerId: string, signal: AbortSignal): ReadableStream<Uint8Array> {
+	create(room: RoomState, viewerId: string, signal: AbortSignal, gzip = false): ReadableStream<Uint8Array> {
 		let subscriber: Subscriber | undefined;
+		const detach = () => {
+			if (!subscriber) return;
+			const current = subscriber;
+			subscriber = undefined;
+			this.remove(room.code, current);
+			current.dispose();
+		};
 		return new ReadableStream({
 			start: controller => {
-				const close = () => {
-					if (!subscriber) return;
-					this.remove(room.code, subscriber);
-					subscriber = undefined;
-				};
-				subscriber = { controller, close, viewerId };
+				subscriber = gzip ? gzipSubscriber(controller, viewerId, detach) : plainSubscriber(controller, viewerId);
 				let roomSubscribers = this.subscribers.get(room.code);
 				if (!roomSubscribers) {
 					roomSubscribers = new Set();
 					this.subscribers.set(room.code, roomSubscribers);
 				}
 				roomSubscribers.add(subscriber);
-				controller.enqueue(encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, viewerId) }));
-				signal.addEventListener('abort', close, { once: true });
+				subscriber.write(encodeEvent({ type: 'snapshot', room: projectRoomForViewer(room, viewerId) }));
+				signal.addEventListener('abort', detach, { once: true });
 			},
-			cancel: () => subscriber?.close(),
+			cancel: detach,
 		});
 	}
 
@@ -59,13 +64,26 @@ export class RoomStreams {
 		}
 	}
 
+	close(code: string, revision: number): void {
+		const subscribers = this.subscribers.get(code);
+		if (!subscribers) return;
+		const payload = encodeEvent({ type: 'closed', code, revision });
+		for (const subscriber of subscribers) {
+			try {
+				subscriber.write(payload);
+				subscriber.end();
+			} catch {}
+		}
+		this.subscribers.delete(code);
+	}
+
 	// Ends a former member's stream; its reconnect is then refused, which tells that client it is out.
 	disconnect(code: string, viewerId: string): void {
 		for (const subscriber of this.subscribers.get(code) ?? []) {
 			if (subscriber.viewerId !== viewerId) continue;
 			this.remove(code, subscriber);
 			try {
-				subscriber.controller.close();
+				subscriber.end();
 			} catch {}
 		}
 	}
@@ -78,28 +96,15 @@ export class RoomStreams {
 
 	private send(code: string, subscriber: Subscriber, payload: () => Uint8Array): void {
 		try {
-			if ((subscriber.controller.desiredSize ?? 0) < -MAX_QUEUED_EVENTS) {
+			if (subscriber.backlog() > MAX_QUEUED_EVENTS) {
 				this.remove(code, subscriber);
-				subscriber.controller.close();
+				subscriber.end();
 				return;
 			}
-			subscriber.controller.enqueue(payload());
+			subscriber.write(payload());
 		} catch {
 			this.remove(code, subscriber);
 		}
-	}
-
-	close(code: string, revision: number): void {
-		const subscribers = this.subscribers.get(code);
-		if (!subscribers) return;
-		const payload = encodeEvent({ type: 'closed', code, revision });
-		for (const subscriber of subscribers) {
-			try {
-				subscriber.controller.enqueue(payload);
-				subscriber.controller.close();
-			} catch {}
-		}
-		this.subscribers.delete(code);
 	}
 
 	private remove(code: string, subscriber: Subscriber): void {
@@ -108,6 +113,52 @@ export class RoomStreams {
 		subscribers.delete(subscriber);
 		if (subscribers.size === 0) this.subscribers.delete(code);
 	}
+}
+
+function plainSubscriber(controller: ReadableStreamDefaultController<Uint8Array>, viewerId: string): Subscriber {
+	return {
+		viewerId,
+		backlog: () => -(controller.desiredSize ?? 0),
+		write: bytes => controller.enqueue(bytes),
+		end: () => controller.close(),
+		dispose: () => {},
+	};
+}
+
+// One gzip stream per connection, sync-flushed after every event: each event arrives immediately, and later
+// snapshots compress against the earlier ones, so a repeated table costs a few dozen bytes.
+// CompressionStream cannot flush mid-stream, which is why this uses node:zlib.
+function gzipSubscriber(
+	controller: ReadableStreamDefaultController<Uint8Array>,
+	viewerId: string,
+	detach: () => void,
+): Subscriber {
+	const gzip = createGzip();
+	let pending = 0;
+	gzip.on('data', (chunk: Buffer) => {
+		try {
+			controller.enqueue(new Uint8Array(chunk));
+		} catch {
+			detach();
+			gzip.destroy();
+		}
+	});
+	gzip.on('end', () => {
+		try {
+			controller.close();
+		} catch {}
+	});
+	return {
+		viewerId,
+		backlog: () => pending - (controller.desiredSize ?? 0),
+		write: bytes => {
+			pending += 1;
+			gzip.write(bytes);
+			gzip.flush(constants.Z_SYNC_FLUSH, () => (pending -= 1));
+		},
+		end: () => gzip.end(),
+		dispose: () => gzip.destroy(),
+	};
 }
 
 function encodeEvent(event: RoomEvent): Uint8Array {

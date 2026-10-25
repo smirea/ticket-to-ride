@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync, unlinkSync } from 'node:fs';
+import { constants, gunzipSync } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { CLIENT_ID_HEADER, chooseBotAction, USA_TICKETS, type GameAction, type RoomState } from '@repo/shared';
@@ -11,7 +12,13 @@ import { projectRoomForViewer } from './room-projection';
 
 interface TestContext {
 	store: RoomStore;
-	request: (method: string, path: string, clientId?: string, body?: unknown) => Promise<Response>;
+	request: (
+		method: string,
+		path: string,
+		clientId?: string,
+		body?: unknown,
+		extraHeaders?: Record<string, string>,
+	) => Promise<Response>;
 }
 
 const stores: RoomStore[] = [];
@@ -34,8 +41,8 @@ function setup(filename = ':memory:'): TestContext {
 	const handler = createRequestHandler({ service });
 	return {
 		store,
-		request: (method, path, clientId, body) => {
-			const headers = new Headers();
+		request: (method, path, clientId, body, extraHeaders) => {
+			const headers = new Headers(extraHeaders);
 			if (clientId) headers.set(CLIENT_ID_HEADER, clientId);
 			if (body !== undefined) headers.set('content-type', 'application/json');
 			const init: RequestInit = { method, headers };
@@ -480,6 +487,30 @@ describe('departures and room events', () => {
 		});
 		const update = decoder.decode((await reader.read()).value);
 		expect(update).toContain('"name":"Bob"');
+		await reader.cancel();
+	});
+
+	test('delivers each gzipped snapshot as it happens', async () => {
+		const context = setup();
+		const room = await responseRoom(
+			await context.request('POST', '/api/rooms', 'alice', { name: 'Alice', color: 'red' }),
+		);
+		const events = await context.request('GET', `/api/rooms/${room.code}/events`, 'alice', undefined, {
+			'Accept-Encoding': 'gzip',
+		});
+		expect(events.headers.get('content-encoding')).toBe('gzip');
+		const reader = events.body!.getReader();
+		const received: Uint8Array[] = [];
+		const decoded = async (snapshots: number) => {
+			for (;;) {
+				const text = gunzipSync(Buffer.concat(received), { finishFlush: constants.Z_SYNC_FLUSH }).toString();
+				if (text.split('event: snapshot').length - 1 >= snapshots) return text;
+				received.push((await reader.read()).value!);
+			}
+		};
+		expect(await decoded(1)).toContain(`"code":"${room.code}"`);
+		await context.request('POST', `/api/rooms/${room.code}/join`, 'bob', { name: 'Bob', color: 'blue' });
+		expect(await decoded(2)).toContain('"name":"Bob"');
 		await reader.cancel();
 	});
 
