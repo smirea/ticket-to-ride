@@ -8,3 +8,11 @@ pre-commit:
       glob: '*.{ts,js,svelte,json,css,md,yml,yaml}'
       run: bunx oxfmt --write {staged_files}
       stage_fixed: true
+
+pre-push:
+  parallel: true
+  commands:
+    test:
+      run: bun test
+    typecheck:
+      run: bun run typecheck
