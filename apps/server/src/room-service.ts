@@ -8,6 +8,7 @@ import {
 	type CreateRoomRequest,
 	type GameAction,
 	type JoinRoomRequest,
+	type RemovePlayerRequest,
 	type RoomPlayer,
 	type RoomSettings,
 	type RoomState,
@@ -129,6 +130,20 @@ export class RoomService {
 			player.status = 'left';
 			player.ready = false;
 		}
+		this.streams.disconnect(room.code, clientId);
+		this.persist(room);
+		return room;
+	}
+
+	removePlayer(clientId: string, code: string, request: RemovePlayerRequest): RoomState {
+		validateClientId(clientId);
+		const room = this.requireRoom(code);
+		if (room.hostId !== clientId) throw new RoomError('Only the room host can remove players.', 403);
+		if (room.phase !== 'lobby') throw new RoomError('Players can only be removed before the game starts.', 409);
+		if (request.playerId === clientId) throw new RoomError('Leave the room instead.', 400);
+		if (!room.players.some(player => player.id === request.playerId)) return room;
+		room.players = room.players.filter(player => player.id !== request.playerId);
+		this.streams.disconnect(room.code, request.playerId);
 		this.persist(room);
 		return room;
 	}

@@ -1,6 +1,7 @@
 import type {
 	CreateRoomRequest,
 	JoinRoomRequest,
+	RemovePlayerRequest,
 	SetReadyRequest,
 	SubmitGameActionRequest,
 	UpdateRoomSettingsRequest,
@@ -35,7 +36,7 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 			}
 
 			const match = url.pathname.match(
-				/^\/api\/rooms\/([^/]+)(?:\/(join|leave|abandon|ready|settings|start|actions|events))?$/,
+				/^\/api\/rooms\/([^/]+)(?:\/(join|leave|abandon|ready|settings|start|remove|actions|events))?$/,
 			);
 			if (match) {
 				const code = decodeURIComponent(match[1]!);
@@ -73,6 +74,10 @@ export function createRequestHandler({ service, uiBuildPath }: AppOptions) {
 				if (request.method === 'POST' && command === 'settings') {
 					const body = (await readJsonObject(request)) as unknown as UpdateRoomSettingsRequest;
 					return json({ ok: true, room: projectRoomForViewer(service.updateSettings(identity, code, body), identity) });
+				}
+				if (request.method === 'POST' && command === 'remove') {
+					const body = (await readJsonObject(request)) as unknown as RemovePlayerRequest;
+					return json({ ok: true, room: projectRoomForViewer(service.removePlayer(identity, code, body), identity) });
 				}
 				if (request.method === 'POST' && command === 'start') {
 					return json({ ok: true, room: projectRoomForViewer(service.startRoom(identity, code), identity) });

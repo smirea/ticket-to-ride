@@ -49,6 +49,10 @@ export interface SetReadyRequest {
 	ready: boolean;
 }
 
+export interface RemovePlayerRequest {
+	playerId: string;
+}
+
 export interface UpdateRoomSettingsRequest {
 	maxPlayers?: RoomSettings['maxPlayers'];
 	seed?: string;

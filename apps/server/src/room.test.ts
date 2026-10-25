@@ -421,6 +421,23 @@ describe('authoritative game actions', () => {
 });
 
 describe('departures and room events', () => {
+	test('lets the host remove a lobby player and ends that player stream', async () => {
+		const context = setup();
+		const room = await createTwoPlayerRoom(context);
+		const stream = await context.request('GET', `/api/rooms/${room.code}/events`, 'bob');
+		const reader = stream.body!.getReader();
+		await reader.read();
+
+		const notHost = await context.request('POST', `/api/rooms/${room.code}/remove`, 'bob', { playerId: 'alice' });
+		expect(notHost.status).toBe(403);
+		const removed = await context.request('POST', `/api/rooms/${room.code}/remove`, 'alice', { playerId: 'bob' });
+		expect(removed.status).toBe(200);
+		expect((await responseRoom(removed)).players.map(player => player.id)).toEqual(['alice']);
+		expect((await reader.read()).done).toBe(true);
+		expect(context.store.getCurrentRoom('bob')).toBeNull();
+		expect((await context.request('GET', `/api/rooms/${room.code}`, 'bob')).status).toBe(403);
+	});
+
 	test('requires explicit abandon for a live game and retains its final snapshot', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);

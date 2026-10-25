@@ -15,6 +15,7 @@
 		loadPlayerProfile,
 		normalizeRoomCode,
 		preserveDebugId,
+		removeRoomPlayer,
 		RoomApiError,
 		roomEventsUrl,
 		savePlayerProfile,
@@ -27,7 +28,7 @@
 	import { onMount } from 'svelte';
 
 	type ConnectionStatus = 'connecting' | 'live' | 'retrying' | 'offline' | 'closed';
-	type PendingCommand = 'ready' | 'settings' | 'start' | 'leave' | 'abandon' | 'action' | null;
+	type PendingCommand = 'ready' | 'settings' | 'start' | 'leave' | 'remove' | 'abandon' | 'action' | null;
 	type ClientIdentity = { clientId: string };
 	const reconnectingNotice = 'Reconnecting to the room…';
 
@@ -250,6 +251,11 @@
 		if (next !== undefined) await goto(lobbyHref);
 	}
 
+	async function removePlayer(player: RoomPlayer) {
+		if (!window.confirm(`Remove ${player.name} from the table?`)) return;
+		await runCommand('remove', () => removeRoomPlayer(roomCode, player.id));
+	}
+
 	async function abandonGame() {
 		if (!window.confirm('Abandon this live game for every player? This cannot be undone.')) return;
 		const next = await runCommand('abandon', () => abandonRoom(roomCode));
@@ -452,6 +458,16 @@
 								<span class:ready={player.ready} class:inactive-badge={player.status !== 'active'} class="ready-badge">
 									{player.status !== 'active' ? player.status : player.ready ? 'Ready' : 'Waiting'}
 								</span>
+								{#if isHost && player.id !== identity?.clientId}
+									<button
+										type="button"
+										class="remove-player"
+										aria-label={`Remove ${player.name}`}
+										title={`Remove ${player.name}`}
+										disabled={Boolean(pending)}
+										onclick={() => removePlayer(player)}>×</button
+									>
+								{/if}
 							</article>
 						{/each}
 						{#each Array(Math.max(0, room.settings.maxPlayers - activePlayers.length)) as _, index}
@@ -851,6 +867,21 @@
 		background: #f1e7c5;
 		color: #3b6444;
 		transform: rotate(-4deg);
+	}
+	.remove-player {
+		flex: none;
+		width: 1.4rem;
+		height: 1.4rem;
+		border: 1px solid #e4cea55c;
+		border-radius: 999px;
+		background: transparent;
+		color: #f4e6c4;
+		font-size: 0.9rem;
+		line-height: 1;
+		cursor: pointer;
+	}
+	.remove-player:hover:not(:disabled) {
+		background: #f5e8c52e;
 	}
 	.ready-badge.inactive-badge {
 		color: #976453;

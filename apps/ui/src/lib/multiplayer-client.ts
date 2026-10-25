@@ -148,6 +148,10 @@ export async function updateRoomSettings(code: string, request: UpdateRoomSettin
 	return (await roomCommand(`/api/rooms/${roomCodePath(code)}/settings`, request)).room;
 }
 
+export async function removeRoomPlayer(code: string, playerId: string): Promise<RoomState> {
+	return (await roomCommand(`/api/rooms/${roomCodePath(code)}/remove`, { playerId })).room;
+}
+
 export async function startRoom(code: string): Promise<RoomState> {
 	return (await roomCommand(`/api/rooms/${roomCodePath(code)}/start`, {})).room;
 }

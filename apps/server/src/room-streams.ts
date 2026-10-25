@@ -59,6 +59,17 @@ export class RoomStreams {
 		}
 	}
 
+	// Ends a former member's stream; its reconnect is then refused, which tells that client it is out.
+	disconnect(code: string, viewerId: string): void {
+		for (const subscriber of this.subscribers.get(code) ?? []) {
+			if (subscriber.viewerId !== viewerId) continue;
+			this.remove(code, subscriber);
+			try {
+				subscriber.controller.close();
+			} catch {}
+		}
+	}
+
 	private broadcast(payload: () => Uint8Array): void {
 		for (const [code, subscribers] of this.subscribers) {
 			for (const subscriber of subscribers) this.send(code, subscriber, payload);
