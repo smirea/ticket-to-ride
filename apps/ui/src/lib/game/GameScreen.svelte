@@ -442,17 +442,22 @@
 		flightResolvers.get(id)?.();
 		flightResolvers.delete(id);
 	}
-	async function settleMarket(target: CardColor[], removedIndex?: number) {
+	function drawnMarketIds(actions: GameAction[]) {
+		const slots: (number | undefined)[] = marketCards.map(card => card.id);
+		const drawn: number[] = [];
+		for (const action of actions) {
+			if (action.type !== 'draw-face-up') continue;
+			const [id] = slots.splice(action.index, 1);
+			if (id !== undefined) drawn.push(id);
+			slots.push(undefined);
+		}
+		return drawn;
+	}
+	async function settleMarket(target: CardColor[], drawnIds: number[]) {
 		marketAnimating = true;
 		try {
-			if (removedIndex === undefined && marketCards.length === 5) {
-				const shifted = marketCards.findIndex((_, index) =>
-					marketCards.filter((_, i) => i !== index).every((card, i) => card.color === target[i]),
-				);
-				if (shifted >= 0) removedIndex = shifted;
-			}
-			if (removedIndex !== undefined) {
-				marketCards = marketCards.filter((_, i) => i !== removedIndex);
+			if (drawnIds.length) {
+				marketCards = marketCards.filter(card => !drawnIds.includes(card.id));
 				await pause(260);
 			}
 			const survivors = marketCards.map(card => card.color);
@@ -485,11 +490,10 @@
 				marketHistoryLength = history.length;
 				marketCards = target.map(color => ({ id: ++marketSerial, color }));
 			} else if (!locked) {
-				const action = history.length === marketHistoryLength + 1 ? history.at(-1) : undefined;
+				// Replay every draw since the last sync: actions that land while the tray is busy would otherwise force a full redeal.
+				const drawnIds = drawnMarketIds(history.slice(marketHistoryLength));
 				marketHistoryLength = history.length;
-				if (target.join() !== marketCards.map(card => card.color).join()) {
-					void settleMarket(target, action?.type === 'draw-face-up' ? action.index : undefined);
-				}
+				if (target.join() !== marketCards.map(card => card.color).join()) void settleMarket(target, drawnIds);
 			}
 		});
 	});
@@ -500,10 +504,12 @@
 		const before = { ...viewer.hand };
 		const origin = paperPose(event.currentTarget as HTMLElement);
 		heldHand = before;
-		if (index !== undefined) departingMarketId = marketCards[index]?.id;
+		const drawnId = index === undefined ? undefined : marketCards[index]?.id;
+		departingMarketId = drawnId;
 		try {
 			if ((await send(index === undefined ? { type: 'draw-train-deck' } : { type: 'draw-face-up', index })) === false)
 				return;
+			marketHistoryLength = gameState.history.length;
 			await tick();
 			const color = TRAIN_CARDS.find(card => (viewer?.hand[card] ?? 0) > before[card]);
 			if (!color) return;
@@ -523,7 +529,7 @@
 			await tick();
 			flights = [];
 
-			if (index !== undefined) await settleMarket(nextMarket, index);
+			if (drawnId !== undefined) await settleMarket(nextMarket, [drawnId]);
 		} finally {
 			departingMarketId = undefined;
 			incomingCard = undefined;
