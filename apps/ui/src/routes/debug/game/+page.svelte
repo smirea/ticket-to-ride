@@ -18,6 +18,7 @@
 	let game = $state<GameState>(createDebugClaimScenario());
 	let viewerId = $state('player');
 	let error = $state('');
+	let scenario = $state(0);
 
 	function send(action: GameAction) {
 		const result = applyGameAction(game, action);
@@ -31,15 +32,11 @@
 	}
 
 	function resetClaimScenario() {
-		game = createDebugClaimScenario();
-		viewerId = 'player';
-		error = '';
+		loadScenario(createDebugClaimScenario());
 	}
 
 	function resetSetupScenario() {
-		game = createGame({ seed: 'debug-setup', humanName: 'Debug player', botCount: 1 });
-		viewerId = 'player';
-		error = '';
+		loadScenario(createGame({ seed: 'debug-setup', humanName: 'Debug player', botCount: 1 }));
 	}
 
 	function loadFullTable() {
@@ -144,6 +141,7 @@
 		game = next;
 		viewerId = 'player';
 		error = '';
+		scenario++;
 	}
 </script>
 
@@ -179,7 +177,9 @@
 			{#if error}<p role="alert">{error}</p>{/if}
 		</nav>
 	</details>
-	<GameScreen state={game} {viewerId} {send} onrestart={resetSetupScenario} debug />
+	{#key scenario}
+		<GameScreen state={game} {viewerId} {send} onrestart={resetSetupScenario} debug />
+	{/key}
 </div>
 
 <style>

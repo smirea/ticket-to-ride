@@ -11,32 +11,28 @@
 		type GameAction,
 		type GameState,
 	} from '@repo/shared';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 
 	type PageData = { name: string; bots: number; startFresh: boolean };
 	let { data }: { data: PageData } = $props();
 
 	const savedGameKey = 'ticket-to-ride:single-player:v1';
-	let game = $state<GameState>(createConfiguredGame('single-player-usa'));
 	let error = $state('');
-	let loaded = $state(false);
+	// Loaded before GameScreen mounts: the board and market treat the first state they see as already on the table.
+	let game = $state<GameState>(loadSavedGame());
 	let botSpeed = $state(1);
+	let gameIdle = false;
 	let botTimer: ReturnType<typeof setTimeout> | undefined;
 
-	onMount(() => {
+	function loadSavedGame() {
 		try {
-			const saved = localStorage.getItem(savedGameKey);
-			if (saved && !data.startFresh) {
-				game = restoreGameState(JSON.parse(saved));
-			} else {
-				game = createConfiguredGame(`single-player-${Date.now()}`);
-			}
+			const saved = data.startFresh ? null : localStorage.getItem(savedGameKey);
+			if (saved) return restoreGameState(JSON.parse(saved));
 		} catch {
 			error = 'Your saved game could not be loaded. A new journey is ready.';
 		}
-		loaded = true;
-		scheduleBotAction();
-	});
+		return createConfiguredGame(`single-player-${Date.now()}`);
+	}
 
 	afterNavigate(async ({ complete }) => {
 		await complete;
@@ -50,7 +46,6 @@
 	onDestroy(() => clearTimeout(botTimer));
 
 	$effect(() => {
-		if (typeof localStorage === 'undefined' || !loaded) return;
 		try {
 			localStorage.setItem(savedGameKey, JSON.stringify(game));
 		} catch {
@@ -78,9 +73,14 @@
 		scheduleBotAction();
 	}
 
+	function setIdle(idle: boolean) {
+		gameIdle = idle;
+		scheduleBotAction();
+	}
+
 	function scheduleBotAction() {
 		clearTimeout(botTimer);
-		if (!chooseBotAction(game)) return;
+		if (!gameIdle || !chooseBotAction(game)) return;
 
 		botTimer = setTimeout(() => {
 			const action = chooseBotAction(game);
@@ -111,6 +111,7 @@
 		{send}
 		onrestart={restart}
 		ongamespeedchange={speed => (botSpeed = speed)}
+		onidlechange={setIdle}
 	/>
 	{#if error}<p class="game-message error" role="alert"><GameText text={error} /></p>{/if}
 </div>

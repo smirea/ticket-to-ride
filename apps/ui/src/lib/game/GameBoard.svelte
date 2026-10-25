@@ -48,12 +48,13 @@
 		celebratingTicket?: boolean;
 		disabled?: boolean;
 		motionEnabled?: boolean;
-		onselect: (route: Route) => void;
+		onselect: (route: Route, pointerType?: string) => void;
 		onhover?: (route: Route | undefined) => void;
 		routeHints?: Record<string, RouteHint>;
 		routeHover?: { routeId: string; hints: RouteHint[] };
 		highlightedRouteId?: string;
 		eligibleRouteIds?: string[];
+		landingRouteId?: RouteId;
 	};
 	let {
 		state: gameState,
@@ -72,6 +73,7 @@
 		routeHover,
 		highlightedRouteId,
 		eligibleRouteIds,
+		landingRouteId,
 	}: Props = $props();
 	let viewport = $state<HTMLDivElement>();
 	let viewportWidth = $state(1000);
@@ -84,7 +86,7 @@
 			? routes
 					.flatMap(route => {
 						const player = owner(route);
-						return player
+						return player && route.id !== landingRouteId
 							? Array.from({ length: route.length }, (_, index) => ({
 									id: `${route.id}-${index}`,
 									routeId: route.id,
@@ -103,8 +105,10 @@
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
 	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
 
+	// Not every browser delivers click as a PointerEvent, so the pointer type comes from pointerdown.
+	let lastPointerType: string | undefined = undefined;
 	function clickRoute(route: Route) {
-		if (!owner(route) && !blocked(route) && !disabled) onselect(route);
+		if (!owner(route) && !blocked(route) && !disabled) onselect(route, lastPointerType);
 	}
 
 	export async function claimSprites(route: Route, color: Player['color']): Promise<CarriageSprite[]> {
@@ -390,6 +394,7 @@
 							aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
 							aria-disabled={Boolean(routeOwner) || unavailable || disabled}
 							aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
+							onpointerdown={event => (lastPointerType = event.pointerType)}
 							onclick={() => clickRoute(route)}
 							onpointerenter={() => {
 								if (!routeOwner && !unavailable) hoverRoute(route);
@@ -523,6 +528,11 @@
 						</text>
 					</g>
 				{/each}
+				<g class="compass" transform="translate(950 548)" aria-hidden="true"
+					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
+				>
+			</svg>
+			<svg class="board-overlay" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
 				{#if highlightedRouteId}
 					{@const highlightedRoute = routes.find(route => route.id === highlightedRouteId)}
 					{#if highlightedRoute}
@@ -536,9 +546,6 @@
 						</g>
 					{/if}
 				{/if}
-				<g class="compass" transform="translate(950 548)" aria-hidden="true"
-					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
-				>
 				<g class="ticket-preview-layer" aria-hidden="true">
 					{#each ['ticket-trace-underlay', 'ticket-trace'] as layer}
 						{#each celebratingTicket ? [] : highlightedTickets as ticket (ticket.id)}
@@ -653,6 +660,15 @@
 	}
 	.claimed-carriages {
 		pointer-events: none;
+	}
+	/* Its own layer, so the endless preview animations repaint only these paths and not the whole board. */
+	.board-overlay {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		will-change: transform;
 	}
 
 	.board {

@@ -54,9 +54,10 @@
 		send: (action: GameAction) => void | boolean | Promise<void | boolean>;
 		onrestart?: () => void;
 		ongamespeedchange?: (speed: number) => void;
+		onidlechange?: (idle: boolean) => void;
 		debug?: boolean;
 	};
-	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, debug = false }: Props = $props();
+	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, onidlechange, debug = false }: Props = $props();
 	const cityById = new Map(USA_CITIES.map(city => [city.id, city]));
 	const ticketById = new Map(USA_TICKETS.map(ticket => [ticket.id, ticket]));
 	const cardLabels: Record<CardColor, string> = {
@@ -73,6 +74,7 @@
 	const playerColors = { red: '#bc4a41', blue: '#367dac', green: '#49765a', yellow: '#b9952b', black: '#404851' };
 	let selectedTickets = $state<TicketId[]>([]);
 	let selectedRouteId = $state<RouteId>();
+	let landingRouteId = $state<RouteId>();
 	let paymentRoute = $state<Route>();
 	let previewPayment = $state<Payment>();
 	let previewTicketId = $state<TicketId>();
@@ -248,6 +250,9 @@
 		),
 	);
 
+	const idle = $derived(!busy && !marketAnimating && !settingsOpen);
+	$effect(() => onidlechange?.(idle));
+
 	onMount(() => {
 		try {
 			const saved = JSON.parse(localStorage.getItem(preferencesKey) ?? 'null');
@@ -314,7 +319,15 @@
 		});
 	});
 	$effect(() => {
-		if (!busy && !paymentRoute && !ticketSelection && !completionTicket && completionQueue.length)
+		if (
+			!busy &&
+			!paymentRoute &&
+			!ticketSelection &&
+			!completionTicket &&
+			!settingsOpen &&
+			!historyOpen &&
+			completionQueue.length
+		)
 			untrack(beginTicketCompletion);
 	});
 	$effect(() => {
@@ -353,7 +366,6 @@
 		}
 		busy = true;
 		actionInFlight = 'Journey complete';
-		historyOpen = false;
 		previewTicketId = undefined;
 		hoveredCard = undefined;
 		hoveredRoute = undefined;
@@ -399,7 +411,8 @@
 	});
 	$effect(() => {
 		if (!turnReady) paymentRoute = undefined;
-		if (selectedRouteId && (!turnReady || gameState.claimedRoutes[selectedRouteId])) selectedRouteId = undefined;
+		if (selectedRouteId && !busy && (!turnReady || gameState.claimedRoutes[selectedRouteId]))
+			selectedRouteId = undefined;
 	});
 	$effect(() => {
 		if (gameState.phase.type !== 'game-over') resultsDismissed = false;
@@ -639,12 +652,13 @@
 		if (!isViewerTurn) return `${currentPlayer?.name ?? 'A player'} is playing`;
 		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
 	}
-	function selectRoute(route: Route) {
+	function selectRoute(route: Route, pointerType?: string) {
 		if (!turnReady || paymentRoute) return;
 		previewTicketId = undefined;
 		const options = paymentsByRoute.get(route.id) ?? [];
 		if (!options.length) return;
-		if (options.length > 1) {
+		// A tap can land on the wrong route, so touch and pen always confirm in the chooser.
+		if (options.length > 1 || pointerType === 'touch' || pointerType === 'pen') {
 			paymentRoute = route;
 			hoveredRoute = undefined;
 			hoveredCard = undefined;
@@ -665,37 +679,40 @@
 			...Array<CardColor>(payment.cars).fill(payment.color),
 			...Array<CardColor>(payment.wilds).fill('locomotive'),
 		];
-		try {
-			if (!reduceMotion) {
-				const playerColor = viewer!.color;
-				const cards = colors.flatMap(color => {
+		const playerColor = viewer!.color;
+		const cards = reduceMotion
+			? []
+			: colors.flatMap(color => {
 					const element = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
 					return element
 						? [{ color, from: paperPose(element.querySelector<HTMLElement>('.card-face') ?? element) }]
 						: [];
 				});
-				if (cards.length) {
-					heldHand = { ...viewer!.hand };
-					for (const color of colors) heldHand[color] = (heldHand[color] ?? 0) - 1;
-					claimFlight = {
-						cards,
-						loadSprites: async () => (await board?.claimSprites(route, playerColor)) ?? [],
-						settled: false,
-					};
-					await new Promise<void>(resolve => {
-						finishClaimFlight = resolve;
-					});
-				}
+		if (cards.length) {
+			heldHand = { ...viewer!.hand };
+			for (const color of colors) heldHand[color] = (heldHand[color] ?? 0) - 1;
+			landingRouteId = route.id;
+		}
+		try {
+			// Send before the flight so a remote round trip overlaps the animation; the held hand and landing route mask the early state.
+			const accepted = Promise.resolve(
+				send({ type: 'claim-route', routeId: route.id, paymentColor: payment.color, locomotives: payment.wilds }),
+			).then(result => result !== false);
+			let landed = Promise.resolve();
+			if (cards.length) {
+				claimFlight = {
+					cards,
+					loadSprites: async () => (await board?.claimSprites(route, playerColor)) ?? [],
+					settled: false,
+				};
+				landed = new Promise<void>(resolve => {
+					finishClaimFlight = resolve;
+				});
 			}
-			if (
-				(await send({
-					type: 'claim-route',
-					routeId: route.id,
-					paymentColor: payment.color,
-					locomotives: payment.wilds,
-				})) === false
-			)
-				return;
+			void accepted.then(ok => ok || finishClaimFlight?.());
+			await landed;
+			if (!(await accepted)) return;
+			landingRouteId = undefined;
 			await tick();
 			if (claimFlight) {
 				claimFlight.settled = true;
@@ -706,10 +723,23 @@
 			hoveredRoute = undefined;
 		} finally {
 			claimFlight = undefined;
+			landingRouteId = undefined;
 			heldHand = undefined;
 			busy = false;
 			actionInFlight = undefined;
 			selectedRouteId = undefined;
+		}
+	}
+
+	async function drawTickets() {
+		if (!turnReady || !gameState.destinationDeck.length) return;
+		busy = true;
+		actionInFlight = 'Drawing tickets';
+		try {
+			await send({ type: 'draw-destination-tickets' });
+		} finally {
+			busy = false;
+			actionInFlight = undefined;
 		}
 	}
 
@@ -742,6 +772,7 @@
 		if (!ticketSelection || selectedTickets.length < ticketSelection.minimum || busy) return;
 		busy = true;
 		actionInFlight = 'Keeping tickets';
+		const seed = gameState.seed;
 		const ids = [...selectedTickets];
 		const sheet = document.querySelector<HTMLElement>('.ticket-selection-sheet');
 		if (sheet) frozenTicketSheet = { top: sheet.offsetTop, left: sheet.offsetLeft, width: sheet.offsetWidth };
@@ -780,6 +811,7 @@
 			await tick();
 			flights = [];
 			await pause(100);
+			if (gameState.seed !== seed) return;
 			const action: GameAction =
 				gameState.phase.type === 'opening-tickets'
 					? { type: 'keep-opening-tickets', playerId: viewerId, ticketIds: ids }
@@ -956,7 +988,7 @@
 			<button
 				class="draw-tickets"
 				disabled={!turnReady || !gameState.destinationDeck.length}
-				onclick={() => send({ type: 'draw-destination-tickets' })}
+				onclick={drawTickets}
 				aria-label={`Draw destination tickets. ${gameState.destinationDeck.length} remain.`}
 				><TicketIcon size={25} /><span>Draw tickets</span></button
 			>
@@ -978,6 +1010,7 @@
 			motionEnabled={!reduceMotion}
 			disabled={!turnReady}
 			onselect={selectRoute}
+			{landingRouteId}
 			onhover={route => (hoveredRoute = route)}
 			{eligibleRouteIds}
 			{routeHints}
@@ -1128,10 +1161,9 @@
 					</p>
 				</div>
 				<footer class="dialog-footer">
-					<a href="/">Main menu</a>{#if onrestart}<button class="quiet" onclick={restart}>New game</button>{/if}<button
-						class="primary"
-						onclick={closePanel}>Resume</button
-					>
+					<a href="/">Main menu</a>{#if onrestart}<button class="quiet" disabled={busy} onclick={restart}
+							>New game</button
+						>{/if}<button class="primary" onclick={closePanel}>Resume</button>
 				</footer>
 			{:else if visiblePanel === 'results'}
 				<div class="standings">
@@ -1186,7 +1218,6 @@
 		flex-shrink: 0;
 	}
 	.game-shell {
-		transition: grid-template-columns 320ms ease;
 		--ink: #20333d;
 		--muted: #787d71;
 		--paper: #f3efe4;
@@ -1199,7 +1230,6 @@
 		gap: 0 6px;
 		width: 100%;
 		height: 100svh;
-		transition: grid-template-columns 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
 		min-height: 700px;
 		padding: 0 24px 18px 8px;
 		background: radial-gradient(ellipse at 45% 35%, #fffdf5, #eee8d9);
@@ -1827,11 +1857,9 @@
 	.ticket-collection.empty {
 		display: none;
 	}
-	.choosing-tickets {
-		grid-template-columns: 280px minmax(0, 1fr);
-	}
+	/* The sheet widens over the board instead of resizing the grid, which would relayout the board every frame. */
 	.choosing-tickets .journey-sidebar {
-		width: calc(100% + 22px);
+		width: calc(100% + 78px);
 	}
 	.table-header {
 		animation: arrive-top 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -1888,7 +1916,6 @@
 
 	@media (min-width: 1400px) {
 		.game-shell {
-			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 108px minmax(380px, 1fr) 190px;
 		}
 		.market {
@@ -1906,12 +1933,13 @@
 			gap: 12px;
 		}
 		.game-shell {
-			transition: grid-template-columns 320ms ease;
-			grid-template-columns: 224px minmax(0, 1fr);
 			padding-right: 16px;
 		}
 		.journey-sidebar {
 			width: 254px;
+		}
+		.choosing-tickets .journey-sidebar {
+			width: calc(100% + 22px);
 		}
 		.market {
 			padding: 9px 10px 11px;
@@ -1947,7 +1975,6 @@
 			padding-top: 20px;
 		}
 		.game-shell {
-			transition: grid-template-columns 320ms ease;
 			grid-template-rows: 150px minmax(330px, 1fr) 170px;
 			min-height: 768px;
 		}
@@ -1958,7 +1985,6 @@
 	}
 	@media (max-width: 1100px) and (orientation: portrait) {
 		.game-shell {
-			transition: grid-template-columns 320ms ease;
 			grid-template-columns: 242px minmax(0, 1fr);
 			grid-template-rows: 150px 430px minmax(300px, 1fr);
 			min-height: 1024px;
