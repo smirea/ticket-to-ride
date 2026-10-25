@@ -15,6 +15,7 @@
 		loadPlayerProfile,
 		normalizeRoomCode,
 		preserveDebugId,
+		RoomApiError,
 		roomEventsUrl,
 		savePlayerProfile,
 		setRoomReady,
@@ -47,6 +48,8 @@
 	let disposed = false;
 	let outbox: RoomActionOutbox | undefined;
 	let unconfirmedMove = $state(false);
+	let retryTimer: ReturnType<typeof setTimeout> | undefined;
+	let retryAttempt = 0;
 
 	const viewer = $derived(identity && room ? room.players.find(player => player.id === identity?.clientId) : undefined);
 	const activePlayers = $derived(room?.players.filter(player => player.status === 'active') ?? []);
@@ -76,6 +79,7 @@
 
 		return () => {
 			disposed = true;
+			clearTimeout(retryTimer);
 			eventSource?.close();
 			window.removeEventListener('online', handleOnline);
 			window.removeEventListener('offline', handleOffline);
@@ -86,12 +90,26 @@
 		connection = navigator.onLine ? 'connecting' : 'offline';
 		try {
 			applySnapshot(await getRoom(roomCode));
+			retryAttempt = 0;
 			connectEvents();
 			if (outbox?.pending) void retryMove();
 		} catch (cause) {
-			connection = navigator.onLine ? 'retrying' : 'offline';
 			error = messageFrom(cause);
+			if (cause instanceof RoomApiError && [403, 404, 409].includes(cause.status)) {
+				connection = 'closed';
+				return;
+			}
+			connection = navigator.onLine ? 'retrying' : 'offline';
+			scheduleReconnect();
 		}
+	}
+
+	function scheduleReconnect() {
+		clearTimeout(retryTimer);
+		if (disposed) return;
+		const delay = Math.min(30_000, 1_000 * 2 ** retryAttempt);
+		retryAttempt += 1;
+		retryTimer = setTimeout(() => void initializeRoom(), delay);
 	}
 
 	function connectEvents() {
@@ -110,6 +128,8 @@
 		source.onerror = () => {
 			if (eventSource !== source || connection === 'closed') return;
 			connection = navigator.onLine ? 'retrying' : 'offline';
+			// EventSource gives up for good after an HTTP error response, so refetch and reconnect ourselves.
+			if (source.readyState === EventSource.CLOSED) scheduleReconnect();
 		};
 		source.addEventListener('snapshot', rawEvent => {
 			const event = parseRoomEvent(rawEvent);
@@ -138,7 +158,7 @@
 	}
 
 	function applySnapshot(nextRoom: RoomState) {
-		if (room && nextRoom.revision < room.revision) return;
+		if (room && nextRoom.revision <= room.revision) return;
 		const wasReady = viewer?.ready;
 		room = nextRoom;
 		if (
@@ -177,6 +197,8 @@
 		error = '';
 		notice = reconnectingNotice;
 		eventSource?.close();
+		clearTimeout(retryTimer);
+		retryAttempt = 0;
 		void initializeRoom();
 	}
 

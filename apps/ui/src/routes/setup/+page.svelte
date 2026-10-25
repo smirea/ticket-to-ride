@@ -1,5 +1,14 @@
 <script lang="ts">
 	import Brand from '$lib/game/Brand.svelte';
+	import { onMount } from 'svelte';
+
+	let hasSavedGame = $state(false);
+
+	onMount(() => {
+		try {
+			hasSavedGame = Boolean(localStorage.getItem('ticket-to-ride:single-player:v1'));
+		} catch {}
+	});
 </script>
 
 <svelte:head>
@@ -45,6 +54,9 @@
 			</div>
 
 			<button type="submit">Deal the tickets <span aria-hidden="true">→</span></button>
+			{#if hasSavedGame}
+				<p class="saved">This replaces your saved journey. <a href="/game">Continue it instead</a></p>
+			{/if}
 		</form>
 	</section>
 </main>
@@ -182,6 +194,16 @@
 		transition:
 			transform 180ms ease,
 			box-shadow 180ms ease;
+	}
+	.saved {
+		margin: 0;
+		color: #647077;
+		font-size: 0.78rem;
+		text-align: center;
+	}
+	.saved a {
+		color: #a34a3d;
+		font-weight: 700;
 	}
 	button:hover {
 		transform: translateY(-2px);

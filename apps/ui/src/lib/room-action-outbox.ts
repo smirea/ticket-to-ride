@@ -11,8 +11,8 @@ export class RoomActionOutbox {
 		private readonly storage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>,
 		private readonly key: string,
 	) {
-		const saved = storage.getItem(key);
-		this.request = saved ? JSON.parse(saved) : null;
+		this.request = parseSavedRequest(storage.getItem(key));
+		if (!this.request) storage.removeItem(key);
 	}
 	get pending(): boolean {
 		return this.request !== null;
@@ -53,4 +53,24 @@ export class RoomActionOutbox {
 		this.storage.removeItem(this.key);
 		this.request = null;
 	}
+}
+
+function parseSavedRequest(saved: string | null): SubmitGameActionRequest | null {
+	if (!saved) return null;
+	try {
+		const request: unknown = JSON.parse(saved);
+		if (
+			typeof request === 'object' &&
+			request !== null &&
+			'actionId' in request &&
+			typeof request.actionId === 'string' &&
+			'action' in request &&
+			typeof request.action === 'object' &&
+			'expectedRevision' in request &&
+			typeof request.expectedRevision === 'number'
+		) {
+			return request as SubmitGameActionRequest;
+		}
+	} catch {}
+	return null;
 }

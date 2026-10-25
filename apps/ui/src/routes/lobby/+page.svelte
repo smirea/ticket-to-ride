@@ -15,6 +15,7 @@
 		loadPlayerProfile,
 		normalizeRoomCode,
 		preserveDebugId,
+		RoomApiError,
 		roomPageUrl,
 		savePlayerProfile,
 	} from '$lib/multiplayer-client';
@@ -41,6 +42,7 @@
 	let checkingRoom = $state(true);
 	let busy = $state(false);
 	let error = $state('');
+	const currentPlayerCount = $derived(currentRoom?.players.filter(player => player.status === 'active').length ?? 0);
 
 	onMount(async () => {
 		reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -94,6 +96,10 @@
 			await goto(roomPageUrl(room.code));
 		} catch (cause) {
 			error = cause instanceof Error ? cause.message : 'Could not enter the room.';
+			if (cause instanceof RoomApiError && cause.status === 409) {
+				currentRoom = await getCurrentRoom().catch(() => currentRoom);
+				if (currentRoom) error = `You are still seated in room ${currentRoom.code}. Resume it or leave it first.`;
+			}
 		} finally {
 			busy = false;
 		}
@@ -132,7 +138,7 @@
 				<div>
 					<span>Your current journey</span>
 					<strong>Room {currentRoom.code}</strong>
-					<small>{currentRoom.players.length} {currentRoom.players.length === 1 ? 'player' : 'players'}</small>
+					<small>{currentPlayerCount} {currentPlayerCount === 1 ? 'player' : 'players'}</small>
 				</div>
 				<a href={roomPageUrl(currentRoom.code)}>Resume <span aria-hidden="true">→</span></a>
 			</div>
