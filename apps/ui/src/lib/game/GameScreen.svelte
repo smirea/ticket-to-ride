@@ -1604,12 +1604,14 @@
 		transform: translateX(-50%);
 		cursor: pointer;
 	}
+	/* The player plaques hang below the header row; the board starts under them so northern cities stay visible. */
 	.board-stage {
 		grid-column: 2;
 		grid-row: 2;
 		position: relative;
 		min-width: 0;
 		min-height: 0;
+		padding-top: 22px;
 		overflow: visible;
 	}
 	.play-tray {
