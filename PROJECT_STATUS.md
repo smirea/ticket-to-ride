@@ -1,10 +1,10 @@
 # Ticket to Ride — development status
 
-Updated 2026-10-25.
+Updated 2026-10-26.
 
 ## Scope and architecture
 
-- Playable classic USA game for solo play against bots and private multiplayer rooms with 2–5 players.
+- Six playable maps (USA, Pennsylvania, Europe, Heart of Africa, India, Japan) for solo play against bots and private multiplayer rooms, each with its own player range. Players pick a map on a painted world atlas.
 - Desktop and tablet layouts, minimum width 768px, including portrait tablets. Preserve the physical tabletop, overlapping tickets, card fan, fitted market, and compact action ticket.
 - SvelteKit SPA served by Vite in development and the Bun server in production. Same-origin `/api` requests are proxied to Bun in development.
 - Deterministic, serializable rules and XState turn transitions live in `packages/shared/src/game.ts`.
@@ -13,7 +13,8 @@ Updated 2026-10-25.
 - SQLite stores authoritative room snapshots and accepted actions atomically. Typed Fetch API requests and server-sent events handle multiplayer communication; no query-cache framework is used.
 - Game state version 3 records a discriminated `GameEvent` union with player IDs, turn numbers, counts, and resolved claim payments. Journal text is generated from events; semantic `GameAction` history remains available for deterministic replay.
 - Older saves retain their English log entries as literal notes, without guessing actions or player identities. Room loading and solo loading use the same game migration boundary. The obsolete destination discard field is removed during migration.
-- Gameplay follows the documented classic USA rules in `rules/default.md`. Other archived rulebooks do not imply support for additional maps.
+- Maps are `GameMap` objects built from `rules/map-<id>/map.json` plus tickets and rule overrides (`packages/shared/src/maps`). Map mechanics plug into the engine through hooks (`packages/shared/src/mechanics`) and into the UI through slots (`apps/ui/src/lib/mechanics`). New maps follow `.claude/skills/add-map/SKILL.md`; `bun run maps:check`, `maps:layout` and `shot` are the verification tools.
+- Game state version 5 records `mapId` and per-mechanic state; older saves load as USA games.
 
 ## Implemented
 
@@ -67,6 +68,14 @@ Each requested point is recorded in its own commit.
 - [x] API JSON and event streams are gzipped. The event stream shares one sync-flushed gzip stream per connection: a seeded 5-player game drops from 7.2 MB to 409 KB per viewer.
 - [x] Git history rewritten without rulebook PDFs/PNGs and old `artifacts/` and `docs/` copies: pack size 1.13 GiB → about 20 MiB. Those files stay local and ignored.
 
+## Multiple maps (2026-10-26)
+
+- [x] Map registry, rule overrides, separate and shared city positions, parallel-route limits from map data, ferries, long tickets, globetrotter bonus and mechanic hooks; a table of actions replaces the XState machine.
+- [x] Generic board renderer: per-map board size, generated route curves with lanes, angle-aware city clearance, a bend solver, label placement and a layout check (overlaps, covered cities, crossings, slivers, clipped labels). Tickets without painted art are drawn from the terrain.
+- [x] World atlas map selection with flag pins and map details in solo setup and room settings; rooms store the map and its seat range.
+- [x] Europe (stations, tunnels, long tickets), Pennsylvania (stock shares, 2-player dummy), Heart of Africa (terrain cards, separate country spots), India (Mandala bonus) and Japan (shared bullet trains, insets), each built by its own thread from the add-map playbook.
+- [x] Verification: 125 tests; `maps:check` plays 25 seeded all-bot games per player count on every map with deterministic replay, server parsing and redaction; two API clients played a full multiplayer game on each new map through the live server using only their redacted views.
+
 ## Remaining work
 
 ### Correctness and multiplayer boundaries
@@ -90,4 +99,7 @@ Each requested point is recorded in its own commit.
 
 - [ ] Live-room debug save/load/reset tooling.
 - [ ] Spectator flow and simultaneous-join stress testing.
-- Other playable maps, account authentication, and matchmaking remain outside the current implementation scope.
+- The 18 remaining boards in `rules/` (their mechanics are listed in each `map.json`); tunnels and stations are already reusable.
+- Portrait boards on landscape screens leave empty table space at the top right; the hand and market could use it.
+- Japan's route hover shows 0 points for bullet routes instead of the track progress.
+- Account authentication and matchmaking remain outside the current implementation scope.
