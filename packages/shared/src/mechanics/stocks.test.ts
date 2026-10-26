@@ -104,10 +104,14 @@ describe('Pennsylvania stock shares', () => {
 			'bot-3': [],
 		};
 		const done = finish(state);
-		expect(stockLines(done, 'bot-1')).toEqual([{ id: 'stocks-jersey-central-line', label: 'JCL 1st (1)', points: 8 }]);
-		expect(stockLines(done, 'player')).toEqual([{ id: 'stocks-jersey-central-line', label: 'JCL 2nd (1)', points: 5 }]);
+		expect(stockLines(done, 'bot-1')).toEqual([
+			{ id: 'stocks-jersey-central-line', label: 'JCL 1st (1)', points: 8, group: 'Shares' },
+		]);
+		expect(stockLines(done, 'player')).toEqual([
+			{ id: 'stocks-jersey-central-line', label: 'JCL 2nd (1)', points: 5, group: 'Shares' },
+		]);
 		expect(stockLines(done, 'bot-2')).toEqual([
-			{ id: 'stocks-pennsylvania-railroad', label: 'PRR 1st (1)', points: 30 },
+			{ id: 'stocks-pennsylvania-railroad', label: 'PRR 1st (1)', points: 30, group: 'Shares' },
 		]);
 	});
 
@@ -161,10 +165,10 @@ describe('Pennsylvania 2-player dummy shareholder', () => {
 		const done = finish(state);
 		expect(done.mechanics.stocks!.dummy!.revealed).toHaveLength(2);
 		expect(stockLines(done, 'player')).toEqual([
-			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 1st (2)', points: 20 },
+			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 1st (2)', points: 20, group: 'Shares' },
 		]);
 		expect(stockLines(done, 'bot-1')).toEqual([
-			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 3rd (1)', points: 9 },
+			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 3rd (1)', points: 9, group: 'Shares' },
 		]);
 	});
 
