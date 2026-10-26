@@ -5,6 +5,7 @@ import {
 	applyGameAction,
 	chooseBotAction,
 	createGame,
+	formatGameEvent,
 	getGameMap,
 	parseGameAction,
 	replayGame,
@@ -137,6 +138,10 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 			if (!replay.ok || JSON.stringify(replay.state.finalResults) !== JSON.stringify(state.finalResults)) {
 				errors.push(`${seed}: replay diverged${replay.ok ? '' : `: ${replay.error}`}`);
 			}
+			const garbled = state.events
+				.map(event => formatGameEvent(event, state))
+				.find(text => /\[object|undefined|NaN/.test(text));
+			if (garbled) errors.push(`${seed}: logbook text "${garbled}"`);
 			try {
 				for (const player of state.players) JSON.stringify(projectRoomForViewer(room(state), player.id));
 			} catch (cause) {

@@ -138,8 +138,8 @@ export const bulletTrainMechanic: Mechanic = {
 	},
 	chooseBotAction: chooseBulletClaim,
 	botGoalRoutes: openBulletRoutes,
-	describeEvent(event, playerName) {
+	describeEvent(event) {
 		if (event.type !== 'bullet-train') return undefined;
-		return `${playerName} placed a bullet train and moved ${event.spaces} along the bullet track.`;
+		return `placed a bullet train and moved ${event.spaces} along the bullet track`;
 	},
 };

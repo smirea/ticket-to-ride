@@ -17,7 +17,7 @@ export type JournalRow = {
 	player?: Player;
 	turnNumber?: number;
 	text: string;
-	kind: 'draws' | 'claim' | 'tickets' | 'note' | 'score';
+	kind: 'draws' | 'claim' | 'tickets' | 'mechanic' | 'note' | 'score';
 	cards?: (TrainCard | 'deck')[];
 	count?: number;
 	routeId?: string;
@@ -62,7 +62,10 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 			};
 		default: {
 			const phrase = player ? describeMechanicEvent(event as MechanicEvent, state) : undefined;
-			return phrase ? { ...row, text: phrase } : row;
+			if (!phrase) return row;
+			// Mechanic events that name a route (tunnels, doubled routes) preview it like a claim row does.
+			const routeId = 'routeId' in event && typeof event.routeId === 'string' ? event.routeId : undefined;
+			return { ...row, kind: 'mechanic', text: phrase, ...(routeId ? { routeId } : {}) };
 		}
 	}
 }
