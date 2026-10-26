@@ -76,6 +76,12 @@ Each requested point is recorded in its own commit.
 - [x] Europe (stations, tunnels, long tickets), Pennsylvania (stock shares, 2-player dummy), Heart of Africa (terrain cards, separate country spots), India (Mandala bonus) and Japan (shared bullet trains, insets), each built by its own thread from the add-map playbook.
 - [x] Verification: 125 tests; `maps:check` plays 25 seeded all-bot games per player count on every map with deterministic replay, server parsing and redaction; two API clients played a full multiplayer game on each new map through the live server using only their redacted views.
 
+## UI pass across all maps (2026-10-26)
+
+- [x] Every map checked at 1920×1080, 1440×900, 1024×768 and 820×1180: tall boards get a column sized to their shape, wide boards span portrait tablets at their natural height, ticket offers spread into a grid under full-width boards, and city labels choose the free side at the board's on-screen scale.
+- [x] Mechanic claim choices sit beside the payment chooser; grouped score lines (Pennsylvania shares); readable sea and land names on every board; mechanic logbook rows read like moves and preview their route.
+- [x] Fixed: Japan's logbook printed "[object Object]" (now caught by maps:check), Tailwind's `outline` utility drew a box over the map preview (now caught by a test), setup stacked on landscape tablets, 0-point seals on bullet routes.
+
 ## Remaining work
 
 ### Correctness and multiplayer boundaries
@@ -100,6 +106,4 @@ Each requested point is recorded in its own commit.
 - [ ] Live-room debug save/load/reset tooling.
 - [ ] Spectator flow and simultaneous-join stress testing.
 - The 18 remaining boards in `rules/` (their mechanics are listed in each `map.json`); tunnels and stations are already reusable.
-- Portrait boards on landscape screens leave empty table space at the top right; the hand and market could use it.
-- Japan's route hover shows 0 points for bullet routes instead of the track progress.
 - Account authentication and matchmaking remain outside the current implementation scope.
