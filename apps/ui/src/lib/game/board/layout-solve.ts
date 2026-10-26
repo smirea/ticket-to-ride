@@ -10,11 +10,13 @@ function bundle(layout: BoardLayout, route: Route): Route[] {
 	return layout.map.routes.filter(item => ends(item) === ends(route));
 }
 
-// Greedily bends routes that have layout issues until none are left or no bend helps. Parallel tracks bend together.
+// Greedily bends routes that have layout issues until none are left or no bend helps. Parallel tracks bend together;
+// pinned routes keep their initial bend.
 export function solveBends(
 	layout: BoardLayout,
 	art: BoardArt,
 	initial: Record<string, number> = {},
+	pinned: readonly string[] = [],
 ): { bends: Record<string, number>; issues: LayoutIssue[] } {
 	let bends = { ...initial };
 	let current = createBoardLayout(layout.map, art, bends);
@@ -26,6 +28,7 @@ export function solveBends(
 		for (const id of flagged) {
 			const route = layout.map.route(id)!;
 			const members = bundle(layout, route);
+			if (members.some(member => pinned.includes(member.id))) continue;
 			const score = (candidate: Record<string, number>) => {
 				const trial = createBoardLayout(layout.map, art, candidate);
 				return layoutIssues(trial, members).length * 1000 + Math.abs(candidate[id] ?? 0);

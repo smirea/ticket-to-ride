@@ -11,6 +11,7 @@ import {
 	type GameState,
 	type RoomState,
 } from '../packages/shared/src';
+import { findRoutePath } from '../packages/shared/src/route-graph';
 import { projectRoomForViewer } from '../apps/server/src/room-projection';
 import { boardArt } from '../apps/ui/src/lib/maps';
 import { atlasPlace } from '../apps/ui/src/lib/maps/atlas';
@@ -82,6 +83,21 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 		unreachable.length === 0,
 		`every ticket is connectable${unreachable.length ? `: ${unreachable.map(t => t.id)}` : ''}`,
 	);
+	// Printed ticket values are almost always the shortest train path, so a bigger gap usually means a transcription slip.
+	const suspicious = map.tickets.flatMap(ticket => {
+		const path = findRoutePath(
+			map.graph,
+			map.vertices(ticket.cityA),
+			map.vertices(ticket.cityB),
+			route => route.length,
+		);
+		const gap = path ? ticket.points - path.cost : undefined;
+		return gap === undefined || (gap >= 0 && gap <= 3)
+			? []
+			: [`${ticket.id} is worth ${ticket.points}, shortest path ${path!.cost}`];
+	});
+	if (suspicious.length)
+		console.log(`  warn ticket values to double-check:\n         ${suspicious.join('\n         ')}`);
 	console.log(
 		`  ${map.tickets.length} tickets (${map.tickets.filter(t => t.long).length} long), ${map.routes.length} routes, ${map.cities.length} cities`,
 	);
