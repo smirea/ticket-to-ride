@@ -15,6 +15,7 @@
 	import CarriageImage from './CarriageImage.svelte';
 	import type { City, DestinationTicket as Ticket } from '@repo/shared';
 	import { boardLayout, routeColors, ROUTE_MARKER_WIDTH } from './board/layout';
+	import { mechanicUis } from '$lib/mechanics';
 	function cityLabelLines(name: string) {
 		const words = name.split(' ');
 		if (name.length < 10 || words.length < 2) return [name];
@@ -72,6 +73,7 @@
 	const cities = $derived(layout.map.cities);
 	const routes = $derived(layout.map.routes);
 	const cityById = $derived(new Map(cities.map(city => [city.id, city])));
+	const mechanicLayers = $derived(mechanicUis(layout.map).flatMap(ui => ui.BoardLayer ?? []));
 	const cityPoint = (city: City, position = 0) => layout.cityPoint(city, position);
 	const routePoint = (route: Route, t: number) => layout.routePoint(route, t);
 	const routeMarkerT = (route: Route, index: number) => layout.routeMarkerT(route, index);
@@ -556,6 +558,7 @@
 							</text>
 						</g>
 					{/each}
+					{#each mechanicLayers as Layer}<Layer state={gameState} {layout} {viewerId} />{/each}
 					<g class="compass" transform={`translate(${W - 50} ${H - 72})`} aria-hidden="true"
 						><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
 					>

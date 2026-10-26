@@ -152,7 +152,8 @@ export function createBoardLayout(map: GameMap, art: BoardArt, bends = art.bends
 	function cityPoint(city: City, position = 0): Point {
 		const override = art.cityPoints?.[city.id];
 		if (override) return override;
-		const point = city.positions[position] ?? city.positions[0]!;
+		const positions = art.positions?.[city.id] ?? city.positions;
+		const point = positions[position] ?? positions[0]!;
 		return { x: point.x * width, y: point.y * height };
 	}
 	function routeEnds(route: Route): [Point, Point] {

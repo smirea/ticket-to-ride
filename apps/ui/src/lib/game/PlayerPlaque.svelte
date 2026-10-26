@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Player } from '@repo/shared';
+	import type { Snippet } from 'svelte';
 	import { playerPortraitAssets } from './assets';
 	import PointsSeal from './PointsSeal.svelte';
 	import TicketCountIcon from './TicketCountIcon.svelte';
@@ -11,6 +12,7 @@
 		color,
 		index = 0,
 		completedTickets,
+		children,
 	}: {
 		player: Player;
 		viewerId: string;
@@ -18,6 +20,7 @@
 		color: string;
 		index?: number;
 		completedTickets?: number;
+		children?: Snippet;
 	} = $props();
 	const handCount = $derived(Object.values(player.hand).reduce((sum, count) => sum + count, 0));
 	const completed = $derived(
@@ -72,6 +75,7 @@
 				></span
 			>
 		</div>
+		{#if children}<div class="badges">{@render children()}</div>{/if}
 	</div>
 	<strong class="name" title={player.name}>{player.id === viewerId ? 'You' : player.name}</strong>
 	<span class="turn-gear" class:turning={active} aria-hidden="true">
@@ -294,5 +298,11 @@
 		.player-plaque {
 			transition: none;
 		}
+	}
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 6px;
+		font-size: 11px;
 	}
 </style>

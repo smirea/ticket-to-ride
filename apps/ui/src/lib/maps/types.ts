@@ -17,7 +17,9 @@ export interface BoardArt {
 	terrain: string;
 	aspect: number;
 	flag: string;
-	// Hand-placed geometry overrides map.json positions; only the USA board uses them.
+	// Normalized replacements for map.json positions where a city sits off its spot on the generated terrain.
+	positions?: Readonly<Record<string, readonly { x: number; y: number }[]>>;
+	// Hand-placed geometry in board units; only the USA board uses them.
 	cityPoints?: Readonly<Record<string, Point>>;
 	traces?: Readonly<Record<string, readonly Point[]>>;
 	// Signed sideways offset of a route's midpoint in viewBox units, written by `bun run maps:layout`.

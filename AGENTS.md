@@ -13,6 +13,7 @@
 - Vite serves the UI in dev and proxies same-origin `/api/*` requests to Bun.
 - The Bun server owns API routes and serves the built UI for `bun run start`.
 - Shared environment parsing lives in `packages/shared/src/env.ts`.
+- Maps are registered in `packages/shared/src/maps` (engine) and `apps/ui/src/lib/maps` (board art); mechanics in `packages/shared/src/mechanics` and `apps/ui/src/lib/mechanics`. To add a map, follow `.claude/skills/add-map/SKILL.md`.
 
 # Environment
 

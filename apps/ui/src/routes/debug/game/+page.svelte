@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import GameScreen from '$lib/game/GameScreen.svelte';
 	import {
 		applyGameAction,
 		createDebugClaimScenario,
 		createDebugFinalRoundScenario,
 		createDebugFinalScenario,
+		createDebugMidGame,
 		createDebugTicketScenario,
+		findGameMap,
 		createGame,
 		getGameMap,
 		TRAIN_CARDS,
@@ -14,7 +17,18 @@
 	} from '@repo/shared';
 
 	const usa = getGameMap('usa');
-	let game = $state<GameState>(createDebugClaimScenario());
+	// ?map=<id>&players=<n>&turns=<n> shows that map after bots have played; the other scenarios are USA-only.
+	const params = page.url.searchParams;
+	const debugMap = findGameMap(params.get('map') ?? '');
+	let game = $state<GameState>(
+		debugMap
+			? createDebugMidGame(
+					debugMap.id,
+					Number(params.get('players') ?? Math.max(...debugMap.players)),
+					Number(params.get('turns') ?? 40),
+				)
+			: createDebugClaimScenario(),
+	);
 	let viewerId = $state('player');
 	let error = $state('');
 	let scenario = $state(0);

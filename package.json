@@ -25,7 +25,8 @@
 		"ui:preview": "bun --filter @repo/ui preview",
 		"rules:validate": "bun scripts/validate-maps.ts",
 		"maps:layout": "bun scripts/maps-layout.ts",
-		"shot": "bun scripts/shot.ts"
+		"shot": "bun scripts/shot.ts",
+		"maps:check": "bun scripts/maps-check.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.3.14",

@@ -978,6 +978,21 @@ export function createDebugClaimScenario(): GameState {
 	return debugState;
 }
 
+// Bots play every seat for `turns` turns, then the first player takes over at the start of their turn.
+export function createDebugMidGame(mapId: string, players: number, turns = 40, seed = `debug-${mapId}`): GameState {
+	let state = createGame({ mapId, seed, botCount: players - 1 });
+	state.players[0]!.isBot = true;
+	while (state.phase.type !== 'game-over' && (state.turnNumber <= turns || state.currentPlayerIndex !== 0)) {
+		const action = chooseBotAction(state);
+		if (!action) break;
+		const result = applyGameAction(state, action);
+		if (!result.ok) break;
+		state = result.state;
+	}
+	state.players[0]!.isBot = false;
+	return state;
+}
+
 export function createDebugTicketScenario(): GameState {
 	const state = createDebugClaimScenario();
 	const result = applyGameAction(state, { type: 'draw-destination-tickets' });

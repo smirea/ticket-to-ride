@@ -7,6 +7,7 @@
 		openingTicketMinimum,
 		routeScore,
 		TRAIN_CARDS,
+		type ClaimOptions,
 		type DestinationTicket,
 		type GameAction,
 		type GameState,
@@ -46,6 +47,7 @@
 	import type { CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
 	import { setGameMapContext } from './map-context';
+	import { mechanicUis } from '$lib/mechanics';
 
 	type Props = {
 		state: GameState;
@@ -58,6 +60,18 @@
 	};
 	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, onidlechange, debug = false }: Props = $props();
 	const map = $derived(gameMap(gameState));
+	const uis = $derived(mechanicUis(map));
+	const corePhases = ['opening-tickets', 'ticket-selection', 'turn', 'game-over'];
+	const mechanicPhase = $derived(!corePhases.includes(gameState.phase.type));
+	let claimOptions = $state<ClaimOptions>({});
+	async function sendMechanicAction(action: GameAction) {
+		busy = true;
+		try {
+			return await send(action);
+		} finally {
+			busy = false;
+		}
+	}
 	setGameMapContext(() => gameState.mapId);
 	const cardLabels: Record<CardColor, string> = {
 		red: 'Red',
@@ -649,6 +663,10 @@
 			);
 			return `${choosing?.name ?? 'A player'} is choosing tickets`;
 		}
+		if (mechanicPhase) {
+			const text = uis.map(ui => ui.describePhase?.(gameState, viewerId)).find(Boolean);
+			return text ?? (isViewerTurn ? 'Finish your move' : `${currentPlayer?.name ?? 'A player'} is playing`);
+		}
 		if (!isViewerTurn) return `${currentPlayer?.name ?? 'A player'} is playing`;
 		if (mustPass) return 'No move left';
 		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
@@ -658,8 +676,14 @@
 		previewTicketId = undefined;
 		const options = paymentsByRoute.get(route.id) ?? [];
 		if (!options.length) return;
+		claimOptions = {};
 		// A tap can land on the wrong route, so touch and pen always confirm in the chooser.
-		if (options.length > 1 || pointerType === 'touch' || pointerType === 'pen') {
+		if (
+			options.length > 1 ||
+			pointerType === 'touch' ||
+			pointerType === 'pen' ||
+			uis.some(ui => ui.needsClaimChoice?.(gameState, viewerId, route))
+		) {
 			paymentRoute = route;
 			hoveredRoute = undefined;
 			hoveredCard = undefined;
@@ -671,7 +695,8 @@
 		void claimRoute(route, options[0]!);
 	}
 	async function claimRoute(route: Route, payment: Payment) {
-		if (!turnReady || !canClaimRoute(gameState, viewerId, route.id, payment.color, payment.wilds).ok) return;
+		const options = $state.snapshot(claimOptions) as ClaimOptions;
+		if (!turnReady || !canClaimRoute(gameState, viewerId, route.id, payment.color, payment.wilds, options).ok) return;
 		busy = true;
 		actionInFlight = 'Placing trains';
 		paymentRoute = undefined;
@@ -697,7 +722,13 @@
 		try {
 			// Send before the flight so a remote round trip overlaps the animation; the held hand and landing route mask the early state.
 			const accepted = Promise.resolve(
-				send({ type: 'claim-route', routeId: route.id, paymentColor: payment.color, locomotives: payment.wilds }),
+				send({
+					type: 'claim-route',
+					routeId: route.id,
+					paymentColor: payment.color,
+					locomotives: payment.wilds,
+					...(Object.keys(options).length ? { options } : {}),
+				}),
 			).then(result => result !== false);
 			let landed = Promise.resolve();
 			if (cards.length) {
@@ -875,7 +906,11 @@
 						(player.tickets.every(id => map.ticket(id))
 							? player.tickets.filter(id => isTicketComplete(gameState, player.id, id)).length
 							: undefined)}
-				/>
+				>
+					{#each uis as ui}
+						{#if ui.PlayerBadge}{@const Badge = ui.PlayerBadge}<Badge state={gameState} {player} />{/if}
+					{/each}
+				</PlayerPlaque>
 			{/each}
 		</div>
 		<nav class="game-controls" aria-label="Game controls">
@@ -1006,6 +1041,16 @@
 				><TicketIcon size={25} /><span>Draw tickets</span></button
 			>
 		{/if}
+		{#each uis as ui}
+			{#if mechanicPhase && ui.PhasePanel}
+				{@const Panel = ui.PhasePanel}
+				<Panel state={gameState} {viewerId} send={sendMechanicAction} disabled={busy || !isViewerTurn} />
+			{/if}
+			{#if ui.TurnActions}
+				{@const Actions = ui.TurnActions}
+				<Actions state={gameState} {viewerId} send={sendMechanicAction} disabled={!turnReady} />
+			{/if}
+		{/each}
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
 
@@ -1047,6 +1092,23 @@
 				selectedRouteId = undefined;
 			}}
 		/>
+	{/if}
+
+	{#if paymentRoute}
+		{#each uis as ui}
+			{#if ui.ClaimOptions}
+				{@const Options = ui.ClaimOptions}
+				<div class="claim-options">
+					<Options
+						state={gameState}
+						{viewerId}
+						route={paymentRoute}
+						value={claimOptions}
+						onchange={value => (claimOptions = value)}
+					/>
+				</div>
+			{/if}
+		{/each}
 	{/if}
 
 	<footer bind:this={playTray} class="play-tray" inert={Boolean(paymentRoute || completionTicket)}>
@@ -1190,15 +1252,18 @@
 								/>{/if}
 							<div>
 								<strong>{player?.name}</strong><small
-									>{result.completedTickets} tickets connected · longest path {result.longestPath}</small
+									>{result.completedTickets} tickets connected{#if map.rules.longestPathBonus}
+										· longest path {result.longestPath}{/if}</small
 								>
 							</div>
 							<strong class="final-score"><span class="final-seal"><PointsSeal /></span>{result.finalScore}</strong>
 							<p>
 								Routes {result.routePoints}
-								<span>Tickets {result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</span><span
-									>Longest +{result.longestRouteBonus}</span
-								>
+								<span>Tickets {result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</span
+								>{#if map.rules.longestPathBonus}<span>Longest +{result.longestRouteBonus}</span
+									>{/if}{#each result.bonuses as bonus (bonus.id)}<span
+										>{bonus.label} {bonus.points >= 0 ? '+' : ''}{bonus.points}</span
+									>{/each}
 							</p>
 						</article>{/each}
 				</div>
@@ -1817,6 +1882,8 @@
 	.standings p {
 		flex-basis: 100%;
 		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 10px;
 		justify-content: space-between;
 		font-size: 10px;
 		color: #7b705b;
@@ -2041,5 +2108,12 @@
 			transition: none !important;
 			animation: none !important;
 		}
+	}
+	.claim-options {
+		position: fixed;
+		left: 50%;
+		bottom: 24px;
+		z-index: 80;
+		translate: -50% 0;
 	}
 </style>
