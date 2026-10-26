@@ -1,10 +1,12 @@
 import {
+	describeMechanicEvent,
 	formatGameEvent,
 	getTicket,
 	routeName,
 	type DestinationTicket,
 	type GameEvent,
 	type GameState,
+	type MechanicEvent,
 	type Player,
 	type TrainCard,
 	type TrainColor,
@@ -58,8 +60,10 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 				count: event.count,
 				tickets: event.playerId === viewerId ? event.ticketIds?.flatMap(id => getTicket(state, id) ?? []) : undefined,
 			};
-		default:
-			return row;
+		default: {
+			const phrase = player ? describeMechanicEvent(event as MechanicEvent, state) : undefined;
+			return phrase ? { ...row, text: phrase } : row;
+		}
 	}
 }
 

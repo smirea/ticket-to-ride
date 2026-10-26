@@ -7,4 +7,5 @@ export const theHeartOfAfricaArt: BoardArt = {
 	aspect: 1027 / 1531,
 	flag: '/game-assets/maps/the-heart-of-africa/flag.svg',
 	bends: layout.bends,
+	labelBelow: ['sudan', 'port-elizabeth'],
 };

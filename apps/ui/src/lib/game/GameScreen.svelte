@@ -2,6 +2,7 @@
 	import {
 		canClaimRoute,
 		canDrawTrainCards,
+		claimScore,
 		isTicketComplete,
 		gameMap,
 		openingTicketMinimum,
@@ -166,7 +167,9 @@
 	const paymentsByRoute = $derived(
 		new Map(map.routes.map(route => [route.id, routePayments(gameState, viewerId, route)])),
 	);
-	const paymentOptions = $derived(paymentRoute ? (paymentsByRoute.get(paymentRoute.id) ?? []) : []);
+	const paymentOptions = $derived(
+		paymentRoute ? routePayments(gameState, viewerId, paymentRoute, $state.snapshot(claimOptions) as ClaimOptions) : [],
+	);
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
 	const isViewerTurn = $derived(gameState.phase.type === 'turn' && currentPlayer?.id === viewerId);
 	const mustPass = $derived(
@@ -1058,6 +1061,15 @@
 				{@const Actions = ui.TurnActions}
 				<Actions state={gameState} {viewerId} send={sendMechanicAction} disabled={!turnReady} />
 			{/if}
+			{#if ui.DrawPile}
+				{@const Pile = ui.DrawPile}
+				<Pile
+					state={gameState}
+					{viewerId}
+					send={sendMechanicAction}
+					disabled={busy || marketAnimating || !isViewerTurn}
+				/>
+			{/if}
 		{/each}
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
@@ -1089,7 +1101,7 @@
 		<RoutePayment
 			routeId={paymentRoute.id}
 			options={paymentOptions}
-			points={routeScore(gameState, paymentRoute)}
+			points={claimScore(gameState, paymentRoute, $state.snapshot(claimOptions) as ClaimOptions)}
 			{reduceMotion}
 			onpreview={payment => (previewPayment = payment)}
 			onchoose={payment => {

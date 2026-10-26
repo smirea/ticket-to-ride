@@ -1,13 +1,25 @@
-import { canClaimRoute, TRAIN_COLORS, type GameState, type Route, type TrainColor } from '@repo/shared';
+import {
+	canClaimRoute,
+	TRAIN_COLORS,
+	type ClaimOptions,
+	type GameState,
+	type Route,
+	type TrainColor,
+} from '@repo/shared';
 
 export type RoutePayment = { color: TrainColor; cars: number; wilds: number };
 
-export function routePayments(state: GameState, playerId: string, route: Route): RoutePayment[] {
+export function routePayments(
+	state: GameState,
+	playerId: string,
+	route: Route,
+	claimOptions?: ClaimOptions,
+): RoutePayment[] {
 	const player = state.players.find(player => player.id === playerId);
 	if (!player) return [];
 	const options = TRAIN_COLORS.filter(color => route.color === 'gray' || route.color === color).flatMap(color => {
 		const wilds = Math.max(route.locomotives, route.length - player.hand[color]);
-		return canClaimRoute(state, playerId, route.id, color, wilds).ok
+		return canClaimRoute(state, playerId, route.id, color, wilds, claimOptions).ok
 			? [{ color, cars: route.length - wilds, wilds }]
 			: [];
 	});

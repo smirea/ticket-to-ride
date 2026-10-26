@@ -271,16 +271,16 @@ export const terrainCards: Mechanic = {
 		const terrain = state.mechanics['terrain-cards'];
 		if (terrain) terrain.deck.fill('desert');
 	},
-	describeEvent(event, playerName) {
+	describeEvent(event) {
 		if (event.type === 'draw-terrain-card') {
-			return `${playerName} drew a ${TERRAIN_NAMES[event.terrain]} card${event.faceUp ? '' : ' from the terrain deck'}.`;
+			return `drew a ${TERRAIN_NAMES[event.terrain]} card${event.faceUp ? '' : ' from the terrain deck'}`;
 		}
 		if (event.type === 'double-route') {
 			const parts = [
 				event.cards ? `${event.cards} ${TERRAIN_NAMES[event.terrain]} ${event.cards === 1 ? 'card' : 'cards'}` : '',
 				event.locomotives ? `${event.locomotives} ${event.locomotives === 1 ? 'locomotive' : 'locomotives'}` : '',
 			].filter(Boolean);
-			return `${playerName} doubled the route's points with ${parts.join(' and ')}.`;
+			return `doubled the route’s points with ${parts.join(' and ')}`;
 		}
 		return undefined;
 	},

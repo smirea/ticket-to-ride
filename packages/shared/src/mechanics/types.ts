@@ -94,5 +94,6 @@ export interface Mechanic {
 	botGoalRoutes?(state: GameState, player: Player): readonly Route[];
 	// Hide private mechanic state from other viewers in multiplayer snapshots.
 	redact?(state: GameState, viewerId: PlayerId): void;
-	describeEvent?(event: MechanicEvent, playerName: string): string | undefined;
+	// What the player did, e.g. 'drew a terrain card'; the journal adds the player's name.
+	describeEvent?(event: MechanicEvent): string | undefined;
 }
