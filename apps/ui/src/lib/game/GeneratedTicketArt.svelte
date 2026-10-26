@@ -41,7 +41,7 @@
 	class="generated-ticket"
 	class:long={ticket.long}
 	viewBox={`${view.x} ${view.y} ${view.width} ${view.height}`}
-	preserveAspectRatio="xMidYMid slice"
+	preserveAspectRatio="xMidYMin slice"
 	aria-hidden="true"
 >
 	<image href={layout.art.terrain} width={layout.width} height={layout.height} preserveAspectRatio="none" />

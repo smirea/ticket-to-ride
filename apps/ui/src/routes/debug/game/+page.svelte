@@ -156,6 +156,11 @@
 		error = '';
 		scenario++;
 	}
+
+	// For `bun run shot --eval`: read the state, edit it, load it back, e.g. to stage a mechanic's UI.
+	Object.assign(window, {
+		debugGame: { state: () => $state.snapshot(game), load: loadScenario, send },
+	});
 </script>
 
 <svelte:head>
