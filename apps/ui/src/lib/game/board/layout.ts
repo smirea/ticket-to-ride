@@ -28,8 +28,18 @@ const SAMPLES = 128;
 
 type RoutePath = { points: Point[]; distances: number[]; length: number; svg: string };
 
+export type CityStop = {
+	city: City;
+	position: number;
+	p: Point;
+	// Undefined for unlabelled spots: junctions and the extra border spots of a country.
+	label?: { lines: string[]; below: boolean };
+};
+
 export interface BoardLayout {
 	map: GameMap;
+	// Every printed spot of every city, with its label placement.
+	cityStops: CityStop[];
 	art: BoardArt;
 	width: number;
 	height: number;
@@ -122,6 +132,20 @@ function laneOffsets(map: GameMap): Map<string, number> {
 		members.forEach((route, index) => offsets.set(route.id, (index - (members.length - 1) / 2) * LANE_SPACING));
 	}
 	return offsets;
+}
+
+function labelLines(name: string): string[] {
+	const words = name.split(' ');
+	if (name.length < 10 || words.length < 2) return [name];
+	let split = 1;
+	for (let i = 2; i < words.length; i++) {
+		if (
+			Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length) <
+			Math.abs(words.slice(0, split).join(' ').length - words.slice(split).join(' ').length)
+		)
+			split = i;
+	}
+	return [words.slice(0, split).join(' '), words.slice(split).join(' ')];
 }
 
 function boardWidth(map: GameMap, aspect: number): number {
@@ -271,8 +295,20 @@ export function createBoardLayout(map: GameMap, art: BoardArt, bends = art.bends
 		const [start, end] = routeEnds(route);
 		return `M ${start.x} ${start.y} L ${routeSvgPath(route).slice(2)} L ${end.x} ${end.y}`;
 	}
+	const cityStops = map.cities.flatMap(city => {
+		const points = city.positions.map((_, position) => cityPoint(city, position));
+		// A country printed at several border spots is named once, like a region on the board.
+		const labelled =
+			city.type === 'country' ? points.indexOf(points.reduce((top, p) => (p.y < top.y ? p : top))) : undefined;
+		return points.map((p, position): CityStop => {
+			const named = city.type !== 'junction' && (labelled === undefined || labelled === position);
+			const below = p.y < 40 || Boolean(art.labelBelow?.includes(city.id));
+			return { city, position, p, ...(named ? { label: { lines: labelLines(city.name), below } } : {}) };
+		});
+	});
 	return {
 		map,
+		cityStops,
 		art,
 		width,
 		height,

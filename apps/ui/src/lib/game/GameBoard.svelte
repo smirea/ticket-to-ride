@@ -16,19 +16,6 @@
 	import type { City, DestinationTicket as Ticket } from '@repo/shared';
 	import { boardLayout, routeColors, ROUTE_MARKER_WIDTH } from './board/layout';
 	import { mechanicUis } from '$lib/mechanics';
-	function cityLabelLines(name: string) {
-		const words = name.split(' ');
-		if (name.length < 10 || words.length < 2) return [name];
-		let split = 1;
-		for (let i = 2; i < words.length; i++) {
-			if (
-				Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length) <
-				Math.abs(words.slice(0, split).join(' ').length - words.slice(split).join(' ').length)
-			)
-				split = i;
-		}
-		return [words.slice(0, split).join(' '), words.slice(split).join(' ')];
-	}
 	type Props = {
 		state: GameState;
 		viewerId: string;
@@ -88,17 +75,12 @@
 	const routeMarkerT = (route: Route, index: number) => layout.routeMarkerT(route, index);
 	const routeMarkerLength = (route: Route) => layout.routeMarkerLength(route);
 	const cityStops = $derived(
-		cities.flatMap(city => {
-			const points = city.positions.map((_, position) => cityPoint(city, position));
-			// A country printed at several border spots is named once, like a region on the board.
-			const labelled =
-				city.type === 'country' ? points.indexOf(points.reduce((top, p) => (p.y < top.y ? p : top))) : undefined;
-			return points.map((p, position) => {
-				const labelBelow = p.y < 40 || Boolean(layout.art.labelBelow?.includes(city.id));
-				const label = labelled === undefined || labelled === position;
-				return { city, position, key: `${city.id}#${position}`, p, labelBelow, label };
-			});
-		}),
+		layout.cityStops.map(stop => ({
+			...stop,
+			key: `${stop.city.id}#${stop.position}`,
+			labelLines: stop.label?.lines ?? [],
+			labelBelow: Boolean(stop.label?.below),
+		})),
 	);
 	// Track between printed positions only, so an inset city's spots stay apart.
 	const positionGraph = $derived.by(() => {
@@ -560,9 +542,8 @@
 
 					{#each routeLayers as Layer}<Layer state={gameState} {layout} {viewerId} />{/each}
 					{#each cityStops as stop (stop.key)}
-						{@const city = stop.city}{@const p = stop.p}{@const labelLines = cityLabelLines(
-							city.name,
-						)}{@const labelBelow = stop.labelBelow}{@const endpoint = highlightedTickets.some(
+						{@const city = stop.city}{@const p = stop.p}{@const labelLines = stop.labelLines}{@const labelBelow =
+							stop.labelBelow}{@const endpoint = highlightedTickets.some(
 							ticket => ticket.cityA === city.id || ticket.cityB === city.id,
 						)}
 						{@const pickable = Boolean(pickableCityIds?.includes(city.id))}

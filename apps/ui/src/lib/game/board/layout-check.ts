@@ -7,7 +7,11 @@ export const MIN_MARKER_LENGTH = 14;
 export const MIN_CITY_CLEARANCE = 9;
 
 type Marker = { route: Route; index: number; point: Point; halfLength: number; along: Point; across: Point };
-export type LayoutIssue = { kind: 'overlap' | 'city' | 'crossing' | 'short'; routes: string[]; detail: string };
+export type LayoutIssue = {
+	kind: 'overlap' | 'city' | 'crossing' | 'short' | 'label';
+	routes: string[];
+	detail: string;
+};
 
 const dot = (a: Point, b: Point) => a.x * b.x + a.y * b.y;
 
@@ -50,6 +54,25 @@ const ccw = (a: Point, b: Point, c: Point) => (c.y - a.y) * (b.x - a.x) > (b.y -
 const crosses = (a: Point, b: Point, c: Point, d: Point) =>
 	ccw(a, c, d) !== ccw(b, c, d) && ccw(a, b, c) !== ccw(a, b, d);
 
+// Labels keep a constant screen size, so their board-unit size depends on how large the board is shown. This
+// estimates a 1440×900 table: about 1000px across for wide boards and 700px tall for tall ones.
+function labelScale(layout: BoardLayout): number {
+	const shown = Math.min(1000, 700 * (layout.width / layout.height));
+	return (Math.min(1, Math.max(0.7, shown / 650)) * layout.width) / shown;
+}
+
+export function labelIssues(layout: BoardLayout): LayoutIssue[] {
+	const scale = labelScale(layout);
+	return layout.cityStops.flatMap(({ city, p, label }) => {
+		if (!label) return [];
+		const half = (Math.max(...label.lines.map(line => line.length)) * 8.4 * scale) / 2;
+		const top = label.below ? p.y + 13 * scale : p.y - (29 + (label.lines.length - 1) * 16) * scale;
+		const bottom = label.below ? p.y + (29 + (label.lines.length - 1) * 16) * scale : p.y - 13 * scale;
+		const clipped = p.x - half < 0 || p.x + half > layout.width || top < 0 || bottom > layout.height;
+		return clipped ? [{ kind: 'label' as const, routes: [], detail: `${city.name} label runs off the board` }] : [];
+	});
+}
+
 // Problems a player would see: overlapping cars, cars on top of a city, crossing tracks or slivers of cars.
 export function layoutIssues(layout: BoardLayout, routes: readonly Route[] = layout.map.routes): LayoutIssue[] {
 	const issues: LayoutIssue[] = [];
@@ -85,5 +108,5 @@ export function layoutIssues(layout: BoardLayout, routes: readonly Route[] = lay
 			}
 		}
 	}
-	return issues;
+	return routes === layout.map.routes ? [...issues, ...labelIssues(layout)] : issues;
 }
