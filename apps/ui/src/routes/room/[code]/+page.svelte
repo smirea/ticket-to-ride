@@ -24,7 +24,18 @@
 		submitRoomAction,
 		updateRoomSettings,
 	} from '$lib/multiplayer-client';
-	import { type GameAction, type RoomEvent, type RoomPlayer, type RoomSettings, type RoomState } from '@repo/shared';
+	import {
+		DEFAULT_MAP_ID,
+		getGameMap,
+		type GameAction,
+		type RoomEvent,
+		type RoomPlayer,
+		type RoomSettings,
+		type RoomState,
+	} from '@repo/shared';
+	import { boardArt } from '$lib/maps';
+	import MapAtlas from '$lib/maps/MapAtlas.svelte';
+	import MapDetails from '$lib/maps/MapDetails.svelte';
 	import { onMount } from 'svelte';
 
 	type ConnectionStatus = 'connecting' | 'live' | 'retrying' | 'offline' | 'closed';
@@ -42,6 +53,10 @@
 	let error = $state('');
 	let notice = $state('');
 	let settingsMaxPlayers = $state<number>(5);
+	let settingsMapId = $state(DEFAULT_MAP_ID);
+	let mapDialog = $state<HTMLDialogElement>();
+	const settingsMap = $derived(getGameMap(settingsMapId));
+	const roomMap = $derived(getGameMap(room?.settings.mapId ?? DEFAULT_MAP_ID));
 	let settingsSeed = $state('');
 	let copied = $state(false);
 	let slowAction = $state(false);
@@ -175,6 +190,7 @@
 		}
 		if (pending !== 'settings') {
 			settingsMaxPlayers = nextRoom.settings.maxPlayers;
+			settingsMapId = nextRoom.settings.mapId;
 			settingsSeed = nextRoom.settings.seed;
 		}
 	}
@@ -233,9 +249,12 @@
 	async function saveSettings(event: SubmitEvent) {
 		event.preventDefault();
 		const maxPlayers = settingsMaxPlayers as RoomSettings['maxPlayers'];
-		const next = await runCommand('settings', () => updateRoomSettings(roomCode, { maxPlayers, seed: settingsSeed }));
+		const next = await runCommand('settings', () =>
+			updateRoomSettings(roomCode, { mapId: settingsMapId, maxPlayers, seed: settingsSeed }),
+		);
 		if (next) {
 			settingsMaxPlayers = next.settings.maxPlayers;
+			settingsMapId = next.settings.mapId;
 			settingsSeed = next.settings.seed;
 			notice = 'Room settings saved. Everyone must ready up again.';
 		}
@@ -499,20 +518,30 @@
 
 				<aside class="settings panel">
 					<div class="panel-heading">
-						<div>
-							<h2>Classic USA</h2>
+						<div class="room-map">
+							<img src={boardArt(roomMap.id).flag} alt="" />
+							<h2>{roomMap.name}</h2>
 						</div>
 					</div>
 
 					{#if isHost}
 						<form onsubmit={saveSettings}>
 							<label>
+								<span>Map</span>
+								<button
+									type="button"
+									class="map-choice"
+									disabled={Boolean(pending)}
+									onclick={() => mapDialog?.showModal()}
+									><img src={boardArt(settingsMapId).flag} alt="" />{settingsMap.name}<span>Change</span></button
+								>
+							</label>
+							<label>
 								<span>Seats at the table</span>
 								<select bind:value={settingsMaxPlayers} disabled={Boolean(pending)}>
-									<option value={2}>2 players</option>
-									<option value={3}>3 players</option>
-									<option value={4}>4 players</option>
-									<option value={5}>5 players</option>
+									{#each settingsMap.players as seats}
+										<option value={seats}>{seats} players</option>
+									{/each}
 								</select>
 							</label>
 							<details class="advanced-settings">
@@ -533,7 +562,7 @@
 						<dl>
 							<div>
 								<dt>Map</dt>
-								<dd>Classic USA</dd>
+								<dd>{roomMap.name}</dd>
 							</div>
 							<div>
 								<dt>Player limit</dt>
@@ -546,7 +575,7 @@
 			</section>
 
 			<footer class="room-footer">
-				<span>45 trains · A continent to explore</span>
+				<span>{roomMap.rules.trainsPerPlayer} trains · {roomMap.info.tagline}</span>
 				<button type="button" class="leave" disabled={Boolean(pending)} onclick={leaveRoom}>
 					{pending === 'leave' ? 'Leaving…' : 'Leave room'}
 				</button>
@@ -566,6 +595,20 @@
 				</div>
 			</section>
 		{/if}
+		<dialog class="map-dialog" bind:this={mapDialog} aria-label="Choose a map">
+			<div class="map-dialog-body">
+				<MapAtlas
+					selectedId={settingsMapId}
+					onselect={id => {
+						settingsMapId = id;
+						const seats = getGameMap(id).players;
+						if (!seats.includes(settingsMaxPlayers)) settingsMaxPlayers = Math.max(...seats);
+					}}
+				/>
+				<MapDetails mapId={settingsMapId} />
+			</div>
+			<form method="dialog"><button>Use {settingsMap.name}</button></form>
+		</dialog>
 	</main>
 {/if}
 
@@ -576,6 +619,76 @@
 		--room-player-green: #4c9a65;
 		--room-player-yellow: #e4b934;
 		--room-player-black: #484b50;
+	}
+	.room-map {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.room-map img,
+	.map-choice img {
+		width: 30px;
+		height: 20px;
+		object-fit: cover;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #4f40263b;
+	}
+	.settings .map-choice {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-height: 44px;
+		padding: 0.5rem 0.8rem;
+		border: 1px solid #cfc7b6;
+		border-radius: 0.35rem;
+		background: #fffef9;
+		color: #142d3e;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+	}
+	.map-choice span {
+		margin-left: auto;
+		color: #a34a3d;
+		font-size: 0.75rem;
+		font-weight: 800;
+	}
+	.map-dialog {
+		width: min(78rem, calc(100% - 3rem));
+		padding: clamp(1rem, 2vw, 1.75rem);
+		border: 1px solid #d8d0bf;
+		border-radius: 0.6rem;
+		background: #fffcf5;
+		box-shadow: 0 20px 60px #2b22164d;
+	}
+	.map-dialog::backdrop {
+		background: #2b221655;
+	}
+	.map-dialog-body {
+		display: grid;
+		grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
+		align-items: start;
+		gap: 1.5rem;
+	}
+	.map-dialog form {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 1rem;
+	}
+	.map-dialog form button {
+		min-height: 44px;
+		padding: 0 1.25rem;
+		border: 0;
+		border-radius: 0.4rem;
+		background: #b6493d;
+		color: white;
+		font-weight: 750;
+		cursor: pointer;
+	}
+	@media (max-width: 1000px) {
+		.map-dialog-body {
+			grid-template-columns: 1fr;
+		}
 	}
 	.room-page {
 		min-height: 100svh;

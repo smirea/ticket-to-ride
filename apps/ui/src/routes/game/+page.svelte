@@ -13,7 +13,7 @@
 	} from '@repo/shared';
 	import { onDestroy } from 'svelte';
 
-	type PageData = { name: string; bots: number; startFresh: boolean };
+	type PageData = { name: string; mapId: string; bots: number; startFresh: boolean };
 	let { data }: { data: PageData } = $props();
 
 	const savedGameKey = 'ticket-to-ride:single-player:v1';
@@ -31,7 +31,7 @@
 		} catch {
 			error = 'Your saved game could not be loaded. A new journey is ready.';
 		}
-		return createConfiguredGame(`single-player-${Date.now()}`);
+		return createConfiguredGame(`single-player-${Date.now()}`, data.mapId, data.bots);
 	}
 
 	afterNavigate(async ({ complete }) => {
@@ -69,7 +69,8 @@
 	function restart() {
 		clearTimeout(botTimer);
 		error = '';
-		game = createConfiguredGame(`single-player-${Date.now()}`);
+		// Restart keeps the table of the game on screen, which may be a resumed save rather than the URL's choice.
+		game = createConfiguredGame(`single-player-${Date.now()}`, game.mapId, game.players.length - 1);
 		scheduleBotAction();
 	}
 
@@ -95,8 +96,8 @@
 		}, [900, 450, 160][botSpeed]);
 	}
 
-	function createConfiguredGame(seed: string) {
-		return createGame({ seed, humanName: data.name, botCount: data.bots });
+	function createConfiguredGame(seed: string, mapId: string, botCount: number) {
+		return createGame({ seed, mapId, humanName: data.name, botCount });
 	}
 </script>
 

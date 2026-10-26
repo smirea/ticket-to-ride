@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Brand from '$lib/game/Brand.svelte';
 	import { getCurrentRoom, preserveDebugId, roomPageUrl } from '$lib/multiplayer-client';
+	import { GAME_MAPS } from '@repo/shared';
 	import { onMount } from 'svelte';
 
 	let hasSavedGame = $state(false);
@@ -18,7 +19,7 @@
 
 <svelte:head>
 	<title>Ticket to Travel — A railway adventure</title>
-	<meta name="description" content="Build a railway across North America in a local Ticket to Ride game." />
+	<meta name="description" content="Build railways across the world's maps in a local Ticket to Ride game." />
 </svelte:head>
 
 <main class="home">
@@ -30,9 +31,10 @@
 	<div class="hero-layout">
 		<section class="hero">
 			<p class="eyebrow">A cross-country railway adventure</p>
-			<h1>Claim the rails.<br />Connect the continent.</h1>
+			<h1>Claim the rails.<br />Connect the world.</h1>
 			<p class="lede">
-				Collect train cards, complete destination tickets, and race your fellow travelers across the classic USA map.
+				Collect train cards, complete destination tickets, and race your fellow travelers across maps from every corner
+				of the atlas.
 			</p>
 			<div class="actions">
 				<a class="primary" href={preserveDebugId('/setup')}>Start single player <span aria-hidden="true">→</span></a>
@@ -54,8 +56,8 @@
 	</div>
 
 	<footer>
-		<span>45 trains. One continent.</span>
-		<span>Classic USA</span>
+		<span>45 trains. One atlas.</span>
+		<span>{GAME_MAPS.length} {GAME_MAPS.length === 1 ? 'map' : 'maps'}</span>
 	</footer>
 </main>
 

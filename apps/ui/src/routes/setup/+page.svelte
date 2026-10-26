@@ -1,8 +1,27 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/state';
 	import Brand from '$lib/game/Brand.svelte';
+	import MapAtlas from '$lib/maps/MapAtlas.svelte';
+	import MapDetails from '$lib/maps/MapDetails.svelte';
+	import { DEFAULT_MAP_ID, findGameMap, getGameMap } from '@repo/shared';
 	import { onMount } from 'svelte';
 
 	let hasSavedGame = $state(false);
+	let mapId = $state(findGameMap(page.url.searchParams.get('map') ?? '')?.id ?? DEFAULT_MAP_ID);
+	const map = $derived(getGameMap(mapId));
+	const rivalCounts = $derived(map.players.map(players => players - 1));
+	let rivals = $state(2);
+	$effect(() => {
+		if (!rivalCounts.includes(rivals)) rivals = Math.min(Math.max(rivals, rivalCounts[0]!), rivalCounts.at(-1)!);
+	});
+
+	function select(id: string) {
+		mapId = id;
+		const url = new URL(page.url);
+		url.searchParams.set('map', id);
+		replaceState(url, page.state);
+	}
 
 	onMount(() => {
 		try {
@@ -17,54 +36,43 @@
 
 <main>
 	<nav><Brand /><a class="back" href="/">← Home</a></nav>
-	<section>
-		<div class="heading">
-			<p>Single player</p>
-			<h1>Ready the passengers.</h1>
-			<span>Choose who will join your cross-country race.</span>
-			<img
-				src="/game-assets/atlas/tickets/chicago-santa-fe.webp"
-				alt="Illustrated destinations from Chicago to Santa Fe"
-				width="768"
-				height="512"
-			/>
-		</div>
+	<div class="layout">
+		<section class="atlas-panel" aria-labelledby="atlas-title">
+			<p class="eyebrow">Single player</p>
+			<h1 id="atlas-title">Choose your journey.</h1>
+			<MapAtlas selectedId={mapId} onselect={select} />
+			<form action="/game" method="get">
+				<input type="hidden" name="new" value="1" />
+				<input type="hidden" name="map" value={mapId} />
+				<label>
+					<span>Your name</span>
+					<input name="name" value="You" maxlength="24" autocomplete="nickname" required />
+				</label>
+				<label>
+					<span>Rival conductors</span>
+					<select name="bots" bind:value={rivals}>
+						{#each rivalCounts as count}
+							<option value={count}>{count} {count === 1 ? 'rival' : 'rivals'}</option>
+						{/each}
+					</select>
+				</label>
+				<button type="submit">Deal the tickets <span aria-hidden="true">→</span></button>
+				{#if hasSavedGame}
+					<p class="saved">This replaces your saved journey. <a href="/game">Continue it instead</a></p>
+				{/if}
+			</form>
+		</section>
 
-		<form action="/game" method="get">
-			<input type="hidden" name="new" value="1" />
-			<label>
-				<span>Your name</span>
-				<input name="name" value="You" maxlength="24" autocomplete="nickname" required />
-			</label>
-
-			<label>
-				<span>Rival conductors</span>
-				<select name="bots">
-					<option value="1">1 rival · quick game</option>
-					<option value="2">2 rivals</option>
-					<option value="3">3 rivals · classic table</option>
-					<option value="4">4 rivals · full table</option>
-				</select>
-			</label>
-
-			<div class="details">
-				<div><strong>Map</strong><span>Classic USA</span></div>
-				<div><strong>Rules</strong><span>Standard</span></div>
-				<div><strong>Save</strong><span>Automatic</span></div>
-			</div>
-
-			<button type="submit">Deal the tickets <span aria-hidden="true">→</span></button>
-			{#if hasSavedGame}
-				<p class="saved">This replaces your saved journey. <a href="/game">Continue it instead</a></p>
-			{/if}
-		</form>
-	</section>
+		<section class="details-panel">
+			<MapDetails {mapId} />
+		</section>
+	</div>
 </main>
 
 <style>
 	main {
 		min-height: 100svh;
-		padding-bottom: 4rem;
+		padding-bottom: 3rem;
 		background: #f7f3e9;
 		color: #142d3e;
 	}
@@ -73,7 +81,7 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 1.4rem clamp(1.25rem, 5vw, 5rem);
+		padding: 1.2rem clamp(1.25rem, 4vw, 3.5rem);
 		border-bottom: 1px solid #dcd6c7;
 	}
 	.back {
@@ -82,27 +90,16 @@
 		font-weight: 700;
 		text-decoration: none;
 	}
-	section {
+	.layout {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		width: min(64rem, calc(100% - 3rem));
-		margin: clamp(2rem, 5vw, 5rem) auto 0;
-		border: 1px solid #d8d0bf;
-		border-radius: 0.6rem;
-		overflow: hidden;
-		background: #fffcf5;
-		box-shadow: 0 12px 35px #75613f12;
+		grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr);
+		align-items: start;
+		gap: clamp(1.25rem, 3vw, 2.5rem);
+		width: min(96rem, calc(100% - 2.5rem));
+		margin: clamp(1.25rem, 3vw, 2.5rem) auto 0;
 	}
-	.heading,
-	form {
-		padding: clamp(1.5rem, 4vw, 3.4rem);
-	}
-	.heading {
-		border-right: 1px solid #ded7c8;
-		background: #f1ebdd;
-	}
-	.heading p {
-		margin: 0 0 1.5rem;
+	.eyebrow {
+		margin: 0 0 0.6rem;
 		color: #a34a3d;
 		font-size: 0.7rem;
 		font-weight: 800;
@@ -111,37 +108,31 @@
 	}
 	h1 {
 		margin: 0 0 1.25rem;
-		font-family: Georgia, serif;
-		font-size: clamp(2.5rem, 4.5vw, 4.2rem);
-		font-weight: 400;
+		font:
+			400 clamp(2.2rem, 3.6vw, 3.4rem) / 1.02 Georgia,
+			serif;
 		letter-spacing: -0.04em;
-		line-height: 1.02;
 	}
-	.heading span {
-		color: #647077;
-		font-size: 0.9rem;
-		line-height: 1.7;
-	}
-	.heading img {
-		display: block;
-		width: 100%;
-		height: 180px;
-		object-fit: cover;
-		margin-top: 2rem;
-		border: 5px solid #fffcf5;
-		box-shadow: 0 3px 10px #75613f18;
+	.details-panel {
+		display: grid;
+		padding: clamp(1.25rem, 2.4vw, 2rem);
+		border: 1px solid #d8d0bf;
+		border-radius: 0.6rem;
+		background: #fffcf5;
+		box-shadow: 0 12px 35px #75613f12;
 	}
 	form {
 		display: grid;
-		align-content: center;
-		gap: 1.5rem;
+		grid-template-columns: 1fr 1fr auto;
+		align-items: end;
+		gap: 1rem;
+		margin-top: 1.5rem;
 	}
 	label {
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.45rem;
 	}
-	label > span,
-	.details strong {
+	label > span {
 		color: #637076;
 		font-size: 0.68rem;
 		font-weight: 800;
@@ -151,10 +142,10 @@
 	input,
 	select {
 		width: 100%;
-		min-height: 46px;
+		min-height: 44px;
 		border: 1px solid #cfc7b6;
 		border-radius: 0.35rem;
-		padding: 0.8rem 0.9rem;
+		padding: 0.7rem 0.85rem;
 		background: #fffef9;
 		color: #142d3e;
 		font: inherit;
@@ -164,23 +155,9 @@
 		outline: 2px solid #698ba3;
 		outline-offset: 2px;
 	}
-	.details {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 0.5rem;
-		border-top: 1px solid #ded7c8;
-		padding-top: 1.25rem;
-	}
-	.details div {
-		display: grid;
-		gap: 0.4rem;
-	}
-	.details span {
-		color: #647077;
-		font-size: 0.78rem;
-	}
 	button {
 		display: flex;
+		gap: 2rem;
 		align-items: center;
 		justify-content: space-between;
 		min-height: 48px;
@@ -195,7 +172,12 @@
 			transform 180ms ease,
 			box-shadow 180ms ease;
 	}
+	button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 7px 16px #64523b20;
+	}
 	.saved {
+		grid-column: 1 / -1;
 		margin: 0;
 		color: #647077;
 		font-size: 0.78rem;
@@ -205,9 +187,10 @@
 		color: #a34a3d;
 		font-weight: 700;
 	}
-	button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 7px 16px #64523b20;
+	@media (max-width: 1100px) {
+		.layout {
+			grid-template-columns: 1fr;
+		}
 	}
 	@media (prefers-reduced-motion: reduce) {
 		button {
