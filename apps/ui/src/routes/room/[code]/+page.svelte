@@ -597,17 +597,19 @@
 		{/if}
 		<dialog class="map-dialog" bind:this={mapDialog} aria-label="Choose a map">
 			<div class="map-dialog-body">
-				<MapAtlas
-					selectedId={settingsMapId}
-					onselect={id => {
-						settingsMapId = id;
-						const seats = getGameMap(id).players;
-						if (!seats.includes(settingsMaxPlayers)) settingsMaxPlayers = Math.max(...seats);
-					}}
-				/>
+				<div class="map-dialog-atlas">
+					<MapAtlas
+						selectedId={settingsMapId}
+						onselect={id => {
+							settingsMapId = id;
+							const seats = getGameMap(id).players;
+							if (!seats.includes(settingsMaxPlayers)) settingsMaxPlayers = Math.max(...seats);
+						}}
+					/>
+					<form method="dialog"><button>Use {settingsMap.name}</button></form>
+				</div>
 				<MapDetails mapId={settingsMapId} />
 			</div>
-			<form method="dialog"><button>Use {settingsMap.name}</button></form>
 		</dialog>
 	</main>
 {/if}
@@ -669,6 +671,10 @@
 		grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
 		align-items: start;
 		gap: 1.5rem;
+	}
+	.map-dialog-atlas {
+		position: sticky;
+		top: 0;
 	}
 	.map-dialog form {
 		display: flex;
