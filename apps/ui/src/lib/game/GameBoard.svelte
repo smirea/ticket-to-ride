@@ -74,6 +74,9 @@
 	const routes = $derived(layout.map.routes);
 	const cityById = $derived(new Map(cities.map(city => [city.id, city])));
 	const mechanicLayers = $derived(mechanicUis(layout.map).flatMap(ui => ui.BoardLayer ?? []));
+	const routeLayers = $derived(mechanicUis(layout.map).flatMap(ui => ui.RouteLayer ?? []));
+	const claimDrawers = $derived(mechanicUis(layout.map).flatMap(ui => ui.drawsClaim ?? []));
+	const drawnByMechanic = (route: Route) => claimDrawers.some(draws => draws(gameState, route));
 	const cityPoint = (city: City, position = 0) => layout.cityPoint(city, position);
 	const routePoint = (route: Route, t: number) => layout.routePoint(route, t);
 	const routeMarkerT = (route: Route, index: number) => layout.routeMarkerT(route, index);
@@ -87,12 +90,41 @@
 			}),
 		),
 	);
-	// A ticket to a city with several printed positions is drawn between the two closest ones.
+	// Track between printed positions only, so an inset city's spots stay apart.
+	const positionGraph = $derived.by(() => {
+		const graph = new Map<string, string[]>();
+		const link = (from: string, to: string) => graph.set(from, [...(graph.get(from) ?? []), to]);
+		for (const route of routes) {
+			link(`${route.cityA}#${route.positionA}`, `${route.cityB}#${route.positionB}`);
+			link(`${route.cityB}#${route.positionB}`, `${route.cityA}#${route.positionA}`);
+		}
+		return graph;
+	});
+	function trackHops(from: string, to: string) {
+		const seen = new Map([[from, 0]]);
+		const queue = [from];
+		for (let vertex = queue.shift(); vertex !== undefined; vertex = queue.shift()) {
+			if (vertex === to) return seen.get(vertex)!;
+			for (const next of positionGraph.get(vertex) ?? []) {
+				if (seen.has(next)) continue;
+				seen.set(next, seen.get(vertex)! + 1);
+				queue.push(next);
+			}
+		}
+		return Number.POSITIVE_INFINITY;
+	}
+	// A ticket to a city with several printed positions is drawn between the two joined by the fewest routes, then the closest.
 	function ticketEnds(ticket: Ticket) {
 		const a = cityById.get(ticket.cityA)!,
 			b = cityById.get(ticket.cityB)!;
-		const pairs = a.positions.flatMap((_, i) => b.positions.map((_, j) => [cityPoint(a, i), cityPoint(b, j)] as const));
-		return pairs.sort(([p, q], [r, t]) => Math.hypot(p.x - q.x, p.y - q.y) - Math.hypot(r.x - t.x, r.y - t.y))[0]!;
+		const pairs = a.positions.flatMap((_, i) =>
+			b.positions.map((_, j) => {
+				const ends = [cityPoint(a, i), cityPoint(b, j)] as const;
+				const hops = a.positions.length * b.positions.length > 1 ? trackHops(`${a.id}#${i}`, `${b.id}#${j}`) : 0;
+				return { ends, hops, distance: Math.hypot(ends[0].x - ends[1].x, ends[0].y - ends[1].y) };
+			}),
+		);
+		return pairs.sort((p, q) => p.hops - q.hops || p.distance - q.distance)[0]!.ends;
 	}
 	let slotWidth = $state(0);
 	let slotHeight = $state(0);
@@ -117,7 +149,7 @@
 			? routes
 					.flatMap(route => {
 						const player = owner(route);
-						return player && route.id !== landingRouteId
+						return player && route.id !== landingRouteId && !drawnByMechanic(route)
 							? Array.from({ length: route.length }, (_, index) => ({
 									id: `${route.id}-${index}`,
 									routeId: route.id,
@@ -143,6 +175,7 @@
 	}
 
 	export async function claimSprites(route: Route, color: Player['color']): Promise<CarriageSprite[]> {
+		if (drawnByMechanic(route)) return [];
 		const artwork = manifest ?? (await loadCarriageSprites());
 		const screen = viewport?.querySelector<SVGSVGElement>('svg.board')?.getScreenCTM();
 		if (!screen) return [];
@@ -515,6 +548,7 @@
 						{/each}
 					</g>
 
+					{#each routeLayers as Layer}<Layer state={gameState} {layout} {viewerId} />{/each}
 					{#each cityStops as stop (stop.key)}
 						{@const city = stop.city}{@const p = stop.p}{@const labelLines = cityLabelLines(
 							city.name,

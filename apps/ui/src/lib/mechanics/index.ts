@@ -10,6 +10,7 @@ import type {
 } from '@repo/shared';
 import type { Component } from 'svelte';
 import type { BoardLayout } from '$lib/game/board/layout';
+import { bulletTrainsUi } from './bullet-trains';
 import { mandalasUi } from './mandalas';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
@@ -21,6 +22,10 @@ type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
 export interface MechanicUi {
 	// SVG drawn on the board above routes and cities, in board coordinates.
 	BoardLayer?: Component<{ state: GameState; layout: BoardLayout; viewerId: string }>;
+	// SVG drawn over routes and carriages but under cities, so city names stay readable.
+	RouteLayer?: Component<{ state: GameState; layout: BoardLayout; viewerId: string }>;
+	// Routes whose claimed piece the BoardLayer draws instead of the owner's carriages; asked before and after the claim.
+	drawsClaim?: (state: GameState, route: Route) => boolean;
 	// Shown beside the payment chooser; edits the claim's `options`.
 	ClaimOptions?: Component<{
 		state: GameState;
@@ -45,6 +50,7 @@ export interface MechanicUi {
 
 export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
 	mandalas: mandalasUi,
+	'bullet-trains': bulletTrainsUi,
 };
 
 export function mechanicUis(map: GameMap): MechanicUi[] {
