@@ -66,7 +66,7 @@ export function formatGameEvent(event: GameEvent, state: Pick<GameState, 'mapId'
 			return event.text;
 		default:
 			for (const mechanic of gameMap(state).mechanics) {
-				const text = mechanic.describeEvent?.(event as MechanicEvent, player);
+				const text = mechanic.describeEvent?.(event as MechanicEvent, player, state);
 				if (text) return text;
 			}
 			return `${player} ${(event as { type: string }).type}.`;
