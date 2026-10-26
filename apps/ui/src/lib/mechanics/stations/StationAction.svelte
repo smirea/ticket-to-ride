@@ -10,7 +10,7 @@
 		type GameState,
 		type TrainColor,
 	} from '@repo/shared';
-	import TrainCard from '$lib/game/TrainCard.svelte';
+	import CardPayment from '$lib/game/CardPayment.svelte';
 	import { playerColors } from '$lib/game/board/layout';
 	import type { PickCity } from '$lib/mechanics';
 	import StationIcon from './StationIcon.svelte';
@@ -78,8 +78,7 @@
 						onclick={() => build(cityId!, payment)}
 						aria-label={`Pay ${payment.cars ? `${payment.cars} ${payment.paymentColor}` : ''}${payment.cars && payment.locomotives ? ' and ' : ''}${payment.locomotives ? `${payment.locomotives} locomotive` : ''}`}
 					>
-						{#each Array(payment.cars) as _}<span class="card"><TrainCard color={payment.paymentColor} /></span>{/each}
-						{#each Array(payment.locomotives) as _}<span class="card"><TrainCard color="locomotive" /></span>{/each}
+						<CardPayment color={payment.paymentColor} cars={payment.cars} locomotives={payment.locomotives} />
 					</button>
 				{/each}
 			</div>
@@ -165,15 +164,6 @@
 	.options button:focus-visible {
 		border-color: #c2603e;
 		background: #fff8e8;
-	}
-	.card {
-		display: block;
-		width: 26px;
-		height: 38px;
-		margin-right: -8px;
-	}
-	.card:last-child {
-		margin-right: 0;
 	}
 	.cancel {
 		justify-self: start;

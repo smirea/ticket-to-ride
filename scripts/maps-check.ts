@@ -25,6 +25,19 @@ const games = Number(args.find(arg => arg.startsWith('--games='))?.slice(8) ?? 2
 const ids = args.filter(arg => !arg.startsWith('--'));
 const root = resolve(import.meta.dir, '..');
 let failed = false;
+// Mechanic events are summarised per game, which is how odd bot play shows up (e.g. tunnels abandoned too often).
+const CORE_EVENTS = new Set([
+	'game-started',
+	'keep-tickets',
+	'draw-destination-tickets',
+	'draw-face-up',
+	'draw-train-deck',
+	'claim-route',
+	'final-round',
+	'pass',
+	'game-over',
+	'note',
+]);
 
 function check(ok: boolean, message: string) {
 	if (!ok) failed = true;
@@ -107,6 +120,7 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 		const turns: number[] = [];
 		const completion: number[] = [];
 		const bonuses = new Map<string, number>();
+		const mechanicEvents = new Map<string, number>();
 		let passes = 0;
 		let errors: string[] = [];
 		for (let game = 0; game < games; game++) {
@@ -134,6 +148,9 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 			}
 			turns.push(state.turnNumber);
 			passes += state.events.filter(event => event.type === 'pass').length;
+			for (const event of state.events) {
+				if (!CORE_EVENTS.has(event.type)) mechanicEvents.set(event.type, (mechanicEvents.get(event.type) ?? 0) + 1);
+			}
 			const held = state.players.reduce((sum, player) => sum + player.tickets.length, 0);
 			const done = (state.finalResults ?? []).reduce((sum, result) => sum + result.completedTickets, 0);
 			completion.push(held ? done / held : 0);
@@ -142,6 +159,11 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 		check(errors.length === 0, `${players} players: ${games - errors.length}/${games} games finished`);
 		for (const error of errors.slice(0, 5)) console.log(`         ${error}`);
 		errors = [];
+		if (mechanicEvents.size) {
+			console.log(
+				`         mechanic events per game: ${[...mechanicEvents].map(([type, count]) => `${type} ${(count / games).toFixed(1)}`).join(', ')}`,
+			);
+		}
 		console.log(
 			`         mean score ${mean(scores).toFixed(1)}, ${mean(turns).toFixed(0)} turns, ${(mean(completion) * 100).toFixed(0)}% tickets completed, ${passes} passes` +
 				(bonuses.size

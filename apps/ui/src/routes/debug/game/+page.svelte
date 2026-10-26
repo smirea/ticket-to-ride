@@ -13,6 +13,7 @@
 		getGameMap,
 		TRAIN_CARDS,
 		type GameAction,
+		type TrainCard,
 		type GameState,
 	} from '@repo/shared';
 
@@ -20,15 +21,25 @@
 	// ?map=<id>&players=<n>&turns=<n> shows that map after bots have played; the other scenarios are USA-only.
 	const params = page.url.searchParams;
 	const debugMap = findGameMap(params.get('map') ?? '');
-	let game = $state<GameState>(
-		debugMap
-			? createDebugMidGame(
-					debugMap.id,
-					Number(params.get('players') ?? Math.max(...debugMap.players)),
-					Number(params.get('turns') ?? 40),
-				)
-			: createDebugClaimScenario(),
-	);
+	let game = $state<GameState>(debugMap ? debugMapGame(debugMap.id) : createDebugClaimScenario());
+
+	// &hand=blue:4,locomotive:2 replaces the viewer's hand, to stage a payment without hunting for a seed.
+	function debugMapGame(mapId: string) {
+		const next = createDebugMidGame(
+			mapId,
+			Number(params.get('players') ?? Math.max(...getGameMap(mapId).players)),
+			Number(params.get('turns') ?? 40),
+		);
+		const hand = params.get('hand');
+		if (hand) {
+			for (const card of TRAIN_CARDS) next.players[0]!.hand[card] = 0;
+			for (const entry of hand.split(',')) {
+				const [card, count] = entry.split(':') as [TrainCard, string];
+				if (card in next.players[0]!.hand) next.players[0]!.hand[card] = Number(count);
+			}
+		}
+		return next;
+	}
 	let viewerId = $state('player');
 	let error = $state('');
 	let scenario = $state(0);

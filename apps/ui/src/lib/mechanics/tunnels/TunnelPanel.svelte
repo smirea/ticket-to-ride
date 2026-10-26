@@ -7,6 +7,7 @@
 		type GameState,
 		type TrainCard as Card,
 	} from '@repo/shared';
+	import CardPayment from '$lib/game/CardPayment.svelte';
 	import TrainCard from '$lib/game/TrainCard.svelte';
 	let {
 		state: gameState,
@@ -47,8 +48,7 @@
 						onclick={() => send({ type: 'pay-tunnel', locomotives })}
 						aria-label={`Pay ${cars ? `${cars} ${phase.payment.color}` : ''}${cars && locomotives ? ' and ' : ''}${locomotives ? `${locomotives} locomotive` : ''}`}
 					>
-						{#each Array(cars) as _}<span class="mini"><TrainCard color={phase.payment.color} /></span>{/each}
-						{#each Array(locomotives) as _}<span class="mini"><TrainCard color="locomotive" /></span>{/each}
+						<CardPayment color={phase.payment.color} {cars} {locomotives} />
 					</button>
 				{/each}
 				<button class="give-up" {disabled} onclick={() => send({ type: 'abandon-tunnel' })}>Give up</button>
@@ -113,15 +113,6 @@
 	}
 	.pay:hover:not(:disabled) {
 		border-color: #c2603e;
-	}
-	.mini {
-		display: block;
-		width: 24px;
-		height: 35px;
-		margin-right: -7px;
-	}
-	.mini:last-child {
-		margin-right: 0;
 	}
 	.give-up {
 		padding: 6px 12px;

@@ -1073,16 +1073,6 @@
 		{/if}
 		<div class="mechanic-actions">
 			{#each uis as ui}
-				{#if mechanicPhase && ui.PhasePanel}
-					{@const Panel = ui.PhasePanel}
-					<Panel
-						state={gameState}
-						{viewerId}
-						send={sendMechanicAction}
-						{pickCity}
-						disabled={busy || currentPlayer?.id !== viewerId}
-					/>
-				{/if}
 				{#if ui.TurnActions}
 					{@const Actions = ui.TurnActions}
 					<Actions state={gameState} {viewerId} send={sendMechanicAction} {pickCity} disabled={!turnReady} />
@@ -1093,6 +1083,22 @@
 	</aside>
 
 	<section class="board-stage" aria-label="Game board" inert={Boolean(paymentRoute || completionTicket)}>
+		{#if mechanicPhase}
+			<div class="phase-panels">
+				{#each uis as ui}
+					{#if ui.PhasePanel}
+						{@const Panel = ui.PhasePanel}
+						<Panel
+							state={gameState}
+							{viewerId}
+							send={sendMechanicAction}
+							{pickCity}
+							disabled={busy || currentPlayer?.id !== viewerId}
+						/>
+					{/if}
+				{/each}
+			</div>
+		{/if}
 		<GameBoard
 			bind:this={board}
 			state={gameState}
@@ -1458,6 +1464,16 @@
 	}
 	.mechanic-actions {
 		display: contents;
+	}
+	/* A mechanic phase is a short decision, so its panel floats over the board instead of pushing the tickets aside. */
+	.phase-panels {
+		position: absolute;
+		top: 44px;
+		left: 28px;
+		z-index: 20;
+		display: grid;
+		gap: 10px;
+		max-width: 280px;
 	}
 	.route-scoring-reference {
 		width: 196px;
