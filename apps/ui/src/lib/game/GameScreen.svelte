@@ -65,7 +65,6 @@
 	// Tall boards take the full table height; the hand and market stack beside or below them.
 	const portraitBoard = $derived(boardArt(map.id).aspect < 1);
 	// Very wide boards need the full table width on portrait tablets to keep their labels apart.
-	const wideBoard = $derived(boardArt(map.id).aspect > 1.7);
 	const uis = $derived(mechanicUis(map));
 	const corePhases = ['opening-tickets', 'ticket-selection', 'turn', 'game-over'];
 	const mechanicPhase = $derived(!corePhases.includes(gameState.phase.type));
@@ -919,7 +918,7 @@
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
 	class:reduced-motion={reduceMotion}
 	class:portrait-board={portraitBoard}
-	class:wide-board={wideBoard}
+	style:--board-aspect={boardArt(map.id).aspect}
 	style:--train-card-width={`${trainCardWidth}px`}
 >
 	<header class="table-header" inert={Boolean(paymentRoute || completionTicket)}>
@@ -1241,6 +1240,7 @@
 				>
 			</div>
 		</section>
+		<div class="route-scoring-reference in-tray" aria-hidden="true"><RouteScoring /></div>
 	</footer>
 
 	{#if completionTicket}
@@ -1493,6 +1493,9 @@
 		display: grid;
 		gap: 10px;
 		max-width: 280px;
+	}
+	.in-tray {
+		display: none;
 	}
 	.route-scoring-reference {
 		width: 196px;
@@ -2206,8 +2209,11 @@
 		}
 	}
 
+	/* Tall boards get a column as wide as the board at full table height; the hand and market take the rest. */
 	.game-shell.portrait-board {
-		grid-template-columns: 224px minmax(0, 1fr) clamp(340px, 36vw, 560px);
+		grid-template-columns:
+			224px min(calc((100svh - 150px) * var(--board-aspect) + 80px), 52vw, calc(100vw - 660px))
+			minmax(400px, 1fr);
 	}
 	/* Keeps the board's west edge clear of the overlapping ticket column. */
 	.portrait-board .board-stage {
@@ -2218,8 +2224,9 @@
 		grid-column: 3;
 		grid-row: 2 / 4;
 		grid-template-columns: minmax(0, 1fr);
-		align-content: end;
-		margin: 0;
+		align-content: center;
+		gap: 36px;
+		margin: 0 0 0 8px;
 	}
 	@media (max-width: 1100px) and (orientation: portrait) {
 		.game-shell.portrait-board {
@@ -2235,16 +2242,28 @@
 		.portrait-board .play-tray {
 			grid-column: 2;
 			grid-row: 3;
+			gap: 4px;
 			margin: -20px 0 0;
 		}
-	}
-
-	@media (max-width: 1100px) and (orientation: portrait) {
-		.wide-board .board-stage {
-			grid-column: 1 / -1;
+		/* Wide boards span the table on a portrait tablet, at the height their shape needs. */
+		.game-shell:not(.portrait-board) {
+			grid-template-rows: 150px auto minmax(0, 1fr);
 		}
-		.wide-board .journey-sidebar {
+		.game-shell:not(.portrait-board) .board-stage {
+			grid-column: 1 / -1;
+			height: calc((100vw - 60px) / var(--board-aspect) + 56px);
+		}
+		.game-shell:not(.portrait-board) .journey-sidebar {
 			grid-row: 3;
+		}
+		/* Under a full-width board the sidebar is short, so the scoring card moves beside the market. */
+		.game-shell:not(.portrait-board) .journey-sidebar .route-scoring-reference {
+			display: none;
+		}
+		.game-shell:not(.portrait-board) .play-tray .in-tray {
+			display: block;
+			justify-self: end;
+			margin: 8px 6px 0 0;
 		}
 	}
 

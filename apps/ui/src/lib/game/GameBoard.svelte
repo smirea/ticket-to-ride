@@ -159,6 +159,55 @@
 	const mapHeight = $derived(viewportHeight);
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
 	const labelScale = $derived(`scale(${(W * labelFactor) / mapWidth} ${(H * labelFactor) / mapHeight})`);
+	type LabelSide = 'above' | 'below' | 'right' | 'left';
+	// Labels keep their screen size while the board scales, so crowded cities only collide on small boards. Each
+	// label takes the side, in preference order, that covers the fewest labels and city hubs already placed.
+	const labelSides = $derived.by(() => {
+		const sx = (W * labelFactor) / mapWidth,
+			sy = (H * labelFactor) / mapHeight;
+		type Box = { x1: number; y1: number; x2: number; y2: number };
+		const hub = 11;
+		const hubs: Box[] = cityStops.map(({ p }) => ({
+			x1: p.x - hub * sx,
+			y1: p.y - hub * sy,
+			x2: p.x + hub * sx,
+			y2: p.y + hub * sy,
+		}));
+		const placed: Box[] = [];
+		const sides = new Map<string, LabelSide>();
+		const overlap = (a: Box, b: Box) =>
+			Math.max(0, Math.min(a.x2, b.x2) - Math.max(a.x1, b.x1)) *
+			Math.max(0, Math.min(a.y2, b.y2) - Math.max(a.y1, b.y1));
+		for (const stop of [...cityStops].sort((a, b) => a.p.y - b.p.y)) {
+			if (!stop.labelLines.length) continue;
+			const width = Math.max(...stop.labelLines.map(line => line.length)) * 9.4;
+			const height = stop.labelLines.length * 16;
+			const local: Record<LabelSide, [number, number, number, number]> = {
+				above: [-width / 2, -13 - height, width / 2, -13],
+				below: [-width / 2, 13, width / 2, 13 + height],
+				right: [14, -height / 2, 14 + width, height / 2],
+				left: [-14 - width, -height / 2, -14, height / 2],
+			};
+			const order: LabelSide[] = stop.labelBelow
+				? ['below', 'above', 'right', 'left']
+				: ['above', 'below', 'right', 'left'];
+			let best: { side: LabelSide; box: Box; cost: number } | undefined;
+			for (const [rank, side] of order.entries()) {
+				const [x1, y1, x2, y2] = local[side];
+				const box = { x1: stop.p.x + x1 * sx, y1: stop.p.y + y1 * sy, x2: stop.p.x + x2 * sx, y2: stop.p.y + y2 * sy };
+				const outside = box.x1 < 0 || box.y1 < 0 || box.x2 > W || box.y2 > H ? 1e6 : 0;
+				const cost =
+					outside +
+					placed.reduce((sum, other) => sum + overlap(box, other) * 4, 0) +
+					hubs.reduce((sum, other, index) => sum + (cityStops[index] === stop ? 0 : overlap(box, other)), 0) +
+					rank * 0.5;
+				if (!best || cost < best.cost) best = { side, box, cost };
+			}
+			placed.push(best!.box);
+			sides.set(stop.key, best!.side);
+		}
+		return sides;
+	});
 
 	// Not every browser delivers click as a PointerEvent, so the pointer type comes from pointerdown.
 	let lastPointerType: string | undefined = undefined;
@@ -595,8 +644,18 @@
 									r="5.4"
 								/>
 								{#if stop.label}
-									<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
-										{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan
+									{@const side = labelSides.get(stop.key) ?? (labelBelow ? 'below' : 'above')}
+									{@const labelX = side === 'right' ? 14 : side === 'left' ? -14 : 0}
+									<text
+										x={labelX}
+										y={side === 'below'
+											? 25
+											: side === 'above'
+												? -17 - (labelLines.length - 1) * 16
+												: 5 - (labelLines.length - 1) * 8}
+										text-anchor={side === 'right' ? 'start' : side === 'left' ? 'end' : 'middle'}
+									>
+										{#each labelLines as line, lineIndex}<tspan x={labelX} dy={lineIndex === 0 ? 0 : 16}>{line}</tspan
 											>{/each}
 									</text>
 								{/if}

@@ -65,7 +65,7 @@ export function labelIssues(layout: BoardLayout): LayoutIssue[] {
 	const scale = labelScale(layout);
 	return layout.cityStops.flatMap(({ city, p, label }) => {
 		if (!label) return [];
-		const half = (Math.max(...label.lines.map(line => line.length)) * 8.4 * scale) / 2;
+		const half = (Math.max(...label.lines.map(line => line.length)) * 9.4 * scale) / 2;
 		const top = label.below ? p.y + 13 * scale : p.y - (29 + (label.lines.length - 1) * 16) * scale;
 		const bottom = label.below ? p.y + (29 + (label.lines.length - 1) * 16) * scale : p.y - 13 * scale;
 		const clipped = p.x - half < 0 || p.x + half > layout.width || top < 0 || bottom > layout.height;
