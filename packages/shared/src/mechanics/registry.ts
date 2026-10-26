@@ -1,0 +1,22 @@
+import type { MapMechanic } from '../map-schema';
+import { bulletTrainMechanic } from './bullet-trains';
+import { mandalas } from './mandalas';
+import { stations } from './stations';
+import { tunnels } from './tunnels';
+import { stocks } from './stocks';
+import { terrainCards } from './terrain-cards';
+import type { Mechanic } from './types';
+
+// One import and one entry per line: git merges this file with the union driver (.gitattributes), so parallel
+// branches that each add an entry merge cleanly.
+// A map can only be registered once every mechanic in its map.json has an entry here.
+export const MECHANICS: Partial<Record<MapMechanic, Mechanic>> = {
+	// Printed locomotive spaces are a core payment rule (`Route.locomotives`), so ferries need no hooks.
+	ferries: { id: 'ferries' },
+	mandalas,
+	stations,
+	tunnels,
+	stocks,
+	'terrain-cards': terrainCards,
+	'bullet-trains': bulletTrainMechanic,
+};

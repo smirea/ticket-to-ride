@@ -1,0 +1,5 @@
+# Registries hold one entry per line, so concurrent map branches merge by keeping both sides.
+packages/shared/src/maps/registry.ts merge=union
+packages/shared/src/mechanics/registry.ts merge=union
+apps/ui/src/lib/maps/registry.ts merge=union
+apps/ui/src/lib/mechanics/registry.ts merge=union

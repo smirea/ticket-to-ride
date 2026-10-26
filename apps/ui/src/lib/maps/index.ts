@@ -1,22 +1,8 @@
 import { GAME_MAPS } from '@repo/shared';
-import { indiaArt } from './india';
-import { pennsylvaniaArt } from './pennsylvania';
-import { theHeartOfAfricaArt } from './the-heart-of-africa';
-import { japanArt } from './japan';
+import { ART } from './registry';
 import type { BoardArt } from './types';
-import { europeArt } from './europe';
-import { usaArt } from './usa';
 
 export type * from './types';
-
-const ART: Record<string, BoardArt> = {
-	usa: usaArt,
-	india: indiaArt,
-	europe: europeArt,
-	pennsylvania: pennsylvaniaArt,
-	'the-heart-of-africa': theHeartOfAfricaArt,
-	japan: japanArt,
-};
 
 for (const map of GAME_MAPS) {
 	if (!ART[map.id]) throw new Error(`Map ${map.id} has no board art in apps/ui/src/lib/maps.`);

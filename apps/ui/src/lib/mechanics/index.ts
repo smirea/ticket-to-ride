@@ -1,21 +1,7 @@
-import type {
-	ClaimOptions,
-	DestinationTicket,
-	GameAction,
-	GameMap,
-	GameState,
-	MapMechanic,
-	Player,
-	Route,
-} from '@repo/shared';
+import type { ClaimOptions, DestinationTicket, GameAction, GameMap, GameState, Player, Route } from '@repo/shared';
 import type { Component } from 'svelte';
 import type { BoardLayout } from '$lib/game/board/layout';
-import { bulletTrainsUi } from './bullet-trains';
-import { mandalasUi } from './mandalas';
-import { stationsUi } from './stations';
-import { tunnelsUi } from './tunnels';
-import { stocksUi } from './stocks';
-import { terrainCardsUi } from './terrain-cards';
+import { MECHANIC_UI } from './registry';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
 // Puts the board into pick mode: only `cityIds` can be chosen. Resolves with the city, or undefined if cancelled.
@@ -60,15 +46,6 @@ export interface MechanicUi {
 	// The status line while one of this mechanic's phases is active.
 	describePhase?: (state: GameState, viewerId: string) => string | undefined;
 }
-
-export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
-	mandalas: mandalasUi,
-	stations: stationsUi,
-	tunnels: tunnelsUi,
-	stocks: stocksUi,
-	'terrain-cards': terrainCardsUi,
-	'bullet-trains': bulletTrainsUi,
-};
 
 export function mechanicUis(map: GameMap): MechanicUi[] {
 	return map.mechanicIds.flatMap(id => MECHANIC_UI[id] ?? []);
