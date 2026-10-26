@@ -10,8 +10,8 @@
 {#if earned}
 	<span class="mandala-stamp" role="img" aria-label="Mandala: joined by two separate paths" title="Mandala">
 		<svg viewBox="-20 -20 40 40" aria-hidden="true">
-			<circle r="18" class="ring" />
-			<circle r="15" class="ring thin" />
+			<circle r="18" class="stamp-ring" />
+			<circle r="15" class="stamp-ring thin" />
 			{#each petals as angle (angle)}
 				<path d="M0 -4 C 4 -7, 4 -11, 0 -13.5 C -4 -11, -4 -7, 0 -4 Z" transform={`rotate(${angle})`} />
 			{/each}
@@ -39,12 +39,12 @@
 		height: 100%;
 		fill: currentColor;
 	}
-	.ring {
+	.stamp-ring {
 		fill: none;
 		stroke: currentColor;
 		stroke-width: 2;
 	}
-	.ring.thin {
+	.stamp-ring.thin {
 		stroke-width: 0.8;
 	}
 </style>

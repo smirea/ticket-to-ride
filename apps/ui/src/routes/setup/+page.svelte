@@ -187,7 +187,7 @@
 		color: #a34a3d;
 		font-weight: 700;
 	}
-	@media (max-width: 1100px) {
+	@media (max-width: 1100px) and (orientation: portrait) {
 		.layout {
 			grid-template-columns: 1fr;
 		}

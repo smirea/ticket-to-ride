@@ -34,7 +34,7 @@
 	aria-label={`${layout.map.name} board`}
 >
 	<image href={layout.art.terrain} width={layout.width} height={layout.height} preserveAspectRatio="none" />
-	<g class="outline">
+	<g class="network">
 		{#each layout.map.routes as route (route.id)}<path d={layout.routeOutlinePath(route)} />{/each}
 	</g>
 	{#each cars as car (car.key)}
@@ -60,7 +60,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	.outline path {
+	.network path {
 		fill: none;
 		stroke: #101819;
 		stroke-opacity: 0.4;
