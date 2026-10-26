@@ -50,6 +50,11 @@ export interface MapRules {
 	finalRoundTrains: number;
 }
 
+export interface Company {
+	id: string;
+	name: string;
+}
+
 export interface MapGimmick {
 	title: string;
 	text: string;
@@ -78,6 +83,8 @@ export interface GameMap {
 	cities: readonly City[];
 	routes: readonly Route[];
 	tickets: readonly DestinationTicket[];
+	// Railroads printed on routes (map.json `companies`), e.g. for stock shares.
+	companies: readonly Company[];
 	mechanicIds: readonly MapMechanic[];
 	mechanics: readonly Mechanic[];
 	graph: RouteGraph;

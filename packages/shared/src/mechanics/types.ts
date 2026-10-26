@@ -1,7 +1,7 @@
 import type { z } from 'zod';
 import type { ActionResult, ClaimRouteAction, GameAction, GameState, Player, PlayerId } from '../game';
 import type { MapMechanic } from '../map-schema';
-import type { Route } from '../maps/types';
+import type { GameMap, Route } from '../maps/types';
 
 /*
  * Mechanics extend the core game through module augmentation, so each one lives in its own file:
@@ -65,6 +65,8 @@ export interface ScoreLine {
 
 export interface Mechanic {
 	id: MapMechanic;
+	// Checks a map's data when it is defined; a returned problem fails the import.
+	validate?(map: GameMap): string | undefined;
 	// Mutates a freshly dealt game: initial mechanic state, extra decks, hands.
 	setup?(state: GameState): void;
 	actions?: Readonly<Record<string, MechanicActionDef>>;
