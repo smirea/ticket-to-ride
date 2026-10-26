@@ -145,6 +145,14 @@ export function routeScore(state: GameState, route: Route): number {
 	return map.rules.routeScores[route.length] ?? route.length;
 }
 
+export function claimTrains(state: GameState, route: Route): number {
+	for (const mechanic of gameMap(state).mechanics) {
+		const trains = mechanic.claimTrains?.(state, route);
+		if (trains !== undefined) return trains;
+	}
+	return route.length;
+}
+
 function emptyHand(): TrainHand {
 	return Object.fromEntries(TRAIN_CARDS.map(color => [color, 0])) as TrainHand;
 }
@@ -414,7 +422,8 @@ export function endTurn(state: GameState): void {
 			return;
 		}
 	} else if (
-		player.trains <= map.rules.finalRoundTrains ||
+		(player.trains <= map.rules.finalRoundTrains &&
+			!map.mechanics.some(mechanic => mechanic.holdsFinalRound?.(state))) ||
 		map.mechanics.some(mechanic => mechanic.triggersFinalRound?.(state, player))
 	) {
 		state.finalRound = { triggeredBy: player.id, turnsRemaining: state.players.length };
@@ -471,7 +480,7 @@ export function canClaimRoute(
 	if (hasParallelConflict(state, routeToClaim, player.id)) {
 		return { ok: false, error: 'The parallel route is not available in this game.' };
 	}
-	if (player.trains < routeToClaim.length) return { ok: false, error: 'Not enough train pieces.' };
+	if (player.trains < claimTrains(state, routeToClaim)) return { ok: false, error: 'Not enough train pieces.' };
 	if (routeToClaim.color !== 'gray' && routeToClaim.color !== paymentColor) {
 		return { ok: false, error: `This route requires ${routeToClaim.color} cards.` };
 	}
@@ -502,7 +511,7 @@ export function completeClaim(next: GameState, claim: ClaimRouteAction, payment:
 	for (let count = 0; count < payment.locomotives; count += 1) next.trainDiscard.push('locomotive');
 	player.hand[payment.color] -= payment.cars;
 	player.hand.locomotive -= payment.locomotives;
-	player.trains -= routeToClaim.length;
+	player.trains -= claimTrains(next, routeToClaim);
 	const points = routeScore(next, routeToClaim);
 	player.score += points;
 	next.claimedRoutes[routeToClaim.id] = player.id;
@@ -793,7 +802,11 @@ function shortestTicketPath(state: GameState, player: Player, ticketId: TicketId
 	const usable = new Set(ticketNetwork(state, player.id).map(routeItem => routeItem.id));
 	const path = findRoutePath(map.graph, map.vertices(ticket.cityA), map.vertices(ticket.cityB), route => {
 		if (usable.has(route.id)) return 0;
-		if (state.claimedRoutes[route.id] || route.length > player.trains || hasParallelConflict(state, route, player.id))
+		if (
+			state.claimedRoutes[route.id] ||
+			claimTrains(state, route) > player.trains ||
+			hasParallelConflict(state, route, player.id)
+		)
 			return undefined;
 		return route.length;
 	});
@@ -818,7 +831,7 @@ function availableBotRoutes(state: GameState, player: Player): Route[] {
 	return gameMap(state).routes.filter(
 		routeItem =>
 			!state.claimedRoutes[routeItem.id] &&
-			player.trains >= routeItem.length &&
+			player.trains >= claimTrains(state, routeItem) &&
 			!hasParallelConflict(state, routeItem, player.id),
 	);
 }
