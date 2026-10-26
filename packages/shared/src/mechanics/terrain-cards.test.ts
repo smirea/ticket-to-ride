@@ -49,6 +49,16 @@ function error(state: GameState, action: GameAction): string | undefined {
 }
 
 describe('Heart of Africa terrain cards', () => {
+	test('a terrain draw keeps the second draw open after the train cards run out', () => {
+		const state = africaTurn();
+		state.trainDeck = [];
+		state.trainDiscard = [];
+		const afterFirst = apply(state, { type: 'draw-terrain-card', index: 0 });
+		expect(afterFirst.phase).toEqual({ type: 'turn', drawsTaken: 1 });
+		const afterSecond = apply(afterFirst, { type: 'draw-terrain-card' });
+		expect(afterSecond.currentPlayerIndex).toBe(1);
+	});
+
 	test('setup deals one terrain card to each player and lays two face up', () => {
 		const state = createGame({ mapId: 'the-heart-of-africa', seed: 'setup', botCount: 3 });
 		const terrain = state.mechanics['terrain-cards']!;

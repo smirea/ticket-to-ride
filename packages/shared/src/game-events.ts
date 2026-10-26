@@ -31,7 +31,9 @@ export type GameEvent =
 	| MechanicEvent;
 
 export function cityName(state: Pick<GameState, 'mapId'>, cityId: string): string {
-	return gameMap(state).city(cityId)?.name ?? cityId;
+	const city = gameMap(state).city(cityId);
+	// Printed junctions have no name; map.json calls them "Unnamed upper Congo junction" for reference.
+	return city?.type === 'junction' ? city.name.replace(/^Unnamed /, '') : (city?.name ?? cityId);
 }
 
 export function routeName(state: Pick<GameState, 'mapId'>, routeId: RouteId): string {

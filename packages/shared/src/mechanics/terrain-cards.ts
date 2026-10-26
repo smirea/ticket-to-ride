@@ -257,6 +257,7 @@ export const terrainCards: Mechanic = {
 		});
 	},
 	hasTurnAction: canDrawTerrain,
+	canDraw: canDrawTerrain,
 	chooseBotAction: botTerrainDraw,
 	botClaimOptions(state, player, route, claim) {
 		const terms = doublingTerms(state, player.id, route);

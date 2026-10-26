@@ -434,8 +434,13 @@ export function endTurn(state: GameState): void {
 }
 
 // Ends the turn after a second draw, a face-up locomotive or an exhausted deck; otherwise opens the second draw.
+// Train cards or any mechanic's own supply that a draw may take from instead.
+function canDrawAnyCard(state: GameState): boolean {
+	return canDrawTrainCards(state) || gameMap(state).mechanics.some(mechanic => mechanic.canDraw?.(state));
+}
+
 export function finishDraw(state: GameState, endsTurn = false): void {
-	if (endsTurn || (state.phase.type === 'turn' && state.phase.drawsTaken === 1) || !canDrawTrainCards(state)) {
+	if (endsTurn || (state.phase.type === 'turn' && state.phase.drawsTaken === 1) || !canDrawAnyCard(state)) {
 		endTurn(state);
 	} else {
 		state.phase = { type: 'turn', drawsTaken: 1 };

@@ -89,6 +89,8 @@ export interface Mechanic {
 	// Routes a player may use for tickets besides their own, e.g. shared track or borrowed routes.
 	ticketRoutes?(state: GameState, playerId: PlayerId): readonly Route[];
 	hasTurnAction?(state: GameState, player: Player): boolean;
+	// A supply of this mechanic that a draw can take from, which keeps a second draw open when train cards run out.
+	canDraw?(state: GameState): boolean;
 	// Extra final-round trigger, checked at the end of each turn.
 	triggersFinalRound?(state: GameState, player: Player): boolean;
 	// Holds back the core train-count trigger while true, for maps whose end needs a second condition.
