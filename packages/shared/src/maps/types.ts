@@ -73,6 +73,8 @@ export interface GameMapSpec {
 	info: MapInfo;
 	rules?: Partial<MapRules>;
 	tickets: readonly DestinationTicket[];
+	// Most boards value a ticket at its shortest train path; 'printed' marks boards whose cards deliberately differ.
+	ticketValues?: 'shortest-path' | 'printed';
 }
 
 export interface GameMap {
@@ -84,6 +86,7 @@ export interface GameMap {
 	cities: readonly City[];
 	routes: readonly Route[];
 	tickets: readonly DestinationTicket[];
+	ticketValues: 'shortest-path' | 'printed';
 	// Railroads printed on routes (map.json `companies`), e.g. for stock shares.
 	companies: readonly Company[];
 	mechanicIds: readonly MapMechanic[];

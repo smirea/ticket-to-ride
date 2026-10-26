@@ -71,6 +71,7 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 		cities,
 		routes,
 		tickets,
+		ticketValues: spec.ticketValues ?? 'shortest-path',
 		companies: definition.companies,
 		mechanicIds: definition.mechanics,
 		mechanics,

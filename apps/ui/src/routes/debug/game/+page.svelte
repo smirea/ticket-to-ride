@@ -170,7 +170,17 @@
 
 	// For `bun run shot --eval`: read the state, edit it, load it back, e.g. to stage a mechanic's UI.
 	Object.assign(window, {
-		debugGame: { state: () => $state.snapshot(game), load: loadScenario, send },
+		debugGame: {
+			state: () => $state.snapshot(game),
+			load: loadScenario,
+			send,
+			// Clicks a route on the board like a player, which opens the payment chooser when it needs one.
+			claim(routeId: string) {
+				const route = document.getElementById(`route-${routeId}`);
+				route?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }));
+				route?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+			},
+		},
 	});
 </script>
 

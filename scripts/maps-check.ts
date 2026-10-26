@@ -97,7 +97,7 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 		`every ticket is connectable${unreachable.length ? `: ${unreachable.map(t => t.id)}` : ''}`,
 	);
 	// Printed ticket values are almost always the shortest train path, so a bigger gap usually means a transcription slip.
-	const suspicious = map.tickets.flatMap(ticket => {
+	const suspicious = (map.ticketValues === 'printed' ? [] : map.tickets).flatMap(ticket => {
 		const path = findRoutePath(
 			map.graph,
 			map.vertices(ticket.cityA),

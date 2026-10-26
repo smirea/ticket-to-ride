@@ -38,6 +38,7 @@ export const japan = defineGameMap(board, {
 		openingTickets: { deal: 4, longDeal: 0, keep: 2 },
 		longestPathBonus: 0,
 	},
+	ticketValues: 'printed',
 	tickets: [
 		ticket('hakata', 'miyako', 19),
 		ticket('masuda', 'sendai', 16),

@@ -33,6 +33,7 @@ export const theHeartOfAfrica = defineGameMap(board, {
 		longestPathBonus: 0,
 		globetrotterBonus: 10,
 	},
+	ticketValues: 'printed',
 	tickets: [
 		ticket('madagascar', 'libreville', 27),
 		ticket('bondo', 'cape-town', 22),
