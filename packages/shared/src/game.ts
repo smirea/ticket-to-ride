@@ -145,6 +145,14 @@ export function routeScore(state: GameState, route: Route): number {
 	return map.rules.routeScores[route.length] ?? route.length;
 }
 
+// Points one claim scores, including what its options add.
+export function claimScore(state: GameState, route: Route, options: ClaimOptions = {}): number {
+	return gameMap(state).mechanics.reduce(
+		(points, mechanic) => mechanic.claimPoints?.(state, route, options, points) ?? points,
+		routeScore(state, route),
+	);
+}
+
 function emptyHand(): TrainHand {
 	return Object.fromEntries(TRAIN_CARDS.map(color => [color, 0])) as TrainHand;
 }
@@ -503,7 +511,7 @@ export function completeClaim(next: GameState, claim: ClaimRouteAction, payment:
 	player.hand[payment.color] -= payment.cars;
 	player.hand.locomotive -= payment.locomotives;
 	player.trains -= routeToClaim.length;
-	const points = routeScore(next, routeToClaim);
+	const points = claimScore(next, routeToClaim, claim.options);
 	player.score += points;
 	next.claimedRoutes[routeToClaim.id] = player.id;
 	next.events.push({
@@ -766,7 +774,7 @@ export function parseGameAction(mapId: string, value: unknown): GameAction {
 		const def = typeof type === 'string' ? mechanic.actions?.[type] : undefined;
 		if (def) {
 			const { type: _, ...payload } = value as Record<string, unknown>;
-			return { ...(def.schema.parse(payload) as object), type } as GameAction;
+			return { type, ...(def.schema.parse(payload) as object) } as GameAction;
 		}
 	}
 	return z.union(coreActionSchemas).parse(value) as GameAction;
@@ -814,6 +822,11 @@ function botTicketPlans(state: GameState, player: Player): BotTicketPlan[] {
 		});
 }
 
+// The unclaimed routes of the ticket a bot is building toward next.
+export function botPlannedRoutes(state: GameState, player: Player): Route[] {
+	return botTicketPlans(state, player)[0]?.routes.filter(routeItem => !state.claimedRoutes[routeItem.id]) ?? [];
+}
+
 function availableBotRoutes(state: GameState, player: Player): Route[] {
 	return gameMap(state).routes.filter(
 		routeItem =>
@@ -835,7 +848,17 @@ function claimableBotAction(state: GameState, player: Player, routes: Route[]): 
 			(left, right) =>
 				right.routeItem.length - left.routeItem.length || left.routeItem.id.localeCompare(right.routeItem.id),
 		)[0];
-	return choice ? { type: 'claim-route', routeId: choice.routeItem.id, paymentColor: choice.paymentColor } : undefined;
+	if (!choice) return undefined;
+	const claim: ClaimRouteAction = {
+		type: 'claim-route',
+		routeId: choice.routeItem.id,
+		paymentColor: choice.paymentColor,
+	};
+	const options = Object.assign(
+		{},
+		...gameMap(state).mechanics.map(mechanic => mechanic.botClaimOptions?.(state, player, choice.routeItem, claim)),
+	) as ClaimOptions;
+	return Object.keys(options).length ? { ...claim, options } : claim;
 }
 
 function usefulRouteColor(state: GameState, player: Player, routeItem: Route): TrainColor {
@@ -917,9 +940,8 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 
 	const availableRoutes = availableBotRoutes(state, player);
 	const ticketPlan = botTicketPlans(state, player)[0];
-	const ticketRoutes = ticketPlan?.routes.filter(routeItem => !state.claimedRoutes[routeItem.id]) ?? [];
 	const goalRoutes = ticketPlan
-		? ticketRoutes
+		? ticketPlan.routes.filter(routeItem => !state.claimedRoutes[routeItem.id])
 		: gameMap(state).mechanics.flatMap(mechanic => mechanic.botGoalRoutes?.(state, player) ?? []);
 	const strategicRoutes = goalRoutes.length > 0 ? goalRoutes : availableRoutes;
 

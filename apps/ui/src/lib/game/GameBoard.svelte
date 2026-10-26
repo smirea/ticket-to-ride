@@ -549,13 +549,22 @@
 								}
 							}}
 						>
-							<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
-								class="city-center"
-								r="5.4"
-							/>
-							<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
-								{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
-							</text>
+							{#if city.type === 'junction'}
+								<circle class="city-shadow" cy="1.4" r="7.6" /><circle class="junction-hub" r="6.6" /><circle
+									class="junction-shine"
+									cx="-1.8"
+									cy="-1.8"
+									r="2"
+								/>
+							{:else}
+								<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
+									class="city-center"
+									r="5.4"
+								/>
+								<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
+									{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
+								</text>
+							{/if}
 						</g>
 					{/each}
 					{#each mechanicLayers as Layer}<Layer state={gameState} {layout} {viewerId} />{/each}
@@ -855,6 +864,15 @@
 	}
 	.city-center {
 		fill: #7e5b39;
+	}
+	.junction-hub {
+		fill: #2f6f8a;
+		stroke: #e9dcb8;
+		stroke-width: 1.4;
+	}
+	.junction-shine {
+		fill: #bfe3ea;
+		opacity: 0.8;
 	}
 	.city text {
 		fill: #21323a;
