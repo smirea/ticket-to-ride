@@ -12,20 +12,11 @@ import type {
 	ScoreLine,
 } from './mechanics/types';
 import { findRoutePath } from './route-graph';
+import { TRAIN_CARDS, TRAIN_COLORS } from './train-cards';
 
+export { TRAIN_CARDS, TRAIN_COLORS } from './train-cards';
 export type { City, CityId, DestinationTicket, GameMap, Route, RouteId, TicketId, TrainColor } from './maps/types';
 
-export const TRAIN_COLORS = [
-	'red',
-	'orange',
-	'yellow',
-	'green',
-	'blue',
-	'purple',
-	'black',
-	'white',
-] as const satisfies readonly TrainColor[];
-export const TRAIN_CARDS = [...TRAIN_COLORS, 'locomotive'] as const;
 export const PLAYER_COLORS = ['red', 'blue', 'green', 'yellow', 'black'] as const;
 
 export type TrainCard = (typeof TRAIN_CARDS)[number];
@@ -766,7 +757,7 @@ export function parseGameAction(mapId: string, value: unknown): GameAction {
 		const def = typeof type === 'string' ? mechanic.actions?.[type] : undefined;
 		if (def) {
 			const { type: _, ...payload } = value as Record<string, unknown>;
-			return { ...(def.schema.parse(payload) as object), type } as GameAction;
+			return { type, ...(def.schema.parse(payload) as object) } as GameAction;
 		}
 	}
 	return z.union(coreActionSchemas).parse(value) as GameAction;
@@ -829,7 +820,15 @@ function claimableBotAction(state: GameState, player: Player, routes: Route[]): 
 		.filter(
 			(candidate): candidate is { routeItem: Route; paymentColor: TrainColor } =>
 				candidate.paymentColor !== undefined &&
-				canClaimRoute(state, player.id, candidate.routeItem.id, candidate.paymentColor).ok,
+				canClaimRoute(state, player.id, candidate.routeItem.id, candidate.paymentColor).ok &&
+				!gameMap(state).mechanics.some(mechanic =>
+					mechanic.botDeclinesClaim?.(
+						state,
+						player,
+						candidate.routeItem,
+						claimPayment(candidate.routeItem, player, candidate.paymentColor!),
+					),
+				),
 		)
 		.sort(
 			(left, right) =>
@@ -1119,9 +1118,14 @@ function finalizeGame(state: GameState): void {
 			result.bonuses.reduce((sum, line) => sum + line.points, 0);
 		state.players.find(player => player.id === result.playerId)!.score = result.finalScore;
 	}
+	const tiebreak = (playerId: PlayerId) => map.mechanics.map(mechanic => mechanic.tiebreak?.(state, playerId) ?? 0);
+	const tiebreaks = new Map(results.map(result => [result.playerId, tiebreak(result.playerId)]));
 	const compare = (left: FinalPlayerResult, right: FinalPlayerResult) =>
 		right.finalScore - left.finalScore ||
 		right.completedTickets - left.completedTickets ||
+		tiebreaks
+			.get(right.playerId)!
+			.reduce((order, value, index) => order || value - tiebreaks.get(left.playerId)![index]!, 0) ||
 		right.longestRouteBonus - left.longestRouteBonus;
 	results.sort(compare);
 	for (const [index, result] of results.entries()) {

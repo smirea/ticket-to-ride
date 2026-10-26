@@ -1,7 +1,7 @@
 import type { z } from 'zod';
 import type { ActionResult, ClaimRouteAction, GameAction, GameState, Player, PlayerId } from '../game';
 import type { MapMechanic } from '../map-schema';
-import type { Route } from '../maps/types';
+import type { MapRules, Route } from '../maps/types';
 
 /*
  * Mechanics extend the core game through module augmentation, so each one lives in its own file:
@@ -12,6 +12,7 @@ import type { Route } from '../maps/types';
  *     interface MechanicPhaseMap { tunnel: { routeId: string; revealed: TrainCard[] } }
  *     interface MechanicEventMap { 'build-station': { cityId: string } }
  *     interface ClaimOptions { stockCompany?: string }
+ *     interface MechanicRulesMap { stations: { costs: number[] } }
  *   }
  */
 export interface MechanicStateMap {}
@@ -19,6 +20,8 @@ export interface MechanicActionMap {}
 export interface MechanicPhaseMap {}
 export interface MechanicEventMap {}
 export interface ClaimOptions {}
+// Per-map settings of a mechanic, given in `MapRules.mechanics`.
+export interface MechanicRulesMap {}
 
 export type MechanicActionType = keyof MechanicActionMap & string;
 export type MechanicAction = { [K in MechanicActionType]: { type: K } & MechanicActionMap[K] }[MechanicActionType];
@@ -65,6 +68,8 @@ export interface ScoreLine {
 
 export interface Mechanic {
 	id: MapMechanic;
+	// Rejects a map whose rules this mechanic cannot run with; called by defineGameMap.
+	checkRules?(rules: MapRules): string | undefined;
 	// Mutates a freshly dealt game: initial mechanic state, extra decks, hands.
 	setup?(state: GameState): void;
 	actions?: Readonly<Record<string, MechanicActionDef>>;
@@ -84,9 +89,17 @@ export interface Mechanic {
 	triggersFinalRound?(state: GameState, player: Player): boolean;
 	// End-of-game score lines per player, added to the final score.
 	scoring?(state: GameState): Record<PlayerId, ScoreLine[]>;
+	// Tie breaker after completed tickets and before the longest path bonus; higher wins.
+	tiebreak?(state: GameState, playerId: PlayerId): number;
+	// Lets a bot hold back from a legal claim it would play badly, e.g. a tunnel without spare cards.
+	botDeclinesClaim?(state: GameState, player: Player, route: Route, payment: ClaimPayment): boolean;
 	// Bots try mechanics before the core strategy; must answer every mechanic phase.
 	chooseBotAction?(state: GameState, player: Player): GameAction | undefined;
 	// Hide private mechanic state from other viewers in multiplayer snapshots.
 	redact?(state: GameState, viewerId: PlayerId): void;
-	describeEvent?(event: MechanicEvent, playerName: string): string | undefined;
+	describeEvent?(
+		event: MechanicEvent,
+		playerName: string,
+		state: Pick<GameState, 'mapId' | 'players'>,
+	): string | undefined;
 }

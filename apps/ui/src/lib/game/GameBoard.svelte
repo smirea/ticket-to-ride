@@ -47,6 +47,9 @@
 		highlightedRouteId?: string;
 		eligibleRouteIds?: string[];
 		landingRouteId?: RouteId;
+		// Pick mode: only these cities can be clicked, and the click reports the city.
+		pickableCityIds?: readonly string[];
+		oncitypick?: (cityId: string) => void;
 	};
 	let {
 		state: gameState,
@@ -66,7 +69,10 @@
 		highlightedRouteId,
 		eligibleRouteIds,
 		landingRouteId,
+		pickableCityIds,
+		oncitypick,
 	}: Props = $props();
+	const picking = $derived(pickableCityIds !== undefined);
 	const layout = $derived(boardLayout(gameState.mapId));
 	const W = $derived(layout.width);
 	const H = $derived(layout.height);
@@ -521,34 +527,42 @@
 						)}{@const labelBelow = stop.labelBelow}{@const endpoint = highlightedTickets.some(
 							ticket => ticket.cityA === city.id || ticket.cityB === city.id,
 						)}
+						{@const pickable = Boolean(pickableCityIds?.includes(city.id))}
+						{@const previewable = !picking && Boolean(ticketCityCounts[city.id])}
 						<g
 							class="city"
 							class:ticket-endpoint={endpoint}
-							class:has-tickets={Boolean(ticketCityCounts[city.id])}
+							class:has-tickets={previewable}
+							class:pickable
+							class:unpickable={picking && !pickable}
 							data-city={city.id}
 							transform={`translate(${p.x} ${p.y}) ${labelScale}`}
-							role={ticketCityCounts[city.id] ? 'button' : undefined}
-							tabindex={ticketCityCounts[city.id] ? 0 : undefined}
-							aria-label={ticketCityCounts[city.id]
-								? `${city.name}: preview ${ticketCityCounts[city.id]} destination ticket${ticketCityCounts[city.id] === 1 ? '' : 's'}`
-								: undefined}
-							aria-pressed={ticketCityCounts[city.id] ? previewedCityId === city.id : undefined}
-							onpointerenter={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
-							onpointerleave={() => ticketCityCounts[city.id] && oncityhover?.()}
-							onfocus={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
-							onblur={() => ticketCityCounts[city.id] && oncityhover?.()}
-							onclick={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+							role={pickable || previewable ? 'button' : undefined}
+							tabindex={pickable || previewable ? 0 : undefined}
+							aria-label={pickable
+								? `Choose ${city.name}`
+								: previewable
+									? `${city.name}: preview ${ticketCityCounts[city.id]} destination ticket${ticketCityCounts[city.id] === 1 ? '' : 's'}`
+									: undefined}
+							aria-pressed={previewable ? previewedCityId === city.id : undefined}
+							onpointerenter={() => previewable && oncityhover?.(city.id)}
+							onpointerleave={() => previewable && oncityhover?.()}
+							onfocus={() => previewable && oncityhover?.(city.id)}
+							onblur={() => previewable && oncityhover?.()}
+							onclick={() => (pickable ? oncitypick?.(city.id) : previewable && oncityhover?.(city.id))}
 							onkeydown={event => {
-								if (event.key === 'Escape') {
+								if (event.key === 'Escape' && previewable) {
 									event.preventDefault();
 									oncityhover?.();
 								}
 								if (event.key === 'Enter' || event.key === ' ') {
 									event.preventDefault();
-									oncityhover?.(city.id);
+									if (pickable) oncitypick?.(city.id);
+									else if (previewable) oncityhover?.(city.id);
 								}
 							}}
 						>
+							{#if pickable}<circle class="pick-ring" r="16" />{/if}
 							<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
 								class="city-center"
 								r="5.4"
@@ -841,6 +855,29 @@
 	.city.has-tickets:focus-visible .city-hub {
 		stroke: #2b6d78;
 		stroke-width: 3;
+	}
+	.city.pickable {
+		outline: none;
+		pointer-events: auto;
+		cursor: pointer;
+	}
+	.pick-ring {
+		fill: #fff4b47a;
+		stroke: #c2603e;
+		stroke-width: 3;
+		stroke-dasharray: 5 3;
+		animation: breathe 1.8s ease-in-out infinite alternate;
+	}
+	.city.pickable:hover .pick-ring,
+	.city.pickable:focus-visible .pick-ring {
+		fill: #ffe08a;
+		stroke-dasharray: none;
+	}
+	.city.unpickable {
+		opacity: 0.55;
+	}
+	.motion-paused .pick-ring {
+		animation: none;
 	}
 	.ticket-preview-layer {
 		pointer-events: none;

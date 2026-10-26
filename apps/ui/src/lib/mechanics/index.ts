@@ -1,8 +1,13 @@
 import type { ClaimOptions, GameAction, GameMap, GameState, MapMechanic, Player, Route } from '@repo/shared';
 import type { Component } from 'svelte';
 import type { BoardLayout } from '$lib/game/board/layout';
+import { stationsUi } from './stations';
+import { tunnelsUi } from './tunnels';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
+// Puts the board into pick mode: only `cityIds` can be chosen. Resolves with the city, or undefined if cancelled.
+export type PickCity = (cityIds: readonly string[], prompt: string) => Promise<string | undefined>;
+type ActionProps = { state: GameState; viewerId: string; send: Send; disabled: boolean; pickCity: PickCity };
 
 /*
  * UI for one mechanic. GameScreen renders each part in place, so a mechanic adds components here instead of
@@ -21,17 +26,22 @@ export interface MechanicUi {
 	}>;
 	// Forces the payment chooser open (instead of one-click claims) so ClaimOptions can be seen.
 	needsClaimChoice?: (state: GameState, viewerId: string, route: Route) => boolean;
+	// The engine may answer this claim with a phase instead of claiming the route, so the claim is not animated.
+	defersClaim?: (state: GameState, route: Route) => boolean;
 	// Shown in the sidebar while one of this mechanic's phases is active.
-	PhasePanel?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
+	PhasePanel?: Component<ActionProps>;
 	// Extra turn actions in the sidebar, next to drawing tickets.
-	TurnActions?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
+	TurnActions?: Component<ActionProps>;
 	// Small additions to each player's plaque.
 	PlayerBadge?: Component<{ state: GameState; player: Player }>;
 	// The status line while one of this mechanic's phases is active.
 	describePhase?: (state: GameState, viewerId: string) => string | undefined;
 }
 
-export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {};
+export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
+	stations: stationsUi,
+	tunnels: tunnelsUi,
+};
 
 export function mechanicUis(map: GameMap): MechanicUi[] {
 	return map.mechanicIds.flatMap(id => MECHANIC_UI[id] ?? []);

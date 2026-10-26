@@ -13,6 +13,7 @@ export const DEFAULT_RULES: MapRules = {
 	longestPathBonus: 10,
 	globetrotterBonus: 0,
 	finalRoundTrains: 2,
+	mechanics: {},
 };
 
 // Throws at import time so a broken map never reaches a running game.
@@ -25,6 +26,10 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 	};
 
 	const mechanics = definition.mechanics.map(id => MECHANICS[id] ?? fail(`mechanic "${id}" is not implemented.`));
+	for (const mechanic of mechanics) {
+		const problem = mechanic.checkRules?.(rules);
+		if (problem) fail(`${mechanic.id}: ${problem}`);
+	}
 	const cities: City[] = definition.nodes.map(node => ({
 		id: node.id,
 		name: node.name,

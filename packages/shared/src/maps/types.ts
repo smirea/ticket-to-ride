@@ -1,5 +1,5 @@
 import type { MapConnection, MapMechanic, MapNode, MapPosition } from '../map-schema';
-import type { Mechanic } from '../mechanics/types';
+import type { Mechanic, MechanicRulesMap } from '../mechanics/types';
 import type { RouteGraph } from '../route-graph';
 
 export type TrainColor = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'black' | 'white';
@@ -48,6 +48,7 @@ export interface MapRules {
 	longestPathBonus: number;
 	globetrotterBonus: number;
 	finalRoundTrains: number;
+	mechanics: Partial<MechanicRulesMap>;
 }
 
 export interface MapGimmick {

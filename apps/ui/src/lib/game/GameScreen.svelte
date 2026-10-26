@@ -47,7 +47,7 @@
 	import type { CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
 	import { setGameMapContext } from './map-context';
-	import { mechanicUis } from '$lib/mechanics';
+	import { mechanicUis, type PickCity } from '$lib/mechanics';
 
 	type Props = {
 		state: GameState;
@@ -64,6 +64,23 @@
 	const corePhases = ['opening-tickets', 'ticket-selection', 'turn', 'game-over'];
 	const mechanicPhase = $derived(!corePhases.includes(gameState.phase.type));
 	let claimOptions = $state<ClaimOptions>({});
+	let cityPick = $state<{ cityIds: readonly string[]; prompt: string; resolve: (cityId?: string) => void }>();
+	const pickCity: PickCity = (cityIds, prompt) => {
+		cityPick?.resolve();
+		return new Promise(resolve => {
+			cityPick = {
+				cityIds,
+				prompt,
+				resolve: cityId => {
+					cityPick = undefined;
+					resolve(cityId);
+				},
+			};
+		});
+	};
+	$effect(() => {
+		if (cityPick && !turnReady && !mechanicPhase) untrack(() => cityPick?.resolve());
+	});
 	async function sendMechanicAction(action: GameAction) {
 		busy = true;
 		try {
@@ -663,13 +680,14 @@
 			);
 			return `${choosing?.name ?? 'A player'} is choosing tickets`;
 		}
+		if (cityPick) return cityPick.prompt;
 		if (mechanicPhase) {
 			const text = uis.map(ui => ui.describePhase?.(gameState, viewerId)).find(Boolean);
 			return text ?? (isViewerTurn ? 'Finish your move' : `${currentPlayer?.name ?? 'A player'} is playing`);
 		}
 		if (!isViewerTurn) return `${currentPlayer?.name ?? 'A player'} is playing`;
 		if (mustPass) return 'No move left';
-		return gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
+		return gameState.phase.type === 'turn' && gameState.phase.drawsTaken === 1 ? 'Draw one more card' : 'Your move';
 	}
 	function selectRoute(route: Route, pointerType?: string) {
 		if (!turnReady || paymentRoute) return;
@@ -706,14 +724,16 @@
 			...Array<CardColor>(payment.wilds).fill('locomotive'),
 		];
 		const playerColor = viewer!.color;
-		const cards = reduceMotion
-			? []
-			: colors.flatMap(color => {
-					const element = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
-					return element
-						? [{ color, from: paperPose(element.querySelector<HTMLElement>('.card-face') ?? element) }]
-						: [];
-				});
+		const deferred = uis.some(ui => ui.defersClaim?.(gameState, route));
+		const cards =
+			reduceMotion || deferred
+				? []
+				: colors.flatMap(color => {
+						const element = document.querySelector<HTMLElement>(`[data-hand-color="${color}"]`);
+						return element
+							? [{ color, from: paperPose(element.querySelector<HTMLElement>('.card-face') ?? element) }]
+							: [];
+					});
 		if (cards.length) {
 			heldHand = { ...viewer!.hand };
 			for (const color of colors) heldHand[color] = (heldHand[color] ?? 0) - 1;
@@ -884,6 +904,8 @@
 	}
 </script>
 
+<svelte:window onkeydown={event => event.key === 'Escape' && cityPick?.resolve()} />
+
 <main
 	class="game-shell"
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
@@ -1044,11 +1066,17 @@
 		{#each uis as ui}
 			{#if mechanicPhase && ui.PhasePanel}
 				{@const Panel = ui.PhasePanel}
-				<Panel state={gameState} {viewerId} send={sendMechanicAction} disabled={busy || !isViewerTurn} />
+				<Panel
+					state={gameState}
+					{viewerId}
+					send={sendMechanicAction}
+					{pickCity}
+					disabled={busy || currentPlayer?.id !== viewerId}
+				/>
 			{/if}
 			{#if ui.TurnActions}
 				{@const Actions = ui.TurnActions}
-				<Actions state={gameState} {viewerId} send={sendMechanicAction} disabled={!turnReady} />
+				<Actions state={gameState} {viewerId} send={sendMechanicAction} {pickCity} disabled={!turnReady} />
 			{/if}
 		{/each}
 		<div class="route-scoring-reference"><RouteScoring /></div>
@@ -1066,7 +1094,9 @@
 			oncityhover={previewCity}
 			celebratingTicket={Boolean(completionTicket)}
 			motionEnabled={!reduceMotion}
-			disabled={!turnReady}
+			disabled={!turnReady || Boolean(cityPick)}
+			pickableCityIds={cityPick?.cityIds}
+			oncitypick={cityId => cityPick?.resolve(cityId)}
 			onselect={selectRoute}
 			{landingRouteId}
 			onhover={route => (hoveredRoute = route)}
@@ -1075,6 +1105,9 @@
 			{routeHover}
 			highlightedRouteId={journalPreview?.routeId}
 		/>
+		{#if cityPick}
+			<button class="cancel-pick" onclick={() => cityPick?.resolve()}><XIcon size={16} /><span>Cancel</span></button>
+		{/if}
 	</section>
 
 	{#if paymentRoute}
@@ -1537,6 +1570,26 @@
 	}
 	.draw-tickets:disabled {
 		opacity: 0.5;
+	}
+	.cancel-pick {
+		position: absolute;
+		top: 14px;
+		left: 50%;
+		z-index: 5;
+		display: inline-flex;
+		gap: 6px;
+		align-items: center;
+		padding: 7px 14px;
+		border: 1px solid #b89a6a;
+		border-radius: 999px;
+		background: #fff8e8;
+		color: #3a2f22;
+		font:
+			600 0.9rem Georgia,
+			serif;
+		box-shadow: 0 3px 10px #3a2f2240;
+		transform: translateX(-50%);
+		cursor: pointer;
 	}
 	.board-stage {
 		grid-column: 2;
