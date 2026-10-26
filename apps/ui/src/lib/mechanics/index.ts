@@ -11,6 +11,7 @@ import type {
 import type { Component } from 'svelte';
 import type { BoardLayout } from '$lib/game/board/layout';
 import { mandalasUi } from './mandalas';
+import { stocksUi } from './stocks';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
 
@@ -35,6 +36,8 @@ export interface MechanicUi {
 	PhasePanel?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
 	// Extra turn actions in the sidebar, next to drawing tickets.
 	TurnActions?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
+	// Always shown in the sidebar below the turn actions, e.g. the viewer's private holdings.
+	SidebarPanel?: Component<{ state: GameState; viewerId: string }>;
 	// Small additions to each player's plaque.
 	PlayerBadge?: Component<{ state: GameState; player: Player }>;
 	// A mark printed on one of the viewer's held tickets, e.g. a bonus it already earns.
@@ -45,6 +48,7 @@ export interface MechanicUi {
 
 export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
 	mandalas: mandalasUi,
+	stocks: stocksUi,
 };
 
 export function mechanicUis(map: GameMap): MechanicUi[] {

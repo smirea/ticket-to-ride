@@ -1058,6 +1058,10 @@
 				{@const Actions = ui.TurnActions}
 				<Actions state={gameState} {viewerId} send={sendMechanicAction} disabled={!turnReady} />
 			{/if}
+			{#if ui.SidebarPanel}
+				{@const Panel = ui.SidebarPanel}
+				<Panel state={gameState} {viewerId} />
+			{/if}
 		{/each}
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
@@ -1947,6 +1951,8 @@
 	}
 	/* The sheet widens over the board instead of resizing the grid, which would relayout the board every frame. */
 	.choosing-tickets .journey-sidebar {
+		/* Deals of five tickets reach down past the hand, which must not cover the offer. */
+		z-index: 13;
 		width: calc(100% + 78px);
 	}
 	.table-header {
