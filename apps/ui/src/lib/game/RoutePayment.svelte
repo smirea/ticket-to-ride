@@ -216,7 +216,9 @@
 			</span>
 		</button>
 	{/each}
-	<div class="anchor"><PointsSeal value={points} /></div>
+	<div class="anchor" class:pointless={!points}>
+		{#if points}<PointsSeal value={points} />{/if}
+	</div>
 	<button
 		class="close"
 		style:left={`${closePosition.x - 11}px`}
@@ -335,6 +337,16 @@
 		left: -25px;
 		top: -25px;
 		--seal-number-size: 26px;
+	}
+	/* Routes that score nothing (Japan's bullet trains) keep a plain knot where the pins meet. */
+	.anchor.pointless {
+		width: 18px;
+		height: 18px;
+		left: -9px;
+		top: -9px;
+		border-radius: 50%;
+		background: #f7eed9;
+		box-shadow: inset 0 0 0 3px #5c4a2d;
 	}
 	.close {
 		position: absolute;

@@ -31,9 +31,11 @@
 			? `M -6 ${-height / 2} L 0 ${-height / 2 - 6} L 6 ${-height / 2}`
 			: `M -6 ${height / 2} L 0 ${height / 2 + 6} L 6 ${height / 2}`}
 	/>
-	<foreignObject x={-width / 2} y="-16" width="32" height="32"
-		><div class="score"><PointsSeal value={hints[0]?.points} /></div></foreignObject
-	>
+	{#if hints[0]?.points}
+		<foreignObject x={-width / 2} y="-16" width="32" height="32"
+			><div class="score"><PointsSeal value={hints[0].points} /></div></foreignObject
+		>
+	{/if}
 	{#each hints as hint, i}
 		<g class="option-row" transform={`translate(${-width / 2 + 39} ${-height / 2 + 16 + i * 32})`}>
 			{#if hint.unavailable}
