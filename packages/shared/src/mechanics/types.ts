@@ -82,6 +82,8 @@ export interface Mechanic {
 	onClaim?(next: GameState, player: Player, route: Route, claim: ClaimRouteAction, payment: ClaimPayment): void;
 	// Points for claiming a route when they differ from the length table.
 	routePoints?(state: GameState, route: Route): number | undefined;
+	// Adjusts the points of one claim from its options, e.g. doubling them.
+	claimPoints?(state: GameState, route: Route, options: ClaimOptions, points: number): number;
 	// Routes a player may use for tickets besides their own, e.g. shared track or borrowed routes.
 	ticketRoutes?(state: GameState, playerId: PlayerId): readonly Route[];
 	hasTurnAction?(state: GameState, player: Player): boolean;
@@ -95,13 +97,12 @@ export interface Mechanic {
 	botDeclinesClaim?(state: GameState, player: Player, route: Route, payment: ClaimPayment): boolean;
 	// Bots try mechanics before the core strategy; must answer every mechanic phase.
 	chooseBotAction?(state: GameState, player: Player): GameAction | undefined;
+	// Options a bot adds to a route claim the core strategy chose.
+	botClaimOptions?(state: GameState, player: Player, route: Route, claim: ClaimRouteAction): ClaimOptions | undefined;
 	// Routes a bot builds toward once its tickets are done or out of reach, e.g. for an end-game bonus.
 	botGoalRoutes?(state: GameState, player: Player): readonly Route[];
 	// Hide private mechanic state from other viewers in multiplayer snapshots.
 	redact?(state: GameState, viewerId: PlayerId): void;
-	describeEvent?(
-		event: MechanicEvent,
-		playerName: string,
-		state: Pick<GameState, 'mapId' | 'players'>,
-	): string | undefined;
+	// What the player did, e.g. 'drew a terrain card'; the journal adds the player's name.
+	describeEvent?(event: MechanicEvent, state: Pick<GameState, 'mapId' | 'players'>): string | undefined;
 }

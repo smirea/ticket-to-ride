@@ -40,6 +40,18 @@ export function routeName(state: Pick<GameState, 'mapId'>, routeId: RouteId): st
 	return `${cityName(state, route.cityA)}–${cityName(state, route.cityB)}`;
 }
 
+// What a player did in a mechanic event, without the player's name or a full stop.
+export function describeMechanicEvent(
+	event: MechanicEvent,
+	state: Pick<GameState, 'mapId' | 'players'>,
+): string | undefined {
+	for (const mechanic of gameMap(state).mechanics) {
+		const text = mechanic.describeEvent?.(event, state);
+		if (text) return text;
+	}
+	return undefined;
+}
+
 export function formatGameEvent(event: GameEvent, state: Pick<GameState, 'mapId' | 'players'>): string {
 	const name = (id: PlayerId) => state.players.find(player => player.id === id)?.name ?? id;
 	const player = 'playerId' in event ? name(event.playerId) : '';
@@ -65,10 +77,6 @@ export function formatGameEvent(event: GameEvent, state: Pick<GameState, 'mapId'
 		case 'note':
 			return event.text;
 		default:
-			for (const mechanic of gameMap(state).mechanics) {
-				const text = mechanic.describeEvent?.(event as MechanicEvent, player, state);
-				if (text) return text;
-			}
-			return `${player} ${(event as { type: string }).type}.`;
+			return `${player} ${describeMechanicEvent(event as MechanicEvent, state) ?? (event as { type: string }).type}.`;
 	}
 }

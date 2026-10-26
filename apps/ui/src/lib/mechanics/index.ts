@@ -14,6 +14,7 @@ import { mandalasUi } from './mandalas';
 import { stationsUi } from './stations';
 import { tunnelsUi } from './tunnels';
 import { stocksUi } from './stocks';
+import { terrainCardsUi } from './terrain-cards';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
 // Puts the board into pick mode: only `cityIds` can be chosen. Resolves with the city, or undefined if cancelled.
@@ -45,6 +46,8 @@ export interface MechanicUi {
 	TurnActions?: Component<ActionProps>;
 	// Always shown in the sidebar below the turn actions, e.g. the viewer's private holdings.
 	SidebarPanel?: Component<{ state: GameState; viewerId: string }>;
+	// A second card supply in the sidebar, enabled for both draws of the viewer's turn (`timing: 'draw'` actions).
+	DrawPile?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
 	// Small additions to each player's plaque.
 	PlayerBadge?: Component<{ state: GameState; player: Player }>;
 	// A mark printed on one of the viewer's held tickets, e.g. a bonus it already earns.
@@ -58,6 +61,7 @@ export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
 	stations: stationsUi,
 	tunnels: tunnelsUi,
 	stocks: stocksUi,
+	'terrain-cards': terrainCardsUi,
 };
 
 export function mechanicUis(map: GameMap): MechanicUi[] {

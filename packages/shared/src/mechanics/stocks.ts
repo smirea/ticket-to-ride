@@ -289,11 +289,11 @@ export const stocks: Mechanic = {
 			return rest;
 		});
 	},
-	describeEvent(event, playerName) {
+	describeEvent(event) {
 		if (event.type !== 'take-shares') return undefined;
 		const name = (company: string) => (RAILROADS[company] ? railroad(company).short : company);
-		if (!event.company) return `${playerName} took a stock share.`;
+		if (!event.company) return 'took a stock share';
 		const dummy = event.dummyCompany ? ` and gave the dummy a ${name(event.dummyCompany)} share` : '';
-		return `${playerName} took a ${name(event.company)} share${dummy}.`;
+		return `took a ${name(event.company)} share${dummy}`;
 	},
 };

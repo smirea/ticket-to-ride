@@ -292,8 +292,8 @@ export const stations: Mechanic = {
 	},
 	tiebreak: (state, playerId) => -playerStations(state, playerId).length,
 	chooseBotAction: botStation,
-	describeEvent(event, playerName, state) {
+	describeEvent(event, state) {
 		if (event.type !== 'build-station') return undefined;
-		return `${playerName} built a station in ${cityName(state, event.cityId)}.`;
+		return `built a station in ${cityName(state, event.cityId)}`;
 	},
 };

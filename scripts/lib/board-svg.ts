@@ -25,6 +25,8 @@ export function boardSvg(layout: BoardLayout, terrainHref: string, issues: reado
 		.flatMap(city =>
 			city.positions.map((_, position) => {
 				const p = layout.cityPoint(city, position);
+				if (city.type === 'junction')
+					return `<circle cx="${p.x}" cy="${p.y}" r="6.6" fill="#2f6f8a" stroke="#e9dcb8" stroke-width="1.4"/>`;
 				return `<g transform="translate(${p.x} ${p.y})"><circle r="9.2" fill="#fffae7" stroke="#967b56" stroke-width="1.4"/><circle r="5.4" fill="#7e5b39"/><text y="-15" text-anchor="middle" font-family="Georgia" font-weight="700" font-size="13" fill="#21323a" stroke="#fff7e4" stroke-width="2.6" paint-order="stroke">${escape(city.name)}</text></g>`;
 			}),
 		)

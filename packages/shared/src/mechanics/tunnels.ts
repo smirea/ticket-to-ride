@@ -139,13 +139,13 @@ export const tunnels: Mechanic = {
 			? { type: 'abandon-tunnel' }
 			: { type: 'pay-tunnel', locomotives };
 	},
-	describeEvent(event, playerName, state) {
+	describeEvent(event, state) {
 		if (event.type === 'tunnel-reveal') {
 			const cost =
 				event.extra === 0 ? 'no extra cards' : `${event.extra} extra ${event.extra === 1 ? 'card' : 'cards'}`;
-			return `${playerName} dug into the ${routeName(state, event.routeId)} tunnel: ${cost}.`;
+			return `dug into the ${routeName(state, event.routeId)} tunnel: ${cost}`;
 		}
-		if (event.type === 'abandon-tunnel') return `${playerName} gave up the ${routeName(state, event.routeId)} tunnel.`;
+		if (event.type === 'abandon-tunnel') return `gave up the ${routeName(state, event.routeId)} tunnel`;
 		return undefined;
 	},
 };

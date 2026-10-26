@@ -1,6 +1,7 @@
 import { GAME_MAPS } from '@repo/shared';
 import { indiaArt } from './india';
 import { pennsylvaniaArt } from './pennsylvania';
+import { theHeartOfAfricaArt } from './the-heart-of-africa';
 import type { BoardArt } from './types';
 import { europeArt } from './europe';
 import { usaArt } from './usa';
@@ -12,6 +13,7 @@ const ART: Record<string, BoardArt> = {
 	india: indiaArt,
 	europe: europeArt,
 	pennsylvania: pennsylvaniaArt,
+	'the-heart-of-africa': theHeartOfAfricaArt,
 };
 
 for (const map of GAME_MAPS) {

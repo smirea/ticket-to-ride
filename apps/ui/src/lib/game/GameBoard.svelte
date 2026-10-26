@@ -85,13 +85,17 @@
 	const routeMarkerT = (route: Route, index: number) => layout.routeMarkerT(route, index);
 	const routeMarkerLength = (route: Route) => layout.routeMarkerLength(route);
 	const cityStops = $derived(
-		cities.flatMap(city =>
-			city.positions.map((_, position) => {
-				const p = cityPoint(city, position);
+		cities.flatMap(city => {
+			const points = city.positions.map((_, position) => cityPoint(city, position));
+			// A country printed at several border spots is named once, like a region on the board.
+			const labelled =
+				city.type === 'country' ? points.indexOf(points.reduce((top, p) => (p.y < top.y ? p : top))) : undefined;
+			return points.map((p, position) => {
 				const labelBelow = p.y < 40 || Boolean(layout.art.labelBelow?.includes(city.id));
-				return { city, position, key: `${city.id}#${position}`, p, labelBelow };
-			}),
-		),
+				const label = labelled === undefined || labelled === position;
+				return { city, position, key: `${city.id}#${position}`, p, labelBelow, label };
+			});
+		}),
 	);
 	// A ticket to a city with several printed positions is drawn between the two closest ones.
 	function ticketEnds(ticket: Ticket) {
@@ -562,14 +566,26 @@
 								}
 							}}
 						>
-							{#if pickable}<circle class="pick-ring" r="16" />{/if}
-							<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
-								class="city-center"
-								r="5.4"
-							/>
-							<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
-								{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
-							</text>
+							{#if city.type === 'junction'}
+								<circle class="city-shadow" cy="1.4" r="7.6" /><circle class="junction-hub" r="6.6" /><circle
+									class="junction-shine"
+									cx="-1.8"
+									cy="-1.8"
+									r="2"
+								/>
+							{:else}
+								{#if pickable}<circle class="pick-ring" r="16" />{/if}
+								<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
+									class="city-center"
+									r="5.4"
+								/>
+								{#if stop.label}
+									<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
+										{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan
+											>{/each}
+									</text>
+								{/if}
+							{/if}
 						</g>
 					{/each}
 					{#each mechanicLayers as Layer}<Layer state={gameState} {layout} {viewerId} />{/each}
@@ -892,6 +908,15 @@
 	}
 	.city-center {
 		fill: #7e5b39;
+	}
+	.junction-hub {
+		fill: #2f6f8a;
+		stroke: #e9dcb8;
+		stroke-width: 1.4;
+	}
+	.junction-shine {
+		fill: #bfe3ea;
+		opacity: 0.8;
 	}
 	.city text {
 		fill: #21323a;

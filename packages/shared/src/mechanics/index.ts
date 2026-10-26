@@ -3,6 +3,7 @@ import { mandalas } from './mandalas';
 import { stations } from './stations';
 import { tunnels } from './tunnels';
 import { stocks } from './stocks';
+import { terrainCards } from './terrain-cards';
 import type { Mechanic } from './types';
 
 export * from './types';
@@ -17,4 +18,5 @@ export const MECHANICS: Partial<Record<MapMechanic, Mechanic>> = {
 	stations,
 	tunnels,
 	stocks,
+	'terrain-cards': terrainCards,
 };
