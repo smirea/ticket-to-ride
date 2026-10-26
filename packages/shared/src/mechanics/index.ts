@@ -1,4 +1,5 @@
 import type { MapMechanic } from '../map-schema';
+import { bulletTrainMechanic } from './bullet-trains';
 import { mandalas } from './mandalas';
 import { stations } from './stations';
 import { tunnels } from './tunnels';
@@ -19,4 +20,5 @@ export const MECHANICS: Partial<Record<MapMechanic, Mechanic>> = {
 	tunnels,
 	stocks,
 	'terrain-cards': terrainCards,
+	'bullet-trains': bulletTrainMechanic,
 };

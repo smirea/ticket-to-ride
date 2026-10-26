@@ -64,6 +64,8 @@
 	const map = $derived(gameMap(gameState));
 	// Tall boards take the full table height; the hand and market stack beside or below them.
 	const portraitBoard = $derived(boardArt(map.id).aspect < 1);
+	// Very wide boards need the full table width on portrait tablets to keep their labels apart.
+	const wideBoard = $derived(boardArt(map.id).aspect > 1.7);
 	const uis = $derived(mechanicUis(map));
 	const corePhases = ['opening-tickets', 'ticket-selection', 'turn', 'game-over'];
 	const mechanicPhase = $derived(!corePhases.includes(gameState.phase.type));
@@ -917,6 +919,7 @@
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
 	class:reduced-motion={reduceMotion}
 	class:portrait-board={portraitBoard}
+	class:wide-board={wideBoard}
 	style:--train-card-width={`${trainCardWidth}px`}
 >
 	<header class="table-header" inert={Boolean(paymentRoute || completionTicket)}>
@@ -2233,6 +2236,15 @@
 			grid-column: 2;
 			grid-row: 3;
 			margin: -20px 0 0;
+		}
+	}
+
+	@media (max-width: 1100px) and (orientation: portrait) {
+		.wide-board .board-stage {
+			grid-column: 1 / -1;
+		}
+		.wide-board .journey-sidebar {
+			grid-row: 3;
 		}
 	}
 

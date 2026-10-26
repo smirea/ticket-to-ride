@@ -84,11 +84,15 @@ export interface Mechanic {
 	routePoints?(state: GameState, route: Route): number | undefined;
 	// Adjusts the points of one claim from its options, e.g. doubling them.
 	claimPoints?(state: GameState, route: Route, options: ClaimOptions, points: number): number;
+	// Train pieces a claim takes from the player when they differ from the route length.
+	claimTrains?(state: GameState, route: Route): number | undefined;
 	// Routes a player may use for tickets besides their own, e.g. shared track or borrowed routes.
 	ticketRoutes?(state: GameState, playerId: PlayerId): readonly Route[];
 	hasTurnAction?(state: GameState, player: Player): boolean;
 	// Extra final-round trigger, checked at the end of each turn.
 	triggersFinalRound?(state: GameState, player: Player): boolean;
+	// Holds back the core train-count trigger while true, for maps whose end needs a second condition.
+	holdsFinalRound?(state: GameState): boolean;
 	// End-of-game score lines per player, added to the final score.
 	scoring?(state: GameState): Record<PlayerId, ScoreLine[]>;
 	// Tie breaker after completed tickets and before the longest path bonus; higher wins.
