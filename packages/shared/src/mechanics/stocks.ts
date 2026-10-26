@@ -263,6 +263,7 @@ export const stocks: Mechanic = {
 					id: `stocks-${company.id}`,
 					label: `${railroad(company.id).short} ${RANKS[standing.rank - 1]} (${standing.count})`,
 					points: standing.points,
+					group: 'Shares',
 				});
 			}
 		}

@@ -64,6 +64,8 @@ export interface ScoreLine {
 	id: string;
 	label: string;
 	points: number;
+	// Lines sharing a group are shown as one total in the standings, with each line as detail.
+	group?: string;
 }
 
 export interface Mechanic {

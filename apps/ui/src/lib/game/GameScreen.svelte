@@ -14,6 +14,7 @@
 		type GameState,
 		type Route,
 		type RouteId,
+		type ScoreLine,
 		type TicketId,
 		type TrainCard as CardColor,
 	} from '@repo/shared';
@@ -659,6 +660,17 @@
 		return card === hoverInfo.color || (card === 'locomotive' && hoverInfo.wilds > 0);
 	}
 
+	function scoreGroups(lines: readonly ScoreLine[]) {
+		const groups = new Map<string, { label: string; points: number; detail: string[] }>();
+		for (const line of lines) {
+			const key = line.group ?? line.id;
+			const group = groups.get(key) ?? { label: line.group ?? line.label, points: 0, detail: [] };
+			group.points += line.points;
+			group.detail.push(`${line.label} ${line.points >= 0 ? '+' : ''}${line.points}`);
+			groups.set(key, group);
+		}
+		return [...groups.values()].map(group => ({ ...group, detail: group.detail.join(', ') }));
+	}
 	function cityName(id: string) {
 		return map.city(id)?.name ?? id;
 	}
@@ -1329,7 +1341,7 @@
 								Routes {result.routePoints}
 								<span>Tickets {result.ticketPoints >= 0 ? '+' : ''}{result.ticketPoints}</span
 								>{#if map.rules.longestPathBonus}<span>Longest +{result.longestRouteBonus}</span
-									>{/if}{#each result.bonuses as bonus (bonus.id)}<span
+									>{/if}{#each scoreGroups(result.bonuses) as bonus (bonus.label)}<span title={bonus.detail}
 										>{bonus.label} {bonus.points >= 0 ? '+' : ''}{bonus.points}</span
 									>{/each}
 							</p>
@@ -2255,6 +2267,18 @@
 		}
 		.game-shell:not(.portrait-board) .journey-sidebar {
 			grid-row: 3;
+		}
+		/* Under a full-width board an offer of four or five tickets would run off the screen in one column; the sheet
+		   spreads across the table instead, over the hand and market that cannot be used while choosing. */
+		.game-shell:not(.portrait-board).choosing-tickets .journey-sidebar {
+			width: calc(100vw - 32px);
+		}
+		.game-shell:not(.portrait-board).choosing-tickets .journey-sidebar > :global(.table-status) {
+			width: 214px;
+		}
+		.game-shell:not(.portrait-board) .ticket-selection-sheet :global(.offers) {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
 		}
 		/* Under a full-width board the sidebar is short, so the scoring card moves beside the market. */
 		.game-shell:not(.portrait-board) .journey-sidebar .route-scoring-reference {
