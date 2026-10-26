@@ -222,8 +222,8 @@ function botStation(state: GameState, player: Player): GameAction | undefined {
 
 export const stations: Mechanic = {
 	id: 'stations',
-	checkRules(rules) {
-		const config = rules.mechanics.stations;
+	validate(map) {
+		const config = map.rules.mechanics.stations;
 		if (!config) return 'rules.mechanics.stations is required.';
 		if (config.costs.length === 0 || config.costs.some(cost => !Number.isInteger(cost) || cost < 1)) {
 			return 'station costs must be positive integers.';

@@ -1,5 +1,6 @@
 import { india } from './india';
 import { europe } from './europe';
+import { pennsylvania } from './pennsylvania';
 import { usa } from './usa';
 import type { GameMap } from './types';
 
@@ -7,7 +8,7 @@ export * from './types';
 export { DEFAULT_RULES, defineGameMap } from './define';
 
 // Order is the atlas order. Add a map here once its tickets, rules and mechanics are complete.
-export const GAME_MAPS: readonly GameMap[] = [usa, europe, india];
+export const GAME_MAPS: readonly GameMap[] = [usa, pennsylvania, europe, india];
 export const DEFAULT_MAP_ID = 'usa';
 
 const mapsById = new Map(GAME_MAPS.map(map => [map.id, map]));

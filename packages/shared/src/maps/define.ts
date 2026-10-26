@@ -26,10 +26,6 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 	};
 
 	const mechanics = definition.mechanics.map(id => MECHANICS[id] ?? fail(`mechanic "${id}" is not implemented.`));
-	for (const mechanic of mechanics) {
-		const problem = mechanic.checkRules?.(rules);
-		if (problem) fail(`${mechanic.id}: ${problem}`);
-	}
 	const cities: City[] = definition.nodes.map(node => ({
 		id: node.id,
 		name: node.name,
@@ -66,7 +62,7 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 	);
 	const routeById = new Map(routes.map(route => [route.id, route]));
 	const ticketById = new Map(tickets.map(ticket => [ticket.id, ticket]));
-	return {
+	const map: GameMap = {
 		id: spec.id,
 		name: spec.name,
 		info: spec.info,
@@ -75,6 +71,7 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 		cities,
 		routes,
 		tickets,
+		companies: definition.companies,
 		mechanicIds: definition.mechanics,
 		mechanics,
 		graph: createRouteGraph(routes, vertex),
@@ -88,6 +85,11 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 		},
 		parallelLimit: (group, players) => limits.get(group)?.get(players) ?? 1,
 	};
+	for (const mechanic of mechanics) {
+		const problem = mechanic.validate?.(map);
+		if (problem) fail(`${mechanic.id}: ${problem}`);
+	}
+	return map;
 }
 
 function toRoute(connection: MapConnection, fail: (message: string) => never): Route {

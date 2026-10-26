@@ -2,6 +2,7 @@ import type { MapMechanic } from '../map-schema';
 import { mandalas } from './mandalas';
 import { stations } from './stations';
 import { tunnels } from './tunnels';
+import { stocks } from './stocks';
 import type { Mechanic } from './types';
 
 export * from './types';
@@ -15,4 +16,5 @@ export const MECHANICS: Partial<Record<MapMechanic, Mechanic>> = {
 	mandalas,
 	stations,
 	tunnels,
+	stocks,
 };

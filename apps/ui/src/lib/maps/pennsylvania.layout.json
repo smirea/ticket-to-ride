@@ -1,0 +1,12 @@
+{
+	"bends": {
+		"new-york-philadelphia-1": 8,
+		"new-york-philadelphia-2": 8,
+		"altoona-lewiston-1": -8,
+		"altoona-harrisburg-1": 8,
+		"altoona-harrisburg-2": 8,
+		"lancaster-philadelphia-1": -8,
+		"lancaster-philadelphia-2": -8
+	},
+	"pinned": []
+}
