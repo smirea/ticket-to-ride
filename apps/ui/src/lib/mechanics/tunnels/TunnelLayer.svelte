@@ -25,10 +25,10 @@
 <g class="tunnels" aria-hidden="true">
 	{#each markers as marker (marker.key)}
 		<rect
-			x={marker.p.x - marker.length / 2 - 1.6}
-			y={marker.p.y - ROUTE_MARKER_WIDTH / 2 - 1.6}
-			width={marker.length + 3.2}
-			height={ROUTE_MARKER_WIDTH + 3.2}
+			x={marker.p.x - marker.length / 2 - 2.2}
+			y={marker.p.y - ROUTE_MARKER_WIDTH / 2 - 2.2}
+			width={marker.length + 4.4}
+			height={ROUTE_MARKER_WIDTH + 4.4}
 			rx="1.6"
 			transform={`rotate(${marker.angle} ${marker.p.x} ${marker.p.y})`}
 		/>
@@ -41,8 +41,8 @@
 	}
 	rect {
 		fill: none;
-		stroke: #2a2118;
-		stroke-width: 1.3;
-		stroke-dasharray: 2.2 1.6;
+		stroke: #1d140c;
+		stroke-width: 2.2;
+		stroke-dasharray: 3 2;
 	}
 </style>

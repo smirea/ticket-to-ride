@@ -7,4 +7,6 @@ export const europeArt: BoardArt = {
 	aspect: 1537 / 1023,
 	flag: '/game-assets/maps/europe/flag.svg',
 	bends: layout.bends,
+	// The player plaques overlap the top edge of the board.
+	labelBelow: ['stockholm', 'riga', 'petrograd'],
 };

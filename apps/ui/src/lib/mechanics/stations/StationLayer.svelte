@@ -36,8 +36,8 @@
 		<polyline class="borrowed" points={line.points} stroke={line.color} />
 	{/each}
 	{#each stations as station (station.cityId)}
-		<g transform={`translate(${station.p.x + 5} ${station.p.y - 3})`}>
-			<StationIcon color={station.color} size={15} />
+		<g class="station" transform={`translate(${station.p.x - 24} ${station.p.y - 11})`}>
+			<StationIcon color={station.color} size={20} />
 		</g>
 	{/each}
 </g>
@@ -45,6 +45,9 @@
 <style>
 	.stations {
 		pointer-events: none;
+	}
+	.station {
+		filter: drop-shadow(0 0 1.5px #fff7e4) drop-shadow(0 1px 1px #2a211880);
 	}
 	.borrowed {
 		fill: none;

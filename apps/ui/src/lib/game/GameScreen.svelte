@@ -1063,22 +1063,24 @@
 				><TicketIcon size={25} /><span>Draw tickets</span></button
 			>
 		{/if}
-		{#each uis as ui}
-			{#if mechanicPhase && ui.PhasePanel}
-				{@const Panel = ui.PhasePanel}
-				<Panel
-					state={gameState}
-					{viewerId}
-					send={sendMechanicAction}
-					{pickCity}
-					disabled={busy || currentPlayer?.id !== viewerId}
-				/>
-			{/if}
-			{#if ui.TurnActions}
-				{@const Actions = ui.TurnActions}
-				<Actions state={gameState} {viewerId} send={sendMechanicAction} {pickCity} disabled={!turnReady} />
-			{/if}
-		{/each}
+		<div class="mechanic-actions">
+			{#each uis as ui}
+				{#if mechanicPhase && ui.PhasePanel}
+					{@const Panel = ui.PhasePanel}
+					<Panel
+						state={gameState}
+						{viewerId}
+						send={sendMechanicAction}
+						{pickCity}
+						disabled={busy || currentPlayer?.id !== viewerId}
+					/>
+				{/if}
+				{#if ui.TurnActions}
+					{@const Actions = ui.TurnActions}
+					<Actions state={gameState} {viewerId} send={sendMechanicAction} {pickCity} disabled={!turnReady} />
+				{/if}
+			{/each}
+		</div>
 		<div class="route-scoring-reference"><RouteScoring /></div>
 	</aside>
 
@@ -1445,6 +1447,9 @@
 	}
 	.journey-sidebar > * {
 		pointer-events: auto;
+	}
+	.mechanic-actions {
+		display: contents;
 	}
 	.route-scoring-reference {
 		width: 196px;
