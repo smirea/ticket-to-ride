@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { onMount, tick, type Snippet } from 'svelte';
 	import { scale } from 'svelte/transition';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
@@ -14,6 +14,7 @@
 		onchoose,
 		onclose,
 		onpreview,
+		extras,
 	}: {
 		routeId: string;
 		options: RoutePayment[];
@@ -22,7 +23,11 @@
 		onchoose: (payment: RoutePayment) => void;
 		onclose: () => void;
 		onpreview: (payment: RoutePayment | undefined) => void;
+		// Claim choices of a mechanic, shown beside the cancel button on the side away from the payment pins.
+		extras?: Snippet;
 	} = $props();
+	let extrasWidth = $state(0),
+		extrasHeight = $state(0);
 	let container = $state<HTMLDivElement>();
 	let x = $state(0),
 		y = $state(0),
@@ -94,6 +99,14 @@
 				? Math.max(46, ...heads.map(head => head.y + radius + 22))
 				: Math.min(-46, ...heads.map(head => head.y - radius - 22));
 		return { x: Math.max(16 - x, Math.min(0, viewportWidth - 16 - x)), y: centerY };
+	});
+	const extrasPosition = $derived.by(() => {
+		const below = closePosition.y > 0;
+		const top = below ? closePosition.y + 22 : closePosition.y - 22 - extrasHeight;
+		return {
+			x: Math.max(16 - x, Math.min(viewportWidth - 16 - x - extrasWidth, -extrasWidth / 2)),
+			y: Math.max(16 - y, Math.min(viewportHeight - 16 - y - extrasHeight, top)),
+		};
 	});
 	function preview(index?: number) {
 		active = index;
@@ -211,9 +224,25 @@
 		aria-label="Cancel route payment"
 		onclick={onclose}><XIcon size={14} /></button
 	>
+	{#if extras}
+		<div
+			class="extras"
+			style:left={`${extrasPosition.x}px`}
+			style:top={`${extrasPosition.y}px`}
+			bind:clientWidth={extrasWidth}
+			bind:clientHeight={extrasHeight}
+		>
+			{@render extras()}
+		</div>
+	{/if}
 </div>
 
 <style>
+	.extras {
+		position: absolute;
+		pointer-events: auto;
+		width: max-content;
+	}
 	.payment-shield {
 		position: fixed;
 		inset: 0;

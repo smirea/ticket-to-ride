@@ -1170,14 +1170,12 @@
 				paymentRoute = undefined;
 				selectedRouteId = undefined;
 			}}
+			extras={uis.some(ui => ui.ClaimOptions) ? claimExtras : undefined}
 		/>
-	{/if}
-
-	{#if paymentRoute}
-		{#each uis as ui}
-			{#if ui.ClaimOptions}
-				{@const Options = ui.ClaimOptions}
-				<div class="claim-options">
+		{#snippet claimExtras()}
+			{#each uis as ui}
+				{#if ui.ClaimOptions && paymentRoute}
+					{@const Options = ui.ClaimOptions}
 					<Options
 						state={gameState}
 						{viewerId}
@@ -1185,9 +1183,9 @@
 						value={claimOptions}
 						onchange={value => (claimOptions = value)}
 					/>
-				</div>
-			{/if}
-		{/each}
+				{/if}
+			{/each}
+		{/snippet}
 	{/if}
 
 	<footer bind:this={playTray} class="play-tray" inert={Boolean(paymentRoute || completionTicket)}>
@@ -2298,12 +2296,5 @@
 			transition: none !important;
 			animation: none !important;
 		}
-	}
-	.claim-options {
-		position: fixed;
-		left: 50%;
-		bottom: 24px;
-		z-index: 80;
-		translate: -50% 0;
 	}
 </style>
