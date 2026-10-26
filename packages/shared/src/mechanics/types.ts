@@ -86,6 +86,8 @@ export interface Mechanic {
 	scoring?(state: GameState): Record<PlayerId, ScoreLine[]>;
 	// Bots try mechanics before the core strategy; must answer every mechanic phase.
 	chooseBotAction?(state: GameState, player: Player): GameAction | undefined;
+	// Routes a bot builds toward once its tickets are done or out of reach, e.g. for an end-game bonus.
+	botGoalRoutes?(state: GameState, player: Player): readonly Route[];
 	// Hide private mechanic state from other viewers in multiplayer snapshots.
 	redact?(state: GameState, viewerId: PlayerId): void;
 	describeEvent?(event: MechanicEvent, playerName: string): string | undefined;

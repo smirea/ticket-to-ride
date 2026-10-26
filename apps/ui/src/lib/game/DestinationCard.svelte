@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { type DestinationTicket } from '@repo/shared';
+	import type { Snippet } from 'svelte';
 	import { boardArt } from '$lib/maps';
 	import GeneratedTicketArt from './GeneratedTicketArt.svelte';
 	import { useGameMap } from './map-context';
@@ -10,7 +11,14 @@
 		complete = false,
 		selected = false,
 		animateCompletion = true,
-	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean; animateCompletion?: boolean } = $props();
+		children,
+	}: {
+		ticket: DestinationTicket;
+		complete?: boolean;
+		selected?: boolean;
+		animateCompletion?: boolean;
+		children?: Snippet;
+	} = $props();
 	const game = useGameMap();
 	const artwork = $derived(boardArt(game.map.id).ticketArtwork?.(ticket.id));
 	let punching = $state(false);
@@ -35,6 +43,7 @@
 		{#if complete}<span class="complete-mark" aria-label="Completed destination"
 				><span aria-hidden="true">✓</span> Completed</span
 			>{/if}
+		{@render children?.()}
 	</span>
 	{#if punching}
 		<span class="paper-punch" aria-hidden="true" onanimationend={() => (punching = false)}></span>

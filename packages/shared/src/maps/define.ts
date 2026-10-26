@@ -34,8 +34,7 @@ export function defineGameMap(board: unknown, spec: GameMapSpec): GameMap {
 	}));
 	const cityById = new Map(cities.map(city => [city.id, city]));
 	const routes: Route[] = definition.connections.map(connection => toRoute(connection, fail));
-	const maxLength = Math.max(...routes.map(route => route.length));
-	for (let length = 1; length <= maxLength; length += 1) {
+	for (const length of new Set(routes.map(route => route.length))) {
 		if (rules.routeScores[length] === undefined) fail(`routeScores has no entry for length ${length}.`);
 	}
 

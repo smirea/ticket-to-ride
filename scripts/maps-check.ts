@@ -114,7 +114,7 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 			}
 			for (const result of state.finalResults ?? []) {
 				scores.push(result.finalScore);
-				for (const line of result.bonuses) bonuses.set(line.label, (bonuses.get(line.label) ?? 0) + line.points);
+				for (const line of result.bonuses) bonuses.set(line.id, (bonuses.get(line.id) ?? 0) + line.points);
 			}
 			turns.push(state.turnNumber);
 			passes += state.events.filter(event => event.type === 'pass').length;
@@ -129,7 +129,7 @@ for (const mapId of ids.length ? ids : GAME_MAPS.map(map => map.id)) {
 		console.log(
 			`         mean score ${mean(scores).toFixed(1)}, ${mean(turns).toFixed(0)} turns, ${(mean(completion) * 100).toFixed(0)}% tickets completed, ${passes} passes` +
 				(bonuses.size
-					? `; bonus points per game: ${[...bonuses].map(([label, points]) => `${label} ${(points / games).toFixed(1)}`).join(', ')}`
+					? `; bonus points per game: ${[...bonuses].map(([id, points]) => `${id} ${(points / games).toFixed(1)}`).join(', ')}`
 					: ''),
 		);
 	}

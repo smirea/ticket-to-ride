@@ -47,6 +47,7 @@
 	import type { CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
 	import { setGameMapContext } from './map-context';
+	import { boardArt } from '$lib/maps';
 	import { mechanicUis } from '$lib/mechanics';
 
 	type Props = {
@@ -60,6 +61,8 @@
 	};
 	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, onidlechange, debug = false }: Props = $props();
 	const map = $derived(gameMap(gameState));
+	// Tall boards take the full table height; the hand and market stack beside or below them.
+	const portraitBoard = $derived(boardArt(map.id).aspect < 1);
 	const uis = $derived(mechanicUis(map));
 	const corePhases = ['opening-tickets', 'ticket-selection', 'turn', 'game-over'];
 	const mechanicPhase = $derived(!corePhases.includes(gameState.phase.type));
@@ -291,10 +294,10 @@
 		if (handScroll) measureHand.observe(handScroll);
 		const measureCards = new ResizeObserver(([entry]) => {
 			if (!entry) return;
-			const portrait = matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
+			const stacked = portraitBoard || matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
 			trainCardWidth = Math.max(
 				42,
-				Math.min(120, Math.floor((entry.contentRect.width - (portrait ? 78 : 160)) / (portrait ? 6 : 10.6))),
+				Math.min(120, Math.floor((entry.contentRect.width - (stacked ? 78 : 160)) / (stacked ? 6 : 10.6))),
 			);
 			handCardWidth = trainCardWidth;
 		});
@@ -888,6 +891,7 @@
 	class="game-shell"
 	class:choosing-tickets={Boolean(ticketSelection) && !closingTickets}
 	class:reduced-motion={reduceMotion}
+	class:portrait-board={portraitBoard}
 	style:--train-card-width={`${trainCardWidth}px`}
 >
 	<header class="table-header" inert={Boolean(paymentRoute || completionTicket)}>
@@ -1002,7 +1006,11 @@
 						selected={previewTicketId === ticket.id || cityTicketIds.has(ticket.id)}
 						complete={completedOrder.includes(ticket.id)}
 						animateCompletion={false}
-					/>
+					>
+						{#each uis as ui}
+							{#if ui.TicketStamp}{@const Stamp = ui.TicketStamp}<Stamp state={gameState} {viewerId} {ticket} />{/if}
+						{/each}
+					</DestinationCard>
 				</button>
 			{:else}<p class="empty-tickets">
 					{heldTickets.length ? 'All connected' : 'No tickets yet'}
@@ -2098,6 +2106,39 @@
 		.face-up {
 			gap: 4px;
 			padding: 3px;
+		}
+	}
+
+	.game-shell.portrait-board {
+		grid-template-columns: 224px minmax(0, 1fr) clamp(340px, 36vw, 560px);
+	}
+	/* Keeps the board's west edge clear of the overlapping ticket column. */
+	.portrait-board .board-stage {
+		grid-row: 2 / 4;
+		padding-left: 48px;
+	}
+	.portrait-board .play-tray {
+		grid-column: 3;
+		grid-row: 2 / 4;
+		grid-template-columns: minmax(0, 1fr);
+		align-content: end;
+		margin: 0;
+	}
+	@media (max-width: 1100px) and (orientation: portrait) {
+		.game-shell.portrait-board {
+			grid-template-columns: 242px minmax(0, 1fr);
+			grid-template-rows: 150px minmax(0, 1fr) auto;
+		}
+		.portrait-board .board-stage {
+			grid-row: 2;
+			align-self: stretch;
+			height: auto;
+			padding-left: 0;
+		}
+		.portrait-board .play-tray {
+			grid-column: 2;
+			grid-row: 3;
+			margin: -20px 0 0;
 		}
 	}
 

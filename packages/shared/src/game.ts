@@ -918,12 +918,15 @@ export function chooseBotAction(state: GameState): GameAction | undefined {
 	const availableRoutes = availableBotRoutes(state, player);
 	const ticketPlan = botTicketPlans(state, player)[0];
 	const ticketRoutes = ticketPlan?.routes.filter(routeItem => !state.claimedRoutes[routeItem.id]) ?? [];
-	const strategicRoutes = ticketRoutes.length > 0 ? ticketRoutes : availableRoutes;
+	const goalRoutes = ticketPlan
+		? ticketRoutes
+		: gameMap(state).mechanics.flatMap(mechanic => mechanic.botGoalRoutes?.(state, player) ?? []);
+	const strategicRoutes = goalRoutes.length > 0 ? goalRoutes : availableRoutes;
 
 	if (state.phase.drawsTaken === 0) {
 		const routeAction = claimableBotAction(state, player, strategicRoutes);
 		if (routeAction) return routeAction;
-		if (!ticketPlan && player.trains >= BOT_NEW_TICKET_MIN_TRAINS && state.destinationDeck.length > 0) {
+		if (goalRoutes.length === 0 && player.trains >= BOT_NEW_TICKET_MIN_TRAINS && state.destinationDeck.length > 0) {
 			return { type: 'draw-destination-tickets' };
 		}
 	}

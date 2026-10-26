@@ -1,4 +1,5 @@
 import type { MapMechanic } from '../map-schema';
+import { mandalas } from './mandalas';
 import type { Mechanic } from './types';
 
 export * from './types';
@@ -7,4 +8,5 @@ export * from './types';
 export const MECHANICS: Partial<Record<MapMechanic, Mechanic>> = {
 	// Printed locomotive spaces are a core payment rule (`Route.locomotives`), so ferries need no hooks.
 	ferries: { id: 'ferries' },
+	mandalas,
 };

@@ -6,7 +6,8 @@
 		".": "./src/index.ts",
 		"./env": "./src/env.ts",
 		"./package.json": "./package.json",
-		"./map-schema": "./src/map-schema.ts"
+		"./map-schema": "./src/map-schema.ts",
+		"./mechanics/*": "./src/mechanics/*.ts"
 	},
 	"dependencies": {
 		"zod": "^4.4.3"

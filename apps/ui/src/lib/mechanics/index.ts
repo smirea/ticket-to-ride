@@ -1,6 +1,16 @@
-import type { ClaimOptions, GameAction, GameMap, GameState, MapMechanic, Player, Route } from '@repo/shared';
+import type {
+	ClaimOptions,
+	DestinationTicket,
+	GameAction,
+	GameMap,
+	GameState,
+	MapMechanic,
+	Player,
+	Route,
+} from '@repo/shared';
 import type { Component } from 'svelte';
 import type { BoardLayout } from '$lib/game/board/layout';
+import { mandalasUi } from './mandalas';
 
 type Send = (action: GameAction) => void | boolean | Promise<void | boolean>;
 
@@ -27,11 +37,15 @@ export interface MechanicUi {
 	TurnActions?: Component<{ state: GameState; viewerId: string; send: Send; disabled: boolean }>;
 	// Small additions to each player's plaque.
 	PlayerBadge?: Component<{ state: GameState; player: Player }>;
+	// A mark printed on one of the viewer's held tickets, e.g. a bonus it already earns.
+	TicketStamp?: Component<{ state: GameState; viewerId: string; ticket: DestinationTicket }>;
 	// The status line while one of this mechanic's phases is active.
 	describePhase?: (state: GameState, viewerId: string) => string | undefined;
 }
 
-export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {};
+export const MECHANIC_UI: Partial<Record<MapMechanic, MechanicUi>> = {
+	mandalas: mandalasUi,
+};
 
 export function mechanicUis(map: GameMap): MechanicUi[] {
 	return map.mechanicIds.flatMap(id => MECHANIC_UI[id] ?? []);
