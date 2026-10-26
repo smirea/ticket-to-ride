@@ -31,7 +31,7 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 		id,
 		player,
 		turnNumber: 'turnNumber' in event ? event.turnNumber : undefined,
-		text: formatGameEvent(event, state.players),
+		text: formatGameEvent(event, state),
 		kind: 'note',
 	};
 	switch (event.type) {
@@ -43,7 +43,7 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 			return {
 				...row,
 				kind: 'claim',
-				text: routeName(event.routeId),
+				text: routeName(state, event.routeId),
 				routeId: event.routeId,
 				points: event.points,
 				payment: { color: event.paymentColor, cars: event.cars, locomotives: event.locomotives },
@@ -56,13 +56,9 @@ function eventRow(event: GameEvent, id: number, state: GameState, viewerId: stri
 				kind: 'tickets',
 				text: 'kept',
 				count: event.count,
-				tickets: event.playerId === viewerId ? event.ticketIds?.flatMap(id => getTicket(id) ?? []) : undefined,
+				tickets: event.playerId === viewerId ? event.ticketIds?.flatMap(id => getTicket(state, id) ?? []) : undefined,
 			};
-		case 'game-started':
-		case 'final-round':
-		case 'pass':
-		case 'game-over':
-		case 'note':
+		default:
 			return row;
 	}
 }

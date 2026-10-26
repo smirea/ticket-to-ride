@@ -5,7 +5,7 @@ import {
 	createGame,
 	formatGameEvent,
 	restoreGameState,
-	USA_TICKETS,
+	getGameMap,
 } from '@repo/shared';
 import { journalRows } from './journal';
 
@@ -22,12 +22,12 @@ test('groups by player ID and turn, even when names collide and adjacent turns b
 	const rows = journalRows(state, 'player');
 	expect(rows.map(row => row.cards)).toEqual([['deck'], ['deck'], ['locomotive'], ['red', 'deck']]);
 	expect(rows[2]!.player?.id).toBe('bot-1');
-	expect(formatGameEvent(state.events[0]!, state.players)).toBe('Same name drew a face-up red card.');
+	expect(formatGameEvent(state.events[0]!, state)).toBe('Same name drew a face-up red card.');
 });
 
 test('ticket events retain owned identities and group only within their turn', () => {
 	const state = createGame();
-	const ticket = USA_TICKETS[0]!;
+	const ticket = getGameMap('usa').tickets[0]!;
 	state.events = [
 		{ type: 'draw-destination-tickets', playerId: 'player', turnNumber: 3, count: 3 },
 		{ type: 'keep-tickets', playerId: 'player', turnNumber: 3, count: 1, ticketIds: [ticket.id] },

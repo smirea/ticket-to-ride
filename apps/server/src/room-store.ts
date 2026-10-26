@@ -1,4 +1,4 @@
-import { restoreGameState } from '@repo/shared';
+import { DEFAULT_MAP_ID, restoreGameState } from '@repo/shared';
 import { Database } from 'bun:sqlite';
 import type { AcceptedGameAction, GameAction, RoomState } from '@repo/shared';
 
@@ -180,6 +180,7 @@ function rowToAcceptedAction(row: ActionRow): AcceptedGameAction {
 
 function restoreRoom(serialized: string): RoomState {
 	const room = JSON.parse(serialized) as RoomState;
+	room.settings.mapId ??= DEFAULT_MAP_ID;
 	if (room.game) room.game = restoreGameState(room.game);
 	return room;
 }

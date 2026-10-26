@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { type DestinationTicket } from '@repo/shared';
-	import { getTicketArtwork } from './ticket-art';
+	import { boardArt } from '$lib/maps';
+	import GeneratedTicketArt from './GeneratedTicketArt.svelte';
+	import { useGameMap } from './map-context';
 	import PointsSeal from './PointsSeal.svelte';
 
 	let {
@@ -9,6 +11,8 @@
 		selected = false,
 		animateCompletion = true,
 	}: { ticket: DestinationTicket; complete?: boolean; selected?: boolean; animateCompletion?: boolean } = $props();
+	const game = useGameMap();
+	const artwork = $derived(boardArt(game.map.id).ticketArtwork?.(ticket.id));
 	let punching = $state(false);
 	let initialized = false;
 	let wasComplete = false;
@@ -20,9 +24,13 @@
 	});
 </script>
 
-<span class="destination-card" class:complete class:punching class:selected>
+<span class="destination-card" class:complete class:punching class:selected class:long={ticket.long}>
 	<span class="ticket-paper">
-		<img src={getTicketArtwork(ticket)} alt="" loading="lazy" draggable="false" />
+		{#if artwork}
+			<img src={artwork} alt="" loading="lazy" draggable="false" />
+		{:else}
+			<GeneratedTicketArt {ticket} mapId={game.map.id} />
+		{/if}
 		<span class="ticket-stub"><PointsSeal value={ticket.points} /></span>
 		{#if complete}<span class="complete-mark" aria-label="Completed destination"
 				><span aria-hidden="true">✓</span> Completed</span
@@ -84,7 +92,17 @@
 		--seal-number-size: 23px;
 	}
 
-	.complete .ticket-paper > img {
+	.long .ticket-paper::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		box-shadow:
+			inset 0 0 0 2px #fff7e7,
+			inset 0 0 0 5px #3f7a54;
+		pointer-events: none;
+	}
+	.complete .ticket-paper > :global(:is(img, svg)) {
 		filter: grayscale(0.48) saturate(0.7);
 	}
 	.complete .ticket-paper {

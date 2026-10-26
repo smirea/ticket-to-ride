@@ -13,17 +13,8 @@
 		type CarriageSprite,
 	} from './board/carriage-sprites';
 	import CarriageImage from './CarriageImage.svelte';
-	import {
-		cities,
-		cityById,
-		cityPoint,
-		routeColors,
-		routePoint,
-		routeMarkerT,
-		routeMarkerLength,
-		ROUTE_MARKER_WIDTH,
-		routes,
-	} from './board/layout';
+	import type { City, DestinationTicket as Ticket } from '@repo/shared';
+	import { boardLayout, routeColors, ROUTE_MARKER_WIDTH } from './board/layout';
 	function cityLabelLines(name: string) {
 		const words = name.split(' ');
 		if (name.length < 10 || words.length < 2) return [name];
@@ -75,6 +66,44 @@
 		eligibleRouteIds,
 		landingRouteId,
 	}: Props = $props();
+	const layout = $derived(boardLayout(gameState.mapId));
+	const W = $derived(layout.width);
+	const H = $derived(layout.height);
+	const cities = $derived(layout.map.cities);
+	const routes = $derived(layout.map.routes);
+	const cityById = $derived(new Map(cities.map(city => [city.id, city])));
+	const cityPoint = (city: City, position = 0) => layout.cityPoint(city, position);
+	const routePoint = (route: Route, t: number) => layout.routePoint(route, t);
+	const routeMarkerT = (route: Route, index: number) => layout.routeMarkerT(route, index);
+	const routeMarkerLength = (route: Route) => layout.routeMarkerLength(route);
+	const cityStops = $derived(
+		cities.flatMap(city =>
+			city.positions.map((_, position) => {
+				const p = cityPoint(city, position);
+				const labelBelow = p.y < 40 || Boolean(layout.art.labelBelow?.includes(city.id));
+				return { city, position, key: `${city.id}#${position}`, p, labelBelow };
+			}),
+		),
+	);
+	// A ticket to a city with several printed positions is drawn between the two closest ones.
+	function ticketEnds(ticket: Ticket) {
+		const a = cityById.get(ticket.cityA)!,
+			b = cityById.get(ticket.cityB)!;
+		const pairs = a.positions.flatMap((_, i) => b.positions.map((_, j) => [cityPoint(a, i), cityPoint(b, j)] as const));
+		return pairs.sort(([p, q], [r, t]) => Math.hypot(p.x - q.x, p.y - q.y) - Math.hypot(r.x - t.x, r.y - t.y))[0]!;
+	}
+	let slotWidth = $state(0);
+	let slotHeight = $state(0);
+	// Boards may stretch a little to fill the table; past that they keep their shape and the table shows around them.
+	const frameSize = $derived.by(() => {
+		const width = Math.max(0, slotWidth - 30),
+			height = Math.max(0, slotHeight - 24);
+		const aspect = W / H;
+		if (!width || !height) return undefined;
+		if (width / height > aspect * 1.12) return { width: height * aspect * 1.12, height };
+		if (width / height < aspect / 1.12) return { width, height: (width / aspect) * 1.12 };
+		return { width, height };
+	});
 	let viewport = $state<HTMLDivElement>();
 	let viewportWidth = $state(1000);
 	let viewportHeight = $state(620);
@@ -92,7 +121,7 @@
 									routeId: route.id,
 									index,
 									arrive: player.id !== viewerId && !initialClaims.has(route.id),
-									frame: carriageFrame(manifest!, route, index, player.color),
+									frame: carriageFrame(manifest!, layout, route, index, player.color),
 								}))
 							: [];
 					})
@@ -103,7 +132,7 @@
 	const mapWidth = $derived(viewportWidth);
 	const mapHeight = $derived(viewportHeight);
 	const labelFactor = $derived(Math.min(1, Math.max(0.7, viewportWidth / 650)));
-	const labelScale = $derived(`scale(${(1000 * labelFactor) / mapWidth} ${(620 * labelFactor) / mapHeight})`);
+	const labelScale = $derived(`scale(${(W * labelFactor) / mapWidth} ${(H * labelFactor) / mapHeight})`);
 
 	// Not every browser delivers click as a PointerEvent, so the pointer type comes from pointerdown.
 	let lastPointerType: string | undefined = undefined;
@@ -116,7 +145,7 @@
 		const screen = viewport?.querySelector<SVGSVGElement>('svg.board')?.getScreenCTM();
 		if (!screen) return [];
 		return Array.from({ length: route.length }, (_, index) => {
-			const frame = carriageFrame(artwork, route, index, color);
+			const frame = carriageFrame(artwork, layout, route, index, color);
 			const matrix = screen.translate(frame.x, frame.y).rotate(frame.angle).translate(-frame.anchorX, -frame.anchorY);
 			return { ...frame, matrix: [matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f] };
 		});
@@ -179,8 +208,8 @@
 	const playerById = $derived(new Map(gameState.players.map(player => [player.id, player])));
 	const hintRoutes = $derived.by(() => {
 		if (routeHover) return [];
-		const sx = (1000 * labelFactor) / mapWidth;
-		const sy = (620 * labelFactor) / mapHeight;
+		const sx = (W * labelFactor) / mapWidth;
+		const sy = (H * labelFactor) / mapHeight;
 		const placed: { x: number; y: number; width: number }[] = [];
 		return routes
 			.filter(route => routeHints[route.id] && !owner(route))
@@ -198,9 +227,9 @@
 						[0, -1, 1].map(column => ({
 							x: Math.max(
 								(width / 2 + 4) * sx,
-								Math.min(1000 - (width / 2 + 4) * sx, anchor.x + column * (width + 8) * sx),
+								Math.min(W - (width / 2 + 4) * sx, anchor.x + column * (width + 8) * sx),
 							),
-							y: Math.max(48 * sy, Math.min(620 - 18 * sy, preferredY + row * 40 * sy)),
+							y: Math.max(48 * sy, Math.min(H - 18 * sy, preferredY + row * 40 * sy)),
 						})),
 					)
 					.sort(
@@ -223,15 +252,15 @@
 	const hoverStack = $derived.by(() => {
 		const route = routeHover && routes.find(route => route.id === routeHover.routeId);
 		if (!route || !routeHover?.hints.length) return undefined;
-		const sx = (1000 * labelFactor) / mapWidth,
-			sy = (620 * labelFactor) / mapHeight;
+		const sx = (W * labelFactor) / mapWidth,
+			sy = (H * labelFactor) / mapHeight;
 		const anchor = point(route, 0.5);
 		const width = Math.max(...routeHover.hints.map(routeHintWidth));
 		const height = (routeHover.hints.length - 1) * 32;
 		const below = anchor.y < (height + 68) * sy;
-		const x = Math.max((width / 2 + 4) * sx, Math.min(1000 - (width / 2 + 4) * sx, anchor.x));
+		const x = Math.max((width / 2 + 4) * sx, Math.min(W - (width / 2 + 4) * sx, anchor.x));
 		const preferredY = below ? anchor.y + 23 * sy : anchor.y - (height + 23) * sy;
-		const y = Math.max(48 * sy, Math.min(620 - (height + 18) * sy, preferredY));
+		const y = Math.max(48 * sy, Math.min(H - (height + 18) * sy, preferredY));
 		return { id: route.id, x, y: y + (height / 2) * sy, below, hints: routeHover.hints };
 	});
 
@@ -254,8 +283,7 @@
 		}).join(' ');
 	}
 	function outline(route: Route) {
-		const start = cityPoint(cityById.get(route.cityA)!);
-		const end = cityPoint(cityById.get(route.cityB)!);
+		const [start, end] = layout.routeEnds(route);
 		return `M${start.x},${start.y} L${path(route).slice(1)} L${end.x},${end.y}`;
 	}
 	function hoverRoute(route?: Route) {
@@ -313,7 +341,7 @@
 		});
 		measure.observe(viewport);
 		const atlasImage = new Image();
-		atlasImage.src = '/game-assets/atlas/usa-relief-v4.webp';
+		atlasImage.src = layout.art.terrain;
 		void Promise.all([loadCarriageSprites(), atlasImage.decode()])
 			.then(([artwork]) => {
 				if (!cancelled) manifest = artwork;
@@ -334,255 +362,254 @@
 	});
 </script>
 
-<div
-	class="board-frame"
-	data-renderer="svg"
-	data-renderer-ready={Boolean(manifest)}
-	class:motion-paused={!motionEnabled}
->
-	<div class="board-viewport" bind:this={viewport}>
-		<div class="board-stage" style:width={`${mapWidth}px`} style:height={`${mapHeight}px`}>
-			<svg
-				class="board"
-				class:ready={Boolean(manifest) || artworkError}
-				viewBox="0 0 1000 620"
-				preserveAspectRatio="none"
-				role="group"
-				aria-label="Ticket to Travel North America board"
-				aria-describedby="board-help"
-				onpointerleave={() => hoverRoute()}
-			>
-				<image
-					href="/game-assets/atlas/usa-relief-v4.webp"
-					width="1000"
-					height="620"
+<div class="board-slot" bind:clientWidth={slotWidth} bind:clientHeight={slotHeight}>
+	<div
+		class="board-frame"
+		style:width={frameSize ? `${frameSize.width}px` : undefined}
+		style:height={frameSize ? `${frameSize.height}px` : undefined}
+		data-renderer="svg"
+		data-renderer-ready={Boolean(manifest)}
+		class:motion-paused={!motionEnabled}
+	>
+		<div class="board-viewport" bind:this={viewport}>
+			<div class="board-stage" style:width={`${mapWidth}px`} style:height={`${mapHeight}px`}>
+				<svg
+					class="board"
+					class:ready={Boolean(manifest) || artworkError}
+					viewBox={`0 0 ${W} ${H}`}
 					preserveAspectRatio="none"
-					aria-hidden="true"
-				/>
-
-				<g class="geography" aria-hidden="true"
-					><text x="415" y="32">C A N A D A</text><text x="243" y="597">M E X I C O</text><text
-						x="918"
-						y="367"
-						transform="rotate(-8 918 367)">ATLANTIC</text
-					><text x="925" y="383" transform="rotate(-8 925 383)">OCEAN</text><text
-						x="41"
-						y="508"
-						transform="rotate(8 41 508)">PACIFIC</text
-					><text x="43" y="524" transform="rotate(8 43 524)">OCEAN</text></g
+					role="group"
+					aria-label={`Ticket to Travel ${layout.art.title} board`}
+					aria-describedby="board-help"
+					onpointerleave={() => hoverRoute()}
 				>
-				<g>
-					<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
-						{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
-						{#each cities as city (city.id)}{@const p = cityPoint(city)}
-							<g transform={`translate(${p.x} ${p.y}) ${labelScale}`}><circle r="11" /></g>
+					<image href={layout.art.terrain} width={W} height={H} preserveAspectRatio="none" aria-hidden="true" />
+
+					<g class="geography" aria-hidden="true">
+						{#each layout.art.geography ?? [] as label}
+							<text
+								class={label.kind}
+								x={label.x}
+								y={label.y}
+								transform={label.rotate ? `rotate(${label.rotate} ${label.x} ${label.y})` : undefined}
+								>{label.text}</text
+							>
 						{/each}
 					</g>
-					{#each routes as route (route.id)}
-						{@const routeOwner = owner(route)}{@const unavailable = blocked(route)}{@const selected =
-							selectedRouteId === route.id}
-						<g
-							id={`route-${route.id}`}
-							class="route"
-							class:available={!routeOwner && !unavailable && !disabled}
-							class:blocked={unavailable}
-							class:selected
-							class:claimed={Boolean(routeOwner)}
-							class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
-							role="button"
-							tabindex={routeOwner || unavailable || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
-							aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
-							aria-disabled={Boolean(routeOwner) || unavailable || disabled}
-							aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
-							onpointerdown={event => (lastPointerType = event.pointerType)}
-							onclick={() => clickRoute(route)}
-							onpointerenter={() => {
-								if (!routeOwner && !unavailable) hoverRoute(route);
-							}}
-							onpointerleave={() => hoverRoute()}
-							onfocus={() => {
-								focusedRouteId = route.id;
-								hoverRoute(route);
-							}}
-							onblur={() => hoverRoute()}
-							onkeydown={event => !routeOwner && !unavailable && !disabled && keySelect(event, route)}
-						>
-							<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
-							{#each Array(route.length) as _, i}
-								{@const t = routeMarkerT(route, i)}
-								{@const p = point(route, t)}
-								{@const a = point(route, Math.max(0, t - 0.002))}
-								{@const b = point(route, Math.min(1, t + 0.002))}
-								<rect
-									data-route-marker={route.id}
-									data-marker-index={i}
-									x={p.x - routeMarkerLength(route) / 2}
-									y={p.y - ROUTE_MARKER_WIDTH / 2}
-									width={routeMarkerLength(route)}
-									height={ROUTE_MARKER_WIDTH}
-									rx="0.8"
-									transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-									fill={routeOwner ? 'transparent' : routeColors[route.color]}
-									class="marker-anchor"
-									class:fallback-segment={!routeOwner}
-								/>
-								{#if !routeOwner && route.color !== 'gray'}
-									<g
-										class="route-color-symbol"
-										transform={`translate(${p.x} ${p.y}) rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI})`}
-										aria-hidden="true"
-									>
-										<ColorSymbol color={route.color} x={-3.6} y={-3.6} size={7.2} />
-									</g>
-								{/if}
+					<g>
+						<g class="network-outline" class:filtering={eligibleRouteIds !== undefined} aria-hidden="true">
+							{#each routes.filter(route => !owner(route)) as route (route.id)}<path d={outline(route)} />{/each}
+							{#each cityStops as stop (stop.key)}
+								<g transform={`translate(${stop.p.x} ${stop.p.y}) ${labelScale}`}><circle r="11" /></g>
 							{/each}
 						</g>
-					{/each}
-				</g>
-				<g class="completion-trace" aria-hidden="true">
-					{#each completionMarkers as marker (marker.key)}
-						{@const t = routeMarkerT(marker.route, marker.index)}
-						{@const p = point(marker.route, t)}
-						{@const a = point(marker.route, Math.max(0, t - 0.002))}
-						{@const b = point(marker.route, Math.min(1, t + 0.002))}
-						<rect
-							data-completion-marker={marker.key}
-							x={p.x - routeMarkerLength(marker.route) / 2}
-							y={p.y - ROUTE_MARKER_WIDTH / 2}
-							width={routeMarkerLength(marker.route)}
-							height={ROUTE_MARKER_WIDTH}
-							rx="2"
-							transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
-						/>
-					{/each}
-				</g>
-				<g class="claimed-carriages" aria-hidden="true">
-					{#each carriages as carriage (carriage.id)}
-						<g
-							data-carriage={carriage.id}
-							transform={`translate(${carriage.frame.x} ${carriage.frame.y}) rotate(${carriage.frame.angle})`}
-						>
-							<g class="carriage-piece">
-								<g transform={`translate(${-carriage.frame.anchorX} ${-carriage.frame.anchorY})`}>
-									<g
-										in:fly={{
-											y: -8,
-											duration: motionEnabled && carriage.arrive ? 380 : 0,
-											delay: motionEnabled && carriage.arrive ? carriage.index * 45 : 0,
-										}}
-									>
-										<CarriageImage frame={carriage.frame} />
+						{#each routes as route (route.id)}
+							{@const routeOwner = owner(route)}{@const unavailable = blocked(route)}{@const selected =
+								selectedRouteId === route.id}
+							<g
+								id={`route-${route.id}`}
+								class="route"
+								class:available={!routeOwner && !unavailable && !disabled}
+								class:blocked={unavailable}
+								class:selected
+								class:claimed={Boolean(routeOwner)}
+								class:dimmed={eligibleRouteIds !== undefined && !eligibleRouteIds.includes(route.id)}
+								role="button"
+								tabindex={routeOwner || unavailable || disabled ? undefined : focusedRouteId === route.id ? 0 : -1}
+								aria-label={`${cityById.get(route.cityA)!.name} to ${cityById.get(route.cityB)!.name}, ${route.length} ${route.color} trains${routeOwner ? `, claimed by ${routeOwner.name}` : unavailable ? ', unavailable parallel route' : selected ? ', selected' : ', open'}`}
+								aria-disabled={Boolean(routeOwner) || unavailable || disabled}
+								aria-pressed={!routeOwner && !unavailable && !disabled ? selected : undefined}
+								onpointerdown={event => (lastPointerType = event.pointerType)}
+								onclick={() => clickRoute(route)}
+								onpointerenter={() => {
+									if (!routeOwner && !unavailable) hoverRoute(route);
+								}}
+								onpointerleave={() => hoverRoute()}
+								onfocus={() => {
+									focusedRouteId = route.id;
+									hoverRoute(route);
+								}}
+								onblur={() => hoverRoute()}
+								onkeydown={event => !routeOwner && !unavailable && !disabled && keySelect(event, route)}
+							>
+								<path class="route-hitbox" d={path(route)} /><path class="route-aura" d={path(route)} />
+								{#each Array(route.length) as _, i}
+									{@const t = routeMarkerT(route, i)}
+									{@const p = point(route, t)}
+									{@const a = point(route, Math.max(0, t - 0.002))}
+									{@const b = point(route, Math.min(1, t + 0.002))}
+									<rect
+										data-route-marker={route.id}
+										data-marker-index={i}
+										x={p.x - routeMarkerLength(route) / 2}
+										y={p.y - ROUTE_MARKER_WIDTH / 2}
+										width={routeMarkerLength(route)}
+										height={ROUTE_MARKER_WIDTH}
+										rx="0.8"
+										transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
+										fill={routeOwner ? 'transparent' : routeColors[route.color]}
+										class="marker-anchor"
+										class:fallback-segment={!routeOwner}
+									/>
+									{#if !routeOwner && route.color !== 'gray'}
+										<g
+											class="route-color-symbol"
+											transform={`translate(${p.x} ${p.y}) rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI})`}
+											aria-hidden="true"
+										>
+											<ColorSymbol color={route.color} x={-3.6} y={-3.6} size={7.2} />
+										</g>
+									{/if}
+									{#if !routeOwner && i < route.locomotives}
+										<g
+											class="route-locomotive-symbol"
+											transform={`translate(${p.x} ${p.y}) rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI}) translate(-4.6 -3.4) scale(0.29)`}
+											aria-hidden="true"
+										>
+											<path d="M3 17V8h8v5h3V9h3V4h4v9h4l3 6H3Z" />
+										</g>
+									{/if}
+								{/each}
+							</g>
+						{/each}
+					</g>
+					<g class="completion-trace" aria-hidden="true">
+						{#each completionMarkers as marker (marker.key)}
+							{@const t = routeMarkerT(marker.route, marker.index)}
+							{@const p = point(marker.route, t)}
+							{@const a = point(marker.route, Math.max(0, t - 0.002))}
+							{@const b = point(marker.route, Math.min(1, t + 0.002))}
+							<rect
+								data-completion-marker={marker.key}
+								x={p.x - routeMarkerLength(marker.route) / 2}
+								y={p.y - ROUTE_MARKER_WIDTH / 2}
+								width={routeMarkerLength(marker.route)}
+								height={ROUTE_MARKER_WIDTH}
+								rx="2"
+								transform={`rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI} ${p.x} ${p.y})`}
+							/>
+						{/each}
+					</g>
+					<g class="claimed-carriages" aria-hidden="true">
+						{#each carriages as carriage (carriage.id)}
+							<g
+								data-carriage={carriage.id}
+								transform={`translate(${carriage.frame.x} ${carriage.frame.y}) rotate(${carriage.frame.angle})`}
+							>
+								<g class="carriage-piece">
+									<g transform={`translate(${-carriage.frame.anchorX} ${-carriage.frame.anchorY})`}>
+										<g
+											in:fly={{
+												y: -8,
+												duration: motionEnabled && carriage.arrive ? 380 : 0,
+												delay: motionEnabled && carriage.arrive ? carriage.index * 45 : 0,
+											}}
+										>
+											<CarriageImage frame={carriage.frame} />
+										</g>
 									</g>
 								</g>
 							</g>
-						</g>
-					{/each}
-				</g>
-
-				{#each cities as city (city.id)}
-					{@const p = cityPoint(city)}{@const labelLines = cityLabelLines(city.name)}{@const labelBelow = [
-						'calgary',
-						'winnipeg',
-						'montreal',
-						'boston',
-						'charleston',
-						'houston',
-						'little-rock',
-					].includes(city.id)}{@const endpoint = highlightedTickets.some(
-						ticket => ticket.cityA === city.id || ticket.cityB === city.id,
-					)}
-					<g
-						class="city"
-						class:ticket-endpoint={endpoint}
-						class:has-tickets={Boolean(ticketCityCounts[city.id])}
-						data-city={city.id}
-						transform={`translate(${p.x} ${p.y}) ${labelScale}`}
-						role={ticketCityCounts[city.id] ? 'button' : undefined}
-						tabindex={ticketCityCounts[city.id] ? 0 : undefined}
-						aria-label={ticketCityCounts[city.id]
-							? `${city.name}: preview ${ticketCityCounts[city.id]} destination ticket${ticketCityCounts[city.id] === 1 ? '' : 's'}`
-							: undefined}
-						aria-pressed={ticketCityCounts[city.id] ? previewedCityId === city.id : undefined}
-						onpointerenter={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
-						onpointerleave={() => ticketCityCounts[city.id] && oncityhover?.()}
-						onfocus={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
-						onblur={() => ticketCityCounts[city.id] && oncityhover?.()}
-						onclick={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
-						onkeydown={event => {
-							if (event.key === 'Escape') {
-								event.preventDefault();
-								oncityhover?.();
-							}
-							if (event.key === 'Enter' || event.key === ' ') {
-								event.preventDefault();
-								oncityhover?.(city.id);
-							}
-						}}
-					>
-						<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
-							class="city-center"
-							r="5.4"
-						/>
-						<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
-							{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
-						</text>
-					</g>
-				{/each}
-				<g class="compass" transform="translate(950 548)" aria-hidden="true"
-					><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
-				>
-			</svg>
-			<svg class="board-overlay" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
-				{#if highlightedRouteId}
-					{@const highlightedRoute = routes.find(route => route.id === highlightedRouteId)}
-					{#if highlightedRoute}
-						<g class="journal-route-highlight" transition:fade={{ duration: motionEnabled ? 150 : 0 }}>
-							<path class="journal-halo" d={path(highlightedRoute)} />
-							<path class="journal-line" d={path(highlightedRoute)} />
-							{#each [highlightedRoute.cityA, highlightedRoute.cityB] as id}
-								{@const city = cityPoint(cityById.get(id)!)}
-								<circle cx={city.x} cy={city.y} r="11" />
-							{/each}
-						</g>
-					{/if}
-				{/if}
-				<g class="ticket-preview-layer" aria-hidden="true">
-					{#each ['ticket-trace-underlay', 'ticket-trace'] as layer}
-						{#each celebratingTicket ? [] : highlightedTickets as ticket (ticket.id)}
-							{@const a = cityPoint(cityById.get(ticket.cityA)!)}
-							{@const b = cityPoint(cityById.get(ticket.cityB)!)}
-							<path
-								class={layer}
-								transition:fade={{ duration: motionEnabled ? 180 : 0 }}
-								d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
-							/>
 						{/each}
-					{/each}
-					{#each cities.filter( city => highlightedTickets.some(ticket => ticket.cityA === city.id || ticket.cityB === city.id), ) as city (city.id)}
-						{@const p = cityPoint(city)}
-						<g class="ticket-endpoint" transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
-							<circle class="endpoint-ring" r="21" transition:fade={{ duration: motionEnabled ? 180 : 0 }} />
-							<circle class="city-hub" r="9.2" /><circle class="city-center" r="5.4" />
+					</g>
+
+					{#each cityStops as stop (stop.key)}
+						{@const city = stop.city}{@const p = stop.p}{@const labelLines = cityLabelLines(
+							city.name,
+						)}{@const labelBelow = stop.labelBelow}{@const endpoint = highlightedTickets.some(
+							ticket => ticket.cityA === city.id || ticket.cityB === city.id,
+						)}
+						<g
+							class="city"
+							class:ticket-endpoint={endpoint}
+							class:has-tickets={Boolean(ticketCityCounts[city.id])}
+							data-city={city.id}
+							transform={`translate(${p.x} ${p.y}) ${labelScale}`}
+							role={ticketCityCounts[city.id] ? 'button' : undefined}
+							tabindex={ticketCityCounts[city.id] ? 0 : undefined}
+							aria-label={ticketCityCounts[city.id]
+								? `${city.name}: preview ${ticketCityCounts[city.id]} destination ticket${ticketCityCounts[city.id] === 1 ? '' : 's'}`
+								: undefined}
+							aria-pressed={ticketCityCounts[city.id] ? previewedCityId === city.id : undefined}
+							onpointerenter={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+							onpointerleave={() => ticketCityCounts[city.id] && oncityhover?.()}
+							onfocus={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+							onblur={() => ticketCityCounts[city.id] && oncityhover?.()}
+							onclick={() => ticketCityCounts[city.id] && oncityhover?.(city.id)}
+							onkeydown={event => {
+								if (event.key === 'Escape') {
+									event.preventDefault();
+									oncityhover?.();
+								}
+								if (event.key === 'Enter' || event.key === ' ') {
+									event.preventDefault();
+									oncityhover?.(city.id);
+								}
+							}}
+						>
+							<circle class="city-shadow" cy="1.8" r="10.5" /><circle class="city-hub" r="9.2" /><circle
+								class="city-center"
+								r="5.4"
+							/>
+							<text x="0" y={labelBelow ? 25 : -17 - (labelLines.length - 1) * 16} text-anchor="middle">
+								{#each labelLines as line, lineIndex}<tspan x="0" dy={lineIndex === 0 ? 0 : 16}>{line}</tspan>{/each}
+							</text>
 						</g>
 					{/each}
-				</g>
-			</svg>
+					<g class="compass" transform={`translate(${W - 50} ${H - 72})`} aria-hidden="true"
+						><circle r="22" /><path d="M0-18 4-4 18 0 4 4 0 18 -4 4 -18 0 -4-4Z" /><text y="-28">N</text></g
+					>
+				</svg>
+				<svg class="board-overlay" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+					{#if highlightedRouteId}
+						{@const highlightedRoute = routes.find(route => route.id === highlightedRouteId)}
+						{#if highlightedRoute}
+							<g class="journal-route-highlight" transition:fade={{ duration: motionEnabled ? 150 : 0 }}>
+								<path class="journal-halo" d={path(highlightedRoute)} />
+								<path class="journal-line" d={path(highlightedRoute)} />
+								{#each layout.routeEnds(highlightedRoute) as city}
+									<circle cx={city.x} cy={city.y} r="11" />
+								{/each}
+							</g>
+						{/if}
+					{/if}
+					<g class="ticket-preview-layer" aria-hidden="true">
+						{#each ['ticket-trace-underlay', 'ticket-trace'] as layer}
+							{#each celebratingTicket ? [] : highlightedTickets as ticket (ticket.id)}
+								{@const [a, b] = ticketEnds(ticket)}
+								<path
+									class={layer}
+									transition:fade={{ duration: motionEnabled ? 180 : 0 }}
+									d={`M${a.x},${a.y} Q${(a.x + b.x) / 2},${(a.y + b.y) / 2 - 35} ${b.x},${b.y}`}
+								/>
+							{/each}
+						{/each}
+						{#each cityStops.filter( stop => highlightedTickets.some(ticket => ticket.cityA === stop.city.id || ticket.cityB === stop.city.id), ) as stop (stop.key)}
+							{@const p = stop.p}
+							<g class="ticket-endpoint" transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
+								<circle class="endpoint-ring" r="21" transition:fade={{ duration: motionEnabled ? 180 : 0 }} />
+								<circle class="city-hub" r="9.2" /><circle class="city-center" r="5.4" />
+							</g>
+						{/each}
+					</g>
+				</svg>
+			</div>
 		</div>
+		{#if artworkError}<button
+				class="artwork-retry"
+				onclick={async () => {
+					try {
+						manifest = await loadCarriageSprites();
+						artworkError = false;
+					} catch {}
+				}}>Reload carriage artwork</button
+			>{/if}
+		<p id="board-help" class="board-help">
+			Use arrow keys to move between open routes, then Enter or Space to select one. {highlightedTickets
+				.map(ticket => `Previewing ${cityById.get(ticket.cityA)!.name} to ${cityById.get(ticket.cityB)!.name}.`)
+				.join(' ')}
+		</p>
 	</div>
-	{#if artworkError}<button
-			class="artwork-retry"
-			onclick={async () => {
-				try {
-					manifest = await loadCarriageSprites();
-					artworkError = false;
-				} catch {}
-			}}>Reload carriage artwork</button
-		>{/if}
-	<p id="board-help" class="board-help">
-		Use arrow keys to move between open routes, then Enter or Space to select one. {highlightedTickets
-			.map(ticket => `Previewing ${cityById.get(ticket.cityA)!.name} to ${cityById.get(ticket.cityB)!.name}.`)
-			.join(' ')}
-	</p>
 </div>
 
 <RouteHintLayer
@@ -595,11 +622,23 @@
 />
 
 <style>
+	.route-locomotive-symbol {
+		fill: #2b2a28;
+		opacity: 0.8;
+		pointer-events: none;
+	}
 	.route-color-symbol {
 		color: #f1e8cf;
 		opacity: 0.76;
 		filter: drop-shadow(0 0.5px 0.45px #27251f);
 		pointer-events: none;
+	}
+	.board-slot {
+		width: 100%;
+		height: 100%;
+		min-height: 284px;
+		display: grid;
+		place-items: center;
 	}
 	.board-frame {
 		user-select: none;
@@ -639,7 +678,6 @@
 	}
 	.board-stage {
 		position: relative;
-		aspect-ratio: 1000/620;
 		flex-shrink: 0;
 		margin: auto;
 	}
@@ -693,8 +731,7 @@
 		letter-spacing: 2px;
 		pointer-events: none;
 	}
-	.geography text:first-child,
-	.geography text:nth-child(2) {
+	.geography .land {
 		fill: #82755a99;
 		font:
 			10px Georgia,

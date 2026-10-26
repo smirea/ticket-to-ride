@@ -7,14 +7,13 @@
 		createDebugFinalScenario,
 		createDebugTicketScenario,
 		createGame,
-		USA_TICKETS,
-		USA_ROUTES,
+		getGameMap,
 		TRAIN_CARDS,
-		ROUTE_SCORES,
 		type GameAction,
 		type GameState,
 	} from '@repo/shared';
 
+	const usa = getGameMap('usa');
 	let game = $state<GameState>(createDebugClaimScenario());
 	let viewerId = $state('player');
 	let error = $state('');
@@ -45,7 +44,7 @@
 			const result = applyGameAction(next, { type: 'keep-opening-tickets', playerId, ticketIds: offer.slice(0, 2) });
 			if (result.ok) next = result.state;
 		}
-		next.players[0].tickets = USA_TICKETS.slice(0, 12).map(ticket => ticket.id);
+		next.players[0].tickets = usa.tickets.slice(0, 12).map(ticket => ticket.id);
 		next.destinationDeck = next.destinationDeck.filter(id => !next.players.some(player => player.tickets.includes(id)));
 		for (const color of TRAIN_CARDS) next.players[0].hand[color] = color === 'locomotive' ? 2 : 4;
 		loadScenario(next);
@@ -79,12 +78,12 @@
 		];
 		paths.forEach((pairs, playerIndex) => {
 			for (const [a, b] of pairs) {
-				const route = USA_ROUTES.find(
+				const route = usa.routes.find(
 					route => (route.cityA === a && route.cityB === b) || (route.cityA === b && route.cityB === a),
 				)!;
 				next.claimedRoutes[route.id] = next.players[playerIndex]!.id;
 				next.players[playerIndex]!.trains -= route.length;
-				next.players[playerIndex]!.score += ROUTE_SCORES[route.length]!;
+				next.players[playerIndex]!.score += usa.rules.routeScores[route.length]!;
 			}
 		});
 		next.players[0].tickets = ['portland-phoenix', 'chicago-santa-fe'];
@@ -105,7 +104,7 @@
 			['portland', 'san-francisco'],
 			['los-angeles', 'phoenix'],
 		]) {
-			const route = USA_ROUTES.find(
+			const route = usa.routes.find(
 				route => (route.cityA === a && route.cityB === b) || (route.cityA === b && route.cityB === a),
 			)!;
 			next.claimedRoutes[route.id] = 'player';

@@ -1,8 +1,8 @@
 import { expect, test } from 'bun:test';
-import { applyGameAction, createDebugClaimScenario, TRAIN_CARDS, USA_ROUTES } from '@repo/shared';
+import { applyGameAction, createDebugClaimScenario, getGameMap, TRAIN_CARDS } from '@repo/shared';
 import { routePayments } from './route-payments';
 
-const route = USA_ROUTES.find(route => route.id === 'phoenix-santa-fe-gray')!;
+const route = getGameMap('usa').routes.find(route => route.id === 'phoenix-santa-fe-gray')!;
 function scenario() {
 	const state = createDebugClaimScenario();
 	for (const color of TRAIN_CARDS) state.players[0]!.hand[color] = 0;

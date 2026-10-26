@@ -1,7 +1,7 @@
+import type { MechanicEvent } from './mechanics/types';
 import {
-	getRoute,
-	USA_CITIES,
-	type Player,
+	gameMap,
+	type GameState,
 	type PlayerId,
 	type RouteId,
 	type TicketId,
@@ -27,17 +27,21 @@ export type GameEvent =
 	| (PlayerEvent & { type: 'final-round' })
 	| (PlayerEvent & { type: 'pass' })
 	| { type: 'game-over'; winnerIds: PlayerId[] }
-	| { type: 'note'; text: string };
+	| { type: 'note'; text: string }
+	| MechanicEvent;
 
-export function routeName(routeId: RouteId): string {
-	const route = getRoute(routeId);
-	if (!route) return routeId;
-	const city = (id: string) => USA_CITIES.find(city => city.id === id)?.name ?? id;
-	return `${city(route.cityA)}–${city(route.cityB)}`;
+export function cityName(state: Pick<GameState, 'mapId'>, cityId: string): string {
+	return gameMap(state).city(cityId)?.name ?? cityId;
 }
 
-export function formatGameEvent(event: GameEvent, players: readonly Pick<Player, 'id' | 'name'>[]): string {
-	const name = (id: PlayerId) => players.find(player => player.id === id)?.name ?? id;
+export function routeName(state: Pick<GameState, 'mapId'>, routeId: RouteId): string {
+	const route = gameMap(state).route(routeId);
+	if (!route) return routeId;
+	return `${cityName(state, route.cityA)}–${cityName(state, route.cityB)}`;
+}
+
+export function formatGameEvent(event: GameEvent, state: Pick<GameState, 'mapId' | 'players'>): string {
+	const name = (id: PlayerId) => state.players.find(player => player.id === id)?.name ?? id;
 	const player = 'playerId' in event ? name(event.playerId) : '';
 	switch (event.type) {
 		case 'game-started':
@@ -51,7 +55,7 @@ export function formatGameEvent(event: GameEvent, players: readonly Pick<Player,
 		case 'draw-train-deck':
 			return `${player} drew from the train deck.`;
 		case 'claim-route':
-			return `${player} claimed ${routeName(event.routeId)}.`;
+			return `${player} claimed ${routeName(state, event.routeId)}.`;
 		case 'final-round':
 			return `${player} triggered the final round.`;
 		case 'pass':
@@ -60,5 +64,11 @@ export function formatGameEvent(event: GameEvent, players: readonly Pick<Player,
 			return `Game over. ${event.winnerIds.map(name).join(' and ')} ${event.winnerIds.length === 1 ? 'wins' : 'tie for the win'}.`;
 		case 'note':
 			return event.text;
+		default:
+			for (const mechanic of gameMap(state).mechanics) {
+				const text = mechanic.describeEvent?.(event as MechanicEvent, player);
+				if (text) return text;
+			}
+			return `${player} ${(event as { type: string }).type}.`;
 	}
 }

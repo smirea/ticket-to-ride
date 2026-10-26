@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { USA_CITIES, type DestinationTicket, type TicketId } from '@repo/shared';
+	import { type DestinationTicket, type TicketId } from '@repo/shared';
+	import { useGameMap } from './map-context';
 	import { ArrowRight, Check } from 'phosphor-svelte';
 	import { scale } from 'svelte/transition';
 	import DestinationCard from './DestinationCard.svelte';
@@ -23,7 +24,7 @@
 		onpreview: (id: TicketId | undefined) => void;
 		onkeep: () => void;
 	} = $props();
-	const cityNames = new Map(USA_CITIES.map(city => [city.id, city.name]));
+	const game = useGameMap();
 </script>
 
 <div class="ticket-selection" class:reduced-motion={reduceMotion} aria-label="Choose destination tickets">
@@ -33,7 +34,7 @@
 				class="offer"
 				data-offer-ticket={ticket.id}
 				style={`--ticket-angle: ${[-0.9, 0.8, -0.5][index % 3]}deg`}
-				aria-label={`${cityNames.get(ticket.cityA)} to ${cityNames.get(ticket.cityB)}, ${ticket.points} points`}
+				aria-label={`${game.map.city(ticket.cityA)?.name} to ${game.map.city(ticket.cityB)?.name}, ${ticket.points} points`}
 				aria-pressed={selectedIds.includes(ticket.id)}
 				{disabled}
 				onpointerenter={() => onpreview(ticket.id)}

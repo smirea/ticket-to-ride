@@ -1,5 +1,5 @@
 import type { Player, Route } from '@repo/shared';
-import { routeMarkerLength, routeMarkerT, routePoint } from './layout';
+import type { BoardLayout } from './layout';
 
 export type CarriageManifest = {
 	frameSize: number;
@@ -51,17 +51,18 @@ export function loadCarriageSprites() {
 
 export function carriageFrame(
 	manifest: CarriageManifest,
+	layout: BoardLayout,
 	route: Route,
 	index: number,
 	color: Player['color'],
 ): CarriageFrame {
-	const t = routeMarkerT(route, index);
-	const center = routePoint(route, t);
-	const before = routePoint(route, Math.max(0, t - 0.002));
-	const after = routePoint(route, Math.min(1, t + 0.002));
+	const t = layout.routeMarkerT(route, index);
+	const center = layout.routePoint(route, t);
+	const before = layout.routePoint(route, Math.max(0, t - 0.002));
+	const after = layout.routePoint(route, Math.min(1, t + 0.002));
 	const heading = ((Math.atan2(after.y - before.y, after.x - before.x) * 180) / Math.PI + 360) % 360;
 	const frame = Math.round(heading / manifest.headingStep) % manifest.headings;
-	const scale = (routeMarkerLength(route) - 1.2) / manifest.pixelsPerModelUnit;
+	const scale = (layout.routeMarkerLength(route) - 1.2) / manifest.pixelsPerModelUnit;
 	return {
 		src: manifest.sheets[color],
 		sourceX: (frame % manifest.columns) * manifest.frameSize,

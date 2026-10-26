@@ -20,6 +20,7 @@ export interface RoomPlayer extends RoomPlayerProfile {
 }
 
 export interface RoomSettings {
+	mapId: string;
 	maxPlayers: 2 | 3 | 4 | 5;
 	seed: string;
 }
@@ -54,6 +55,7 @@ export interface RemovePlayerRequest {
 }
 
 export interface UpdateRoomSettingsRequest {
+	mapId?: string;
 	maxPlayers?: RoomSettings['maxPlayers'];
 	seed?: string;
 }

@@ -1,24 +1,29 @@
 <script lang="ts">
-	import { ROUTE_SCORES } from '@repo/shared';
+	import { useGameMap } from './map-context';
 	import PointsSeal from './PointsSeal.svelte';
 	import TrainPieceIcon from './TrainPieceIcon.svelte';
+
+	const game = useGameMap();
+	const lengths = $derived([...new Set(game.map.routes.map(route => route.length))].sort((a, b) => a - b));
+	const scores = $derived(game.map.rules.routeScores);
+	const icon = $derived(lengths.at(-1)! > 6 ? 11 : 16);
 </script>
 
 <div
 	class="route-scoring"
 	role="img"
-	aria-label="Route scoring: 1 train earns 1 point; 2 trains earn 2; 3 earn 4; 4 earn 7; 5 earn 10; 6 earn 15 points."
+	aria-label={`Route scoring: ${lengths.map(length => `${length} trains earn ${scores[length]}`).join('; ')} points.`}
 >
-	{#each [1, 2, 3, 4, 5, 6] as length}
+	{#each lengths as length}
 		<div class="row" aria-hidden="true">
 			<span class="length">{length}</span>
 			<div class="carriages">
 				{#each Array(length) as _}
-					<TrainPieceIcon width={16} height={16} />
+					<TrainPieceIcon width={icon} height={icon} />
 				{/each}
 			</div>
 			<span class="arrow">›</span>
-			<span class="seal"><PointsSeal value={ROUTE_SCORES[length]} /></span>
+			<span class="seal"><PointsSeal value={scores[length] ?? length} /></span>
 		</div>
 	{/each}
 </div>

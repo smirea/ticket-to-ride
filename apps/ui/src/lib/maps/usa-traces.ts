@@ -1,9 +1,8 @@
-export type TracePoint = readonly [number, number];
-export type RouteTrace = readonly [TracePoint, TracePoint] | readonly [TracePoint, TracePoint, TracePoint, TracePoint];
+import type { Point, RouteTrace, TracePoint } from './types';
 
 // Coordinates are measured in the supplied 1024 × 683 board photograph, before its scoring frame is cropped.
-export const referenceBounds = { x: 40, y: 45, width: 945, height: 595 };
-export const cityTrace: Record<string, TracePoint> = {
+const referenceBounds = { x: 40, y: 45, width: 945, height: 595 };
+const cityTrace: Record<string, TracePoint> = {
 	vancouver: [110, 105],
 	calgary: [240, 88],
 	winnipeg: [465, 99],
@@ -43,7 +42,7 @@ export const cityTrace: Record<string, TracePoint> = {
 };
 
 // Each lane follows the first marker's outer edge through the last marker's outer edge, including its own parallel offset.
-export const routeTrace: Record<string, RouteTrace> = {
+const routeTrace: Record<string, RouteTrace> = {
 	'vancouver-seattle-gray-a': [
 		[102, 117],
 		[102, 148],
@@ -516,10 +515,17 @@ export const routeTrace: Record<string, RouteTrace> = {
 	],
 };
 
-export function normalizeTracePoint([x, y]: TracePoint) {
+function normalizeTracePoint([x, y]: TracePoint): Point {
 	return {
 		// Landmark registration from the original atlas to its ocean-extended painting.
 		x: 15.744 + ((x - referenceBounds.x) / referenceBounds.width) * 969.32,
 		y: ((y - referenceBounds.y) / referenceBounds.height) * 620,
 	};
 }
+
+export const usaCityPoints: Record<string, Point> = Object.fromEntries(
+	Object.entries(cityTrace).map(([id, point]) => [id, normalizeTracePoint(point)]),
+);
+export const usaTraces: Record<string, Point[]> = Object.fromEntries(
+	Object.entries(routeTrace).map(([id, trace]) => [id, trace.map(normalizeTracePoint)]),
+);

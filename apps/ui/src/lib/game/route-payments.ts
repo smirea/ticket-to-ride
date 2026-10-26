@@ -6,7 +6,7 @@ export function routePayments(state: GameState, playerId: string, route: Route):
 	const player = state.players.find(player => player.id === playerId);
 	if (!player) return [];
 	const options = TRAIN_COLORS.filter(color => route.color === 'gray' || route.color === color).flatMap(color => {
-		const wilds = Math.max(0, route.length - player.hand[color]);
+		const wilds = Math.max(route.locomotives, route.length - player.hand[color]);
 		return canClaimRoute(state, playerId, route.id, color, wilds).ok
 			? [{ color, cars: route.length - wilds, wilds }]
 			: [];

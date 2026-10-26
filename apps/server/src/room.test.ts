@@ -3,7 +3,7 @@ import { existsSync, unlinkSync } from 'node:fs';
 import { constants, gunzipSync } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { CLIENT_ID_HEADER, chooseBotAction, USA_TICKETS, type GameAction, type RoomState } from '@repo/shared';
+import { CLIENT_ID_HEADER, chooseBotAction, getGameMap, type GameAction, type RoomState } from '@repo/shared';
 import { createRequestHandler } from './app';
 import { RoomService } from './room-service';
 import { RoomStore } from './room-store';
@@ -343,8 +343,12 @@ describe('authoritative game actions', () => {
 		const room = context.store.getRoom(started.code)!;
 		const game = room.game!;
 		const bob = game.players.find(player => player.id === 'bob')!;
-		const completed = USA_TICKETS.find(ticket => ticket.cityA === 'denver' && ticket.cityB === 'el-paso')!;
-		const unfinished = USA_TICKETS.find(ticket => ticket.cityA === 'portland' && ticket.cityB === 'phoenix')!;
+		const completed = getGameMap('usa').tickets.find(
+			ticket => ticket.cityA === 'denver' && ticket.cityB === 'el-paso',
+		)!;
+		const unfinished = getGameMap('usa').tickets.find(
+			ticket => ticket.cityA === 'portland' && ticket.cityB === 'phoenix',
+		)!;
 		bob.tickets = [completed.id, unfinished.id];
 		game.claimedRoutes['denver-santa-fe-gray'] = bob.id;
 		game.claimedRoutes['santa-fe-el-paso-gray'] = bob.id;

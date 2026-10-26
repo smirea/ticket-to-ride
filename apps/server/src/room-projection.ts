@@ -1,4 +1,5 @@
 import {
+	gameMap,
 	isTicketComplete,
 	TRAIN_CARDS,
 	type GameAction,
@@ -50,6 +51,7 @@ function projectGame(game: GameState, viewerId: string): GameState {
 	if (projected.phase.type === 'ticket-selection' && projected.phase.playerId !== viewerId) {
 		projected.phase.ticketIds = privateTicketIds('offer', projected.phase.ticketIds.length);
 	}
+	for (const mechanic of gameMap(game).mechanics) mechanic.redact?.(projected, viewerId);
 	return projected;
 }
 

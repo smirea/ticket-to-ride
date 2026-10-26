@@ -9,7 +9,6 @@
 		"./map-schema": "./src/map-schema.ts"
 	},
 	"dependencies": {
-		"xstate": "^5.32.5",
 		"zod": "^4.4.3"
 	}
 }

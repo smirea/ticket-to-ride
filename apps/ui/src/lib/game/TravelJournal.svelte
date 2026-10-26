@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { USA_CITIES, type DestinationTicket, type GameState } from '@repo/shared';
+	import { cityName, type DestinationTicket, type GameState } from '@repo/shared';
 	import XIcon from 'phosphor-svelte/lib/XIcon';
 	import CardsIcon from 'phosphor-svelte/lib/CardsIcon';
 	import TicketIcon from 'phosphor-svelte/lib/TicketIcon';
@@ -35,8 +35,7 @@
 		white: '#eee4cc',
 		locomotive: '#617077',
 	};
-	const cities = new Map(USA_CITIES.map(city => [city.id, city.name]));
-	const ticketName = (ticket: DestinationTicket) => `${cities.get(ticket.cityA)}–${cities.get(ticket.cityB)}`;
+	const ticketName = (ticket: DestinationTicket) => `${cityName(state, ticket.cityA)}–${cityName(state, ticket.cityB)}`;
 	let rows = $derived(journalRows(state, viewerId));
 	function preview(row: JournalRow) {
 		onpreview?.(row.routeId ? { routeId: row.routeId } : row.tickets?.[0] ? { ticket: row.tickets[0] } : undefined);

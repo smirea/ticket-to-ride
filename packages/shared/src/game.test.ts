@@ -1,13 +1,8 @@
 import { describe, expect, test } from 'bun:test';
-import { readFileSync } from 'node:fs';
-import { createActor } from 'xstate';
 import {
 	DEBUG_ROUTE_ID,
 	PLAYER_COLORS,
 	TRAIN_CARDS,
-	USA_CITIES,
-	USA_ROUTES,
-	USA_TICKETS,
 	applyGameAction,
 	calculateLongestPath,
 	canClaimRoute,
@@ -15,14 +10,15 @@ import {
 	createDebugClaimScenario,
 	createDebugFinalRoundScenario,
 	createGame,
-	getGameMachineState,
-	gameMachine,
 	playBotTurns,
 	replayGame,
 	restoreGameState,
 	type CreateGameOptions,
 	type GameState,
 } from './game';
+import { getGameMap } from './maps';
+
+const usa = getGameMap('usa');
 
 function keepOpening(state: GameState, playerId: string, count = 2): GameState {
 	const result = applyGameAction(state, {
@@ -40,10 +36,10 @@ function finishTicketSelection(state: GameState): GameState {
 
 describe('classic USA setup', () => {
 	test('contains the complete board and creates reproducible serializable games', () => {
-		expect(USA_CITIES).toHaveLength(36);
-		expect(USA_ROUTES).toHaveLength(100);
-		expect(new Set(USA_ROUTES.map(route => route.id)).size).toBe(100);
-		expect(USA_TICKETS).toHaveLength(30);
+		expect(usa.cities).toHaveLength(36);
+		expect(usa.routes).toHaveLength(100);
+		expect(new Set(usa.routes.map(route => route.id)).size).toBe(100);
+		expect(usa.tickets).toHaveLength(30);
 
 		const first = createGame({ seed: 'same-game', botCount: 3 });
 		const second = createGame({ seed: 'same-game', botCount: 3 });
@@ -122,56 +118,31 @@ describe('classic USA setup', () => {
 });
 
 describe('turn rules', () => {
-	test('a running actor rejects invalid events after successful actions without retaining an old result', () => {
-		const state = finishTicketSelection(createGame({ seed: 'actor-invalid-action', botCount: 1 }));
-		const actor = createActor(gameMachine, { input: { game: state } }).start();
-		actor.send({ type: 'draw-train-deck' });
-		const first = actor.getSnapshot();
-		expect(first.value).toBe('turnSecondDraw');
-		expect(first.context.lastResult?.ok).toBe(true);
-		actor.send({ type: 'draw-destination-tickets' });
-		const rejected = actor.getSnapshot();
-		expect(rejected.value).toBe('turnSecondDraw');
-		expect(rejected.context.lastResult?.ok).toBe(false);
-		expect(rejected.context.game).toBe(first.context.game);
-		actor.send({ type: 'draw-train-deck' });
-		expect(actor.getSnapshot().value).toBe('turnReady');
-		expect(actor.getSnapshot().context.game.currentPlayerIndex).toBe(1);
-		expect(first.context.game.currentPlayerIndex).toBe(0);
-		expect(first.context.game.history).toHaveLength(state.history.length + 1);
-		actor.stop();
-	});
-
-	test('five-player actor games match stateless multiplayer transitions through final scoring', () => {
+	test('five-player bot games reach final scoring', () => {
 		let state = createGame({ seed: 'actor-five-travelers', botCount: 4 });
 		state.players.forEach(player => {
 			player.isBot = true;
 		});
-		const actor = createActor(gameMachine, { input: { game: state } }).start();
 		for (let step = 0; step < 1500 && state.phase.type !== 'game-over'; step += 1) {
 			const action = chooseBotAction(state);
 			if (!action) throw new Error('Bot has no legal move.');
 			const result = applyGameAction(state, action);
 			if (!result.ok) throw new Error(result.error);
-			actor.send(action);
 			state = result.state;
-			expect(actor.getSnapshot().context.game).toEqual(state);
-			expect(actor.getSnapshot().value).toBe(getGameMachineState(state));
 		}
-		expect(actor.getSnapshot().value).toBe('gameOver');
+		expect(state.phase.type).toBe('game-over');
 		expect(state.finalResults).toHaveLength(5);
-		actor.stop();
 	});
 
-	test('uses XState nodes as the authoritative turn lifecycle', () => {
+	test('moves through the turn lifecycle', () => {
 		let state = createGame({ seed: 'machine-lifecycle', botCount: 1 });
-		expect(getGameMachineState(state)).toBe('openingTickets');
+		expect(state.phase.type).toBe('opening-tickets');
 		state = finishTicketSelection(state);
-		expect(getGameMachineState(state)).toBe('turnReady');
+		expect(state.phase).toEqual({ type: 'turn', drawsTaken: 0 });
 
 		const firstDraw = applyGameAction(state, { type: 'draw-train-deck' });
 		if (!firstDraw.ok) throw new Error(firstDraw.error);
-		expect(getGameMachineState(firstDraw.state)).toBe('turnSecondDraw');
+		expect(firstDraw.state.phase).toEqual({ type: 'turn', drawsTaken: 1 });
 		const rejected = applyGameAction(firstDraw.state, {
 			type: 'claim-route',
 			routeId: DEBUG_ROUTE_ID,
@@ -182,13 +153,13 @@ describe('turn rules', () => {
 
 		const tickets = applyGameAction(state, { type: 'draw-destination-tickets' });
 		if (!tickets.ok) throw new Error(tickets.error);
-		expect(getGameMachineState(tickets.state)).toBe('destinationTicketSelection');
+		expect(tickets.state.phase.type).toBe('ticket-selection');
 
 		const finalState = createDebugFinalRoundScenario();
 		finalState.faceUpTrainCards[0] = 'locomotive';
 		const finished = applyGameAction(finalState, { type: 'draw-face-up', index: 0 });
 		if (!finished.ok) throw new Error(finished.error);
-		expect(getGameMachineState(finished.state)).toBe('gameOver');
+		expect(finished.state.phase.type).toBe('game-over');
 		const afterGame = applyGameAction(finished.state, { type: 'draw-train-deck' });
 		expect(afterGame.ok).toBe(false);
 		expect(afterGame.state).toBe(finished.state);
@@ -335,17 +306,6 @@ describe('destination tickets', () => {
 		expect(applyGameAction(restored, { type: 'keep-tickets', ticketIds: [drawn.state.phase.ticketIds[0]!] }).ok).toBe(
 			true,
 		);
-	});
-
-	test('matches the printed USA board colors', () => {
-		const map = JSON.parse(readFileSync(new URL('../../../rules/map-usa/map.json', import.meta.url), 'utf8')) as {
-			connections: Array<{ start: string; end: string; links: Array<{ color: string }> }>;
-		};
-		const key = (a: string, b: string, length: number, color: string) =>
-			`${[a, b].sort().join('|')}:${length}:${color}`;
-		const printed = map.connections.map(item => key(item.start, item.end, item.links.length, item.links[0]!.color));
-		const engine = USA_ROUTES.map(item => key(item.cityA, item.cityB, item.length, item.color));
-		expect(engine.sort()).toEqual(printed.sort());
 	});
 
 	test('offers every remaining ticket when fewer than three remain', () => {
@@ -689,6 +649,7 @@ describe('final round and scoring', () => {
 			completedTickets: 1,
 			longestPath: 4,
 			longestRouteBonus: 10,
+			bonuses: [],
 			finalScore: 13,
 			rank: 1,
 		});
@@ -778,7 +739,7 @@ describe('persistence and full simulation', () => {
 		delete legacy.history;
 		delete legacy.openingTicketOffers;
 		const restored = restoreGameState(legacy);
-		expect(restored.version).toBe(4);
+		expect(restored.version).toBe(5);
 		expect('destinationDiscard' in restored).toBe(false);
 		expect(restored.finalRound).toBeNull();
 		expect(restored.finalResults).toBeNull();

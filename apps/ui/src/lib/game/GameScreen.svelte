@@ -3,12 +3,10 @@
 		canClaimRoute,
 		canDrawTrainCards,
 		isTicketComplete,
+		gameMap,
 		openingTicketMinimum,
-		ROUTE_SCORES,
+		routeScore,
 		TRAIN_CARDS,
-		USA_CITIES,
-		USA_ROUTES,
-		USA_TICKETS,
 		type DestinationTicket,
 		type GameAction,
 		type GameState,
@@ -47,6 +45,7 @@
 	import ClaimFlight from './ClaimFlight.svelte';
 	import type { CarriageSprite } from './board/carriage-sprites';
 	import { playerPortraitAssets } from './assets';
+	import { setGameMapContext } from './map-context';
 
 	type Props = {
 		state: GameState;
@@ -58,8 +57,8 @@
 		debug?: boolean;
 	};
 	let { state: gameState, viewerId, send, onrestart, ongamespeedchange, onidlechange, debug = false }: Props = $props();
-	const cityById = new Map(USA_CITIES.map(city => [city.id, city]));
-	const ticketById = new Map(USA_TICKETS.map(ticket => [ticket.id, ticket]));
+	const map = $derived(gameMap(gameState));
+	setGameMapContext(() => gameState.mapId);
 	const cardLabels: Record<CardColor, string> = {
 		red: 'Red',
 		orange: 'Orange',
@@ -111,7 +110,7 @@
 	type Flight = {
 		id: number;
 		color?: CardColor;
-		ticket?: (typeof USA_TICKETS)[number];
+		ticket?: DestinationTicket;
 		from: CardRect;
 		to: CardRect;
 		blind?: boolean;
@@ -148,7 +147,7 @@
 
 	const viewer = $derived(gameState.players.find(player => player.id === viewerId));
 	const paymentsByRoute = $derived(
-		new Map(USA_ROUTES.map(route => [route.id, routePayments(gameState, viewerId, route)])),
+		new Map(map.routes.map(route => [route.id, routePayments(gameState, viewerId, route)])),
 	);
 	const paymentOptions = $derived(paymentRoute ? (paymentsByRoute.get(paymentRoute.id) ?? []) : []);
 	const currentPlayer = $derived(gameState.players[gameState.currentPlayerIndex]);
@@ -178,15 +177,15 @@
 	const ticketSelection = $derived.by(() => {
 		if (gameState.phase.type === 'opening-tickets') {
 			const offer = gameState.openingTicketOffers[viewerId];
-			return offer && { ticketIds: offer, minimum: openingTicketMinimum(offer) };
+			return offer && { ticketIds: offer, minimum: openingTicketMinimum(gameState, offer) };
 		}
 		return gameState.phase.type === 'ticket-selection' && gameState.phase.playerId === viewerId
 			? gameState.phase
 			: undefined;
 	});
-	const offeredTickets = $derived(ticketSelection?.ticketIds.flatMap(id => ticketById.get(id) ?? []) ?? []);
+	const offeredTickets = $derived(ticketSelection?.ticketIds.flatMap(id => map.ticket(id) ?? []) ?? []);
 	const heldTickets = $derived(
-		[...new Set([...(viewer?.tickets ?? []), ...keptTicketIds])].flatMap(id => ticketById.get(id) ?? []),
+		[...new Set([...(viewer?.tickets ?? []), ...keptTicketIds])].flatMap(id => map.ticket(id) ?? []),
 	);
 	const completedIds = $derived(
 		new Set(heldTickets.filter(ticket => isTicketComplete(gameState, viewerId, ticket.id)).map(ticket => ticket.id)),
@@ -204,7 +203,7 @@
 	const cityTicketIds = $derived(new Set(cityTickets.map(ticket => ticket.id)));
 	const ticketCityCounts = $derived(
 		Object.fromEntries(
-			USA_CITIES.map(city => [
+			map.cities.map(city => [
 				city.id,
 				heldTickets.filter(ticket => ticket.cityA === city.id || ticket.cityB === city.id).length,
 			]),
@@ -217,9 +216,7 @@
 	);
 
 	const highlightedTicket = $derived(
-		completionTicket?.ticket ??
-			journalPreview?.ticket ??
-			(previewTicketId ? ticketById.get(previewTicketId) : undefined),
+		completionTicket?.ticket ?? journalPreview?.ticket ?? (previewTicketId ? map.ticket(previewTicketId) : undefined),
 	);
 	const highlightedTickets = $derived(
 		completionTicket
@@ -584,16 +581,16 @@
 			wilds: choice?.wilds ?? 0,
 			cars: choice?.cars ?? 0,
 			ok: Boolean(choice),
-			points: ROUTE_SCORES[route.length] ?? route.length,
+			points: routeScore(gameState, route),
 		};
 	}
 	const eligibleRouteIds = $derived(
-		activeCard ? USA_ROUTES.filter(route => claimInfo(route, activeCard).ok).map(route => route.id) : undefined,
+		activeCard ? map.routes.filter(route => claimInfo(route, activeCard).ok).map(route => route.id) : undefined,
 	);
 	const routeHints = $derived(
 		activeCard
 			? Object.fromEntries(
-					USA_ROUTES.flatMap(route => {
+					map.routes.flatMap(route => {
 						const info = claimInfo(route, activeCard);
 						return info.ok && info.color
 							? [[route.id, { points: info.points, cars: info.cars, color: info.color, wilds: info.wilds }]]
@@ -607,7 +604,7 @@
 		const route = hoveredRoute;
 		if (!route || paymentRoute || busy || historyOpen || hoveredCityId) return undefined;
 		const options = paymentsByRoute.get(route.id) ?? [];
-		const points = ROUTE_SCORES[route.length] ?? 0;
+		const points = routeScore(gameState, route);
 		return {
 			routeId: route.id,
 			hints: options.length ? options.map(option => ({ ...option, points })) : [{ points, unavailable: true }],
@@ -625,7 +622,7 @@
 	}
 
 	function cityName(id: string) {
-		return cityById.get(id)?.name ?? id;
+		return map.city(id)?.name ?? id;
 	}
 	function canDrawFaceUp(card: CardColor) {
 		return (
@@ -808,7 +805,7 @@
 				await Promise.all(
 					sources.map(async ({ id, element, from }, i) => {
 						const target = document.querySelector<HTMLElement>(`[data-held-ticket="${id}"]`);
-						const ticket = ticketById.get(id);
+						const ticket = map.ticket(id);
 						if (!element || !from || !target || !ticket) return;
 						const flightId = ++nextFlightId;
 						flights = [...flights, { id: flightId, ticket, from, to: paperPose(target), delay: i * 120 }];
@@ -863,7 +860,7 @@
 	style:--train-card-width={`${trainCardWidth}px`}
 >
 	<header class="table-header" inert={Boolean(paymentRoute || completionTicket)}>
-		<div class="identity"><Brand compact /><span class="map-edition">Classic USA</span></div>
+		<div class="identity"><Brand compact /><span class="map-edition">{map.name}</span></div>
 		<div class="players" aria-label="Players" style:--players={gameState.players.length}>
 			{#each gameState.players as player, index (player.id)}
 				<PlayerPlaque
@@ -875,7 +872,7 @@
 						: player.id === activePlayer?.id && gameState.phase.type !== 'game-over'}
 					color={playerColors[player.color]}
 					completedTickets={player.completedTicketCount ??
-						(player.tickets.every(id => ticketById.has(id))
+						(player.tickets.every(id => map.ticket(id))
 							? player.tickets.filter(id => isTicketComplete(gameState, player.id, id)).length
 							: undefined)}
 				/>
@@ -1039,7 +1036,7 @@
 		<RoutePayment
 			routeId={paymentRoute.id}
 			options={paymentOptions}
-			points={ROUTE_SCORES[paymentRoute.length] ?? 0}
+			points={routeScore(gameState, paymentRoute)}
 			{reduceMotion}
 			onpreview={payment => (previewPayment = payment)}
 			onchoose={payment => {

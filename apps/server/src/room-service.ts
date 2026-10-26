@@ -1,9 +1,11 @@
 import { isDeepStrictEqual } from 'node:util';
 import {
+	DEFAULT_MAP_ID,
 	PLAYER_COLORS,
-	TRAIN_COLORS,
 	applyGameAction,
 	createGame,
+	findGameMap,
+	parseGameAction,
 	type CreateGameOptions,
 	type CreateRoomRequest,
 	type GameAction,
@@ -68,6 +70,7 @@ export class RoomService {
 		if (!code) throw new RoomError('Could not allocate a room code.', 503);
 
 		const settings = validateSettings({
+			mapId: request.settings?.mapId ?? DEFAULT_MAP_ID,
 			maxPlayers: request.settings?.maxPlayers ?? 5,
 			seed: request.settings?.seed ?? crypto.randomUUID(),
 		});
@@ -180,6 +183,7 @@ export class RoomService {
 		if (room.phase !== 'lobby') throw new RoomError('Settings cannot change after the game starts.', 409);
 		if (room.hostId !== clientId) throw new RoomError('Only the room host can change settings.', 403);
 		const settings = validateSettings({
+			mapId: request.mapId ?? room.settings.mapId,
 			maxPlayers: request.maxPlayers ?? room.settings.maxPlayers,
 			seed: request.seed ?? room.settings.seed,
 		});
@@ -202,10 +206,15 @@ export class RoomService {
 		const players = activeRoomPlayers(room);
 		if (players.length < 2) throw new RoomError('At least two players are required.', 409);
 		if (players.some(player => !player.ready)) throw new RoomError('Every player must be ready.', 409);
+		const map = findGameMap(room.settings.mapId)!;
+		if (!map.players.includes(players.length)) {
+			throw new RoomError(`${map.name} is played with ${map.players.join(', ')} players.`, 409);
+		}
 
 		const gameOptions: CreateGameOptions & {
 			players: Array<Pick<RoomPlayer, 'id' | 'name' | 'color'> & { isBot: boolean }>;
 		} = {
+			mapId: room.settings.mapId,
 			seed: room.settings.seed,
 			players: players.map(player => ({
 				id: player.id,
@@ -225,11 +234,11 @@ export class RoomService {
 		if (typeof request.actionId !== 'string' || !ACTION_ID_PATTERN.test(request.actionId)) {
 			throw new RoomError('actionId is invalid.', 400);
 		}
-		const action = normalizeGameAction(request.action);
 		if (!Number.isSafeInteger(request.expectedRevision) || request.expectedRevision < 1) {
 			throw new RoomError('expectedRevision is invalid.', 400);
 		}
 		const room = this.requireRoom(code);
+		const action = parseAction(room.settings.mapId, request.action);
 		const duplicate = this.store.getAcceptedAction(room.code, request.actionId);
 		if (duplicate) {
 			if (duplicate.playerId !== clientId || !isDeepStrictEqual(duplicate.action, action)) {
@@ -312,49 +321,25 @@ function validateProfile(profile: JoinRoomRequest): void {
 }
 
 function validateSettings(settings: RoomSettings): RoomSettings {
+	const map = typeof settings.mapId === 'string' ? findGameMap(settings.mapId) : undefined;
+	if (!map) throw new RoomError('mapId is invalid.', 400);
 	if (![2, 3, 4, 5].includes(settings.maxPlayers)) throw new RoomError('maxPlayers must be from 2 to 5.', 400);
+	if (settings.maxPlayers > Math.max(...map.players)) {
+		throw new RoomError(`${map.name} seats at most ${Math.max(...map.players)} players.`, 400);
+	}
 	if (typeof settings.seed !== 'string' || settings.seed.trim().length < 1 || settings.seed.length > 80) {
 		throw new RoomError('seed must contain 1 to 80 characters.', 400);
 	}
-	return { maxPlayers: settings.maxPlayers, seed: settings.seed.trim() };
+	return { mapId: map.id, maxPlayers: settings.maxPlayers, seed: settings.seed.trim() };
 }
 
-// Rebuilds the action from known fields so extra payload never reaches the stored history.
-function normalizeGameAction(action: GameAction): GameAction {
-	if (!action || typeof action !== 'object' || typeof action.type !== 'string') {
+// The parsed action is what gets stored, so extra client payload never reaches the history.
+function parseAction(mapId: string, action: unknown): GameAction {
+	try {
+		return parseGameAction(mapId, action);
+	} catch {
 		throw new RoomError('action is invalid.', 400);
 	}
-	if (action.type === 'keep-tickets' || action.type === 'keep-opening-tickets') {
-		const { ticketIds } = action;
-		if (
-			!Array.isArray(ticketIds) ||
-			ticketIds.length > 3 ||
-			ticketIds.some(ticketId => typeof ticketId !== 'string' || ticketId.length > 64)
-		) {
-			throw new RoomError('ticketIds is invalid.', 400);
-		}
-		if (action.type === 'keep-tickets') return { type: action.type, ticketIds: [...ticketIds] };
-		if (typeof action.playerId !== 'string') throw new RoomError('playerId is invalid.', 400);
-		return { type: action.type, playerId: action.playerId, ticketIds: [...ticketIds] };
-	}
-	if (action.type === 'draw-destination-tickets' || action.type === 'draw-train-deck' || action.type === 'pass') {
-		return { type: action.type };
-	}
-	if (action.type === 'draw-face-up') {
-		if (!Number.isInteger(action.index) || action.index < 0) throw new RoomError('index is invalid.', 400);
-		return { type: action.type, index: action.index };
-	}
-	if (action.type === 'claim-route') {
-		const { routeId, paymentColor, locomotives } = action;
-		if (typeof routeId !== 'string' || routeId.length > 128 || !TRAIN_COLORS.includes(paymentColor)) {
-			throw new RoomError('route claim is invalid.', 400);
-		}
-		if (locomotives !== undefined && (!Number.isInteger(locomotives) || locomotives < 0)) {
-			throw new RoomError('locomotive count is invalid.', 400);
-		}
-		return { type: action.type, routeId, paymentColor, ...(locomotives === undefined ? {} : { locomotives }) };
-	}
-	throw new RoomError('action type is invalid.', 400);
 }
 
 function createPlayer(clientId: string, profile: RoomPlayerProfile, joinedAt: string): RoomPlayer {
