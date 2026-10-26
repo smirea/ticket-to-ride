@@ -19,4 +19,8 @@ export const pennsylvaniaArt: BoardArt = {
 	// The plaques overhang the top edge of the table, so the top row of cities is labelled below.
 	labelBelow: ['buffalo', 'rochester', 'syracuse'],
 	bends: layout.bends,
+	geography: [
+		{ text: 'Lake\nErie', x: 0.07, y: 0.2, kind: 'sea' },
+		{ text: 'Atlantic\nOcean', x: 0.95, y: 0.92, kind: 'sea' },
+	],
 };

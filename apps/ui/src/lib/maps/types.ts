@@ -2,12 +2,13 @@ export type Point = { x: number; y: number };
 export type TracePoint = readonly [number, number];
 export type RouteTrace = readonly [TracePoint, TracePoint] | readonly [TracePoint, TracePoint, TracePoint, TracePoint];
 
+// A sea, lake or country name painted on the board. `x` and `y` are its centre, normalized to the board (0 to 1);
+// `\n` breaks a line. Labels keep their screen size like city names.
 export interface GeographyLabel {
 	text: string;
 	x: number;
 	y: number;
 	rotate?: number;
-	// Country names are spaced capitals; seas are italic.
 	kind: 'land' | 'sea';
 }
 

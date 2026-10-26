@@ -8,4 +8,8 @@ export const theHeartOfAfricaArt: BoardArt = {
 	flag: '/game-assets/maps/the-heart-of-africa/flag.svg',
 	bends: layout.bends,
 	labelBelow: ['sudan', 'port-elizabeth'],
+	geography: [
+		{ text: 'Atlantic\nOcean', x: 0.06, y: 0.62, rotate: -80, kind: 'sea' },
+		{ text: 'Indian\nOcean', x: 0.96, y: 0.3, rotate: 80, kind: 'sea' },
+	],
 };

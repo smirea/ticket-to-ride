@@ -15,4 +15,8 @@ export const japanArt: BoardArt = {
 		],
 		hakodate: [{ x: 0.95, y: 0.105 }],
 	},
+	geography: [
+		{ text: 'Sea of Japan', x: 0.74, y: 0.31, kind: 'sea' },
+		{ text: 'Pacific Ocean', x: 0.88, y: 0.93, kind: 'sea' },
+	],
 };

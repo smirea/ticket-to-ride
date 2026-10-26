@@ -8,10 +8,8 @@ export const indiaArt: BoardArt = {
 	flag: '/game-assets/maps/india/flag.svg',
 	bends: layout.bends,
 	geography: [
-		{ text: 'T I B E T', x: 550, y: 95, kind: 'land' },
-		{ text: 'ARABIAN', x: 74, y: 783, kind: 'sea' },
-		{ text: 'SEA', x: 74, y: 800, kind: 'sea' },
-		{ text: 'BAY OF', x: 600, y: 690, kind: 'sea' },
-		{ text: 'BENGAL', x: 600, y: 707, kind: 'sea' },
+		{ text: 'TIBET', x: 0.82, y: 0.09, kind: 'land' },
+		{ text: 'Arabian\nSea', x: 0.15, y: 0.75, kind: 'sea' },
+		{ text: 'Bay of\nBengal', x: 0.88, y: 0.66, kind: 'sea' },
 	],
 };

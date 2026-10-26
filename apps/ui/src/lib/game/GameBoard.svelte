@@ -463,13 +463,12 @@
 
 					<g class="geography" aria-hidden="true">
 						{#each layout.art.geography ?? [] as label}
-							<text
-								class={label.kind}
-								x={label.x}
-								y={label.y}
-								transform={label.rotate ? `rotate(${label.rotate} ${label.x} ${label.y})` : undefined}
-								>{label.text}</text
-							>
+							{@const lines = label.text.split('\n')}
+							<g transform={`translate(${label.x * W} ${label.y * H}) rotate(${label.rotate ?? 0}) ${labelScale}`}>
+								<text class={label.kind} y={4 - (lines.length - 1) * 8}
+									>{#each lines as line, index}<tspan x="0" dy={index ? 16 : 0}>{line}</tspan>{/each}</text
+								>
+							</g>
 						{/each}
 					</g>
 					<g>
@@ -831,19 +830,32 @@
 		visibility: visible;
 	}
 	.geography {
-		fill: #3d676da1;
-		font:
-			italic 10px Georgia,
-			serif;
-		letter-spacing: 2px;
 		pointer-events: none;
 	}
-	.geography .land {
-		fill: #82755a99;
+	.geography text {
+		text-anchor: middle;
+		paint-order: stroke;
+		stroke-linejoin: round;
+	}
+	.geography .sea {
+		fill: #e9f6f4;
+		stroke: #0b4f66b3;
+		stroke-width: 2.6px;
 		font:
-			10px Georgia,
+			italic 600 14px Georgia,
 			serif;
-		letter-spacing: 4px;
+		letter-spacing: 1.5px;
+		opacity: 0.88;
+	}
+	.geography .land {
+		fill: #4a3a20;
+		stroke: #fbf1d6;
+		stroke-width: 3px;
+		font:
+			700 12px Georgia,
+			serif;
+		letter-spacing: 5px;
+		opacity: 0.85;
 	}
 	.network-outline {
 		transition: opacity 180ms;
