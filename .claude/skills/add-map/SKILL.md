@@ -50,7 +50,7 @@ A map is playable when it is registered in `GAME_MAPS`, `bun run maps:check <id>
    - Screenshots: `bun run shot "/debug/game?map=<id>&players=4&turns=50" /tmp/<id>.png 1440x900`, again at `820x1180` (portrait tablet), and `bun run shot "/setup?map=<id>" /tmp/<id>-setup.png`. Look at every image. `SHOT_SCALE=2` renders close-ups. Add `&hand=blue:4,locomotive:2` to the debug URL to set your hand.
    - To stage a mechanic's UI, the debug page exposes `window.debugGame` (`state()`, `load(state)`, `send(action)`): `bun run shot "/debug/game?map=<id>" /tmp/x.png 1440x900 --eval="const s = debugGame.state(); s.players[0].hand.red = 6; debugGame.load(s)"`. `debugGame.claim(routeId)` clicks a route like a player, opening the payment chooser. Chain `--eval` with clicks (`document.querySelector(...).click()`) or use the T3 browser preview.
    - Play at least one turn of every mechanic interaction as a human in the browser.
-8. **Commit and report.** Small conventional commits on your branch (`gai`), each green. Do not push to master and do not merge; the coordinator merges. Report: what you built, every framework change and why, deviations from this playbook, anything you could not verify, and suggestions that would have made this map cheaper to build.
+8. **Commit and report.** Small conventional commits (`gai`), each green. Report: what you built, every framework change and why, deviations from this playbook, anything you could not verify, and suggestions that would have made this map cheaper to build.
 
 ## Extending the framework
 
