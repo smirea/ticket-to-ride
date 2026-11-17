@@ -66,7 +66,7 @@ A player draws 3 Destination Tickets from the top of the deck. He must keep at l
 
 # and Bullet Train Bonus◆-5 points for the player behind them
 
-When one player’s stock of colored plastic trains gets down to only◆*-20 points for the player who didn’t participate.* 0,1 or 2 trains left at the end of their turn **and** there are 0,1 or 2 Bullet There is no _Globetrotter_ or _Longest Route_ bonus in this version. Trains left in the supply, each player, including that player, gets one final turn. The game then ends and players calculate their final scores _Editing by Jesse Rasmussen_ adding points for their Destination Cards and the Bullet Train Bonus described as follows.
+When one player’s stock of colored plastic trains gets down to only◆_-20 points for the player who didn’t participate._ 0,1 or 2 trains left at the end of their turn **and** there are 0,1 or 2 Bullet There is no _Globetrotter_ or _Longest Route_ bonus in this version. Trains left in the supply, each player, including that player, gets one final turn. The game then ends and players calculate their final scores _Editing by Jesse Rasmussen_ adding points for their Destination Cards and the Bullet Train Bonus described as follows.
 
 ![Original PDF page 3, including diagrams and tables](images/rules-page-003.png)
 

@@ -29,13 +29,12 @@
 		"maps:check": "bun scripts/maps-check.ts"
 	},
 	"devDependencies": {
-		"@types/bun": "^1.3.14",
+		"@types/bun": "^1.4.4",
 		"@types/node": "^24.0.0",
 		"concurrently": "^9.2.1",
-		"lefthook": "^2.1.8",
-		"oxfmt": "^0.51.0",
-		"oxlint": "^1.66.0",
-		"playwright-core": "^1.65.0",
-		"typescript": "5.9.3"
+		"lefthook": "^2.2.2",
+		"oxfmt": "^0.79.0",
+		"oxlint": "^1.94.0",
+		"playwright-core": "^1.65.0"
 	}
 }

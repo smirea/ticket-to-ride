@@ -690,7 +690,7 @@
 								/>
 							{/each}
 						{/each}
-						{#each cityStops.filter( stop => highlightedTickets.some(ticket => ticket.cityA === stop.city.id || ticket.cityB === stop.city.id), ) as stop (stop.key)}
+						{#each cityStops.filter( stop => highlightedTickets.some(ticket => ticket.cityA === stop.city.id || ticket.cityB === stop.city.id) ) as stop (stop.key)}
 							{@const p = stop.p}
 							<g class="ticket-endpoint" transform={`translate(${p.x} ${p.y}) ${labelScale}`}>
 								<circle class="endpoint-ring" r="21" transition:fade={{ duration: motionEnabled ? 180 : 0 }} />

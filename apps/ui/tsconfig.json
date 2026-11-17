@@ -4,7 +4,8 @@
 		"allowImportingTsExtensions": true,
 		"moduleResolution": "bundler",
 		"skipLibCheck": true,
-		"strict": true
+		"strict": true,
+		"types": ["bun"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.svelte"]
 }
