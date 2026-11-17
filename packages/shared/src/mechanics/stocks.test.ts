@@ -1,7 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { projectRoomForViewer } from '../../../../apps/server/src/room-projection';
 import { applyGameAction, createGame, getRoute, type GameAction, type GameState } from '../game';
-import type { RoomState } from '../room';
 
 function pennsylvaniaTurn(players = 3): GameState {
 	const state = createGame({ mapId: 'pennsylvania', seed: 'stocks', humanName: 'Player', botCount: players - 1 });
@@ -167,48 +165,5 @@ describe('Pennsylvania 2-player dummy shareholder', () => {
 		});
 		expect(state.mechanics.stocks!.holdings.player).toHaveLength(1);
 		expect(state.mechanics.stocks!.dummy!.shares).toHaveLength(1);
-	});
-});
-
-describe('Pennsylvania share secrecy', () => {
-	function room(game: GameState): RoomState {
-		return {
-			version: 1,
-			code: 'STOCKS',
-			revision: 1,
-			phase: 'playing',
-			hostId: 'player',
-			players: [],
-			settings: { mapId: game.mapId, maxPlayers: 5, seed: game.seed },
-			game,
-			createdAt: '',
-			updatedAt: '',
-			finishedAt: null,
-			finishedReason: null,
-		};
-	}
-
-	test('players see their own shares and only the number of everyone else’s', () => {
-		const state = play(pennsylvaniaTurn(2), {
-			type: 'claim-route',
-			routeId: 'scranton-wilkes-barre-stroudsburg-1',
-			paymentColor: 'yellow',
-			options: { stockCompany: 'jersey-central-line', dummyCompany: 'reading-railroad' },
-		});
-		const seen = projectRoomForViewer(room(state), 'bot-1').game!;
-		expect(seen.mechanics.stocks).toEqual({
-			taken: { 'jersey-central-line': 1, 'reading-railroad': 1 },
-			holdings: { player: [], 'bot-1': [] },
-			hidden: { player: 1 },
-			dummy: { shares: [], hidden: 1 },
-		});
-		expect(seen.events.at(-1)).toEqual({ type: 'take-shares', playerId: 'player', turnNumber: 1 });
-		expect(seen.history.at(-1)).toEqual({
-			type: 'claim-route',
-			routeId: 'scranton-wilkes-barre-stroudsburg-1',
-			paymentColor: 'yellow',
-		});
-		const own = projectRoomForViewer(room(state), 'player').game!;
-		expect(own.mechanics.stocks!.holdings.player).toEqual([{ company: 'jersey-central-line', number: 1 }]);
 	});
 });

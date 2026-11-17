@@ -2,7 +2,15 @@ import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { CLIENT_ID_HEADER, chooseBotAction, getGameMap, type GameAction, type RoomState } from '@repo/shared';
+import {
+	CLIENT_ID_HEADER,
+	applyGameAction,
+	chooseBotAction,
+	createGame,
+	getGameMap,
+	type GameAction,
+	type RoomState,
+} from '@repo/shared';
 import { createRequestHandler } from './app';
 import { RoomService } from './room-service';
 import { RoomStore } from './room-store';
@@ -410,6 +418,50 @@ describe('authoritative game actions', () => {
 		expect(aliceFromBob.tickets.every(ticketId => ticketId.startsWith('private-player-'))).toBe(true);
 		expect(afterBob.game.history.at(-1)).toEqual(redactedKeep);
 	});
+});
+
+test('Pennsylvania players see their own shares and only the count of everyone else’s', () => {
+	const game = createGame({ mapId: 'pennsylvania', seed: 'stocks', botCount: 1 });
+	game.openingTicketOffers = {};
+	game.phase = { type: 'turn', drawsTaken: 0 };
+	game.currentPlayerIndex = 0;
+	game.players[0]!.hand.yellow = 8;
+	const claimed = applyGameAction(game, {
+		type: 'claim-route',
+		routeId: 'scranton-wilkes-barre-stroudsburg-1',
+		paymentColor: 'yellow',
+		options: { stockCompany: 'jersey-central-line', dummyCompany: 'reading-railroad' },
+	});
+	if (!claimed.ok) throw new Error(claimed.error);
+	const room: RoomState = {
+		version: 1,
+		code: 'STOCKS',
+		revision: 1,
+		phase: 'playing',
+		hostId: 'player',
+		players: [],
+		settings: { mapId: 'pennsylvania', maxPlayers: 5, seed: claimed.state.seed },
+		game: claimed.state,
+		createdAt: '',
+		updatedAt: '',
+		finishedAt: null,
+		finishedReason: null,
+	};
+	const seen = projectRoomForViewer(room, 'bot-1').game!;
+	expect(seen.mechanics.stocks).toEqual({
+		taken: { 'jersey-central-line': 1, 'reading-railroad': 1 },
+		holdings: { player: [], 'bot-1': [] },
+		hidden: { player: 1 },
+		dummy: { shares: [], hidden: 1 },
+	});
+	expect(seen.events.at(-1)).toEqual({ type: 'take-shares', playerId: 'player', turnNumber: 1 });
+	expect(seen.history.at(-1)).toEqual({
+		type: 'claim-route',
+		routeId: 'scranton-wilkes-barre-stroudsburg-1',
+		paymentColor: 'yellow',
+	});
+	const own = projectRoomForViewer(room, 'player').game!;
+	expect(own.mechanics.stocks!.holdings.player).toEqual([{ company: 'jersey-central-line', number: 1 }]);
 });
 
 describe('departures and room events', () => {
