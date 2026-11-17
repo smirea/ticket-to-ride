@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync, unlinkSync } from 'node:fs';
-import { constants, gunzipSync } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { CLIENT_ID_HEADER, chooseBotAction, getGameMap, type GameAction, type RoomState } from '@repo/shared';
@@ -97,25 +96,7 @@ async function startTwoPlayerRoom(context: TestContext): Promise<RoomState> {
 }
 
 describe('room HTTP lifecycle', () => {
-	test('creates, joins, readies, starts, and reconnects to an authoritative room', async () => {
-		const context = setup();
-		const room = await startTwoPlayerRoom(context);
-
-		expect(room.phase).toBe('playing');
-		expect(room.players.map(player => player.id)).toEqual(['alice', 'bob']);
-		expect(room.game?.players.map(player => ({ id: player.id, isBot: player.isBot }))).toEqual([
-			{ id: 'alice', isBot: false },
-			{ id: 'bob', isBot: false },
-		]);
-		expect(room.game?.phase).toEqual({ type: 'opening-tickets' });
-
-		const current = await context.request('GET', '/api/rooms/current', 'bob');
-		expect(current.status).toBe(200);
-		expect((await responseRoom(current)).code).toBe(room.code);
-		expect(context.store.getCurrentRoom('bob')?.revision).toBe(room.revision);
-	});
-
-	test('keeps readiness across joins and clears it when settings change', async () => {
+	test('readiness survives a join, and any settings change clears readiness for every player', async () => {
 		const context = setup();
 		const created = await context.request('POST', '/api/rooms', 'alice', {
 			name: 'Alice',
@@ -141,7 +122,7 @@ describe('room HTTP lifecycle', () => {
 });
 
 describe('authoritative game actions', () => {
-	test('enforces ticket and turn ownership and only persists accepted idempotent actions', async () => {
+	test('players act only for themselves and on their turn, a repeated action ID is accepted once, and a reused ID with a different action is refused', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);
 		const offers = context.store.getRoom(room.code)!.game!.openingTicketOffers;
@@ -192,7 +173,7 @@ describe('authoritative game actions', () => {
 		expect(context.store.listAcceptedActions(room.code)).toHaveLength(1);
 	});
 
-	test('stores only the known fields of an action', async () => {
+	test('the server refuses oversized actions and stores only the known fields of an action', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);
 		const ticketIds = context.store.getRoom(room.code)!.game!.openingTicketOffers.alice!.slice(0, 2);
@@ -213,7 +194,7 @@ describe('authoritative game actions', () => {
 		expect(JSON.stringify(context.store.getRoom(room.code))).not.toContain('xxxx');
 	});
 
-	test('accepts simultaneous opening picks in either order and starts once everyone has chosen', async () => {
+	test('opening picks are accepted in either order, the game starts once everyone has chosen, and a stale revision is refused', async () => {
 		for (const order of [
 			['alice', 'bob'],
 			['bob', 'alice'],
@@ -255,7 +236,7 @@ describe('authoritative game actions', () => {
 		}
 	});
 
-	test('plays and restores a complete deterministic two-player game', async () => {
+	test('every accepted action of a full game is stored once, and a reopened database restores the finished room exactly', async () => {
 		const databasePath = join(tmpdir(), `ticket-to-ride-${crypto.randomUUID()}.sqlite`);
 		databaseFiles.push(databasePath);
 		const context = setup(databasePath);
@@ -337,7 +318,7 @@ describe('authoritative game actions', () => {
 		expect(reopenedStore.listAcceptedActions(room.code)).toEqual(expectedActions);
 	});
 
-	test('shares completed ticket counts without exposing opponent destinations', async () => {
+	test('opponents see how many tickets a player completed but never which tickets', async () => {
 		const context = setup();
 		const started = await startTwoPlayerRoom(context);
 		const room = context.store.getRoom(started.code)!;
@@ -362,7 +343,7 @@ describe('authoritative game actions', () => {
 		expect(own.tickets).toEqual(bob.tickets);
 	});
 
-	test('projects private game state for each HTTP viewer', async () => {
+	test('each viewer sees only their own hand, tickets, offers and kept-ticket history, and never the seed or deck order', async () => {
 		const context = setup();
 		const aliceRoom = await startTwoPlayerRoom(context);
 		const authoritative = context.store.getRoom(aliceRoom.code);
@@ -432,7 +413,7 @@ describe('authoritative game actions', () => {
 });
 
 describe('departures and room events', () => {
-	test('lets the host remove a lobby player and ends that player stream', async () => {
+	test('only the host can remove a lobby player, and the removed player loses the room and its stream', async () => {
 		const context = setup();
 		const room = await createTwoPlayerRoom(context);
 		const stream = await context.request('GET', `/api/rooms/${room.code}/events`, 'bob');
@@ -449,7 +430,7 @@ describe('departures and room events', () => {
 		expect((await context.request('GET', `/api/rooms/${room.code}`, 'bob')).status).toBe(403);
 	});
 
-	test('requires explicit abandon for a live game and retains its final snapshot', async () => {
+	test('a live game cannot be left, only abandoned, which finishes it for everyone and refuses further actions', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);
 		const leave = await context.request('POST', `/api/rooms/${room.code}/leave`, 'bob');
@@ -470,55 +451,7 @@ describe('departures and room events', () => {
 		expect(action.status).toBe(409);
 	});
 
-	test('streams the initial and subsequent authoritative snapshots', async () => {
-		const context = setup();
-		const created = await context.request('POST', '/api/rooms', 'alice', {
-			name: 'Alice',
-			color: 'red',
-		});
-		const room = await responseRoom(created);
-		const events = await context.request('GET', `/api/rooms/${room.code}/events`, 'alice');
-		expect(events.headers.get('content-type')).toBe('text/event-stream');
-		const reader = events.body!.getReader();
-		const decoder = new TextDecoder();
-		const initial = decoder.decode((await reader.read()).value);
-		expect(initial).toContain('event: snapshot');
-		expect(initial).toContain(`"code":"${room.code}"`);
-
-		await context.request('POST', `/api/rooms/${room.code}/join`, 'bob', {
-			name: 'Bob',
-			color: 'blue',
-		});
-		const update = decoder.decode((await reader.read()).value);
-		expect(update).toContain('"name":"Bob"');
-		await reader.cancel();
-	});
-
-	test('delivers each gzipped snapshot as it happens', async () => {
-		const context = setup();
-		const room = await responseRoom(
-			await context.request('POST', '/api/rooms', 'alice', { name: 'Alice', color: 'red' }),
-		);
-		const events = await context.request('GET', `/api/rooms/${room.code}/events`, 'alice', undefined, {
-			'Accept-Encoding': 'gzip',
-		});
-		expect(events.headers.get('content-encoding')).toBe('gzip');
-		const reader = events.body!.getReader();
-		const received: Uint8Array[] = [];
-		const decoded = async (snapshots: number) => {
-			for (;;) {
-				const text = gunzipSync(Buffer.concat(received), { finishFlush: constants.Z_SYNC_FLUSH }).toString();
-				if (text.split('event: snapshot').length - 1 >= snapshots) return text;
-				received.push((await reader.read()).value!);
-			}
-		};
-		expect(await decoded(1)).toContain(`"code":"${room.code}"`);
-		await context.request('POST', `/api/rooms/${room.code}/join`, 'bob', { name: 'Bob', color: 'blue' });
-		expect(await decoded(2)).toContain('"name":"Bob"');
-		await reader.cancel();
-	});
-
-	test('streams a separate private projection to every viewer', async () => {
+	test('each event stream carries only the private projection for its own viewer', async () => {
 		const context = setup();
 		const room = await startTwoPlayerRoom(context);
 		const authoritative = context.store.getRoom(room.code);

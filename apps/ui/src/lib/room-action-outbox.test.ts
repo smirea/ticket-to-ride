@@ -1,7 +1,16 @@
-import { expect, test } from 'bun:test';
+import { afterEach, beforeEach, expect, test } from 'bun:test';
 import type { RoomState, SubmitGameActionRequest } from '@repo/shared';
 import { RoomActionOutbox } from './room-action-outbox';
 import { RoomApiError } from './multiplayer-client';
+
+const realSetTimeout = globalThis.setTimeout;
+// The outbox backs off between retries; the waits are skipped so the rule runs in milliseconds.
+beforeEach(() => {
+	globalThis.setTimeout = ((callback: () => void) => realSetTimeout(callback, 0)) as typeof setTimeout;
+});
+afterEach(() => {
+	globalThis.setTimeout = realSetTimeout;
+});
 
 function storage() {
 	const values = new Map<string, string>();
@@ -16,7 +25,7 @@ function storage() {
 	};
 }
 
-test('retries lost acknowledgments and preserves the exact move across reloads', async () => {
+test('a move whose acknowledgment is lost is retried with the same action ID, blocks new moves, and survives a reload', async () => {
 	const saved = storage();
 	const requests: SubmitGameActionRequest[] = [];
 	const offline = new RoomActionOutbox(
@@ -45,7 +54,7 @@ test('retries lost acknowledgments and preserves the exact move across reloads',
 	expect(saved.getItem('room')).toBeNull();
 });
 
-test('a definitive stale rejection clears the move without retrying it', async () => {
+test('a definitive rejection clears the move without retrying it', async () => {
 	const saved = storage();
 	let attempts = 0;
 	const outbox = new RoomActionOutbox(

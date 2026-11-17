@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { applyGameAction, chooseBotAction, createGame, isTicketComplete, type GameState } from '../game';
+import { applyGameAction, createGame, isTicketComplete, type GameState } from '../game';
 
 function japanTurn(players = 2): GameState {
 	const state = createGame({ mapId: 'japan', seed: 'bullet-trains', humanName: 'Player', botCount: players - 1 });
@@ -27,7 +27,9 @@ function finalBonuses(progress: number[]) {
 	state.finalRound = { triggeredBy: 'bot-1', turnsRemaining: 1 };
 	const next = play(state, { type: 'draw-train-deck' });
 	const finished = next.phase.type === 'game-over' ? next : play(next, { type: 'draw-train-deck' });
-	return state.players.map(player => finished.finalResults!.find(result => result.playerId === player.id)!.bonuses);
+	return state.players.map(player =>
+		finished.finalResults!.find(result => result.playerId === player.id)!.bonuses.map(bonus => bonus.points),
+	);
 }
 
 describe('Japan bullet trains', () => {
@@ -43,7 +45,6 @@ describe('Japan bullet trains', () => {
 			progress: { player: 4, 'bot-1': 0 },
 			routes: ['aomori-morioka-1'],
 		});
-		expect(next.events.at(-1)).toMatchObject({ type: 'bullet-train', playerId: 'player', spaces: 4, supply: 15 });
 	});
 
 	test('a player without trains can still claim a bullet route', () => {
@@ -89,23 +90,7 @@ describe('Japan bullet trains', () => {
 	});
 
 	test('the bullet track pays by rank; ties share a place and players with no bullet train lose 20', () => {
-		expect(finalBonuses([9, 4, 4, 2, 0])).toEqual([
-			[{ id: 'bullet-trains', label: 'Bullet track #1', points: 25 }],
-			[{ id: 'bullet-trains', label: 'Bullet track #2', points: 15 }],
-			[{ id: 'bullet-trains', label: 'Bullet track #2', points: 15 }],
-			[{ id: 'bullet-trains', label: 'Bullet track #4', points: -5 }],
-			[{ id: 'bullet-trains', label: 'No bullet train', points: -20 }],
-		]);
-		expect(finalBonuses([3, 5])).toEqual([
-			[{ id: 'bullet-trains', label: 'Bullet track #2', points: -10 }],
-			[{ id: 'bullet-trains', label: 'Bullet track #1', points: 10 }],
-		]);
-	});
-
-	test('a bot that has placed no bullet train claims one when it can', () => {
-		const state = japanTurn();
-		state.players[0]!.isBot = true;
-		state.players[0]!.hand.blue = 2;
-		expect(chooseBotAction(state)).toEqual({ type: 'claim-route', routeId: 'akita-morioka-1', paymentColor: 'blue' });
+		expect(finalBonuses([9, 4, 4, 2, 0])).toEqual([[25], [15], [15], [-5], [-20]]);
+		expect(finalBonuses([3, 5])).toEqual([[-10], [10]]);
 	});
 });

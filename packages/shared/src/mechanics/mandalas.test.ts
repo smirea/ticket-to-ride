@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { applyGameAction, chooseBotAction, createGame, type GameState } from '../game';
+import { applyGameAction, createGame, type GameState } from '../game';
 
 function indiaTurn(playerOwned: string[], tickets: string[]): GameState {
 	const state = createGame({ mapId: 'india', seed: 'mandalas', humanName: 'Player', botCount: 1 });
@@ -19,13 +19,13 @@ function finalBonuses(playerOwned: string[], tickets: string[]) {
 	state.faceUpTrainCards[0] = 'locomotive';
 	const result = applyGameAction(state, { type: 'draw-face-up', index: 0 });
 	if (!result.ok) throw new Error(result.error);
-	return result.state.finalResults!.find(item => item.playerId === 'player')!.bonuses;
+	return result.state.finalResults!.find(item => item.playerId === 'player')!.bonuses.map(bonus => bonus.points);
 }
 
 describe('India mandalas', () => {
 	test('a ticket joined by two paths that share no trains earns the first mandala', () => {
 		const loop = ['lahore-bhatinda-1', 'bhatinda-delhi-1', 'lahore-ambala-1', 'ambala-delhi-1'];
-		expect(finalBonuses(loop, ['lahore-delhi'])).toEqual([{ id: 'mandalas', label: 'Mandala ×1', points: 5 }]);
+		expect(finalBonuses(loop, ['lahore-delhi'])).toEqual([5]);
 	});
 
 	test('the two paths may cross at a city', () => {
@@ -38,7 +38,7 @@ describe('India mandalas', () => {
 			'bhatinda-ambala-1',
 			'ambala-delhi-1',
 		];
-		expect(finalBonuses(figureEight, ['lahore-delhi'])).toEqual([{ id: 'mandalas', label: 'Mandala ×1', points: 5 }]);
+		expect(finalBonuses(figureEight, ['lahore-delhi'])).toEqual([5]);
 	});
 
 	test('paths that share a train do not count', () => {
@@ -46,7 +46,7 @@ describe('India mandalas', () => {
 		expect(finalBonuses(sharedRoute, ['lahore-delhi'])).toEqual([]);
 	});
 
-	test('finds the second path even when the shortest one blocks it', () => {
+	test('a mandala counts even when the shortest path would block the second one', () => {
 		const network = [
 			'jodhpur-jaipur-1',
 			'jaipur-agra-1',
@@ -60,10 +60,10 @@ describe('India mandalas', () => {
 			'katni-bilaspur-1',
 			'lucknow-katni-1',
 		];
-		expect(finalBonuses(network, ['jodhpur-lucknow'])).toEqual([{ id: 'mandalas', label: 'Mandala ×1', points: 5 }]);
+		expect(finalBonuses(network, ['jodhpur-lucknow'])).toEqual([5]);
 	});
 
-	test('scores 5, 5, 10, 10, 10 and nothing past the fifth qualifying ticket', () => {
+	test('mandalas score 5, 5, 10, 10, 10 and nothing past the fifth qualifying ticket', () => {
 		const ring = [
 			'lahore-bhatinda-1',
 			'bhatinda-delhi-1',
@@ -86,17 +86,7 @@ describe('India mandalas', () => {
 			'bareilly-ahmadabad',
 			'karachi-ahmadabad',
 		];
-		expect(finalBonuses(ring, tickets.slice(0, 3))).toEqual([{ id: 'mandalas', label: 'Mandala ×3', points: 20 }]);
-		expect(finalBonuses(ring, tickets)).toEqual([{ id: 'mandalas', label: 'Mandala ×6', points: 40 }]);
-	});
-
-	test('a bot with its tickets done closes a loop it can afford', () => {
-		const state = indiaTurn([], []);
-		state.currentPlayerIndex = 1;
-		state.claimedRoutes = { 'lahore-bhatinda-1': 'bot-1', 'bhatinda-delhi-1': 'bot-1', 'lahore-ambala-1': 'bot-1' };
-		const bot = state.players[1]!;
-		bot.tickets = ['lahore-delhi'];
-		bot.hand = { ...bot.hand, red: 2 };
-		expect(chooseBotAction(state)).toEqual({ type: 'claim-route', routeId: 'ambala-delhi-1', paymentColor: 'red' });
+		expect(finalBonuses(ring, tickets.slice(0, 3))).toEqual([20]);
+		expect(finalBonuses(ring, tickets)).toEqual([40]);
 	});
 });

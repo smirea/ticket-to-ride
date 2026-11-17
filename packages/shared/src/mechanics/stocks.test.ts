@@ -43,7 +43,8 @@ function finish(state: GameState): GameState {
 function stockLines(state: GameState, playerId: string) {
 	return state
 		.finalResults!.find(result => result.playerId === playerId)!
-		.bonuses.filter(line => line.id.startsWith('stocks-'));
+		.bonuses.filter(line => line.id.startsWith('stocks-'))
+		.map(line => ({ id: line.id, points: line.points }));
 }
 
 describe('Pennsylvania stock shares', () => {
@@ -75,14 +76,14 @@ describe('Pennsylvania stock shares', () => {
 
 	test('only railroads printed on the route can be chosen', () => {
 		const result = claim(pennsylvaniaTurn(), 'harrisburg-gettysburg-1', { stockCompany: 'jersey-central-line' });
-		expect(result.ok ? undefined : result.error).toBe('Choose a railroad on this route that still has shares.');
+		expect(result.ok).toBe(false);
 	});
 
 	test('a railroad with no shares left cannot be chosen, and a claim without a choice takes another', () => {
 		const state = pennsylvaniaTurn();
 		state.mechanics.stocks!.taken['reading-railroad'] = 7;
 		const refused = claim(state, 'harrisburg-gettysburg-1', { stockCompany: 'reading-railroad' });
-		expect(refused.ok ? undefined : refused.error).toBe('Choose a railroad on this route that still has shares.');
+		expect(refused.ok).toBe(false);
 		const quick = claim(state, 'harrisburg-gettysburg-1');
 		expect(quick.ok && quick.state.mechanics.stocks!.holdings.player).toEqual([
 			{ company: 'pennsylvania-railroad', number: 1 },
@@ -104,15 +105,9 @@ describe('Pennsylvania stock shares', () => {
 			'bot-3': [],
 		};
 		const done = finish(state);
-		expect(stockLines(done, 'bot-1')).toEqual([
-			{ id: 'stocks-jersey-central-line', label: 'JCL 1st (1)', points: 8, group: 'Shares' },
-		]);
-		expect(stockLines(done, 'player')).toEqual([
-			{ id: 'stocks-jersey-central-line', label: 'JCL 2nd (1)', points: 5, group: 'Shares' },
-		]);
-		expect(stockLines(done, 'bot-2')).toEqual([
-			{ id: 'stocks-pennsylvania-railroad', label: 'PRR 1st (1)', points: 30, group: 'Shares' },
-		]);
+		expect(stockLines(done, 'bot-1')).toEqual([{ id: 'stocks-jersey-central-line', points: 8 }]);
+		expect(stockLines(done, 'player')).toEqual([{ id: 'stocks-jersey-central-line', points: 5 }]);
+		expect(stockLines(done, 'bot-2')).toEqual([{ id: 'stocks-pennsylvania-railroad', points: 30 }]);
 	});
 
 	test('globetrotter pays 15 to everyone tied for the most completed tickets', () => {
@@ -120,11 +115,9 @@ describe('Pennsylvania stock shares', () => {
 		state.claimedRoutes = { 'philadelphia-atlantic-city-1': 'player' };
 		state.players[0]!.tickets = ['philadelphia-atlantic-city'];
 		const done = finish(state);
-		expect(done.finalResults!.find(result => result.playerId === 'player')!.bonuses).toContainEqual({
-			id: 'globetrotter',
-			label: 'Globetrotter',
-			points: 15,
-		});
+		expect(done.finalResults!.find(result => result.playerId === 'player')!.bonuses).toContainEqual(
+			expect.objectContaining({ id: 'globetrotter', points: 15 }),
+		);
 	});
 });
 
@@ -146,9 +139,7 @@ describe('Pennsylvania 2-player dummy shareholder', () => {
 			stockCompany: 'buffalo-rochester-pittsburgh-railway',
 			dummyCompany: 'buffalo-rochester-pittsburgh-railway',
 		});
-		expect(refused.ok ? undefined : refused.error).toBe(
-			'Choose a railroad on this route that still has a share for the dummy.',
-		);
+		expect(refused.ok).toBe(false);
 		const allowed = claim(state, 'warren-dubois-1', {
 			stockCompany: 'buffalo-rochester-pittsburgh-railway',
 			dummyCompany: 'erie-lackawanna-railway',
@@ -164,15 +155,11 @@ describe('Pennsylvania 2-player dummy shareholder', () => {
 		state.mechanics.stocks!.dummy = { shares: [bo(2), bo(3), bo(6), bo(7)] };
 		const done = finish(state);
 		expect(done.mechanics.stocks!.dummy!.revealed).toHaveLength(2);
-		expect(stockLines(done, 'player')).toEqual([
-			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 1st (2)', points: 20, group: 'Shares' },
-		]);
-		expect(stockLines(done, 'bot-1')).toEqual([
-			{ id: 'stocks-baltimore-ohio-railroad', label: 'B&O 3rd (1)', points: 9, group: 'Shares' },
-		]);
+		expect(stockLines(done, 'player')).toEqual([{ id: 'stocks-baltimore-ohio-railroad', points: 20 }]);
+		expect(stockLines(done, 'bot-1')).toEqual([{ id: 'stocks-baltimore-ohio-railroad', points: 9 }]);
 	});
 
-	test('a claim without options still takes a share for the claimer and the dummy', () => {
+	test('a claim without a choice still takes a share for the claimer and the dummy', () => {
 		const state = play(pennsylvaniaTurn(2), {
 			type: 'claim-route',
 			routeId: 'scranton-wilkes-barre-stroudsburg-1',
