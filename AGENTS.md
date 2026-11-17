@@ -15,6 +15,12 @@
 - Shared environment parsing lives in `packages/shared/src/env.ts`.
 - Maps are registered in `packages/shared/src/maps` (engine) and `apps/ui/src/lib/maps` (board art); mechanics in `packages/shared/src/mechanics` and `apps/ui/src/lib/mechanics`. To add a map, follow `.claude/skills/add-map/SKILL.md`.
 
+# Checks
+
+- The pre-commit hook (`lefthook.yml`) runs in parallel: `oxlint --fix` and `oxfmt` on the staged files, `bun run typecheck` (UI, server, shared and `scripts/`), `bun run test`, and `bun run lint:tailwind` when a `.svelte` file is staged. It takes about a second; there is no pre-push hook and no CI.
+- `bun run lint:check` lints and format-checks the whole repo.
+- `bun run maps:check [id]` plays seeded bot games on every map and checks layout. It takes about 15 seconds, so it is not in the hook: run it after changing a map, `rules/`, the engine, mechanics, bots or board layout.
+
 # Environment
 
 - Environment files are managed by `env-manager`.

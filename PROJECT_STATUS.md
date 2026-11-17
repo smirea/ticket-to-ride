@@ -63,7 +63,7 @@ Each requested point is recorded in its own commit.
 - [x] Finished rooms no longer trap members as their current room. Leave and start are idempotent. Hosts can remove lobby players, and departing players' streams close.
 - [x] Room page retries failed loads with backoff and recovers from EventSource giving up after HTTP errors.
 - [x] Solo play: no re-animated board on reload, bots wait for animations and Settings, touch taps confirm claims, New game cannot resend a stale move.
-- [x] Ticket art and portraits resized to display size (about 2.5 MB less). Pre-push runs tests and typecheck.
+- [x] Ticket art and portraits resized to display size (about 2.5 MB less). Pre-commit runs staged lint and format, typecheck (including `scripts/`), tests and the Tailwind class lint in parallel; there is no pre-push hook.
 - [x] A pass action exists only when nothing can be drawn or claimed; if every player passes in a row the game is scored.
 - [x] API JSON and event streams are gzipped. The event stream shares one sync-flushed gzip stream per connection: a seeded 5-player game drops from 7.2 MB to 409 KB per viewer.
 - [x] Git history rewritten without rulebook PDFs/PNGs and old `artifacts/` and `docs/` copies: pack size 1.13 GiB → about 20 MiB. Those files stay local and ignored.
